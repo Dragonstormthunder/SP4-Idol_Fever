@@ -530,8 +530,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnCreateRoomButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -948,8 +948,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: SetActivePanel
         m_Mode: 5
         m_Arguments:
@@ -1085,8 +1085,11 @@ GameObject:
   m_Component:
   - component: {fileID: 7116070621504221391}
   - component: {fileID: 7116070621504221389}
-  - component: {fileID: 7116070621504221390}
-  - component: {fileID: 7116070621504221388}
+  - component: {fileID: 1325209822038773091}
+  - component: {fileID: 7964132013034031885}
+  - component: {fileID: 268999408}
+  - component: {fileID: 268999412}
+  - component: {fileID: 268999411}
   m_Layer: 5
   m_Name: Panels
   m_TagString: Untagged
@@ -1128,7 +1131,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7116070621504221376}
   m_CullTransparentMesh: 0
---- !u!114 &7116070621504221390
+--- !u!114 &1325209822038773091
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1137,9 +1140,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7116070621504221376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84fd812a67908014cb408f749ca7a55e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d22cfdf205c6144598aaaf1de47b5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: DemoAsteroids-GameScene
   LoginPanel: {fileID: 7116070622736539274}
   PlayerNameInput: {fileID: 7116070622368261721}
   SelectionPanel: {fileID: 7116070621931508252}
@@ -1149,11 +1153,11 @@ MonoBehaviour:
   JoinRandomRoomPanel: {fileID: 7116070623084301743}
   RoomListPanel: {fileID: 7116070622749672787}
   RoomListContent: {fileID: 7116070622929310841}
-  RoomListEntryPrefab: {fileID: 114706, guid: 03c5e15309335324fba99d68e38cb08b, type: 3}
+  RoomListEntryPrefab: {fileID: 114706, guid: f9ddfa49b02a08140848a37bc3c97bd9, type: 3}
   InsideRoomPanel: {fileID: 7116070621263417760}
   StartGameButton: {fileID: 7116070623108895793}
-  PlayerListEntryPrefab: {fileID: 195212, guid: d68bf8413681d9b4aa7328277e632e3f, type: 3}
---- !u!114 &7116070621504221388
+  PlayerListEntryPrefab: {fileID: 195212, guid: 777742c32f695cb4d9694c0c1eed3eac, type: 3}
+--- !u!114 &7964132013034031885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1162,10 +1166,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 7116070621504221376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28dd60f6abf16d4094cf0f642a043e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c38f116b86f5e74a9a149f91a8a0010, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
+--- !u!114 &268999408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116070621504221376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e29225aa3183cc447a35c9eacd312dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &268999412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116070621504221376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7c54df59a611a46b8a0f57deca191a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &268999411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116070621504221376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7116070621786330901
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,8 +1699,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnBackButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -1904,8 +1954,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnLoginButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -2210,8 +2260,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnJoinRandomRoomButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -3140,8 +3190,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnBackButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -3363,8 +3413,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnLeaveGameButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -4057,8 +4107,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnRoomListButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -4769,8 +4819,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7116070621504221390}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1325209822038773091}
+        m_TargetAssemblyTypeName: IdolFever.PanelsControl, Assembly-CSharp
         m_MethodName: OnStartGameButtonClicked
         m_Mode: 1
         m_Arguments:
