@@ -19,12 +19,6 @@ namespace IdolFever {
 
         #region Unity User Callback Event Funcs
 
-        private void Awake() {
-            UnityEngine.Assertions.Assert.IsNotNull(RoomNameText);
-            UnityEngine.Assertions.Assert.IsNotNull(RoomPlayersText);
-            UnityEngine.Assertions.Assert.IsNotNull(JoinRoomButton);
-        }
-
         private void Start() {
             JoinRoomButton.onClick.AddListener(() => {
                 if(PhotonNetwork.InLobby) {

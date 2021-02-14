@@ -21,5 +21,9 @@ namespace IdolFever {
         }
 
         #endregion
+
+        public ConnectionStatus() {
+            textComponent = null;
+        }
     }
 }

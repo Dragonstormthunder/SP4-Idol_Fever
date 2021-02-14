@@ -48,6 +48,13 @@ namespace IdolFever {
 
         #endregion
 
+        public PlayerListEntry() {
+            PlayerNameText = null;
+            PlayerColorImage = null;
+            PlayerReadyButton = null;
+            PlayerReadyImage = null;
+        }
+
         public void SetPlayerListEntryColors() {
             int playerListArrLen = PhotonNetwork.PlayerList.Length;
             for(int i = 0; i < playerListArrLen; ++i) {

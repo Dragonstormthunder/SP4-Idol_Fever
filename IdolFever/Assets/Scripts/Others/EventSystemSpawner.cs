@@ -28,5 +28,9 @@ namespace IdolFever {
 		}
 
 		#endregion
+
+		public EventSystemSpawner() {
+			parentGO = null;
+		}
 	}
 }

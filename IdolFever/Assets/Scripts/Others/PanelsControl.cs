@@ -58,6 +58,33 @@ namespace IdolFever {
 
         #endregion
 
+        public PanelsControl() {
+            cachedRoomList = null;
+            roomListEntries = null;
+            playerListEntries = null;
+
+            sceneName = string.Empty;
+
+            LoginPanel = null;
+            PlayerNameInput = null;
+
+            SelectionPanel = null;
+
+            CreateRoomPanel = null;
+            RoomNameInputField = null;
+            MaxPlayersInputField = null;
+
+            JoinRandomRoomPanel = null;
+
+            RoomListPanel = null;
+            RoomListContent = null;
+            RoomListEntryPrefab = null;
+
+            InsideRoomPanel = null;
+            StartGameButton = null;
+            PlayerListEntryPrefab = null;
+        }
+
         #region Pun Callback Funcs
 
         public override void OnConnectedToMaster() {
