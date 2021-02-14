@@ -4,6 +4,9 @@ using UnityEngine.EventSystems;
 namespace IdolFever {
     internal sealed class EventSystemSpawner: MonoBehaviour {
 		#region Fields
+
+		[SerializeField] private GameObject parentGO;
+
 		#endregion
 
 		#region Properties
@@ -13,10 +16,14 @@ namespace IdolFever {
 
 		private void OnEnable() {
 			EventSystem sceneEventSystem = FindObjectOfType<EventSystem>();
+
 			if(sceneEventSystem == null) {
 				GameObject eventSystem = new GameObject("EventSystem");
+
 				eventSystem.AddComponent<EventSystem>();
 				eventSystem.AddComponent<StandaloneInputModule>();
+
+				eventSystem.transform.SetParent(parentGO.transform);
 			}
 		}
 
