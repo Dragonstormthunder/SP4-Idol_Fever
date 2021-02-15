@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonPlaySound : MonoBehaviour
+namespace IdolFever.UI
 {
-
-    AudioSource source;
-
-    // Start is called before the first frame update
-    void Start()
+    public class ButtonPlaySound : MonoBehaviour
     {
-        source = GetComponent<AudioSource>();
-    }
 
-    public void PlayAudio()
-    {
-        source?.Play();
-    }
+        AudioSource source;
 
+        // Start is called before the first frame update
+        void Start()
+        {
+            source = GetComponent<AudioSource>();
+        }
+
+        public void PlayAudio()
+        {
+            source?.Play();
+        }
+
+    }
 }

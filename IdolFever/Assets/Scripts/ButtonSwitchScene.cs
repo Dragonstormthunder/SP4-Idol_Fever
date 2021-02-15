@@ -3,44 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ButtonSwitchScene : MonoBehaviour
+namespace IdolFever.UI
 {
-
-    // the scene to change to, the default one
-    public string defaultChangeSceneName;
-
-    public bool changeSceneDueOnMode = false;
-    public string onlineChangeSceneName;
-    public string storyChangeSceneName;
-
-    // default function
-    public void ClickChangeScene()
+    public class ButtonSwitchScene : MonoBehaviour
     {
 
-        StaticDataStorage.LastSceneName = SceneManager.GetActiveScene().name;
-        Debug.Log("Last Scene: " + StaticDataStorage.LastSceneName);
+        // the scene to change to, the default one
+        public string defaultChangeSceneName;
 
-        if (changeSceneDueOnMode)
+        public bool changeSceneDueOnMode = false;
+        public string onlineChangeSceneName;
+        public string storyChangeSceneName;
+
+        // default function
+        public void ClickChangeScene()
         {
-            switch (StaticDataStorage.GameMode)
+
+            StaticDataStorage.LastSceneName = SceneManager.GetActiveScene().name;
+            Debug.Log("Last Scene: " + StaticDataStorage.LastSceneName);
+
+            if (changeSceneDueOnMode)
             {
-                default:
-                    break;
+                switch (StaticDataStorage.GameMode)
+                {
+                    default:
+                        break;
 
-                case StaticDataStorage.GAME_MODE.MODE_STORY:
-                    SceneManager.LoadScene(storyChangeSceneName);
-                    break;
+                    case StaticDataStorage.GAME_MODE.MODE_STORY:
+                        SceneManager.LoadScene(storyChangeSceneName);
+                        break;
 
-                case StaticDataStorage.GAME_MODE.MODE_ONLINE:
-                    SceneManager.LoadScene(onlineChangeSceneName);
-                    break;
+                    case StaticDataStorage.GAME_MODE.MODE_ONLINE:
+                        SceneManager.LoadScene(onlineChangeSceneName);
+                        break;
+                }
             }
-        }
-        else
-        {
-            SceneManager.LoadScene(defaultChangeSceneName);
+            else
+            {
+                SceneManager.LoadScene(defaultChangeSceneName);
+            }
+
         }
 
     }
-
 }
