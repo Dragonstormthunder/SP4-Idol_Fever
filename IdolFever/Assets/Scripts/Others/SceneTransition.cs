@@ -17,7 +17,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
 	    private void Update() {
-            if(Input.GetMouseButtonDown(0)) {
+            if(Input.GetKeyDown(KeyCode.Space)) {
                 _ = StartCoroutine(SceneTransitionCoroutine(sceneName));
             }
 	    }
