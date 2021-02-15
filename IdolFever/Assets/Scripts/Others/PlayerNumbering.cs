@@ -1,140 +1,92 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerNumbering.cs" company="Exit Games GmbH">
-//   Part of: Photon Unity Utilities,
-// </copyright>
-// <summary>
-//  Assign numbers to Players in a room. Uses Room custom Properties
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-
 using UnityEngine;
-
 using Photon.Pun;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-namespace IdolFever
-{
+namespace IdolFever {
     /// <summary>
     /// Implements consistent numbering in a room/game with help of room properties. Access them by Player.GetPlayerNumber() extension.
     /// </summary>
     /// <remarks>
     /// indexing ranges from 0 to the maximum number of Players.
     /// indexing remains for the player while in room.
-	/// If a Player is numbered 2 and player numbered 1 leaves, numbered 1 become vacant and will assigned to the future player joining (the first available vacant number is assigned when joining)
+    /// If a Player is numbered 2 and player numbered 1 leaves, numbered 1 become vacant and will assigned to the future player joining (the first available vacant number is assigned when joining)
     /// </remarks>
-    public class PlayerNumbering : MonoBehaviourPunCallbacks
-    {
-        //TODO: Add a "numbers available" bool, to allow easy access to this?!
 
-        #region Public Properties
+    // each player can select it's own playernumber in a room, if all "older" players already selected theirs
 
-        /// <summary>
-        /// The instance. EntryPoint to query about Room Indexing.
-        /// </summary>
-        public static PlayerNumbering instance;
+    internal sealed class PlayerNumbering: MonoBehaviourPunCallbacks {
+        #region Fields
+
+        private static PlayerNumbering instance;
 
         public static Player[] SortedPlayers;
 
-        /// <summary>
-        /// OnPlayerNumberingChanged delegate. Use
-        /// </summary>
-        public delegate void PlayerNumberingChanged();
-        /// <summary>
-        /// Called everytime the room Indexing was updated. Use this for discrete updates. Always better than brute force calls every frame.
-        /// </summary>
-        public static event PlayerNumberingChanged OnPlayerNumberingChanged;
+        private delegate void PlayerNumberingChanged();
+        private static event PlayerNumberingChanged OnPlayerNumberingChanged; //Use this for discrete updates. Always better than brute force calls every frame.
 
+        public const string RoomPlayerIndexedProp = "pNr"; //Defines the room custom property name to use for room player indexing tracking
 
-        /// <summary>Defines the room custom property name to use for room player indexing tracking.</summary>
-        public const string RoomPlayerIndexedProp = "pNr";
-
-        /// <summary>
-        /// dont destroy on load flag for this Component's GameObject to survive Level Loading.
-        /// </summary>
-        public bool dontDestroyOnLoad = false;
-
+        [SerializeField] private bool dontDestroyOnLoad;
 
         #endregion
 
+        #region Properties
+        #endregion
 
-        #region MonoBehaviours methods
+        #region Unity User Callback Event Funcs
 
-        public void Awake()
-        {
-
-            if (instance != null && instance != this && instance.gameObject != null)
-            {
-                GameObject.DestroyImmediate(instance.gameObject);
+        private void Awake() {
+            if(instance != null && instance != this && instance.gameObject != null) {
+                DestroyImmediate(instance.gameObject);
             }
 
             instance = this;
-            if (dontDestroyOnLoad)
-            { 
-                DontDestroyOnLoad(this.gameObject);
+            if(dontDestroyOnLoad) { 
+                DontDestroyOnLoad(gameObject);
             }
 
-            this.RefreshData();
+            RefreshData();
         }
 
         #endregion
 
-
-        #region PunBehavior Overrides
-
-        public override void OnJoinedRoom()
-        {
-            this.RefreshData();
+        public PlayerNumbering() {
+            dontDestroyOnLoad = false;
         }
 
-        public override void OnLeftRoom()
-        {
-            PhotonNetwork.LocalPlayer.CustomProperties.Remove(PlayerNumbering.RoomPlayerIndexedProp);
+        public override void OnJoinedRoom() {
+            RefreshData();
         }
 
-        public override void OnPlayerEnteredRoom(Player newPlayer)
-        {
-            this.RefreshData();
+        public override void OnLeftRoom() {
+            PhotonNetwork.LocalPlayer.CustomProperties.Remove(RoomPlayerIndexedProp);
         }
 
-        public override void OnPlayerLeftRoom(Player otherPlayer)
-        {
-            this.RefreshData();
+        public override void OnPlayerEnteredRoom(Player newPlayer) {
+            RefreshData();
         }
 
-        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-        {
-            if (changedProps != null && changedProps.ContainsKey(PlayerNumbering.RoomPlayerIndexedProp))
-            {
-                this.RefreshData();
+        public override void OnPlayerLeftRoom(Player otherPlayer) {
+            RefreshData();
+        }
+
+        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) {
+            if(changedProps != null && changedProps.ContainsKey(RoomPlayerIndexedProp)) {
+                RefreshData();
             }
         }
 
-        #endregion
-
-
-        // each player can select it's own playernumber in a room, if all "older" players already selected theirs
-
-
-        /// <summary>
-        /// Internal call Refresh the cached data and call the OnPlayerNumberingChanged delegate.
-        /// </summary>
-       public void RefreshData()
-        {
-            if (PhotonNetwork.CurrentRoom == null)
-            {
+        private void RefreshData() {
+            if(PhotonNetwork.CurrentRoom == null) {
                 return;
             }
 
-            if (PhotonNetwork.LocalPlayer.GetPlayerNumber() >= 0)
-            {
+            if(PhotonNetwork.LocalPlayer.GetPlayerNumber() >= 0) {
                 SortedPlayers = PhotonNetwork.CurrentRoom.Players.Values.OrderBy((p) => p.GetPlayerNumber()).ToArray();
-                if (OnPlayerNumberingChanged != null)
-                {
+                if(OnPlayerNumberingChanged != null) {
                     OnPlayerNumberingChanged();
                 }
                 return;
@@ -145,53 +97,40 @@ namespace IdolFever
             Player[] sorted = PhotonNetwork.PlayerList.OrderBy((p) => p.ActorNumber).ToArray();
 
             string allPlayers = "all players: ";
-            foreach (Player player in sorted)
-            {
-                allPlayers += player.ActorNumber + "=pNr:"+player.GetPlayerNumber()+", ";
+            foreach(Player player in sorted) {
+                allPlayers += player.ActorNumber + "=pNr:" + player.GetPlayerNumber() + ", ";
 
                 int number = player.GetPlayerNumber();
 
                 // if it's this user, select a number and break
                 // else:
-                    // check if that user has a number
-                    // if not, break!
-                    // else remember used numbers
+                // check if that user has a number
+                // if not, break!
+                // else remember used numbers
 
-                if (player.IsLocal)
-                {
-					Debug.Log ("PhotonNetwork.CurrentRoom.PlayerCount = " + PhotonNetwork.CurrentRoom.PlayerCount);
+                if(player.IsLocal) {
+                    Debug.Log("PhotonNetwork.CurrentRoom.PlayerCount = " + PhotonNetwork.CurrentRoom.PlayerCount);
 
                     // select a number
-                    for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                    {
-                        if (!usedInts.Contains(i))
-                        {
+                    for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++) {
+                        if(!usedInts.Contains(i)) {
                             player.SetPlayerNumber(i);
                             break;
                         }
                     }
                     // then break
                     break;
-                }
-                else
-                {
-                    if (number < 0)
-                    {
+                } else {
+                    if(number < 0) {
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         usedInts.Add(number);
                     }
                 }
             }
 
-            //Debug.Log(allPlayers);
-            //Debug.Log(PhotonNetwork.LocalPlayer.ToStringFull() + " has PhotonNetwork.player.GetPlayerNumber(): " + PhotonNetwork.LocalPlayer.GetPlayerNumber());
-
             SortedPlayers = PhotonNetwork.CurrentRoom.Players.Values.OrderBy((p) => p.GetPlayerNumber()).ToArray();
-            if (OnPlayerNumberingChanged != null)
-            {
+            if(OnPlayerNumberingChanged != null) {
                 OnPlayerNumberingChanged();
             }
         }
