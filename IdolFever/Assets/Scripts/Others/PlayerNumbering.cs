@@ -91,8 +91,6 @@ namespace IdolFever {
                 int number = player.GetPlayerNumber();
 
                 if(player.IsLocal) {
-                    Debug.Log("PhotonNetwork.CurrentRoom.PlayerCount = " + PhotonNetwork.CurrentRoom.PlayerCount);
-
                     for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; ++i) {
                         if(!usedInts.Contains(i)) {
                             player.SetPlayerNumber(i);
@@ -111,52 +109,7 @@ namespace IdolFever {
             }
 
             SortedPlayers = PhotonNetwork.CurrentRoom.Players.Values.OrderBy((p) => p.GetPlayerNumber()).ToArray();
-            if(OnPlayerNumberingChanged != null) {
-                OnPlayerNumberingChanged();
-            }
-        }
-    }
-
-    /// <summary>Extension used for PlayerRoomIndexing and Player class.</summary>
-    internal static class PlayerNumberingExtensions {
-        /// <summary>Extension for Player class to wrap up access to the player's custom property.
-		/// Make sure you use the delegate 'OnPlayerNumberingChanged' to know when you can query the PlayerNumber. Numbering can change over time or not be yet assigned during the initial phase ( when player creates a room for example)
-		/// </summary>
-        /// <returns>persistent index in room. -1 for no indexing</returns>
-        public static int GetPlayerNumber(this Player player) {
-            if(player == null || !PhotonNetwork.IsConnectedAndReady) {
-                return -1;
-            }
-
-            if(PhotonNetwork.OfflineMode) {
-                return 0;
-            }
-
-			if(player.CustomProperties.TryGetValue(PlayerNumbering.RoomPlayerIndexedProp, out object value)) {
-				return (byte)value;
-			}
-			return -1;
-        }
-
-        public static void SetPlayerNumber(this Player player, int playerNumber) {
-            if(player == null || PhotonNetwork.OfflineMode) {
-                return;
-            }
-
-            if(playerNumber < 0) {
-                Debug.LogWarning("Setting invalid playerNumber: " + playerNumber + " for: " + player.ToStringFull());
-            }
-
-            if(!PhotonNetwork.IsConnectedAndReady) {
-                Debug.LogWarning("SetPlayerNumber was called in state: " + PhotonNetwork.NetworkClientState + ". Not IsConnectedAndReady.");
-                return;
-            }
-
-            int current = player.GetPlayerNumber();
-            if(current != playerNumber) {
-                Debug.Log("PlayerNumbering: Set number " + playerNumber);
-                player.SetCustomProperties(new Hashtable() { { PlayerNumbering.RoomPlayerIndexedProp, (byte)playerNumber } });
-            }
-        }
+			OnPlayerNumberingChanged?.Invoke();
+		}
     }
 }
