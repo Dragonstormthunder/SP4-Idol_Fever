@@ -6,17 +6,6 @@ using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace IdolFever {
-    /// <summary>
-    /// Implements consistent numbering in a room/game with help of room properties. Access them by Player.GetPlayerNumber() extension.
-    /// </summary>
-    /// <remarks>
-    /// indexing ranges from 0 to the maximum number of Players.
-    /// indexing remains for the player while in room.
-    /// If a Player is numbered 2 and player numbered 1 leaves, numbered 1 become vacant and will assigned to the future player joining (the first available vacant number is assigned when joining)
-    /// </remarks>
-
-    // each player can select it's own playernumber in a room, if all "older" players already selected theirs
-
     internal sealed class PlayerNumbering: MonoBehaviourPunCallbacks {
         #region Fields
 
@@ -25,9 +14,9 @@ namespace IdolFever {
         public static Player[] SortedPlayers;
 
         private delegate void PlayerNumberingChanged();
-        private static event PlayerNumberingChanged OnPlayerNumberingChanged; //Use this for discrete updates. Always better than brute force calls every frame.
+        private static event PlayerNumberingChanged OnPlayerNumberingChanged;
 
-        public const string RoomPlayerIndexedProp = "pNr"; //Defines the room custom property name to use for room player indexing tracking
+        public const string RoomPlayerIndexedProp = "pNr";
 
         [SerializeField] private bool dontDestroyOnLoad;
 
@@ -92,7 +81,6 @@ namespace IdolFever {
                 return;
             }
 
-
             HashSet<int> usedInts = new HashSet<int>();
             Player[] sorted = PhotonNetwork.PlayerList.OrderBy((p) => p.ActorNumber).ToArray();
 
@@ -102,23 +90,16 @@ namespace IdolFever {
 
                 int number = player.GetPlayerNumber();
 
-                // if it's this user, select a number and break
-                // else:
-                // check if that user has a number
-                // if not, break!
-                // else remember used numbers
-
                 if(player.IsLocal) {
                     Debug.Log("PhotonNetwork.CurrentRoom.PlayerCount = " + PhotonNetwork.CurrentRoom.PlayerCount);
 
-                    // select a number
-                    for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++) {
+                    for(int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; ++i) {
                         if(!usedInts.Contains(i)) {
                             player.SetPlayerNumber(i);
                             break;
                         }
                     }
-                    // then break
+
                     break;
                 } else {
                     if(number < 0) {
@@ -136,69 +117,44 @@ namespace IdolFever {
         }
     }
 
-
-
     /// <summary>Extension used for PlayerRoomIndexing and Player class.</summary>
-    public static class PlayerNumberingExtensions
-    {
+    internal static class PlayerNumberingExtensions {
         /// <summary>Extension for Player class to wrap up access to the player's custom property.
-		/// Make sure you use the delegate 'OnPlayerNumberingChanged' to knoiw when you can query the PlayerNumber. Numbering can changes over time or not be yet assigned during the initial phase ( when player creates a room for example)
+		/// Make sure you use the delegate 'OnPlayerNumberingChanged' to know when you can query the PlayerNumber. Numbering can change over time or not be yet assigned during the initial phase ( when player creates a room for example)
 		/// </summary>
         /// <returns>persistent index in room. -1 for no indexing</returns>
-        public static int GetPlayerNumber(this Player player)
-        {
-			if (player == null) {
-				return -1;
-			}
-
-            if (PhotonNetwork.OfflineMode)
-            {
-                return 0;
-            }
-            if (!PhotonNetwork.IsConnectedAndReady)
-            {
+        public static int GetPlayerNumber(this Player player) {
+            if(player == null || !PhotonNetwork.IsConnectedAndReady) {
                 return -1;
             }
 
-            object value;
-			if (player.CustomProperties.TryGetValue (PlayerNumbering.RoomPlayerIndexedProp, out value)) {
+            if(PhotonNetwork.OfflineMode) {
+                return 0;
+            }
+
+			if(player.CustomProperties.TryGetValue(PlayerNumbering.RoomPlayerIndexedProp, out object value)) {
 				return (byte)value;
 			}
-            return -1;
+			return -1;
         }
 
-		/// <summary>
-		/// Sets the player number.
-		/// It's not recommanded to manually interfere with the playerNumbering, but possible.
-		/// </summary>
-		/// <param name="player">Player.</param>
-		/// <param name="playerNumber">Player number.</param>
-        public static void SetPlayerNumber(this Player player, int playerNumber)
-        {
-			if (player == null) {
-				return;
-			}
-
-            if (PhotonNetwork.OfflineMode)
-            {
+        public static void SetPlayerNumber(this Player player, int playerNumber) {
+            if(player == null || PhotonNetwork.OfflineMode) {
                 return;
             }
 
-            if (playerNumber < 0)
-            {
+            if(playerNumber < 0) {
                 Debug.LogWarning("Setting invalid playerNumber: " + playerNumber + " for: " + player.ToStringFull());
             }
 
-            if (!PhotonNetwork.IsConnectedAndReady)
-            {
+            if(!PhotonNetwork.IsConnectedAndReady) {
                 Debug.LogWarning("SetPlayerNumber was called in state: " + PhotonNetwork.NetworkClientState + ". Not IsConnectedAndReady.");
                 return;
             }
 
             int current = player.GetPlayerNumber();
-            if (current != playerNumber)
-            {
-				Debug.Log("PlayerNumbering: Set number "+playerNumber);
+            if(current != playerNumber) {
+                Debug.Log("PlayerNumbering: Set number " + playerNumber);
                 player.SetCustomProperties(new Hashtable() { { PlayerNumbering.RoomPlayerIndexedProp, (byte)playerNumber } });
             }
         }
