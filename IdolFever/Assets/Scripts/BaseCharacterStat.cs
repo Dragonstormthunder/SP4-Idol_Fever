@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace IdolFever.Character
 {
-
     public enum eRARITY
     {
         RARITY_R,

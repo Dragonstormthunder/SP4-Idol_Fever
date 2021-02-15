@@ -9,6 +9,7 @@ namespace IdolFever.Character
     {
         public enum eCHARACTER
         {
+
             // rare
             R_CHARACTER_BEGIN,
             R_CHARACTER_GIRL0,
@@ -50,10 +51,35 @@ namespace IdolFever.Character
                     character.SkillCooldown = 30f;
                     character.SkillDescription = "CharacterSkillDescription";
                     break;
+                case eCHARACTER.SR_CHARACTER_GIRL0:
+                    character.SkillName = "Skill";
+                    character.Rarity = eRARITY.RARITY_SR;
+                    character.SkillCooldown = 30f;
+                    character.SkillDescription = "CharacterSkillDescription";
+                    break;
+                case eCHARACTER.SR_CHARACTER_BOY0:
+                    character.SkillName = "Skill1";
+                    character.Rarity = eRARITY.RARITY_SR;
+                    character.SkillCooldown = 30f;
+                    character.SkillDescription = "CharacterSkillDescription";
+                    break;
+                case eCHARACTER.SSR_CHARACTER_GIRL0:
+                    character.SkillName = "Skill";
+                    character.Rarity = eRARITY.RARITY_SSR;
+                    character.SkillCooldown = 30f;
+                    character.SkillDescription = "CharacterSkillDescription";
+                    break;
+                case eCHARACTER.SSR_CHARACTER_BOY0:
+                    character.SkillName = "Skill1";
+                    character.Rarity = eRARITY.RARITY_SSR;
+                    character.SkillCooldown = 30f;
+                    character.SkillDescription = "CharacterSkillDescription";
+                    break;
             }
 
             return null;
 
         }
+
     }
 }
