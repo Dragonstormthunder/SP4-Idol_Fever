@@ -45,7 +45,7 @@ namespace IdolFever.Beatmap
             return bytes;
         }
 
-        public static Beatmap Open(string fn)
+        public static BeatmapData Open(string fn)
         {
             FileStream fs = File.OpenRead(fn);
             BinaryReader br = new BinaryReader(fs);
@@ -54,8 +54,8 @@ namespace IdolFever.Beatmap
             br.ReadChars(4);
             uint hlen = br.ReadUInt32();
             br.ReadUInt16();
-            uint nchunks = br.ReadUInt16();
-            uint ppqn = br.ReadUInt16();
+            br.ReadUInt16();
+            uint ppqn = (uint)(br.ReadByte() << 8 | br.ReadByte());
 
             while(br.PeekChar() > 0)
             {
@@ -137,9 +137,9 @@ namespace IdolFever.Beatmap
                         }
                         else if (fftype == 0x51)
                         {
-                            uint m = br.ReadUInt32() & 0xFFFFFFu;
+                            br.ReadByte();
                             ev.Add(0xFF51);
-                            ev.Add(m);
+                            ev.Add((uint)(br.ReadByte() << 16 | br.ReadByte() << 8 | br.ReadByte()));
                         }
                         else if(fftype == 0x58)
                         {
@@ -153,7 +153,7 @@ namespace IdolFever.Beatmap
                 }
             }
             events.Sort(MidiEvent.CompareEvents);
-            Beatmap b = new Beatmap();
+            BeatmapData b = new BeatmapData();
             ulong ltime = 0;
             ulong usec = 0;
             ulong usecPerBeat = 500000;
@@ -221,6 +221,7 @@ namespace IdolFever.Beatmap
                     usecPerBeat = m.eventData[1];
                 }
             }
+            b.beats.Sort(BeatmapEvent.CompareTime);
             return b;
         }
     }
