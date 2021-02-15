@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuSwitch : MonoBehaviour
+namespace IdolFever.UI
 {
-
-    public GameObject menuContainer;
-
-    // switch menu on off using hierarchy
-    public void SwitchMenuOnOff(bool active)
+    public class MenuSwitch : MonoBehaviour
     {
-        // check for nullptr first
-        menuContainer?.SetActive(active);
-    }
 
+        public GameObject menuContainer;
+
+        // switch menu on off using hierarchy
+        public void SwitchMenuOnOff(bool active)
+        {
+            // check for nullptr first
+            menuContainer?.SetActive(active);
+        }
+
+    }
 }
