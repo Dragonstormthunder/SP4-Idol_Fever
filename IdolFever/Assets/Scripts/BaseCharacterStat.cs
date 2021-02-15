@@ -70,6 +70,7 @@ namespace IdolFever.Character
         private string skillDescription;    // description of the skill for the character gallery
         private float skillCooldown;        // duration of skill cool down rate
 
+
     }
 
 }
