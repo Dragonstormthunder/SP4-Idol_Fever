@@ -5363,6 +5363,10 @@ PrefabInstance:
       propertyPath: transitionTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7056223770016868634, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
+      propertyPath: sceneName
+      value: IntroScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
 --- !u!224 &1485397340091443471 stripped
