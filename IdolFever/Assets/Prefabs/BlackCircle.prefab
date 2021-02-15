@@ -122,5 +122,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7056223770016868633}
-  sceneName: MultiplayerLobbyScene
+  sceneName: 
   transitionTime: 4
