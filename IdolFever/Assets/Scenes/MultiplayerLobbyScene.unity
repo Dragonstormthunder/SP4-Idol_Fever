@@ -195,6 +195,14 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: startAnimName
+      value: CurtainTransitionStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: sceneName
+      value: IntroScene
+      objectReference: {fileID: 0}
     - target: {fileID: 7116070622042047112, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0

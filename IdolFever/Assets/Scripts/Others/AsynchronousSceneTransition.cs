@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace IdolFever {
@@ -7,6 +8,7 @@ namespace IdolFever {
 
         [SerializeField] private Animator animator;
         [SerializeField] private string sceneName;
+        [SerializeField] private string startAnimName;
 
         #endregion
 
@@ -30,7 +32,18 @@ namespace IdolFever {
         private System.Collections.IEnumerator AsynchronousSceneTransitionCoroutine(string sceneName) {
             animator.SetTrigger("Start");
 
-            //??
+            float animLen = -1.0f;
+            foreach(AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
+                if(clip.name == startAnimName) {
+                    animLen = clip.length;
+                }
+            }
+
+            if(animLen >= 0.0f) {
+                yield return new WaitForSeconds(animLen);
+            } else {
+                UnityEngine.Assertions.Assert.IsTrue(false);
+            }
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
@@ -46,6 +59,7 @@ namespace IdolFever {
         public AsynchronousSceneTransition() {
             animator = null;
             sceneName = string.Empty;
+            startAnimName = string.Empty;
         }
     }
 }

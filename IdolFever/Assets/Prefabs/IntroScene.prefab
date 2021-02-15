@@ -623,6 +623,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: CurtainTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 4562767005079367721, guid: 41ab02559bcfe8142831de4ab43a4870, type: 3}
+      propertyPath: sceneName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562767005079367721, guid: 41ab02559bcfe8142831de4ab43a4870, type: 3}
+      propertyPath: startAnimName
+      value: CurtainTransitionStart
+      objectReference: {fileID: 0}
     - target: {fileID: 8845111965227419779, guid: 41ab02559bcfe8142831de4ab43a4870, type: 3}
       propertyPath: sceneName
       value: MultiplayerLobbyScene

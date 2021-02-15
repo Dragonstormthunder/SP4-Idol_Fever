@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1618025865683076324, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
+      propertyPath: sceneName
+      value: MultiplayerLobbyScene
+      objectReference: {fileID: 0}
     - target: {fileID: 8212258301821528598, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
       propertyPath: m_Name
       value: IntroScene
