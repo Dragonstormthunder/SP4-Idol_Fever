@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace IdolFever.Character
 {
 
-    enum eRARITY
+    public enum eRARITY
     {
         RARITY_R,
         RARITY_SR,
@@ -15,19 +15,13 @@ namespace IdolFever.Character
     public class CBaseCharacterStat
     {
 
-        string name;            // name of the character
-        eRARITY rarity;         // rarity of the character
-        
-        string skillName;           // name of the character's skill
-        string skillDescription;    // description of the skill for the character gallery
-        float skillCooldown;        // duration of skill cool down rate
-
         // default constructor
-        CBaseCharacterStat()
+        public CBaseCharacterStat()
         {
         }
 
-        CBaseCharacterStat(string name, eRARITY rarity, string skillName, string skillDescription, float skillCooldown)
+        // overloaded constructor
+        public CBaseCharacterStat(string name, eRARITY rarity, string skillName, string skillDescription, float skillCooldown)
         {
             this.name = name;
             this.rarity = rarity;
@@ -49,7 +43,32 @@ namespace IdolFever.Character
             set { rarity = value; }
         }
 
+        public string SkillName
+        {
+            get { return skillName; }
+            set { skillName = value; }
+        }
 
+        public string SkillDescription
+        {
+            get { return skillDescription; }
+            set { skillDescription = value; }
+        }
+
+        public float SkillCooldown
+        {
+            get { return skillCooldown; }
+            set { skillCooldown = value; }
+        }
+
+        private string name;            // name of the character
+        private int bonus;              // bonus of the character
+                                        // e.g. reroll bonus
+        private eRARITY rarity;         // rarity of the character
+
+        private string skillName;           // name of the character's skill
+        private string skillDescription;    // description of the skill for the character gallery
+        private float skillCooldown;        // duration of skill cool down rate
 
     }
 
