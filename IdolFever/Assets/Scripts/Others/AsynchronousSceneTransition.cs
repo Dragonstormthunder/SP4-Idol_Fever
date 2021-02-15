@@ -6,6 +6,7 @@ namespace IdolFever {
     internal sealed class AsynchronousSceneTransition: MonoBehaviour {
         #region Fields
 
+        private static bool is1stScreen = true;
         [SerializeField] private Animator animator;
         [SerializeField] private string sceneName;
         [SerializeField] private string startAnimName;
@@ -18,8 +19,10 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            if(SceneManager.GetActiveScene().buildIndex != 0) {
+            if(!is1stScreen) {
                 animator.SetTrigger("End");
+            } else {
+                is1stScreen = false;
             }
         }
 
