@@ -17,7 +17,7 @@ namespace IdolFever.Game
         private int beatIndex;
         void Start()
         {
-            beatmap = BeatmapReader.Open("Assets/BeatmapTest.mid");
+            beatmap = BeatmapReader.Open("Assets/Resources/BeatmapTest.mid");
             audio = GetComponent<AudioSource>();
             audio.Play();
             beatIndex = 0;

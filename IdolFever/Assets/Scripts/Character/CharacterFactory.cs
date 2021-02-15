@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace IdolFever.Character
 {
-
     public static class CharacterFactory
     {
         public enum eCHARACTER
