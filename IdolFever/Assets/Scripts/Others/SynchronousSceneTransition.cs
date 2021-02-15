@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 namespace IdolFever {
-    internal sealed class SceneTransition: MonoBehaviour {
+    internal sealed class SynchronousSceneTransition: MonoBehaviour {
         #region Fields
 
         [SerializeField] private Animator animator;
@@ -24,11 +24,11 @@ namespace IdolFever {
 
 	    private void Update() {
             if(Input.GetKeyDown(KeyCode.Space)) {
-                _ = StartCoroutine(SceneTransitionCoroutine(sceneName));
+                _ = StartCoroutine(SynchronousSceneTransitionCoroutine(sceneName));
             }
 	    }
 
-        private System.Collections.IEnumerator SceneTransitionCoroutine(string sceneName) {
+        private System.Collections.IEnumerator SynchronousSceneTransitionCoroutine(string sceneName) {
             animator.SetTrigger("Start");
 
             yield return new WaitForSeconds(transitionTime);
@@ -38,7 +38,7 @@ namespace IdolFever {
 
         #endregion
 
-        public SceneTransition() {
+        public SynchronousSceneTransition() {
             animator = null;
             sceneName = string.Empty;
             transitionTime = 0.0f;

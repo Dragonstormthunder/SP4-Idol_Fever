@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 105894705070088063}
   - component: {fileID: 6556055243889167749}
-  - component: {fileID: 8845111965227419779}
+  - component: {fileID: 4562767005079367721}
   m_Layer: 5
   m_Name: CurtainTransition
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8845111965227419779
+--- !u!114 &4562767005079367721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,12 +68,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1470449203943453902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad57bdb6d0503d4aabc6b9504f914eb, type: 3}
+  m_Script: {fileID: 11500000, guid: 9bf113462d8029345a1ed9dc990c126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 6556055243889167749}
-  sceneName: 
-  transitionTime: 2
+  sceneName: MultiplayerLobbyScene
 --- !u!1 &2116710411211630259
 GameObject:
   m_ObjectHideFlags: 0
