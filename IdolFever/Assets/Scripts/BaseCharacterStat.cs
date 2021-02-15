@@ -61,10 +61,10 @@ namespace IdolFever.Character
             set { skillCooldown = value; }
         }
 
-        private string name;            // name of the character
-        private int bonus;              // bonus of the character
-                                        // e.g. reroll bonus
-        private eRARITY rarity;         // rarity of the character
+        private string name;                // name of the character
+        private int bonus;                  // bonus of the character
+                                            // e.g. reroll bonus
+        private eRARITY rarity;             // rarity of the character
 
         private string skillName;           // name of the character's skill
         private string skillDescription;    // description of the skill for the character gallery
