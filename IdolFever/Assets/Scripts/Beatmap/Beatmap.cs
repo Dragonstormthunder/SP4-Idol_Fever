@@ -24,5 +24,10 @@ namespace IdolFever.Beatmap
     public class Beatmap
     {
         public List<BeatmapEvent> beats;
+
+        public Beatmap()
+        {
+            beats = new List<BeatmapEvent>();
+        }
     }
 }

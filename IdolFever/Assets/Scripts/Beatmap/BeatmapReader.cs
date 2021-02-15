@@ -31,7 +31,7 @@ namespace IdolFever.Beatmap
 
     public class BeatmapReader
     {
-        private uint ReadVLInt(BinaryReader br, out uint o)
+        private static uint ReadVLInt(BinaryReader br, out uint o)
         {
             o = 0;
             uint bytes = 0;
@@ -45,7 +45,7 @@ namespace IdolFever.Beatmap
             return bytes;
         }
 
-        public Beatmap ReadBeatmap(string fn)
+        public static Beatmap Open(string fn)
         {
             FileStream fs = File.OpenRead(fn);
             BinaryReader br = new BinaryReader(fs);
@@ -57,7 +57,7 @@ namespace IdolFever.Beatmap
             uint nchunks = br.ReadUInt16();
             uint ppqn = br.ReadUInt16();
 
-            for (int i = 0; i < nchunks; ++i)
+            while(br.PeekChar() > 0)
             {
                 br.ReadChars(4);
                 uint tlen = br.ReadUInt32();
@@ -160,9 +160,8 @@ namespace IdolFever.Beatmap
             ulong[] holdBeats = new ulong[4];
             foreach(MidiEvent m in events)
             {
-                ulong mm = usec;
                 usec += ((m.tickPos - ltime) * usecPerBeat) / ppqn;
-                ltime = mm;
+                ltime = m.tickPos;
                 if (m.eventData[0] == 0x90)
                 {
                     switch (m.eventData[1])
@@ -222,6 +221,7 @@ namespace IdolFever.Beatmap
                     usecPerBeat = m.eventData[1];
                 }
             }
+            return b;
         }
     }
 }
