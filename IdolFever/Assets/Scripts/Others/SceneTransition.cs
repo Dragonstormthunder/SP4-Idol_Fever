@@ -16,6 +16,12 @@ namespace IdolFever {
 
         #region Unity User Callback Event Funcs
 
+        private void Awake() {
+            if(SceneManager.GetActiveScene().buildIndex != 0) {
+                animator.SetTrigger("End");
+            }
+        }
+
 	    private void Update() {
             if(Input.GetKeyDown(KeyCode.Space)) {
                 _ = StartCoroutine(SceneTransitionCoroutine(sceneName));
