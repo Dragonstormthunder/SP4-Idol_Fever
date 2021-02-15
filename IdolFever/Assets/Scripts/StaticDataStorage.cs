@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace IdolFever.UI
+namespace IdolFever.Storage
 {
     public static class StaticDataStorage
     {
