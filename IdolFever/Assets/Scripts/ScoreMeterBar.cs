@@ -10,7 +10,7 @@ public class ScoreMeterBar : MonoBehaviour
 
     void Start()
     {
-        ScoreMeter.SetScoreMeterValue(1);
+        ScoreMeter.SetScoreMeterValue(0);
 
     }
 
