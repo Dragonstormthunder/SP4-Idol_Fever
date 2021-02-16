@@ -203,14 +203,6 @@ PrefabInstance:
       propertyPath: sceneName
       value: IntroScene
       objectReference: {fileID: 0}
-    - target: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: progressVal
-      value: -1.66
-      objectReference: {fileID: 0}
-    - target: {fileID: 6484589797911958519, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7116070622042047112, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
