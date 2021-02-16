@@ -17,14 +17,14 @@ namespace IdolFever.Game
         public GameObject hitPrefab;
         private BeatmapData beatmap;
         private List<Note> notes;
-        private AudioSource myAudio;
+        private AudioSource audio;
         private int beatIndex;
         private ulong usec;
         void Start()
         {
-            beatmap = BeatmapReader.Open("BeatmapTest.mid");
-            myAudio = GetComponent<AudioSource>();
-            myAudio.Play();
+            beatmap = BeatmapReader.Open("MountainKing.mid");
+            audio = GetComponent<AudioSource>();
+            audio.Play();
             beatIndex = 0;
             notes = new List<Note>();
         }
@@ -32,7 +32,7 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            float t = myAudio.time;
+            float t = audio.time;
             usec = (ulong)(t * 1000000);
             long spawn = (long)(usec) + 2000000;
             while (beatmap.beats.Count > beatIndex && (long) beatmap.beats[beatIndex].timestamp < spawn)
