@@ -6,11 +6,11 @@ using IdolFever.UI;
 
 public class GachaDraw : MonoBehaviour
 {
-    public GameObject GameOverObject;
+    public GameObject R_imageGirl;
     // Start is called before the first frame update
     void Start()
     {
-        GameOverObject.gameObject.SetActive(false);
+        R_imageGirl.gameObject.SetActive(false);
         Debug.Log("heeee222222");
     }
 
@@ -19,8 +19,8 @@ public class GachaDraw : MonoBehaviour
     {
         if (StaticDataStorage.R_Girl == true)
         {
-            Instantiate(GameOverObject);
-            GameOverObject.gameObject.SetActive(true);
+            Instantiate(R_imageGirl);
+            R_imageGirl.gameObject.SetActive(true);
             Debug.Log("heeee");
         }
     }
@@ -28,19 +28,6 @@ public class GachaDraw : MonoBehaviour
     public void R_Girl_false()
     {
         StaticDataStorage.R_Girl = false;
-        GameOverObject.gameObject.SetActive(false);
+        R_imageGirl.gameObject.SetActive(false);
     }
-
-    //public void RenderImage()
-    //{
-    //    if (StaticDataStorage.R_Girl == true)
-    //    {
-    //        img.gameObject.SetActive(false);
-    //        Debug.Log("heeee");
-    //    }
-    //    else
-    //    {
-    //        img.enabled = false;
-    //    }
-    //}
 }
