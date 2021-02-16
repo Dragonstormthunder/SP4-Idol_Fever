@@ -39,6 +39,8 @@ namespace IdolFever {
 	    }
 
         private System.Collections.IEnumerator AsynchronousSceneTransitionCoroutine(string sceneName) {
+            ProgressVal = 0.0f;
+
             animator.SetTrigger("Start");
 
             float animLen = -1.0f;
@@ -66,7 +68,7 @@ namespace IdolFever {
         #endregion
 
         public AsynchronousSceneTransition() {
-            ProgressVal = 0.0f;
+            ProgressVal = 100.0f;
             animator = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
