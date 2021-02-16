@@ -34,11 +34,13 @@ namespace IdolFever {
 
 	    private void Update() {
             if(Input.GetKeyDown(KeyCode.Space)) {
-                _ = StartCoroutine(AsynchronousSceneTransitionCoroutine(sceneName));
+                _ = StartCoroutine(MyStartCoroutine(sceneName));
             }
 	    }
 
-        private System.Collections.IEnumerator AsynchronousSceneTransitionCoroutine(string sceneName) {
+        #endregion
+
+        private System.Collections.IEnumerator MyStartCoroutine(string sceneName) {
             ProgressVal = 0.0f;
 
             animator.SetTrigger("Start");
@@ -64,8 +66,6 @@ namespace IdolFever {
                 yield return null;
             }
         }
-
-        #endregion
 
         public AsynchronousSceneTransition() {
             ProgressVal = 100.0f;
