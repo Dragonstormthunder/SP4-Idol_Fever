@@ -6,6 +6,7 @@ namespace IdolFever {
     internal sealed class AsynchronousSceneTransition: MonoBehaviour {
         #region Fields
 
+        public float progressVal;
         private static bool is1stScreen = true;
         [SerializeField] private Animator animator;
         [SerializeField] private string sceneName;
@@ -51,7 +52,7 @@ namespace IdolFever {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
             while(!operation.isDone) {
-                float percentageProgress = Mathf.Clamp01(operation.progress / 0.9f) * 100.0f; //??
+                progressVal = Mathf.Clamp01(operation.progress / 0.9f) * 100.0f;
 
                 yield return null;
             }
@@ -60,6 +61,7 @@ namespace IdolFever {
         #endregion
 
         public AsynchronousSceneTransition() {
+            progressVal = 0.0f;
             animator = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
