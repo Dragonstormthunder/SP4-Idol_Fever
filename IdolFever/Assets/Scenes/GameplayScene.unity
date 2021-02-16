@@ -5433,7 +5433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowsCanvas: {fileID: 2059479158}
-  androidCanvas: {fileID: 0}
+  androidCanvas: {fileID: 1452255893}
   debug: 1
 --- !u!1 &1480886930
 GameObject:
