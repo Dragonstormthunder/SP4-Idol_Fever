@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace IdolFever.Beatmap
 {
@@ -47,8 +48,25 @@ namespace IdolFever.Beatmap
 
         public static BeatmapData Open(string fn)
         {
-            FileStream fs = File.OpenRead(fn);
-            BinaryReader br = new BinaryReader(fs);
+            BinaryReader br;
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                var uwr = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, fn));
+                uwr.SendWebRequest();
+                while (!uwr.isDone)
+                {
+                    if (uwr.isNetworkError || uwr.isHttpError) return null;
+                }
+                byte[] mid = uwr.downloadHandler.data;
+                br = new BinaryReader(new MemoryStream(mid));
+            }
+            else
+            {
+                FileStream fs = File.OpenRead("Assets/StreamingAssets/" + fn);
+                br = new BinaryReader(fs);
+            }
+
+            
             List<MidiEvent> events = new List<MidiEvent>();
 
             br.ReadChars(4);
