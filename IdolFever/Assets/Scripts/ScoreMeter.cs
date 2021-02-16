@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class ScoreMeter : MonoBehaviour
 {
     private static Image scoreMeterImg;
+    private static float score, maxscore;
 
     /// Sets the health bar value
     /// value should be between 0 to 1</param>
     public static void SetScoreMeterValue(float value)
     {
-        scoreMeterImg.fillAmount = value;
+        score = value;
+        scoreMeterImg.fillAmount = score / maxscore;
         if (scoreMeterImg.fillAmount < 0.2f)
         {
             SetScoreMeterColor(Color.red);
@@ -28,7 +30,12 @@ public class ScoreMeter : MonoBehaviour
 
     public static float GetScoreMeterValue()
     {
-        return scoreMeterImg.fillAmount;
+        return score;
+    }
+
+    public static void AddScore(float a)
+    {
+        SetScoreMeterValue(score + a);
     }
 
     public static void SetScoreMeterColor(Color healthColor)
@@ -39,5 +46,7 @@ public class ScoreMeter : MonoBehaviour
     private void Start()
     {
         scoreMeterImg = GetComponent<Image>();
+        score = 0;
+        maxscore = 1000000;
     }
 }

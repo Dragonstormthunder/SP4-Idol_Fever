@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using IdolFever.Beatmap;
 namespace IdolFever.Game
@@ -73,10 +74,41 @@ namespace IdolFever.Game
             for (int i = 0; i < notes.Count; ++i)
             {
                 Note n = notes[i];
-                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 150000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
+                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
                 {
                     notes.RemoveAt(i);
-                    Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                    hitGo.GetComponent<Text>().text = "PERFECT";
+                    ComboCounter.combo++;
+                    ScoreMeter.AddScore(600 + ComboCounter.combo * 20);
+                    Destroy(n.transform.gameObject);
+                    return;
+                }
+                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 75000 && (long)n.noteEvent.timestamp > (long)usec - 75000)
+                {
+                    notes.RemoveAt(i);
+                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                    hitGo.GetComponent<Text>().text = "GOOD";
+                    ComboCounter.combo++;
+                    ScoreMeter.AddScore(400 + ComboCounter.combo * 20);
+                    Destroy(n.transform.gameObject);
+                    return;
+                }
+                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
+                {
+                    notes.RemoveAt(i);
+                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                    hitGo.GetComponent<Text>().text = "EH";
+                    ScoreMeter.AddScore(200);
+                    Destroy(n.transform.gameObject);
+                    return;
+                }
+                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
+                {
+                    notes.RemoveAt(i);
+                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                    hitGo.GetComponent<Text>().text = "MISS";
+                    ComboCounter.combo = 0;
                     Destroy(n.transform.gameObject);
                     return;
                 }
