@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using IdolFever.Character;
-
+using IdolFever.UI;
 public class RandomNumGenerator : MonoBehaviour
 {
     public int rand;
@@ -16,7 +16,7 @@ public class RandomNumGenerator : MonoBehaviour
     public void PressRandButton()
     {
         rand = UnityEngine.Random.Range(0, 100);
-        Debug.Log(rand);
+        Debug.Log("rand:" + rand);
 
         CharDrawn();
     }
@@ -31,6 +31,9 @@ public class RandomNumGenerator : MonoBehaviour
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.R_Girl = true;
+
+                //DrawR_Girl();
             }
             if (rand2 >= 0.51)
             {
@@ -39,7 +42,7 @@ public class RandomNumGenerator : MonoBehaviour
             }
 
         }
-        if (rand <= 15 && rand > 5)//sr above 20
+        else if (rand <= 15 && rand > 5)//sr above 20
         {
             float rand2 = UnityEngine.Random.Range(0f, 1f);
             //g/b
@@ -54,7 +57,7 @@ public class RandomNumGenerator : MonoBehaviour
                 Debug.Log("You got " + c.ToString());
             }
         }
-        if (rand <= 5)//ssr
+        else if (rand <= 5)//ssr
         {
             float rand2 = UnityEngine.Random.Range(0f, 1f);
             //g/b
@@ -69,6 +72,22 @@ public class RandomNumGenerator : MonoBehaviour
                 Debug.Log("You got " + c.ToString());
             }
         }
+    }
+
+    //public bool GetR_Girl()
+    //{
+    //    return RGirl;
+    //}
+
+    //public void SetR_Girl(bool r_girl)
+    //{
+    //    RGirl = r_girl;
+    //}
+
+    public void DrawR_Girl()
+    {
+        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+        Debug.Log("You got " + c.ToString());
     }
 
     // Update is called once per frame

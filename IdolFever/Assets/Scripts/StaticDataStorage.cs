@@ -28,6 +28,7 @@ namespace IdolFever.UI
         private static string lastSceneName;    // last scene name
         private static GAME_MODE gameMode;      // current game mode
 
+        public static bool R_Girl = false;
     }
 
 }
