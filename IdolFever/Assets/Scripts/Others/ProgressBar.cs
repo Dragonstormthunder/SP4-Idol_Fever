@@ -6,25 +6,24 @@ namespace IdolFever {
         #region Fields
 
         [SerializeField] private AsynchronousSceneTransition asyncSceneTransition;
-        [SerializeField] private Slider slider;
+        [SerializeField] private Image img;
 
         #endregion
 
         #region Properties
         #endregion
 
-        #region Unity User Callback Event Funcs
+        #region Unity User Callback Event Funcs]
 
 	    private void Update() {
-            slider.value = asyncSceneTransition.progressVal;
-
+            img.fillAmount = asyncSceneTransition.progressVal;
         }
 
         #endregion
 
         public ProgressBar() {
             asyncSceneTransition = null;
-            slider = null;
+            img = null;
         }
     }
 }

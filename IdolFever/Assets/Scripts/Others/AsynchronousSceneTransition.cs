@@ -52,7 +52,7 @@ namespace IdolFever {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
             while(!operation.isDone) {
-                progressVal = Mathf.Clamp01(operation.progress / 0.9f) * 100.0f;
+                progressVal = Mathf.Clamp01(operation.progress / 0.9f);
 
                 yield return null;
             }
