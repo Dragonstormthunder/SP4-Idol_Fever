@@ -1,34 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScoreMeter : MonoBehaviour
 {
-    public int currScore = 0;
-    public int maxScore = 10;
+    private static Image scoreMeterImg;
 
-    public ScoreMeterBar scoremeter;
-    public KeyBindingManager key;
-
-    // Start is called before the first frame update
-    void Start()
+    /// Sets the health bar value
+    /// value should be between 0 to 1</param>
+    public static void SetScoreMeterValue(float value)
     {
-        currScore = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(key.B1_Key) || Input.GetKeyDown(key.B2_Key) || Input.GetKeyDown(key.B3_Key) || Input.GetKeyDown(key.B4_Key))
+        scoreMeterImg.fillAmount = value;
+        if (scoreMeterImg.fillAmount < 0.2f)
         {
-            AddScore(1);
+            SetScoreMeterColor(Color.red);
+        }
+        else if (scoreMeterImg.fillAmount < 0.4f)
+        {
+            SetScoreMeterColor(Color.yellow);
+        }
+        else if ((scoreMeterImg.fillAmount > 0.8f) && (scoreMeterImg.fillAmount <= 1f))
+        {
+            SetScoreMeterColor(Color.green);
         }
     }
 
-    public void AddScore(int addScore)
+    public static float GetScoreMeterValue()
     {
-        currScore += addScore;
+        return scoreMeterImg.fillAmount;
+    }
 
-        scoremeter.SetScore(currScore);
+    public static void SetScoreMeterColor(Color healthColor)
+    {
+        scoreMeterImg.color = healthColor;
+    }
+
+    private void Start()
+    {
+        scoreMeterImg = GetComponent<Image>();
     }
 }

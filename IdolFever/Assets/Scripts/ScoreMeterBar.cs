@@ -1,30 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class ScoreMeterBar : MonoBehaviour
 {
-    public Slider scoremeter;
-    public ScoreMeter playerscoreMeter;
+    public KeyBindingManager key;
     public TMP_Text scoreText;
 
-    private void Start()
+    void Start()
     {
-        playerscoreMeter = GameObject.FindGameObjectWithTag("Player").GetComponent<ScoreMeter>();
-        scoremeter = GetComponent<Slider>();
-        scoremeter.maxValue = playerscoreMeter.maxScore;
-        scoremeter.value = playerscoreMeter.maxScore;
+        ScoreMeter.SetScoreMeterValue(1);
+
     }
 
+    // Update is called once per frame
     void Update()
     {
-        scoreText.text = playerscoreMeter.currScore.ToString();
-
-    }
-    public void SetScore(int score)
-    {
-        scoremeter.value = score;
+        if (Input.GetKeyDown(key.B1_Key) || Input.GetKeyDown(key.B2_Key) || Input.GetKeyDown(key.B3_Key) || Input.GetKeyDown(key.B4_Key))
+        {
+            ScoreMeter.SetScoreMeterValue(ScoreMeter.GetScoreMeterValue() + 0.01f);
+            scoreText.text = "Score: " + Mathf.RoundToInt(ScoreMeter.GetScoreMeterValue() * 100);
+        }
     }
 }
