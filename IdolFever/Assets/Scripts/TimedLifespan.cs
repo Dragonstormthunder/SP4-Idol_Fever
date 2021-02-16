@@ -18,6 +18,14 @@ public class TimedLifespan : MonoBehaviour
     IEnumerator Die()
     {
         yield return new WaitForSeconds(0.3f);
+        
+        for(int i = 0; i < 30; ++i)
+        {
+            Color x = this.GetComponent<UnityEngine.UI.Text>().color;
+            this.GetComponent<UnityEngine.UI.Text>().color = new Color(x.r, x.g, x.b, x.a - 0.034f);
+            yield return null;
+        }
+
 
         Destroy(this.gameObject);
     }
