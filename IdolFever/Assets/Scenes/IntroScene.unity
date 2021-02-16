@@ -123,28 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &12258440 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8212258302171100955, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
-  m_PrefabInstance: {fileID: 8212258301228137758}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &12258441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 12258440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f38150038abd0684a8315accb43faea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trailColor: {r: 1, g: 0, b: 0.38, a: 1}
-  distanceFromCamera: 5
-  startWidth: 0.1
-  endWidth: 0
-  trailTime: 0.24
 --- !u!114 &804995081 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1618025865683076324, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}

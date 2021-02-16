@@ -288,6 +288,7 @@ GameObject:
   - component: {fileID: 8212258302171100953}
   - component: {fileID: 8212258302171100952}
   - component: {fileID: 8212258302171100951}
+  - component: {fileID: 1877511718933687459}
   m_Layer: 0
   m_Name: Cam
   m_TagString: MainCamera
@@ -391,6 +392,23 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1877511718933687459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8212258302171100955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38150038abd0684a8315accb43faea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trailColor: {r: 1, g: 0, b: 0.1218915, a: 1}
+  distFromCam: 5
+  startWidth: 0.7
+  endWidth: 0.4
+  trailTime: 0.24
 --- !u!1 &8212258302321262019
 GameObject:
   m_ObjectHideFlags: 0

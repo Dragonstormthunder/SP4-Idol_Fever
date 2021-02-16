@@ -4,14 +4,14 @@ namespace IdolFever {
     internal sealed class CursorTrail: MonoBehaviour {
         #region Fields
 
-        Transform trailTransform;
-        Camera thisCamera;
+        private Transform trailTransform;
+        private Camera camComponent;
 
-        public Color trailColor = new Color(1, 0, 0.38f);
-        public float distanceFromCamera = 5;
-        public float startWidth = 0.1f;
-        public float endWidth = 0f;
-        public float trailTime = 0.24f;
+        [SerializeField] private Color trailColor;
+        [SerializeField] private float distFromCam;
+        [SerializeField] private float startWidth;
+        [SerializeField] private float endWidth;
+        [SerializeField] private float trailTime;
 
         #endregion
 
@@ -21,32 +21,43 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Start() {
-            thisCamera = GetComponent<Camera>();
+            camComponent = GetComponent<Camera>();
 
-            GameObject trailObj = new GameObject("Mouse Trail");
-            trailTransform = trailObj.transform;
-            TrailRenderer trail = trailObj.AddComponent<TrailRenderer>();
-            trail.time = -1f;
+            GameObject trailGO = new GameObject("MousTrail");
+            trailTransform = trailGO.transform;
+
+            TrailRenderer trail = trailGO.AddComponent<TrailRenderer>();
+
+            trail.time = -1.0f;
             MoveTrailToCursor(Input.mousePosition);
             trail.time = trailTime;
+
             trail.startWidth = startWidth;
             trail.endWidth = endWidth;
+
             trail.numCapVertices = 2;
-            trail.sharedMaterial = new Material(Shader.Find("Unlit/Color"));
-            trail.sharedMaterial.color = trailColor;
-        }
+			trail.sharedMaterial = new Material(Shader.Find("Unlit/Color")) {
+				color = trailColor
+			};
+		}
 
         private void Update() {
             MoveTrailToCursor(Input.mousePosition);
         }
 
         private void MoveTrailToCursor(Vector3 screenPosition) {
-            trailTransform.position = thisCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, distanceFromCamera));
+            trailTransform.position = camComponent.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, distFromCam));
         }
 
         #endregion
 
         public CursorTrail() {
+            camComponent = null;
+            trailColor = new Color();
+            distFromCam = 0.0f;
+            startWidth = 0.7f;
+            endWidth = 0.4f;
+            trailTime = 0.24f;
         }
     }
 }
