@@ -20,6 +20,12 @@ namespace IdolFever {
 
         #region Unity User Callback Event Funcs
 
+        private void Awake() {
+            if(Application.platform == RuntimePlatform.Android) {
+                enabled = false;
+            }
+        }
+
         private void Start() {
             camComponent = GetComponent<Camera>();
 
