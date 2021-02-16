@@ -13,7 +13,7 @@ namespace IdolFever {
         #region Properties
         #endregion
 
-        #region Unity User Callback Event Funcs]
+        #region Unity User Callback Event Funcs
 
 	    private void Update() {
             img.fillAmount = asyncSceneTransition.ProgressVal;
