@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScoreMeter : MonoBehaviour
 {
     public int currScore = 0;
-    public int maxScore = 100;
+    public int maxScore = 10;
 
     public ScoreMeterBar scoremeter;
     public KeyBindingManager key;
