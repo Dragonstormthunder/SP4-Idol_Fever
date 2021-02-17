@@ -3,50 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreMeter : MonoBehaviour
+namespace IdolFever
 {
-    private Image scoreMeterImg;
-    private float score, maxscore;
-
-    /// Sets the health bar value
-    /// value should be between 0 to 1</param>
-    public void SetScoreMeterValue(float value)
+    public class ScoreMeter : MonoBehaviour
     {
-        score = value;
-        scoreMeterImg.fillAmount = score / maxscore;
-        if (scoreMeterImg.fillAmount < 0.2f)
+        private Image scoreMeterImg;
+        private float score, maxscore;
+
+        /// Sets the health bar value
+        /// value should be between 0 to 1</param>
+        public void SetScoreMeterValue(float value)
         {
-            SetScoreMeterColor(Color.red);
+            score = value;
+            scoreMeterImg.fillAmount = score / maxscore;
+            if (scoreMeterImg.fillAmount < 0.2f)
+            {
+                SetScoreMeterColor(Color.red);
+            }
+            else if (scoreMeterImg.fillAmount < 0.4f)
+            {
+                SetScoreMeterColor(Color.yellow);
+            }
+            else if ((scoreMeterImg.fillAmount > 0.8f) && (scoreMeterImg.fillAmount <= 1f))
+            {
+                SetScoreMeterColor(Color.green);
+            }
         }
-        else if (scoreMeterImg.fillAmount < 0.4f)
+
+        public float GetScoreMeterValue()
         {
-            SetScoreMeterColor(Color.yellow);
+            return score;
         }
-        else if ((scoreMeterImg.fillAmount > 0.8f) && (scoreMeterImg.fillAmount <= 1f))
+
+        public void AddScore(float a)
         {
-            SetScoreMeterColor(Color.green);
+            SetScoreMeterValue(score + a);
         }
-    }
 
-    public float GetScoreMeterValue()
-    {
-        return score;
-    }
+        public void SetScoreMeterColor(Color healthColor)
+        {
+            scoreMeterImg.color = healthColor;
+        }
 
-    public void AddScore(float a)
-    {
-        SetScoreMeterValue(score + a);
-    }
-
-    public void SetScoreMeterColor(Color healthColor)
-    {
-        scoreMeterImg.color = healthColor;
-    }
-
-    private void Start()
-    {
-        scoreMeterImg = GetComponent<Image>();
-        score = 0;
-        maxscore = 1000000;
+        private void Start()
+        {
+            scoreMeterImg = GetComponent<Image>();
+            score = 0;
+            maxscore = 1000000;
+        }
     }
 }

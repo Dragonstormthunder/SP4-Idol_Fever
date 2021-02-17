@@ -1,19 +1,22 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class ScoreMeterBar : MonoBehaviour
+namespace IdolFever.UI
 {
-    public KeyBindingManager key;
-    public TMP_Text scoreText;
-    public ScoreMeter score;
-    void Start()
+    public class ScoreMeterBar : MonoBehaviour
     {
+        public KeyBindingManager key;
+        public TMP_Text scoreText;
+        public ScoreMeter score;
+        void Start()
+        {
 
-    }
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        scoreText.text = "Score: " + Mathf.RoundToInt(score.GetScoreMeterValue());
+        // Update is called once per frame
+        void Update()
+        {
+            scoreText.text = "Score: " + Mathf.RoundToInt(score.GetScoreMeterValue());
+        }
     }
 }

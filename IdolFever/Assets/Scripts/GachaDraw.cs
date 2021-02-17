@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using IdolFever.UI;
 
-namespace IdolFever
+namespace IdolFever.UI
 {
     public class GachaDraw : MonoBehaviour
     {
