@@ -4,14 +4,13 @@ using UnityEngine;
 
 namespace IdolFever.Character
 {
-
     public static class CharacterFactory
     {
         public enum eCHARACTER
         {
 
             // rare
-            R_CHARACTER_BEGIN,
+            R_CHARACTER_BEGIN = 0,
             R_CHARACTER_GIRL0,
             R_CHARACTER_BOY0,
             R_CHARACTER_END,
@@ -27,8 +26,8 @@ namespace IdolFever.Character
             SSR_CHARACTER_GIRL0,
             SSR_CHARACTER_BOY0,
             SSR_CHARACTER_END,
-
         }
+
 
         public static CBaseCharacterStat CreateCharacter(eCHARACTER eCharToSpawn)
         {

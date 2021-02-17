@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace IdolFever.Beatmap
 {
@@ -47,8 +48,17 @@ namespace IdolFever.Beatmap
 
         public static BeatmapData Open(string fn)
         {
-            FileStream fs = File.OpenRead(fn);
-            BinaryReader br = new BinaryReader(fs);
+            BinaryReader br;
+            var uwr = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, fn));
+            uwr.SendWebRequest();
+            while (!uwr.isDone)
+            {
+                if (uwr.isNetworkError || uwr.isHttpError) return null;
+            }
+            byte[] mid = uwr.downloadHandler.data;
+            br = new BinaryReader(new MemoryStream(mid));
+
+
             List<MidiEvent> events = new List<MidiEvent>();
 
             br.ReadChars(4);
@@ -57,7 +67,7 @@ namespace IdolFever.Beatmap
             br.ReadUInt16();
             uint ppqn = (uint)(br.ReadByte() << 8 | br.ReadByte());
 
-            while(br.PeekChar() > 0)
+            while (br.PeekChar() > 0)
             {
                 br.ReadChars(4);
                 uint tlen = br.ReadUInt32();
@@ -102,7 +112,7 @@ namespace IdolFever.Beatmap
                                 if (br.ReadByte() == 0)
                                     ev.Add((code & 15u) | 0x80u);
                                 else ev.Add(code);
-                                ev.Add(note); 
+                                ev.Add(note);
                                 break;
                             case 10:
                             case 11:
@@ -141,12 +151,12 @@ namespace IdolFever.Beatmap
                             ev.Add(0xFF51);
                             ev.Add((uint)(br.ReadByte() << 16 | br.ReadByte() << 8 | br.ReadByte()));
                         }
-                        else if(fftype == 0x58)
+                        else if (fftype == 0x58)
                         {
                             br.ReadBytes(5);
                         }
                     }
-                    if(ev.Count > 0)
+                    if (ev.Count > 0)
                     {
                         events.Add(new MidiEvent(time, ev.ToArray()));
                     }
@@ -158,7 +168,7 @@ namespace IdolFever.Beatmap
             ulong usec = 0;
             ulong usecPerBeat = 500000;
             ulong[] holdBeats = new ulong[4];
-            foreach(MidiEvent m in events)
+            foreach (MidiEvent m in events)
             {
                 usec += ((m.tickPos - ltime) * usecPerBeat) / ppqn;
                 ltime = m.tickPos;
@@ -216,7 +226,7 @@ namespace IdolFever.Beatmap
                             break;
                     }
                 }
-                if(m.eventData[0] == 0xFF51)
+                if (m.eventData[0] == 0xFF51)
                 {
                     usecPerBeat = m.eventData[1];
                 }
