@@ -56,6 +56,7 @@ namespace IdolFever.Server
                     Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
                 }
             });
+
         }
 
         private void InitializeFirebase()
