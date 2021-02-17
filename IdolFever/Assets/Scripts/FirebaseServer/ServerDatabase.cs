@@ -20,7 +20,7 @@ namespace IdolFever.Server
         public const string DATABASE_ACHIEVEMENT = "ACHIEVEMENT";
         public const string DATABASE_ACHIEVEMENT_CLAIMED = "CLAIMED";
         public const string DATABASE_CHARACTER = "CHARACTER";
-        public const string DATABASE_CHARACTER_BONUS = "BONUS";
+        public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
 
         //Firebase variables
         [Header("Firebase")]
@@ -43,9 +43,16 @@ namespace IdolFever.Server
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
 
-            StartCoroutine(HasAchievementBeenClaimed("Wolf", (hasIt) =>
+            //StartCoroutine(HasAchievementBeenClaimed("Wolf", (hasIt) =>
+            //{
+            //    numberOfGems.text = hasIt.ToString();
+            //}))
+
+            //StartCoroutine(UpdateCharacters("boy", 1));
+
+            StartCoroutine(NumberOfCharacters("boy", (numberOfCharacters) =>
             {
-                numberOfGems.text = hasIt.ToString();
+                numberOfGems.text = numberOfCharacters.ToString() /*+ 1*/;
             }));
 
         }
@@ -161,11 +168,11 @@ namespace IdolFever.Server
             }
         }
 
-        public IEnumerator UpdateCharacters(string characterName, int bonus)
+        public IEnumerator UpdateCharacters(string characterName, int number)
         {
-            // update the value of the gem
+            // update the characters
             // will create here if it doesn't exist
-            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_GEM).SetValueAsync(gems);
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).Child(characterName).Child(DATABASE_CHARACTER_NUMBER).SetValueAsync(number);
 
             yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
@@ -173,6 +180,49 @@ namespace IdolFever.Server
             if (DBTask.Exception != null)
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+
+        }
+
+        public IEnumerator NumberOfCharacters(string characterName, System.Action<int> callbackOnFinish)
+        {
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Characters no result");
+                callbackOnFinish(0); // no character exists anyway so the character will be zero
+            }
+            else
+            {
+                // check if character name exists
+                DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).Child(characterName).GetValueAsync();
+
+                yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+                if (DBTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                }
+                else if (DBTask.Result.Value == null)
+                {
+                    Debug.Log("Character Name no result");
+                    callbackOnFinish(0); // none of the character anyway
+                }
+                else
+                {
+                    Debug.Log("Snapshot Number of Characters");
+                    DataSnapshot snapshot = DBTask.Result;
+
+                    callbackOnFinish(int.Parse(snapshot.Child(DATABASE_CHARACTER_NUMBER).Value.ToString()));
+                }
             }
         }
     }
