@@ -10,6 +10,9 @@ EditorBuildSettings:
     guid: 084dcc8b048d6ac40b627f766a0ab6d8
   - enabled: 1
     path: Assets/Scenes/IntroScene.unity
+    guid: 047b75f83858c1c429b03d6fd3766aac
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerLobbyScene.unity
     guid: e56e24e91c959134d8a9488a9647a69d
   - enabled: 1
     path: Assets/Scenes/GameplayScene.unity

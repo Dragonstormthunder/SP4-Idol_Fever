@@ -1,0 +1,78 @@
+﻿using ExitGames.Client.Photon;
+using Photon.Pun.UtilityScripts;
+using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+
+namespace IdolFever {
+    internal sealed class PlayerListEntry: MonoBehaviour {
+        #region Fields
+
+        private bool isPlayerReady;
+        private int ownerID;
+
+        [Header("UI Refs")]
+        [SerializeField] private Text PlayerNameText;
+        [SerializeField] private Image PlayerColorImage;
+        [SerializeField] private Button PlayerReadyButton;
+        [SerializeField] private Image PlayerReadyImage;
+
+        #endregion
+
+        #region Properties
+        #endregion
+
+        #region Unity User Callback Event Funcs
+
+        private void Start() {
+            if(PhotonNetwork.LocalPlayer.ActorNumber != ownerID) {
+                PlayerReadyButton.gameObject.SetActive(false);
+            } else {
+                Hashtable initialProps = new Hashtable() { { "IsPlayerReady", isPlayerReady }, { "PlayerLives", "PlayerMaxLives" } };
+                PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
+                PhotonNetwork.LocalPlayer.SetScore(0);
+
+                PlayerReadyButton.onClick.AddListener(() => {
+                    isPlayerReady = !isPlayerReady;
+                    SetPlayerReady(isPlayerReady);
+
+                    Hashtable props = new Hashtable() { { "IsPlayerReady", isPlayerReady } };
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+                    if(PhotonNetwork.IsMasterClient) {
+                        FindObjectOfType<PanelsControl>().LocalPlayerPropertiesUpdated();
+                    }
+                });
+            }
+        }
+
+        #endregion
+
+        public PlayerListEntry() {
+            PlayerNameText = null;
+            PlayerColorImage = null;
+            PlayerReadyButton = null;
+            PlayerReadyImage = null;
+        }
+
+        public void SetPlayerListEntryColors() {
+            int playerListArrLen = PhotonNetwork.PlayerList.Length;
+            for(int i = 0; i < playerListArrLen; ++i) {
+                if(PhotonNetwork.PlayerList[i].ActorNumber == ownerID) {
+                    PlayerColorImage.color = PlayerUniversal.Colors[i];
+                    break;
+                }
+            }
+        }
+
+        public void Initialize(int playerId, string playerName) {
+            ownerID = playerId;
+            PlayerNameText.text = playerName;
+        }
+
+        public void SetPlayerReady(bool playerReady) {
+            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Very Ready" : "Not Ready";
+            PlayerReadyImage.enabled = playerReady;
+        }
+    }
+}
