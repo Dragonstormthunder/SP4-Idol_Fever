@@ -15,6 +15,8 @@ namespace IdolFever.Game
         public Transform particleHolder;
         public GameObject notePrefab;
         public GameObject hitPrefab;
+        public ComboCounter comboCounter;
+        public ScoreMeter scoreMeter;
         private BeatmapData beatmap;
         private List<Note> notes;
         private AudioSource audio;
@@ -79,8 +81,8 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "PERFECT";
-                    ComboCounter.combo++;
-                    ScoreMeter.AddScore(600 + ComboCounter.combo * 20);
+                    comboCounter.combo++;
+                    scoreMeter.AddScore(600 + comboCounter.combo * 20);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -89,8 +91,8 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "GOOD";
-                    ComboCounter.combo++;
-                    ScoreMeter.AddScore(400 + ComboCounter.combo * 20);
+                    comboCounter.combo++;
+                    scoreMeter.AddScore(400 + comboCounter.combo * 20);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -99,7 +101,7 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "EH";
-                    ScoreMeter.AddScore(200);
+                    scoreMeter.AddScore(200);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -108,7 +110,7 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "MISS";
-                    ComboCounter.combo = 0;
+                    comboCounter.combo = 0;
                     Destroy(n.transform.gameObject);
                     return;
                 }

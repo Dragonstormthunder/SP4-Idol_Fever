@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ComboCounter : MonoBehaviour
 {
-    public static int combo;
+    public int combo;
     // Start is called before the first frame update
     void Start()
     {
