@@ -219,14 +219,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ToGameplay
       objectReference: {fileID: 0}
-    - target: {fileID: 5239899274174652846, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 7116070622610817754}
-    - target: {fileID: 5239899274174652846, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: img
-      value: 
-      objectReference: {fileID: 7116070622610817753}
     - target: {fileID: 7116070621157215984, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0.5
@@ -794,19 +786,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7116070622610817753 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2619886245081753766, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-  m_PrefabInstance: {fileID: 7116070622610817751}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!95 &7116070622610817754 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8087829042396576079, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-  m_PrefabInstance: {fileID: 7116070622610817751}
-  m_PrefabAsset: {fileID: 0}

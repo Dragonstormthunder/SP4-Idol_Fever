@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: IntroScene
   animator: {fileID: 757253348}
   img: {fileID: 757253347}
 --- !u!224 &64150161 stripped
@@ -1416,6 +1417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: MultiplayerLobbyScene
   animator: {fileID: 613611261}
   img: {fileID: 613611260}
 --- !u!4 &1319879199

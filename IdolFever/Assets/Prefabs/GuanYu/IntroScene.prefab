@@ -270,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: MainMenuScene
   animator: {fileID: 4031009993729829042}
   img: {fileID: 4309460074505289242}
 --- !u!1 &4836069775556731049
@@ -318,7 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4031009993729829042}
   img: {fileID: 4309460074505289242}
-  sceneName: MainMenu
+  sceneName: MainMenuScene
   startAnimName: CrossfadeStart
 --- !u!114 &8196220946122624691
 MonoBehaviour:

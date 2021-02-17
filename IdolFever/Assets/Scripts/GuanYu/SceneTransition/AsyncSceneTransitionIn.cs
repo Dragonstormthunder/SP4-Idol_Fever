@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IdolFever {
     internal sealed class AsyncSceneTransitionIn: MonoBehaviour {
         #region Fields
 
-        private static bool is1stScreen = true;
+        [SerializeField] private string sceneName;
         [SerializeField] private Animator animator;
         [SerializeField] private Image img;
 
@@ -17,10 +18,8 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            if(!is1stScreen) {
+            if(SceneTracker.prevSceneName == sceneName) {
                 animator.SetTrigger("End");
-            } else {
-                is1stScreen = false;
             }
 
             img.fillAmount = 100.0f;
@@ -29,6 +28,7 @@ namespace IdolFever {
         #endregion
 
         public AsyncSceneTransitionIn() {
+            sceneName = string.Empty;
             animator = null;
             img = null;
         }

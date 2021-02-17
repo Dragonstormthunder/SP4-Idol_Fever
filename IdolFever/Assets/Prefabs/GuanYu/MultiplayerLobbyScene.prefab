@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 8087829042396576079}
   img: {fileID: 2619886245081753766}
-  sceneName: MainMenu
+  sceneName: MainMenuScene
   startAnimName: CircleWipeStart
 --- !u!1 &2372231175374384876
 GameObject:
@@ -5007,8 +5007,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2722425652785485121}
-  img: {fileID: 153156422867180107}
+  sceneName: MainMenuScene
+  animator: {fileID: 8087829042396576079}
+  img: {fileID: 2619886245081753766}
 --- !u!1001 &1283811266856964182
 PrefabInstance:
   m_ObjectHideFlags: 0

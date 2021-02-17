@@ -51,6 +51,8 @@ namespace IdolFever {
                 UnityEngine.Assertions.Assert.IsTrue(false);
             }
 
+            SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
+
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
             while(!operation.isDone) {

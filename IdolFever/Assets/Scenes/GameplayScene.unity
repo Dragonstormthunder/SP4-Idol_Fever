@@ -604,6 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: MultiplayerLobbyScene
   animator: {fileID: 203299296}
   img: {fileID: 203299295}
 --- !u!1 &203186121
