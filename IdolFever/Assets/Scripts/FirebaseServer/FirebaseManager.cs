@@ -1,22 +1,23 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Auth;
+using Firebase.Database;
+using System.Linq;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 namespace IdolFever.Server
 {
-    using System.Collections;
-    using UnityEngine;
-    using Firebase;
-    using Firebase.Auth;
-    using TMPro;
-
     public class FirebaseManager : MonoBehaviour
     {
+
         //Firebase variables
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;
         public FirebaseAuth auth;
         public FirebaseUser User;
+        public DatabaseReference DBreference;
 
         //Login variables
         [Header("Login")]
@@ -35,6 +36,11 @@ namespace IdolFever.Server
 
         void Awake()
         {
+            Init();
+        }
+
+        private void Init()
+        {
             //Check that all of the necessary dependencies for Firebase are present on the system
             FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
             {
@@ -43,6 +49,7 @@ namespace IdolFever.Server
                 {
                     //If they are avalible Initialize Firebase
                     InitializeFirebase();
+                    
                 }
                 else
                 {
@@ -56,6 +63,7 @@ namespace IdolFever.Server
             Debug.Log("Setting up Firebase Auth");
             //Set the authentication instance object
             auth = FirebaseAuth.DefaultInstance;
+            DBreference = FirebaseDatabase.DefaultInstance.RootReference;
         }
 
         //Function for the login button
@@ -115,6 +123,10 @@ namespace IdolFever.Server
                 Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
                 warningLoginText.text = "";
                 confirmLoginText.text = "Logged In";
+
+                // change scene
+                SceneManager.LoadScene("MainMenu");
+
             }
         }
 
