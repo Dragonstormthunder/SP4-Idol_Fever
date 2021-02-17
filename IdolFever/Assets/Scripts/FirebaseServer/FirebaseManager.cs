@@ -12,6 +12,7 @@ namespace IdolFever.Server
     public class FirebaseManager : MonoBehaviour
     {
 
+
         //Firebase variables
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;
@@ -56,6 +57,7 @@ namespace IdolFever.Server
                     Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
                 }
             });
+
         }
 
         private void InitializeFirebase()

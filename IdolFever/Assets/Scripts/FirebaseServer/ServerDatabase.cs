@@ -14,12 +14,19 @@ namespace IdolFever.Server
     public class ServerDatabase : MonoBehaviour
     {
 
-        const string DATABASE_USERS = "users";
-        const string DATABASE_GEM = "GEM";
-        const string DATABASE_ACHIEVEMENT = "ACHIEVEMENT";
-        const string DATABASE_ACHIEVEMENT_CLAIMED = "CLAIMED";
-        const string DATABASE_CHARACTER = "CHARACTER";
-        const string DATABASE_CHARACTER_BONUS = "BONUS";
+        #region DATABASE_KEYS
+
+        // a dozen of keys
+        public const string DATABASE_USERS = "users";
+        public const string DATABASE_GEM = "GEM";
+        public const string DATABASE_ACHIEVEMENT = "ACHIEVEMENT";
+        public const string DATABASE_ACHIEVEMENT_CLAIMED = "CLAIMED";
+        public const string DATABASE_CHARACTER = "CHARACTER";
+        public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
+
+        #endregion
+
+        #region FIREBASE
 
         //Firebase variables
         [Header("Firebase")]
@@ -28,8 +35,7 @@ namespace IdolFever.Server
         public FirebaseUser User;
         public DatabaseReference DBreference;
 
-        [Header("UI")]
-        public TextMeshProUGUI numberOfGems;
+        #endregion
 
         void Awake()
         {
@@ -41,21 +47,8 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-
-            StartCoroutine(UpdateAchievements("Wolf", true));
-
-            // start a coroutine to get gems from the database
-            StartCoroutine(GetGems((gems) =>
-            {
-                numberOfGems.text = gems.ToString();
-            }));
-
-            StartCoroutine(HasAchievementBeenClaimed("Wolf", (hasIt) =>
-            {
-                numberOfGems.text = hasIt.ToString();
-            }));
-
         }
+
         public IEnumerator UpdateGems(int gems)
         {
             // update the value of the gem
@@ -69,7 +62,6 @@ namespace IdolFever.Server
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
             }
-
         }
 
         public IEnumerator GetGems(System.Action<int> callbackOnFinish)
@@ -90,6 +82,8 @@ namespace IdolFever.Server
             {
                 Debug.Log("Snapshot Gems");
                 DataSnapshot snapshot = DBTask.Result;
+
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_GEM))
                 {
@@ -120,6 +114,47 @@ namespace IdolFever.Server
             }
         }
 
+        public IEnumerator GrabAchievements(System.Action<List<string>> callbackOnFinish)
+        {
+            List<string> achievements = new List<string>();
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_ACHIEVEMENT).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(achievements);
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Achievement no result");
+                callbackOnFinish(achievements);
+            }
+            else
+            {
+                Debug.Log("Snapshot Achievement");
+                DataSnapshot snapshot = DBTask.Result;
+
+                // grab all the children of the achievement
+                List<DataSnapshot> snapshots = snapshot.Children.ToList();
+
+                // insert all the children into a list to return
+                for (int i = 0; i < snapshot.ChildrenCount; ++i)
+                {
+                    //string value = snapshots[i].Value.ToString();
+                    //string value = snapshots[i].Key;
+                    achievements.Add(snapshots[i].Key);
+                }
+
+
+                callbackOnFinish(achievements);
+
+            }
+
+        }
+
         public IEnumerator HasAchievement(string achievementName, System.Action<bool> callbackOnFinish)
         {
             var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_ACHIEVEMENT).GetValueAsync();
@@ -132,7 +167,7 @@ namespace IdolFever.Server
             }
             else if (DBTask.Result.Value == null)
             {
-                Debug.Log("Achievemtn no result");
+                Debug.Log("Achievement no result");
                 callbackOnFinish(false);
             }
             else
@@ -163,45 +198,69 @@ namespace IdolFever.Server
             {
                 Debug.Log("Snapshot Achievement");
                 DataSnapshot snapshot = DBTask.Result;
-                callbackOnFinish(bool.Parse(snapshot.Child(DATABASE_ACHIEVEMENT_CLAIMED).ToString()));
+
+                callbackOnFinish(bool.Parse(snapshot.Child(DATABASE_ACHIEVEMENT_CLAIMED).Value.ToString()));
             }
         }
 
+        public IEnumerator UpdateCharacters(string characterName, int number)
+        {
+            // update the characters
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).Child(characterName).Child(DATABASE_CHARACTER_NUMBER).SetValueAsync(number);
 
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+
+        }
+
+        public IEnumerator NumberOfCharacters(string characterName, System.Action<int> callbackOnFinish)
+        {
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Characters no result");
+                callbackOnFinish(0); // no character exists anyway so the character will be zero
+            }
+            else
+            {
+                // check if character name exists
+                DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).Child(characterName).GetValueAsync();
+
+                yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+                if (DBTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                }
+                else if (DBTask.Result.Value == null)
+                {
+                    Debug.Log("Character Name no result");
+                    callbackOnFinish(0); // none of the character anyway
+                }
+                else
+                {
+                    Debug.Log("Snapshot Number of Characters");
+                    DataSnapshot snapshot = DBTask.Result;
+
+                    callbackOnFinish(int.Parse(snapshot.Child(DATABASE_CHARACTER_NUMBER).Value.ToString()));
+                }
+            }
+        }
     }
-
-
-    //private IEnumerator CreateAchievementNewPlayer()
-    //{
-    //    // update the value of the gem
-    //    // will create here if it doesn't exist
-    //    var DBTask = DBreference.Child("DATABASE_USERS").Child(User.UserId).Child("Achievements").SetValueAsync(0);
-
-    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-    //    // error
-    //    if (DBTask.Exception != null)
-    //    {
-    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-    //    }
-
-    //}
-
-    //private IEnumerator CreateCharacterNewPlayer()
-    //{
-    //    // update the value of the gem
-    //    // will create here if it doesn't exist
-    //    var DBTask = DBreference.Child("DATABASE_USERS").Child(User.UserId).Child("Characters").SetValueAsync(0);
-
-    //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-    //    // error
-    //    if (DBTask.Exception != null)
-    //    {
-    //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-    //    }
-
-    //}
 
 }
 
