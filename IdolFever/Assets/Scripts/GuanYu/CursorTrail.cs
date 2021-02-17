@@ -12,6 +12,7 @@ namespace IdolFever {
         [SerializeField] private float startWidth;
         [SerializeField] private float endWidth;
         [SerializeField] private float trailTime;
+        [SerializeField] private GameObject parent;
 
         #endregion
 
@@ -29,8 +30,9 @@ namespace IdolFever {
         private void Start() {
             camComponent = GetComponent<Camera>();
 
-            GameObject trailGO = new GameObject("MousTrail");
+            GameObject trailGO = new GameObject("CursorTrail");
             trailTransform = trailGO.transform;
+            trailTransform.SetParent(parent.transform);
 
             TrailRenderer trail = trailGO.AddComponent<TrailRenderer>();
 
@@ -64,6 +66,7 @@ namespace IdolFever {
             startWidth = 0.7f;
             endWidth = 0.4f;
             trailTime = 0.24f;
+            parent = null;
         }
     }
 }

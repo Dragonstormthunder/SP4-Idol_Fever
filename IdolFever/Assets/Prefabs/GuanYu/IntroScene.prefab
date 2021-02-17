@@ -928,11 +928,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f38150038abd0684a8315accb43faea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trailColor: {r: 1, g: 0, b: 0.1218915, a: 1}
-  distFromCam: 5
-  startWidth: 0.7
-  endWidth: 0.4
-  trailTime: 0.24
+  trailColor: {r: 1, g: 0.3667643, b: 0, a: 1}
+  distFromCam: 4
+  startWidth: 0.4
+  endWidth: 0.2
+  trailTime: 0.4
+  parent: {fileID: 8212258301821528598}
 --- !u!1 &8212258302321262019
 GameObject:
   m_ObjectHideFlags: 0
