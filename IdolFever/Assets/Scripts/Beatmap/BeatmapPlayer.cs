@@ -24,7 +24,7 @@ namespace IdolFever.Game
         private ulong usec;
         void Start()
         {
-            beatmap = BeatmapReader.Open("MountainKing.mid");
+            beatmap = BeatmapReader.Open("OriginalSong1.mid");
             audio = GetComponent<AudioSource>();
             audio.Play();
             beatIndex = 0;
