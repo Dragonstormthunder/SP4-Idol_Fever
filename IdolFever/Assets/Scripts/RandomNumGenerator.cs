@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using IdolFever.Character;
 using IdolFever.UI;
+
 public class RandomNumGenerator : MonoBehaviour
 {
     public int rand;
@@ -32,17 +33,16 @@ public class RandomNumGenerator : MonoBehaviour
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                 Debug.Log("You got " + c.ToString());
                 StaticDataStorage.R_Girl = true;
-
-                //DrawR_Girl();
             }
             if (rand2 >= 0.51)
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.R_Boy = true;
             }
 
         }
-        else if (rand <= 15 && rand > 5)//sr above 20
+        else if (rand <= 15 && rand > 5)//sr above 15
         {
             float rand2 = UnityEngine.Random.Range(0f, 1f);
             //g/b
@@ -50,11 +50,13 @@ public class RandomNumGenerator : MonoBehaviour
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.SR_Girl = true;
             }
             if (rand2 >= 0.51)
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.SR_Boy = true;
             }
         }
         else if (rand <= 5)//ssr
@@ -65,29 +67,15 @@ public class RandomNumGenerator : MonoBehaviour
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.SSR_Girl = true;
             }
             if (rand2 >= 0.51)
             {
                 CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
                 Debug.Log("You got " + c.ToString());
+                StaticDataStorage.SSR_Boy = true;
             }
         }
-    }
-
-    //public bool GetR_Girl()
-    //{
-    //    return RGirl;
-    //}
-
-    //public void SetR_Girl(bool r_girl)
-    //{
-    //    RGirl = r_girl;
-    //}
-
-    public void DrawR_Girl()
-    {
-        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
-        Debug.Log("You got " + c.ToString());
     }
 
     // Update is called once per frame
