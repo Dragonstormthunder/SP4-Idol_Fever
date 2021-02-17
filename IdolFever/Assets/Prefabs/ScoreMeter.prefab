@@ -178,6 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: {fileID: 0}
   scoreText: {fileID: 920262656956509557}
+  score: {fileID: 920262656168030728}
 --- !u!1 &920262656651993291
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,3 +442,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   key: {fileID: 0}
   scoreText: {fileID: 920262656956509557}
+  score: {fileID: 920262656168030728}
