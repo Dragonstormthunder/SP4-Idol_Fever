@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
@@ -25,6 +26,8 @@ namespace IdolFever.Game
         void Start()
         {
             beatmap = BeatmapReader.Open("OriginalSong1.mid");
+            int n = beatmap.beats.Count;
+            scoreMeter.maxscore = n * n * 10 + n * 610;
             audio = GetComponent<AudioSource>();
             audio.Play();
             beatIndex = 0;
@@ -82,7 +85,7 @@ namespace IdolFever.Game
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "PERFECT";
                     comboCounter.combo++;
-                    scoreMeter.AddScore(600 + comboCounter.combo * 20);
+                    scoreMeter.AddScore(600 + comboCounter.combo * 10);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -92,7 +95,7 @@ namespace IdolFever.Game
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.GetComponent<Text>().text = "GOOD";
                     comboCounter.combo++;
-                    scoreMeter.AddScore(400 + comboCounter.combo * 20);
+                    scoreMeter.AddScore(400 + comboCounter.combo * 10);
                     Destroy(n.transform.gameObject);
                     return;
                 }
