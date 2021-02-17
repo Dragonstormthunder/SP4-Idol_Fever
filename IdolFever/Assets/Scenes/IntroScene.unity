@@ -143,7 +143,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1618025865683076324, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
       propertyPath: sceneName
-      value: MultiplayerLobbyScene
+      value: LoginScreen
       objectReference: {fileID: 0}
     - target: {fileID: 6069301276605715353, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
       propertyPath: asyncSceneTransition

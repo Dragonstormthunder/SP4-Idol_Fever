@@ -14,6 +14,8 @@ namespace IdolFever.Server
     public class ServerDatabase : MonoBehaviour
     {
 
+        #region DATABASE_KEYS
+
         // a dozen of keys
         public const string DATABASE_USERS = "users";
         public const string DATABASE_GEM = "GEM";
@@ -22,12 +24,18 @@ namespace IdolFever.Server
         public const string DATABASE_CHARACTER = "CHARACTER";
         public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
 
+        #endregion
+
+        #region FIREBASE
+
         //Firebase variables
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;
         public FirebaseAuth auth;
         public FirebaseUser User;
         public DatabaseReference DBreference;
+
+        #endregion
 
         [Header("UI")]
         public TextMeshProUGUI numberOfGems;
