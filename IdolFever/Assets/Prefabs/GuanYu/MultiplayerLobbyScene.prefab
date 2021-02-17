@@ -93,6 +93,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponent: {fileID: 152494942331587599}
+--- !u!1 &904743309598839546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5151536825247763438}
+  - component: {fileID: 3032600289366894943}
+  m_Layer: 0
+  m_Name: ToIntroScene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5151536825247763438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904743309598839546}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7116070622055851847}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3032600289366894943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904743309598839546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2722425652785485121}
+  img: {fileID: 153156422867180107}
+  sceneName: IntroScene
+  startAnimName: CurtainTransitionStart
 --- !u!1 &2372231175374384876
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +278,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4627948464355860256}
-  - component: {fileID: 4752015361984015654}
+  - component: {fileID: 3486167296162699038}
   m_Layer: 0
   m_Name: ToGameplayScene
   m_TagString: Untagged
@@ -251,9 +298,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7116070622055851847}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4752015361984015654
+--- !u!114 &3486167296162699038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -262,7 +309,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4750921892662860601}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf113462d8029345a1ed9dc990c126e, type: 3}
+  m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2722425652785485121}
@@ -1116,7 +1163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: GameplayScene
-  asyncSceneTransitionScript: {fileID: 4752015361984015654}
+  asyncSceneTransitionOutScript: {fileID: 3486167296162699038}
   LoginPanel: {fileID: 7116070622736539274}
   PlayerNameInput: {fileID: 7116070622368261721}
   SelectionPanel: {fileID: 7116070621931508252}
@@ -2005,6 +2052,7 @@ Transform:
   m_Children:
   - {fileID: 2372231175374384875}
   - {fileID: 3028286258495055918}
+  - {fileID: 5151536825247763438}
   - {fileID: 4627948464355860256}
   - {fileID: 7116070622312023292}
   m_Father: {fileID: 0}
@@ -2391,7 +2439,7 @@ RectTransform:
   - {fileID: 152494942331587696}
   - {fileID: 9098397813404157883}
   m_Father: {fileID: 7116070622055851847}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4924,9 +4972,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3028286258495055918}
-  - component: {fileID: 7308450231530965592}
+  - component: {fileID: 5239899274174652846}
   m_Layer: 0
-  m_Name: ToIntroScene
+  m_Name: FromIntroScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4946,7 +4994,7 @@ Transform:
   m_Father: {fileID: 7116070622055851847}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7308450231530965592
+--- !u!114 &5239899274174652846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4955,13 +5003,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8607047174007286617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf113462d8029345a1ed9dc990c126e, type: 3}
+  m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2722425652785485121}
   img: {fileID: 153156422867180107}
-  sceneName: IntroScene
-  startAnimName: CurtainTransitionStart
 --- !u!1 &8729420633601147272
 GameObject:
   m_ObjectHideFlags: 0
@@ -5082,7 +5128,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7308450231530965592}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IdolFever.AsynchronousSceneTransition, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 1

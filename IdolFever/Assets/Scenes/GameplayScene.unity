@@ -601,13 +601,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 179373571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf113462d8029345a1ed9dc990c126e, type: 3}
+  m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 203299296}
   img: {fileID: 203299295}
-  sceneName: wrong
-  startAnimName: CurtainTransitionStart
 --- !u!1 &203186121
 GameObject:
   m_ObjectHideFlags: 0

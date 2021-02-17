@@ -755,5 +755,30 @@ PrefabInstance:
       propertyPath: m_Text
       value: Enter Room Name
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7116070622610817752}
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7308450231530965592, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+    - {fileID: 4752015361984015654, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+--- !u!114 &7116070622610817752 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3032600289366894943, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+  m_PrefabInstance: {fileID: 7116070622610817751}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
