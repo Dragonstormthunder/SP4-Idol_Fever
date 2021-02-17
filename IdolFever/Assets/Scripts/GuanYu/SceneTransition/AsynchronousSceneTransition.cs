@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace IdolFever {
     internal sealed class AsynchronousSceneTransition: MonoBehaviour {
@@ -7,6 +8,7 @@ namespace IdolFever {
 
         private static bool is1stScreen = true;
         [SerializeField] private Animator animator;
+        [SerializeField] private Image img;
         [SerializeField] private string sceneName;
         [SerializeField] private string startAnimName;
 
@@ -14,9 +16,13 @@ namespace IdolFever {
 
         #region Properties
 
-        public float ProgressVal {
-            get;
-            set;
+        public string SceneName {
+            get {
+                return sceneName;
+            }
+            private set { //Not used
+                sceneName = value;
+            }
         }
         
         #endregion
@@ -29,6 +35,8 @@ namespace IdolFever {
             } else {
                 is1stScreen = false;
             }
+
+            img.fillAmount = 100.0f;
         }
 
         #endregion
@@ -38,7 +46,7 @@ namespace IdolFever {
         }
 
         private System.Collections.IEnumerator MyStartCoroutine(string sceneName) {
-            ProgressVal = 0.0f;
+            img.fillAmount = 0.0f;
 
             animator.SetTrigger("Start");
 
@@ -58,15 +66,14 @@ namespace IdolFever {
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 
             while(!operation.isDone) {
-                ProgressVal = Mathf.Clamp01(operation.progress / 0.9f);
-
+                img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
                 yield return null;
             }
         }
 
         public AsynchronousSceneTransition() {
-            ProgressVal = 100.0f;
             animator = null;
+            img = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
         }
