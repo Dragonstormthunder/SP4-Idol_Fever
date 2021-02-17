@@ -37,9 +37,6 @@ namespace IdolFever.Server
 
         #endregion
 
-        [Header("UI")]
-        public TextMeshProUGUI numberOfGems;
-
         void Awake()
         {
             Init();

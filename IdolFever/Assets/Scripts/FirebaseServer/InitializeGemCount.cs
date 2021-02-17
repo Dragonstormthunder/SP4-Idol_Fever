@@ -18,6 +18,7 @@ namespace IdolFever.Server
         // Start is called before the first frame update
         void Start()
         {
+            // update the number of gems
             StartCoroutine(serverDatabase.GetGems((gems) =>
             {
                 numberOfGemsText.text = gems.ToString();
