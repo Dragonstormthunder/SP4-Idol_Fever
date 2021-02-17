@@ -42,19 +42,6 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-
-            //StartCoroutine(HasAchievementBeenClaimed("Wolf", (hasIt) =>
-            //{
-            //    numberOfGems.text = hasIt.ToString();
-            //}))
-
-            //StartCoroutine(UpdateCharacters("boy", 1));
-
-            StartCoroutine(NumberOfCharacters("boy", (numberOfCharacters) =>
-            {
-                numberOfGems.text = numberOfCharacters.ToString() /*+ 1*/;
-            }));
-
         }
 
         public IEnumerator UpdateGems(int gems)
