@@ -173,6 +173,9 @@ namespace IdolFever.Server
                         case AuthError.EmailAlreadyInUse:
                             message = "Email Already In Use";
                             break;
+                        case AuthError.InvalidEmail:
+                            message = "Email Invalid";
+                            break;
                     }
                     warningRegisterText.text = message;
                 }
