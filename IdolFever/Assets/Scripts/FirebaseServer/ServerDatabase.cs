@@ -83,6 +83,8 @@ namespace IdolFever.Server
                 Debug.Log("Snapshot Gems");
                 DataSnapshot snapshot = DBTask.Result;
 
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+
                 if (snapshot.HasChild(DATABASE_GEM))
                 {
                     Debug.Log("Able to access data");
@@ -110,6 +112,47 @@ namespace IdolFever.Server
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
             }
+        }
+
+        public IEnumerator GrabAchievements(System.Action<List<string>> callbackOnFinish)
+        {
+            List<string> achievements = new List<string>();
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_ACHIEVEMENT).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(achievements);
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Achievement no result");
+                callbackOnFinish(achievements);
+            }
+            else
+            {
+                Debug.Log("Snapshot Achievement");
+                DataSnapshot snapshot = DBTask.Result;
+
+                // grab all the children of the achievement
+                List<DataSnapshot> snapshots = snapshot.Children.ToList();
+
+                // insert all the children into a list to return
+                for (int i = 0; i < snapshot.ChildrenCount; ++i)
+                {
+                    //string value = snapshots[i].Value.ToString();
+                    //string value = snapshots[i].Key;
+                    achievements.Add(snapshots[i].Key);
+                }
+
+
+                callbackOnFinish(achievements);
+
+            }
+
         }
 
         public IEnumerator HasAchievement(string achievementName, System.Action<bool> callbackOnFinish)
