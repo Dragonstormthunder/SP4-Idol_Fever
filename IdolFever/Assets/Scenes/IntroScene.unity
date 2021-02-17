@@ -130,14 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1618025865683076324, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
-      propertyPath: sceneName
-      value: LoginScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 6069301276605715353, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
-      propertyPath: asyncSceneTransition
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8212258301821528598, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
       propertyPath: m_Name
       value: IntroScene
@@ -186,6 +178,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5761823128638107748, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f7964cddcd638b41884881b8ff5c84a, type: 3}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace IdolFever {
-    internal sealed class IntroToMultiplayerLobbyTrigger: MonoBehaviour {
+    internal sealed class SingleTapSceneTransitionTrigger: MonoBehaviour {
         #region Fields
 
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
@@ -21,7 +21,7 @@ namespace IdolFever {
 
         #endregion
 
-        public IntroToMultiplayerLobbyTrigger() {
+        public SingleTapSceneTransitionTrigger() {
             asyncSceneTransitionOutScript = null;
         }
     }
