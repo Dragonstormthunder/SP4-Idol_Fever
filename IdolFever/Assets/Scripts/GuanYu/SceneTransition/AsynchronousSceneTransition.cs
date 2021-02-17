@@ -1,5 +1,4 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace IdolFever {
@@ -32,13 +31,11 @@ namespace IdolFever {
             }
         }
 
-	    private void Update() {
-            if(Input.GetKeyDown(KeyCode.Space)) {
-                _ = StartCoroutine(MyStartCoroutine(sceneName));
-            }
-	    }
-
         #endregion
+
+        public void ChangeScene() {
+            _ = StartCoroutine(MyStartCoroutine(sceneName));
+        }
 
         private System.Collections.IEnumerator MyStartCoroutine(string sceneName) {
             ProgressVal = 0.0f;
