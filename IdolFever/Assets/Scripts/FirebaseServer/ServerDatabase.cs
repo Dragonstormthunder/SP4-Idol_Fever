@@ -356,7 +356,6 @@ namespace IdolFever.Server
 
                 }
 
-
                 callbackOnFinish(characters);
 
             }

@@ -127,7 +127,7 @@ namespace IdolFever.Server
                 confirmLoginText.text = "Logged In";
 
                 // change scene
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("MainMenuScene");
 
             }
         }

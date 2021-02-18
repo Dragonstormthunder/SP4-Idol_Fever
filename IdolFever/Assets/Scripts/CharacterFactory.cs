@@ -26,6 +26,8 @@ namespace IdolFever.Character
             SSR_CHARACTER_GIRL0,
             SSR_CHARACTER_BOY0,
             SSR_CHARACTER_END,
+
+            NUM_CHARACTER
         }
 
 
