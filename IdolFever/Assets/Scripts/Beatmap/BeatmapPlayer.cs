@@ -20,7 +20,7 @@ namespace IdolFever.Game
         public ScoreMeter scoreMeter;
         private BeatmapData beatmap;
         private List<Note> notes;
-        private AudioSource audio;
+        public AudioSource audio;
         private int beatIndex;
         private ulong usec;
         void Start()
@@ -28,7 +28,6 @@ namespace IdolFever.Game
             beatmap = BeatmapReader.Open("Wellerman.mid");
             int n = beatmap.beats.Count;
             scoreMeter.maxscore = n * n * 10 + n * 610;
-            audio = GetComponent<AudioSource>();
             audio.Play();
             beatIndex = 0;
             notes = new List<Note>();
