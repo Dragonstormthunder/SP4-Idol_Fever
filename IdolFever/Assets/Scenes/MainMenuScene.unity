@@ -331,9 +331,9 @@ RectTransform:
   - {fileID: 478354499}
   - {fileID: 64150161}
   - {fileID: 497456694}
+  - {fileID: 3672742379555628395}
   - {fileID: 757253346}
   - {fileID: 613611259}
-  - {fileID: 3672742379555628395}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -456,10 +456,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: AchievementScene
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
 --- !u!224 &478354499 stripped
@@ -569,10 +565,6 @@ PrefabInstance:
     - target: {fileID: 2531798546898573878, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_Pivot.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: DrawScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
@@ -783,7 +775,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056223770016868629, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7056223770016868629, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -948,7 +940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1374412116695048149, guid: ee532b44c7fcf8c4d96a88fa31a2cb36, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1374412116695048149, guid: ee532b44c7fcf8c4d96a88fa31a2cb36, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1247,24 +1239,20 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: OptionsScene
-      objectReference: {fileID: 0}
     - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 106476789}
+      objectReference: {fileID: 0}
     - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: ClickChangeScene
       objectReference: {fileID: 0}
     - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
+      value: IdolFever.UI.ButtonSwitchScene, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
 --- !u!224 &1090841992 stripped
 RectTransform:
@@ -1449,10 +1437,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: GameplayScene
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
 --- !u!224 &1315102156 stripped
@@ -1609,10 +1593,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: CharacterStorageScene
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
 --- !u!224 &1590732710 stripped
@@ -1745,7 +1725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531798545940496703, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_fontSize
-      value: 20.75
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2531798546898573877, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_Name
@@ -1801,7 +1781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2531798546898573878, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 420
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2531798546898573878, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1835,28 +1815,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: defaultChangeSceneName
-      value: GameplayScene
-      objectReference: {fileID: 0}
     - target: {fileID: 2531798547152301236, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -171
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 507868956}
-    - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
-      objectReference: {fileID: 0}
-    - target: {fileID: 2531798547152301237, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2531798547152301232, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 390f3cba0aef31f449e3e779a135dd73, type: 3}
 --- !u!224 &1820577099 stripped
 RectTransform:
@@ -2005,7 +1972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3690142284406439830, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3690142284406439830, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
