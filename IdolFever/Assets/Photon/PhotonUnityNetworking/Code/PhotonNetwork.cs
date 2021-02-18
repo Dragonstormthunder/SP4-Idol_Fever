@@ -3223,5 +3223,22 @@ namespace Photon.Pun
 
         #endif
 
+        //* Added by Ling Guan Yu (14:00 17/2/2021)
+        public static void LoadLvlPrep(string levelName)
+        {
+            if (PhotonHandler.AppQuits)
+            {
+                return;
+            }
+
+            if (PhotonNetwork.AutomaticallySyncScene)
+            {
+                SetLevelInPropsIfSynced(levelName);
+            }
+
+            PhotonNetwork.IsMessageQueueRunning = false;
+            loadingLevelAndPausedNetwork = true;
+        }
+        //*/
     }
 }
