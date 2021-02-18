@@ -206,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 153156424599224208, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: asyncSceneTransition
       value: 
-      objectReference: {fileID: 7116070622610817752}
+      objectReference: {fileID: 0}
     - target: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: startAnimName
       value: CurtainTransitionStart
@@ -214,6 +214,10 @@ PrefabInstance:
     - target: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: sceneName
       value: IntroScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750921892662860601, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_Name
+      value: ToGameplay
       objectReference: {fileID: 0}
     - target: {fileID: 7116070621157215984, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: m_AnchorMin.y
@@ -424,16 +428,8 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7116070621928810134, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 7116070621928810134, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 70
-      objectReference: {fileID: 0}
-    - target: {fileID: 7116070621928810134, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 80
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7116070621931508252, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
       propertyPath: m_IsActive
@@ -763,16 +759,30 @@ PrefabInstance:
       propertyPath: m_Text
       value: Enter Room Name
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 7116070622610817752}
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563044992495787353, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7308450231530965592, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+    - {fileID: 4752015361984015654, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
 --- !u!114 &7116070622610817752 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4642650868226304237, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3032600289366894943, guid: 4b42be040aa7f2a4a89d9cfd016ba79e, type: 3}
   m_PrefabInstance: {fileID: 7116070622610817751}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf113462d8029345a1ed9dc990c126e, type: 3}
+  m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

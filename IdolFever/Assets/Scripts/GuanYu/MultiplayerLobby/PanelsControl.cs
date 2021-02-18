@@ -16,6 +16,7 @@ namespace IdolFever {
         private Dictionary<int, GameObject> playerListEntries;
 
         [SerializeField] private string sceneName;
+        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
 
         [Header("Login")]
         [SerializeField] private GameObject LoginPanel;
@@ -66,6 +67,7 @@ namespace IdolFever {
             playerListEntries = null;
 
             sceneName = string.Empty;
+            asyncSceneTransitionOutScript = null;
 
             LoginPanel = null;
             PlayerNameInput = null;
@@ -284,7 +286,8 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLevel(sceneName);
+            PhotonNetwork.LoadLvlPrep(asyncSceneTransitionOutScript.SceneName);
+            asyncSceneTransitionOutScript.ChangeScene();
         }
 
         #endregion
