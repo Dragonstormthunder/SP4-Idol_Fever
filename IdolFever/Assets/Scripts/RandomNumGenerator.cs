@@ -6,10 +6,17 @@ using IdolFever.UI;
 
 namespace IdolFever
 {
-
     public class RandomNumGenerator : MonoBehaviour
     {
-        public int rand;
+        [Range(0f, 100f)]
+        public float RCard;
+        [Range(0f, 100f)]
+        public float SRCard;
+        [Range(0f, 100f)]
+        public float SSRCard;
+        public float rand;
+
+        public int[] RandTen;
 
         // Start is called before the first frame update
         void Start()
@@ -19,15 +26,27 @@ namespace IdolFever
 
         public void PressRandButton()
         {
-            rand = UnityEngine.Random.Range(0, 100);
+            rand = UnityEngine.Random.Range(0f, 100f);
             Debug.Log("rand:" + rand);
+
+            CharDrawn();
+        }
+
+        public void PressTenRandButton()
+        {
+            for (int i = 0; i <= 10; ++i)
+            {
+                rand = UnityEngine.Random.Range(0, 100);
+                Debug.Log("rand:" + rand);
+                StaticDataStorage.TenDraw = true;
+            }
 
             CharDrawn();
         }
 
         public void CharDrawn()
         {
-            if (rand >= 16)//r - above 16
+            if (rand <= RCard)//r - above 16
             {
                 float rand2 = UnityEngine.Random.Range(0f, 1f);
                 //g/b
@@ -45,7 +64,8 @@ namespace IdolFever
                 }
 
             }
-            else if (rand <= 15 && rand > 5)//sr above 15
+            //else if (rand <= RCard && rand > SRCard)//sr above 15
+            else if (rand < SRCard)//sr above 15
             {
                 float rand2 = UnityEngine.Random.Range(0f, 1f);
                 //g/b
@@ -62,7 +82,7 @@ namespace IdolFever
                     StaticDataStorage.SR_Boy = true;
                 }
             }
-            else if (rand <= 5)//ssr
+            else if (rand <= SRCard)//ssr
             {
                 float rand2 = UnityEngine.Random.Range(0f, 1f);
                 //g/b

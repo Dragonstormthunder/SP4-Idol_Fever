@@ -7,8 +7,11 @@ namespace IdolFever.UI
 {
     public class GachaDraw : MonoBehaviour
     {
+        private bool pressed = false;
+
         // Reference to the Prefab. Drag a Prefab into this field in the Inspector.
         public GameObject R_imageGirlPrefab;
+        private GameObject R_GirlPrefab;
         private bool Spawned_RGirl;
 
         public GameObject R_imageBoyPrefab;
@@ -40,10 +43,23 @@ namespace IdolFever.UI
         // Update is called once per frame
         void Update()
         {
+            if(pressed==true)
+            {
+                Card_true();
+            }
+        }
+
+        public void isPressBtn()
+        {
+            pressed = true;
+        }
+        public void Card_true()
+        {
             if (StaticDataStorage.R_Girl == true && Spawned_RGirl == false)
             {
                 Spawned_RGirl = true;
-                Instantiate(R_imageGirlPrefab, new Vector3(450, 209, 0), Quaternion.identity);
+       
+                R_GirlPrefab = Instantiate(R_imageGirlPrefab, new Vector3(450, 209, 0), Quaternion.identity);
                 Debug.Log("Spawned R Girl");
             }
             else if (StaticDataStorage.R_Boy == true && Spawned_RBoy == false)
@@ -84,33 +100,34 @@ namespace IdolFever.UI
             {
                 Spawned_RGirl = false;
                 StaticDataStorage.R_Girl = false;
+                Destroy(R_GirlPrefab);
                 Debug.Log("DeSpawned R Girl");
             }
-            if (StaticDataStorage.R_Boy == true && Spawned_RBoy == true)
+            else if (StaticDataStorage.R_Boy == true && Spawned_RBoy == true)
             {
                 Spawned_RBoy = false;
                 StaticDataStorage.R_Boy = false;
                 Debug.Log("DeSpawned R Boy");
             }
-            if (StaticDataStorage.SR_Girl == true && Spawned_SRGirl == true)
+            else if (StaticDataStorage.SR_Girl == true && Spawned_SRGirl == true)
             {
                 Spawned_SRGirl = false;
                 StaticDataStorage.SR_Girl = false;
                 Debug.Log("DeSpawned SR Girl");
             }
-            if (StaticDataStorage.SR_Boy == true && Spawned_SRBoy == true)
+            else if (StaticDataStorage.SR_Boy == true && Spawned_SRBoy == true)
             {
                 Spawned_SRBoy = false;
                 StaticDataStorage.SR_Boy = false;
                 Debug.Log("DeSpawned SR Boy");
             }
-            if (StaticDataStorage.SSR_Girl == true && Spawned_SSRGirl == true)
+            else if (StaticDataStorage.SSR_Girl == true && Spawned_SSRGirl == true)
             {
                 Spawned_SSRGirl = false;
                 StaticDataStorage.SSR_Girl = false;
                 Debug.Log("DeSpawned SSR Girl");
             }
-            if (StaticDataStorage.SSR_Boy == true && Spawned_SSRBoy == true)
+            else if (StaticDataStorage.SSR_Boy == true && Spawned_SSRBoy == true)
             {
                 Spawned_RBoy = false;
                 StaticDataStorage.SSR_Boy = false;
