@@ -23,4 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
     guid: 98efc37d6307844488eb3e4247dde7e9
+  - enabled: 1
+    path: Assets/Scenes/GachaScene.unity
+    guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
+  - enabled: 1
+    path: Assets/Scenes/AchievementScene.unity
+    guid: 3ff11fe3b84464f43b1eaf1049b374a6
+  - enabled: 1
+    path: Assets/Scenes/DrawScene.unity
+    guid: 26bb3b7f2ab2d7c43a81acd647187ca3
   m_configObjects: {}
