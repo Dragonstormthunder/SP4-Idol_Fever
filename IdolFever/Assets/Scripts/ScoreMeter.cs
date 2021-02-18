@@ -1,12 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using IdolFever;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ScoreMeter : MonoBehaviour
 {
     private Image scoreMeterImg;
-    private float score, maxscore;
+    private float score;
+    public float maxscore;
 
     /// Sets the health bar value
     /// value should be between 0 to 1</param>
@@ -14,18 +16,12 @@ public class ScoreMeter : MonoBehaviour
     {
         score = value;
         scoreMeterImg.fillAmount = score / maxscore;
-        if (scoreMeterImg.fillAmount < 0.2f)
-        {
-            SetScoreMeterColor(Color.red);
+
+        float factor = scoreMeterImg.fillAmount * 0.5f + 0.8f;
+        if(factor > 1.0f) {
+            factor -= 1.0f;
         }
-        else if (scoreMeterImg.fillAmount < 0.4f)
-        {
-            SetScoreMeterColor(Color.yellow);
-        }
-        else if ((scoreMeterImg.fillAmount > 0.8f) && (scoreMeterImg.fillAmount <= 1f))
-        {
-            SetScoreMeterColor(Color.green);
-        }
+        SetScoreMeterColor(Color.HSVToRGB(factor, 1.0f, 1.0f));
     }
 
     public float GetScoreMeterValue()
@@ -36,6 +32,16 @@ public class ScoreMeter : MonoBehaviour
     public void AddScore(float a)
     {
         SetScoreMeterValue(score + a);
+        
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+            Receivers = ReceiverGroup.Others
+        };
+        PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SetScoreEvent,
+            score, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+    }
+
+    public void SetScore(float score) {
+        SetScoreMeterValue(score);
     }
 
     public void SetScoreMeterColor(Color healthColor)
@@ -47,6 +53,5 @@ public class ScoreMeter : MonoBehaviour
     {
         scoreMeterImg = GetComponent<Image>();
         score = 0;
-        maxscore = 1000000;
     }
 }

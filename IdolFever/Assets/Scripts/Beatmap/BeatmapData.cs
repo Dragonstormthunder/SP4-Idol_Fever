@@ -12,12 +12,14 @@ namespace IdolFever.Beatmap
     {
         public ulong timestamp, length;
         public NoteKey key;
+        public bool down;
 
-        public BeatmapEvent(ulong time, ulong len, NoteKey k)
+        public BeatmapEvent(ulong time, ulong len, NoteKey k, bool d = true)
         {
             timestamp = time;
             length = len;
             key = k;
+            down = d;
         }
 
         public static int CompareTime(BeatmapEvent x, BeatmapEvent y)
