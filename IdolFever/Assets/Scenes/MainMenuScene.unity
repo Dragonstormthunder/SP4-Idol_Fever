@@ -221,6 +221,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279003695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3939345243040276275, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
+  m_PrefabInstance: {fileID: 3672742379555628394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &306481197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1956,6 +1967,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 306481201}
     m_Modifications:
+    - target: {fileID: 1159777314253374756, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
+      propertyPath: m_Name
+      value: EnergyText
+      objectReference: {fileID: 0}
     - target: {fileID: 3041170089448507849, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
       propertyPath: m_text
       value: 'Energy:'
@@ -2056,11 +2071,24 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3872417692213552555, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
+      propertyPath: serverDatabase
+      value: 
+      objectReference: {fileID: 471904613}
+    - target: {fileID: 4301023822512179288, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
+      propertyPath: energyText
+      value: 
+      objectReference: {fileID: 279003695}
+    - target: {fileID: 4301023822512179288, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
+      propertyPath: serverDatabase
+      value: 
+      objectReference: {fileID: 471904613}
     - target: {fileID: 6788448038665222506, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
       propertyPath: m_Name
       value: FireBaseEnergy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3872417692213552555, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9608b40f5c4b0eb45a0ab755ac97bd27, type: 3}
 --- !u!224 &3672742379555628395 stripped
 RectTransform:
