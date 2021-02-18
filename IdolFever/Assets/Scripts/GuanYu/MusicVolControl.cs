@@ -11,9 +11,8 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            AudioSource[] audioSrcs = FindObjectsOfType<AudioSource>();
-            foreach(AudioSource audioSrc in audioSrcs) {
-                audioSrc.volume = Options.MusicVol;
+            foreach(Transform child in transform) {
+                child.GetComponent<AudioSource>().volume = Options.MusicVol;
             }
         }
 
