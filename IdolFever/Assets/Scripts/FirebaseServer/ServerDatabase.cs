@@ -310,6 +310,59 @@ namespace IdolFever.Server
                 }
             }
         }
+
+        public IEnumerator GrabCharacters(System.Action<List<KeyValuePair<string, int>>> callbackOnFinish)
+        {
+            List<KeyValuePair<string, int>> characters = new List<KeyValuePair<string, int>>();
+
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(characters);
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Character no result");
+                callbackOnFinish(characters);
+            }
+            else
+            {
+                Debug.Log("Snapshot Grab Characters");
+                DataSnapshot snapshot = DBTask.Result;
+
+                // grab all the children of the achievement
+                List<DataSnapshot> snapshots = snapshot.Children.ToList();
+
+
+                // insert all the children into a list to return
+                for (int i = 0; i < snapshot.ChildrenCount; ++i)
+                {
+                    Debug.Log("Snapshot Key: " + snapshots[i].Key);
+
+                    string name = snapshots[i].Key;
+
+                    Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
+
+                    int value = int.Parse(snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
+
+                    KeyValuePair<string, int> retrievedCharacter = new KeyValuePair<string, int>(name, value);
+
+                    characters.Add(retrievedCharacter);
+
+                }
+
+
+                callbackOnFinish(characters);
+
+            }
+
+        }
+
     }
 
 }
