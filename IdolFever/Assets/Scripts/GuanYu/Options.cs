@@ -39,8 +39,8 @@ namespace IdolFever {
         #endregion
 
         static Options() {
-            musicVol = 0.0f;
-            soundVol = 0.0f;
+            musicVol = 1.0f;
+            soundVol = 1.0f;
             currGraphicsOption = GraphicsQualityOptions.GraphicsQualityOption.NotAnOption;
         }
 
