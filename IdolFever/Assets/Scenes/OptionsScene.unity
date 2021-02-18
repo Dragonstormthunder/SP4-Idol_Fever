@@ -223,7 +223,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 540601514}
         m_TargetAssemblyTypeName: IdolFever.SelectionControl, Assembly-CSharp
-        m_MethodName: ChangeToHigh
+        m_MethodName: OnClickHighButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -627,7 +627,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 540601514}
         m_TargetAssemblyTypeName: IdolFever.SelectionControl, Assembly-CSharp
-        m_MethodName: ChangeToLow
+        m_MethodName: OnClickLowButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -778,7 +778,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6c529c3ee189a419355186d91b6725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currOption: 1
   pos:
   - x: 1e+9
     y: 1e+9

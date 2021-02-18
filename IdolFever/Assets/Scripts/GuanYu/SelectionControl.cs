@@ -2,7 +2,6 @@
 
 namespace IdolFever {
     internal sealed class SelectionControl: MonoBehaviour {
-
         [System.Serializable]
         public struct PosXY {
             public float x;
@@ -11,7 +10,6 @@ namespace IdolFever {
 
         #region Fields
 
-        [SerializeField] private GraphicsQualityOptions.GraphicsQualityOption currOption;
         [SerializeField] private PosXY[] pos;
 
         #endregion
@@ -22,23 +20,23 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
 	    private void Update() {
-            PosXY posXY = pos[(int)currOption];
+            PosXY posXY = pos[(int)Options.CurrGraphicsOption];
             ((RectTransform)transform).localPosition = new Vector3(posXY.x, posXY.y , 0.0f);
 	    }
 
         #endregion
 
         public SelectionControl() {
-            currOption = GraphicsQualityOptions.GraphicsQualityOption.NotAnOption;
+            Options.ChangeToLowGraphics();
             pos = System.Array.Empty<PosXY>();
         }
 
-        public void ChangeToLow() {
-            currOption = GraphicsQualityOptions.GraphicsQualityOption.Low;
+        public void OnClickLowButton() {
+            Options.ChangeToLowGraphics();
         }
 
-        public void ChangeToHigh() {
-            currOption = GraphicsQualityOptions.GraphicsQualityOption.High;
+        public void OnClickHighButton() {
+            Options.ChangeToHighGraphics();
         }
     }
 }
