@@ -23,6 +23,8 @@ namespace IdolFever.Server
         public const string DATABASE_ACHIEVEMENT_CLAIMED = "CLAIMED";
         public const string DATABASE_CHARACTER = "CHARACTER";
         public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
+        public const string DATABASE_ENERGY = "ENERGY";
+        public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
 
         #endregion
 
@@ -86,6 +88,54 @@ namespace IdolFever.Server
                 List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_GEM))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_GEM).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish(0);
+                }
+            }
+
+        }
+        public IEnumerator UpdateEnergy(int energy)
+        {
+            // update the value of the gem
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_ENERGY).SetValueAsync(energy);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetEnergy(System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot Energy");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(DATABASE_ENERGY))
                 {
                     Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_GEM).Value.ToString());
