@@ -12,6 +12,22 @@ namespace IdolFever {
 
         #region Properties
 
+        public static float MusicVol {
+            get {
+                return musicVol;
+            }
+            private set {
+            }
+        }
+
+        public static float SoundVol {
+            get {
+                return soundVol;
+            }
+            private set {
+            }
+        }
+
         public static GraphicsQualityOptions.GraphicsQualityOption CurrGraphicsOption {
             get {
                 return currGraphicsOption;
