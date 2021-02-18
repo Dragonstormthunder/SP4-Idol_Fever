@@ -15,6 +15,8 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
 	    private void Awake() {
+            soundVolSlider.value = Options.SoundVol;
+
             soundVolSlider.onValueChanged.AddListener(delegate {
                 OnSliderValChange();
             });
