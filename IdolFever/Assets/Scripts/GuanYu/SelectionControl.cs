@@ -15,7 +15,7 @@ namespace IdolFever {
 
 	    private void Update() {
             Vector3 myLocalPos = ((RectTransform)myOptions[(int)Options.CurrGraphicsOption].transform).localPosition;
-            ((RectTransform)transform).localPosition = new Vector3(myLocalPos.x, myLocalPos.y , 0.0f);
+            ((RectTransform)transform).localPosition = new Vector3(myLocalPos.x, myLocalPos.y, 0.0f);
 	    }
 
         #endregion

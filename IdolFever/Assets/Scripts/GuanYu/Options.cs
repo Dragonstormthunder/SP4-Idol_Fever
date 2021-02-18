@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace IdolFever {
+﻿namespace IdolFever {
     internal static class Options {
         #region Fields
 
