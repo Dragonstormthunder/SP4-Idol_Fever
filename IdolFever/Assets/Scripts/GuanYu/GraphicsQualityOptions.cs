@@ -1,6 +1,6 @@
 ﻿namespace IdolFever {
     internal sealed class GraphicsQualityOptions {
-        public enum GraphicsQualityOption: byte {
+        public enum GraphicsQualityOption: int {
             NotAnOption,
             Low,
             High,
