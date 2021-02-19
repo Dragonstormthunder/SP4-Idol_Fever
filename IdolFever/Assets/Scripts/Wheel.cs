@@ -28,11 +28,6 @@ namespace IdolFever.UI
             CurrentGemsText.text = CurrentGemsAmount.ToString();
         }
 
-        //private void Start()
-        //{
-        //    SetValues(values);
-        //}
-
         public void TurnWheel()
         {
             // Player has enough money to turn the wheel

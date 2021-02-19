@@ -126,7 +126,7 @@ namespace IdolFever.UI
                 //remove bg (unhide the wheel)
                 OffPanel(gameObjectPanelBg);
                 //Destroy everything in hierachy that i have created
-                DestroyR_GirlPrefab();
+                DestroyPrefab();
                 keysActive = false;
             }
         }
@@ -180,7 +180,7 @@ namespace IdolFever.UI
             Debug.Log("Spawned SSR_Boy_Instantiate");
         }
 
-        private void DestroyR_GirlPrefab()
+        private void DestroyPrefab()
         {
             Destroy(R_Girl_Clone);
             Destroy(R_Boy_Clone);
