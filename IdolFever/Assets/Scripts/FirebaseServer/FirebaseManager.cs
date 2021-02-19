@@ -50,7 +50,7 @@ namespace IdolFever.Server
                 {
                     //If they are avalible Initialize Firebase
                     InitializeFirebase();
-                    
+
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace IdolFever.Server
                 confirmLoginText.text = "Logged In";
 
                 // change scene
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("MainMenuScene");
 
             }
         }
@@ -173,6 +173,9 @@ namespace IdolFever.Server
                         case AuthError.EmailAlreadyInUse:
                             message = "Email Already In Use";
                             break;
+                        case AuthError.InvalidEmail:
+                            message = "Email Invalid";
+                            break;
                     }
                     warningRegisterText.text = message;
                 }
@@ -203,6 +206,19 @@ namespace IdolFever.Server
                         else
                         {
                             //Username is now set
+                            // sync it with the database
+
+                            var DBTask = DBreference.Child("users").Child(User.UserId).Child("USERNAME").SetValueAsync(_username);
+
+                            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+                            // error
+                            if (DBTask.Exception != null)
+                            {
+                                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                            }
+
+
                             //Now return to login screen
                             UIManager.instance.LoginScreen();
                             warningRegisterText.text = "";

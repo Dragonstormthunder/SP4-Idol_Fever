@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -25,7 +24,7 @@ namespace IdolFever.UI
         // to change the color of the images / text meshes
         // use lists for convience, what happens if there's both to change
         public List<TextMeshProUGUI> attachedTextMeshProUGUIs;
-        public List<Image> attacedImages;
+        public List<Image> attachedImages;
 
         public List<Button> associatedButtons;  // associated buttons
 
@@ -108,8 +107,8 @@ namespace IdolFever.UI
                     for (int i = 0; i < attachedTextMeshProUGUIs.Count; ++i)
                         attachedTextMeshProUGUIs[i].color = color;
 
-                    for (int i = 0; i < attacedImages.Count; ++i)
-                        attacedImages[i].color = color;
+                    for (int i = 0; i < attachedImages.Count; ++i)
+                        attachedImages[i].color = color;
 
                 }
             }
@@ -126,8 +125,8 @@ namespace IdolFever.UI
                     for (int i = 0; i < attachedTextMeshProUGUIs.Count; ++i)
                         attachedTextMeshProUGUIs[i].color = color;
 
-                    for (int i = 0; i < attacedImages.Count; ++i)
-                        attacedImages[i].color = color;
+                    for (int i = 0; i < attachedImages.Count; ++i)
+                        attachedImages[i].color = color;
 
                 }
             }
