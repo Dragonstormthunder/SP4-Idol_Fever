@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IntroScene.unity
     guid: 047b75f83858c1c429b03d6fd3766aac
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LoginScene.unity
     guid: 084dcc8b048d6ac40b627f766a0ab6d8
   - enabled: 1
@@ -26,4 +26,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
     guid: 98efc37d6307844488eb3e4247dde7e9
+  - enabled: 1
+    path: Assets/Scenes/AchievementScene.unity
+    guid: 3ff11fe3b84464f43b1eaf1049b374a6
+  - enabled: 1
+    path: Assets/Scenes/CharacterStorageScene.unity
+    guid: d0fb23b4958b2d84b979826c07e168e1
+  - enabled: 1
+    path: Assets/Scenes/DrawScene.unity
+    guid: 26bb3b7f2ab2d7c43a81acd647187ca3
+  - enabled: 1
+    path: Assets/Scenes/GachaScene.unity
+    guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
+  - enabled: 1
+    path: Assets/Scenes/OptionsScene.unity
+    guid: acdbe69fe4182f844a2071e029c77888
+  - enabled: 1
+    path: Assets/Scenes/SinglePlayerSelectSongScene.unity
+    guid: a3472345938f9e345960057e6695af74
   m_configObjects: {}
