@@ -6766,6 +6766,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLoadAdditive: 1
   animator: {fileID: 203299296}
+  audioListener: {fileID: 1412053324}
+  toHide: {fileID: 1480105619}
   img: {fileID: 203299295}
   sceneName: OptionsScene
   startAnimName: CurtainTransitionStart

@@ -8,6 +8,8 @@ namespace IdolFever {
 
         [SerializeField] private bool isLoadAdditive;
         [SerializeField] private Animator animator;
+        [SerializeField] private AudioListener audioListener;
+        [SerializeField] private GameObject toHide;
         [SerializeField] private Image img;
         [SerializeField] private string sceneName;
         [SerializeField] private string startAnimName;
@@ -53,6 +55,12 @@ namespace IdolFever {
             }
 
             SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
+            if(isLoadAdditive) {
+                toHide.SetActive(false);
+                SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => {
+                    audioListener.enabled = false;
+                };
+            }
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, isLoadAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
 
@@ -65,6 +73,8 @@ namespace IdolFever {
         public AsyncSceneTransitionOut() {
             isLoadAdditive = false;
             animator = null;
+            audioListener = null;
+            toHide = null;
             img = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
