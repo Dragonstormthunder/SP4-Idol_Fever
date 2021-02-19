@@ -32,7 +32,9 @@ namespace IdolFever {
 
             GameObject trailGO = new GameObject("CursorTrail");
             trailTransform = trailGO.transform;
-            trailTransform.SetParent(parent.transform);
+            if(parent != null) {
+                trailTransform.SetParent(parent.transform);
+            }
 
             TrailRenderer trail = trailGO.AddComponent<TrailRenderer>();
 

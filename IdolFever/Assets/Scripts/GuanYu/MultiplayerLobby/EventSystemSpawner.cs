@@ -23,7 +23,9 @@ namespace IdolFever {
 				eventSystem.AddComponent<EventSystem>();
 				eventSystem.AddComponent<StandaloneInputModule>();
 
-				eventSystem.transform.SetParent(parentGO.transform);
+				if(parentGO != null) {
+					eventSystem.transform.SetParent(parentGO.transform);
+				}
 			}
 		}
 
