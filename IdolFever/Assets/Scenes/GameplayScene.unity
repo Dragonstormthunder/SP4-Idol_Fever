@@ -577,6 +577,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72147380}
   m_CullTransparentMesh: 0
+--- !u!1 &76986567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 76986568}
+  - component: {fileID: 76986569}
+  m_Layer: 0
+  m_Name: ToMainMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &76986568
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76986567}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 200928408}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &76986569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76986567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asyncSceneTransitionIn: {fileID: 0}
+  type: 0
+  animator: {fileID: 203299296}
+  audioListener: {fileID: 0}
+  myInterest: {fileID: 0}
+  img: {fileID: 203299295}
+  sceneName: MainMenuScene
+  startAnimName: CurtainTransitionStart
 --- !u!1 &99513755
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +779,7 @@ Transform:
   - {fileID: 179373572}
   - {fileID: 311454306}
   - {fileID: 1344416003}
+  - {fileID: 76986568}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3345,6 +3397,7 @@ GameObject:
   - component: {fileID: 682818117}
   - component: {fileID: 682818116}
   - component: {fileID: 682818115}
+  - component: {fileID: 682818118}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -3414,7 +3467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 682818116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 682818118}
+        m_TargetAssemblyTypeName: IdolFever.QuitButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &682818116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3453,6 +3518,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682818113}
   m_CullTransparentMesh: 0
+--- !u!114 &682818118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682818113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dfb9c0b10eb68b42acd9a7ae7172b70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asyncSceneTransitionOut: {fileID: 76986569}
 --- !u!1 &698396289
 GameObject:
   m_ObjectHideFlags: 0
