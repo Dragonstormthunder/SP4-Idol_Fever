@@ -54,7 +54,7 @@ namespace IdolFever.UI
                 //_sectorsAngles = new float[] { 60, 120, 180, 240, 300, 360 };
 
                 //RG (45%) ,RB (45%) , SRG (4%) ,SRB (4%) , SRG (1%) , SRB (1%) 
-                _sectorsAngles = new float[] { 126, 252, 288, 324, 342, 360 };
+                _sectorsAngles = new float[] { 90, 120, 150, 210, 300, 360 };
 
                 int fullCircles = 5;
                 float randomFinalAngle = _sectorsAngles[UnityEngine.Random.Range(0, _sectorsAngles.Length)];
@@ -85,7 +85,7 @@ namespace IdolFever.UI
             // Here you can set up rewards for every sector of wheel
             switch ((int)_startAngle)
             {
-                case 0://ssr
+                case 0:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
@@ -94,16 +94,7 @@ namespace IdolFever.UI
                         Rg_txt.text = "SSR_Girl";
                     }
                     break;
-                case -342:
-                    {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
-                        Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.SSR_Boy = true;
-                        RewardGems(200);
-                        Rb_txt.text = "SSR_Boy";
-                    }
-                    break;
-                case -324:
+                case -300:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
@@ -112,16 +103,7 @@ namespace IdolFever.UI
                         SRg_txt.text = "SR_Girl";
                     }
                     break;
-                case -288:
-                    {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
-                        Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.SR_Boy = true;
-                        RewardGems(900);
-                        SRb_txt.text = "SR_Boy";
-                    }
-                    break;
-                case -252:
+                case -210:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
@@ -130,13 +112,31 @@ namespace IdolFever.UI
                         Rg_txt.text = "R_Girl";
                     }
                     break;
-                case -126:
+                case -150:
+                    {
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
+                        Debug.Log("You got " + c.ToString());
+                        StaticDataStorage.SR_Boy = true;
+                        RewardGems(900);
+                        SRb_txt.text = "SR_Boy";
+                    }
+                    break;
+                case -120:
+                    {
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
+                        Debug.Log("You got " + c.ToString());
+                        StaticDataStorage.SSR_Boy = true;
+                        RewardGems(200);
+                        Rb_txt.text = "SSR_Boy";
+                    }
+                    break;
+                case -90:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Boy = true;
                         RewardGems(300);
-                        Rb_txt.text = "R_Boy";
+                        Rb_txt.text = "R_Boy";                  
                     }
                     break;
                 default:
@@ -148,6 +148,72 @@ namespace IdolFever.UI
                     }
                     break;
             }
+            //        // Here you can set up rewards for every sector of wheel
+            //        switch ((int)_startAngle)
+            //{
+            //    case 0://ssr
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.SSR_Girl = true;
+            //            RewardGems(1000);
+            //            Rg_txt.text = "SSR_Girl";
+            //        }
+            //        break;
+            //    case -342:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.SSR_Boy = true;
+            //            RewardGems(200);
+            //            Rb_txt.text = "SSR_Boy";
+            //        }
+            //        break;
+            //    case -324:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.SR_Girl = true;
+            //            RewardGems(300);
+            //            SRg_txt.text = "SR_Girl";
+            //        }
+            //        break;
+            //    case -288:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.SR_Boy = true;
+            //            RewardGems(900);
+            //            SRb_txt.text = "SR_Boy";
+            //        }
+            //        break;
+            //    case -252:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.R_Girl = true;
+            //            RewardGems(100);
+            //            Rg_txt.text = "R_Girl";
+            //        }
+            //        break;
+            //    case -126:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
+            //            Debug.Log("You got " + c.ToString());
+            //            StaticDataStorage.R_Boy = true;
+            //            RewardGems(300);
+            //            Rb_txt.text = "R_Boy";
+            //        }
+            //        break;
+            //    default:
+            //        {
+            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+            //            Debug.Log("You got default. : " + c.ToString());
+            //            StaticDataStorage.R_Girl = true;
+            //            RewardGems(100);
+            //        }
+            //        break;
+            //}
         }
 
         void Update()
