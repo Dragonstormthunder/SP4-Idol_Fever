@@ -25,6 +25,13 @@ namespace IdolFever.Server
         public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
         public const string DATABASE_ENERGY = "ENERGY";
         public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
+        
+        public const string DATABASE_SONG_HIGHSCORE = "SONG_HIGHSCORE";
+        #region SONG_DATABASE_KEYS
+        public const string DBSH_MOUNTAIN_KING = "MOUNTAIN_KING";
+        public const string DBSH_ORIGINAL_SONG = "ORIGINAL_SONG";
+        public const string DBSH_WELLERMAN = "WELLERMAN";
+        #endregion
 
         #endregion
 
@@ -49,6 +56,16 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+
+            //StartCoroutine(UpdateSongHighscore(DBSH_MOUNTAIN_KING, 100));
+            //StartCoroutine(UpdateSongHighscore(DBSH_ORIGINAL_SONG, 50));
+            //StartCoroutine(UpdateSongHighscore(DBSH_WELLERMAN, 10));
+
+            StartCoroutine(GrabHighestScoreOfASong(DBSH_MOUNTAIN_KING, (scorer) =>
+            {
+                Debug.Log("Highest score: " + scorer);
+            }));
+
         }
 
         public IEnumerator UpdateGems(int gems)
@@ -101,6 +118,7 @@ namespace IdolFever.Server
             }
 
         }
+
         public IEnumerator UpdateEnergy(int energy)
         {
             // update the value of the gem
@@ -357,6 +375,46 @@ namespace IdolFever.Server
                 }
 
                 callbackOnFinish(characters);
+
+            }
+
+        }
+
+        public IEnumerator UpdateSongHighscore(string songName, int highscore)
+        {
+            // update the high score
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_SONG_HIGHSCORE).Child(songName).SetValueAsync(highscore);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GrabHighestScoreOfASong(string songName, System.Action<int> callbackOnFinish)
+        {
+            // grab the highest score of a song
+            var DBTask = DBreference.Child(DATABASE_USERS).OrderByChild(songName).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(-1);
+            }
+            else
+            {
+                DataSnapshot snapshot = DBTask.Result;
+
+                // loop throuhg every users UID
+                //foreach (DataSnapshot childSnapshot in snapshot.Children.Reverse<DataSnapshot>())
+                //{
+                //
+                //}
 
             }
 
