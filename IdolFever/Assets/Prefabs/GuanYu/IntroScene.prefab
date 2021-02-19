@@ -317,7 +317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isLoadAdditive: 0
   animator: {fileID: 4031009993729829042}
+  audioListener: {fileID: 0}
+  toHide: {fileID: 0}
   img: {fileID: 4309460074505289242}
   sceneName: MainMenuScene
   startAnimName: CrossfadeStart
@@ -619,11 +622,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8212258300737619106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -108, z: -9720}
+  m_LocalScale: {x: 108, y: 108, z: 108}
   m_Children: []
-  m_Father: {fileID: 8212258301821528599}
-  m_RootOrder: 5
+  m_Father: {fileID: 8212258301570442129}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8212258300737619104
 MonoBehaviour:
@@ -696,6 +699,7 @@ RectTransform:
   - {fileID: 5632518731136815844}
   - {fileID: 7440389395863119941}
   - {fileID: 4031009993729829054}
+  - {fileID: 8212258300737619105}
   m_Father: {fileID: 8212258301821528599}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -796,7 +800,6 @@ Transform:
   - {fileID: 786532120605482869}
   - {fileID: 8212258301570442129}
   - {fileID: 8212258302321262017}
-  - {fileID: 8212258300737619105}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
