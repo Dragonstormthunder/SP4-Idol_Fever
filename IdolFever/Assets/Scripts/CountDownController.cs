@@ -4,36 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CountDownController : MonoBehaviour
+namespace IdolFever.UI
 {
-    public int countDownTime;
-    public TMP_Text countDownDisplay;
-
-    // Start is called before the first frame update
-    void Start()
+    public class CountDownController : MonoBehaviour
     {
-        StartCoroutine(CountDownToStart());
-    }
+        public int countDownTime;
+        public TMP_Text countDownDisplay;
 
-    IEnumerator CountDownToStart()
-    {
-        while (countDownTime > 0)
+        // Start is called before the first frame update
+        void Start()
         {
-            countDownDisplay.text = countDownTime.ToString();
+            StartCoroutine(CountDownToStart());
+        }
+
+        IEnumerator CountDownToStart()
+        {
+            while (countDownTime > 0)
+            {
+                countDownDisplay.text = countDownTime.ToString();
+
+                yield return new WaitForSeconds(1f);
+                --countDownTime;
+            }
+            countDownDisplay.text = "Go !";
 
             yield return new WaitForSeconds(1f);
-            --countDownTime;
+
+            countDownDisplay.gameObject.SetActive(false);
         }
-        countDownDisplay.text = "Go !";
 
-        yield return new WaitForSeconds(1f);
+        // Update is called once per frame
+        void Update()
+        {
 
-        countDownDisplay.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        }
     }
 }
