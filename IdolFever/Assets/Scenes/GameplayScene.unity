@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 1249760933}
-  musicPauseControl: {fileID: 0}
+  musicPauseControl: {fileID: 1563014647}
 --- !u!1 &55943408
 GameObject:
   m_ObjectHideFlags: 0
@@ -7625,6 +7625,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8293394446578864466, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
   m_PrefabInstance: {fileID: 1563014645}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1563014647 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8836246703474543327, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
+  m_PrefabInstance: {fileID: 1563014645}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08217c17607bdb040b0dbb7be7579969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1591195476
 GameObject:
   m_ObjectHideFlags: 0
