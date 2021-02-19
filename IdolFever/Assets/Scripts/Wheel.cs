@@ -22,16 +22,6 @@ namespace IdolFever.UI
         public int CurrentGemsAmount = 1000;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
-
-        //public TMP_Text Rg_txt;         // Pop-up text with card gotten/Turn Cost
-        //public TMP_Text Rb_txt;         // Pop-up text with card gotten/Turn Cost
-        //public TMP_Text SRb_txt;         // Pop-up text with card gotten/Turn Cost
-        //public TMP_Text SRg_txt;         // Pop-up text with card gotten/Turn Cost
-        //public TMP_Text SSRb_txt;         // Pop-up text with card gotten/Turn Cost
-        //public TMP_Text SSRg_txt;         // Pop-up text with card gotten/Turn Cost
-        //public Image[] img;
-        //public float[] values;
-
         private void Awake()
         {
             PreviousGemsAmount = CurrentGemsAmount;
@@ -53,7 +43,7 @@ namespace IdolFever.UI
                 // Fill the necessary angles 6 angle
                 //_sectorsAngles = new float[] { 60, 120, 180, 240, 300, 360 };
 
-                //RG (45%) ,RB (45%) , SRG (4%) ,SRB (4%) , SRG (1%) , SRB (1%) 
+                //RG (%) ,RB (%) , SRG (%) ,SRB (%) , SRG (%) , SRB (%) 
                 _sectorsAngles = new float[] { 90, 120, 150, 210, 300, 360 };
 
                 int fullCircles = 5;
@@ -63,7 +53,6 @@ namespace IdolFever.UI
                 _finalAngle = -(fullCircles * 360 + randomFinalAngle);
                 _isStarted = true;
 
-                //Panel.gameObject.SetActive(false);
 
                 PreviousGemsAmount = CurrentGemsAmount;
 
@@ -92,7 +81,6 @@ namespace IdolFever.UI
                         StaticDataStorage.SSR_Girl = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(1000);
-                        //Rg_txt.text = "SSR_Girl";
                     }
                     break;
                 case -300:
@@ -102,7 +90,6 @@ namespace IdolFever.UI
                         StaticDataStorage.SR_Girl = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(300);
-                        //SRg_txt.text = "SR_Girl";
                     }
                     break;
                 case -210:
@@ -112,7 +99,6 @@ namespace IdolFever.UI
                         StaticDataStorage.R_Girl = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(100);
-                        //Rg_txt.text = "R_Girl";
                     }
                     break;
                 case -150:
@@ -122,7 +108,6 @@ namespace IdolFever.UI
                         StaticDataStorage.SR_Boy = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(900);
-                        //SRb_txt.text = "SR_Boy";
                     }
                     break;
                 case -120:
@@ -132,7 +117,6 @@ namespace IdolFever.UI
                         StaticDataStorage.SSR_Boy = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(200);
-                        //Rb_txt.text = "SSR_Boy";
                     }
                     break;
                 case -90:
@@ -141,8 +125,7 @@ namespace IdolFever.UI
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Boy = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(300);
-                        //Rb_txt.text = "R_Boy";                  
+                        RewardGems(300);                  
                     }
                     break;
                 default:
@@ -155,7 +138,7 @@ namespace IdolFever.UI
                     }
                     break;
             }
-           
+
         }
 
         void Update()
@@ -230,53 +213,7 @@ namespace IdolFever.UI
             }
 
             PreviousGemsAmount = CurrentGemsAmount;
-            CurrentGemsText.text = CurrentGemsAmount.ToString();
+            CurrentGemsText.text = "Current Gems: " + CurrentGemsAmount.ToString();
         }
-
-        //public void SetValues(float[] valueToSet)
-        //{
-        //    float totalvalues = 0;
-        //    for (int i = 0; i < img.Length; ++i)
-        //    {
-        //        totalvalues += FindPercentage(valueToSet, 1);
-        //        img[i].fillAmount = totalvalues;
-        //    }
-        //}
-
-        //private float FindPercentage(float[] valueToSet,int index)
-        //{
-        //    float totalAmt = 0;
-        //    for (int i = 0; i < valueToSet.Length; ++i)
-        //    {
-        //        totalAmt += valueToSet[i];              
-        //    }
-        //    return valueToSet[index] / totalAmt;
-        //}
-        //public bool WheelStop
-        //{
-        //    get { return wheelStop; }
-        //    set { wheelStop = value; }
-        //}
-
-        //public void CheckStop()
-        //{
-        //    if (wheelStop == true) 
-        //    {
-        //        obj.gameObject.SetActive(true);
-        //    }
-        //}
-
-
-        //private IEnumerator ShowPanel()
-        //{
-        //    yield return new WaitForSeconds(1f);
-        //    Panel.gameObject.SetActive(true);
-        //}
-
-        //public IEnumerator HidePanel()
-        //{
-        //    yield return new WaitForSeconds(1f);
-        //    Panel.gameObject.SetActive(false);
-        //}
     }
 }

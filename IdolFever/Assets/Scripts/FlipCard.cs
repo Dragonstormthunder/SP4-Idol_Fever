@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IdolFever.UI
 {
-    public class FlipCard : MonoBehaviour
+  public class FlipCard : MonoBehaviour
     {
         public float x, y, z;
         public GameObject cardBack;
