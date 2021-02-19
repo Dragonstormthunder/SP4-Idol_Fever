@@ -6,6 +6,7 @@ namespace IdolFever {
     internal sealed class AsyncSceneTransitionOut: MonoBehaviour {
         #region Fields
 
+        [SerializeField] private AsyncSceneTransitionIn asyncSceneTransitionIn;
         [SerializeField] private AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType type;
         [SerializeField] private Animator animator;
         [SerializeField] private AudioListener audioListener;
@@ -97,6 +98,7 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
+            asyncSceneTransitionIn = null;
             type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;
             audioListener = null;
@@ -118,6 +120,8 @@ namespace IdolFever {
         private void OnSceneUnloaded(Scene scene) {
             myInterest.SetActive(true);
             audioListener.enabled = true;
+
+            asyncSceneTransitionIn.TransitionIn();
 
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }

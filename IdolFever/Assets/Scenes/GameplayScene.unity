@@ -6843,6 +6843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  asyncSceneTransitionIn: {fileID: 311454307}
   type: 1
   animator: {fileID: 203299296}
   audioListener: {fileID: 1412053324}
