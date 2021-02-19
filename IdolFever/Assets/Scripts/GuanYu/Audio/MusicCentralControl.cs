@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace IdolFever {
-    internal sealed class MusicPauseControl: MonoBehaviour {
+    internal sealed class MusicCentralControl: MonoBehaviour {
         #region Fields
 
         private List<AudioSource> audioSrcs;
@@ -10,6 +10,15 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        public List<AudioSource> AudioSrcs {
+            get {
+                return audioSrcs;
+            }
+            private set {
+            }
+        }
+
         #endregion
 
         #region Unity User Callback Event Funcs
@@ -22,20 +31,8 @@ namespace IdolFever {
 
         #endregion
 
-        public MusicPauseControl() {
+        public MusicCentralControl() {
             audioSrcs = new List<AudioSource>();
-        }
-
-        public void PauseAllMusic() {
-            foreach(AudioSource audioSrc in audioSrcs) {
-                audioSrc.Pause();
-            }
-        }
-
-        public void PlayAllMusic() {
-            foreach(AudioSource audioSrc in audioSrcs) {
-                audioSrc.Play();
-            }
         }
     }
 }
