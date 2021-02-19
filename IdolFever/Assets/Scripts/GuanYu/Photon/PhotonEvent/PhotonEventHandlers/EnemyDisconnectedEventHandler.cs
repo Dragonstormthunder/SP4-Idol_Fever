@@ -6,6 +6,10 @@ using UnityEngine;
 namespace IdolFever {
     internal sealed class EnemyDisconnectedEventHandler: MonoBehaviour, IOnEventCallback {
         #region Fields
+
+        [SerializeField] private GameObject dcPrefab;
+        [SerializeField] private GameObject parent;
+
         #endregion
 
         #region Properties
@@ -14,6 +18,7 @@ namespace IdolFever {
         #region Ctors and Dtor
 
         private EnemyDisconnectedEventHandler() {
+            dcPrefab = null;
         }
 
         #endregion
@@ -32,6 +37,11 @@ namespace IdolFever {
 
         public void OnEvent(EventData photonEvent) {
             if(photonEvent.Code == (byte)EventCodes.EventCode.EnemyDisconnectedEvent) {
+                GameObject dcGO = Instantiate(dcPrefab);
+
+                if(parent != null) {
+                    dcGO.transform.SetParent(parent.transform);
+                }
             }
         }
     }

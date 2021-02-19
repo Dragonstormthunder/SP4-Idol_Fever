@@ -26,7 +26,7 @@ Material:
     m_Floats:
     - _OutlineThickness: 0.04
     - _SimpleNoiseScale: 40
-    - _StepThreshold: 1
+    - _StepThreshold: 0.00167112
     m_Colors:
     - _OutlineColor: {r: 0.49932244, g: 0.20754719, b: 4, a: 0}
   m_BuildTextureStacks: []

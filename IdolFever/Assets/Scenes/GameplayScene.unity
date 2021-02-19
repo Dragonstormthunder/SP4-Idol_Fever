@@ -7069,6 +7069,7 @@ GameObject:
   - component: {fileID: 1412053324}
   - component: {fileID: 1412053327}
   - component: {fileID: 1412053328}
+  - component: {fileID: 1412053329}
   m_Layer: 0
   m_Name: Cam
   m_TagString: MainCamera
@@ -7185,6 +7186,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreMeterScript: {fileID: 1813923593}
+--- !u!114 &1412053329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412053323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56df527469d7e3248a654f1dd81f1f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dcPrefab: {fileID: 3065670818571826813, guid: 55158a9b4e3e40243beed0496c2fb926, type: 3}
+  parent: {fileID: 1480105619}
 --- !u!1 &1452255893
 GameObject:
   m_ObjectHideFlags: 0
