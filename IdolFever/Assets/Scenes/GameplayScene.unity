@@ -7200,6 +7200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dcPrefab: {fileID: 3065670818571826813, guid: 55158a9b4e3e40243beed0496c2fb926, type: 3}
   parent: {fileID: 1480105619}
+  myName: DcText
+  siblingIndex: 1
+  x: 0
+  y: -100
 --- !u!1 &1452255893
 GameObject:
   m_ObjectHideFlags: 0
