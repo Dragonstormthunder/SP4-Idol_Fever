@@ -817,13 +817,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6c529c3ee189a419355186d91b6725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos:
-  - x: 1e+9
-    y: 1e+9
-  - x: 75
-    y: -250
-  - x: 575
-    y: -250
+  myOptions:
+  - {fileID: 0}
+  - {fileID: 485238517}
+  - {fileID: 32218739}
 --- !u!1 &555537889 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7703383474965442973, guid: aeac18f42edbdf643b532e2afa9b7c17, type: 3}
