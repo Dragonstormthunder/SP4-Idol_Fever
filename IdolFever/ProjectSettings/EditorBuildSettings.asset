@@ -21,11 +21,17 @@ EditorBuildSettings:
     path: Assets/Scenes/GameplayScene.unity
     guid: 7f01d364f61447648a175bead78e3121
   - enabled: 1
+    path: Assets/Scenes/DrawScene 1.unity
+    guid: 8005598552c28ae4197e33422bea0358
+  - enabled: 1
     path: Assets/Scenes/DrawScene.unity
     guid: 26bb3b7f2ab2d7c43a81acd647187ca3
   - enabled: 1
     path: Assets/Scenes/GachaScene.unity
     guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
+  - enabled: 1
+    path: Assets/Scenes/GachaScene 1.unity
+    guid: 4a087a01d51b0b64fb1ef19c2db5f021
   - enabled: 1
     path: Assets/Photon/PhotonUnityNetworking/Demos/DemoAsteroids/Scenes/DemoAsteroids-GameScene.unity
     guid: 98efc37d6307844488eb3e4247dde7e9

@@ -21,13 +21,27 @@ namespace IdolFever.UI
         public int TurnCost = 100;          // How much coins user waste when turn whe wheel
         public int CurrentGemsAmount = 1000;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
-        public GameObject Panel;
+                                            //public GameObject Panel;
+
+        public TMP_Text Rg_txt;         // Pop-up text with card gotten/Turn Cost
+        public TMP_Text Rb_txt;         // Pop-up text with card gotten/Turn Cost
+        public TMP_Text SRb_txt;         // Pop-up text with card gotten/Turn Cost
+        public TMP_Text SRg_txt;         // Pop-up text with card gotten/Turn Cost
+        public TMP_Text SSRb_txt;         // Pop-up text with card gotten/Turn Cost
+        public TMP_Text SSRg_txt;         // Pop-up text with card gotten/Turn Cost
+        //public Image[] img;
+        //public float[] values;
 
         private void Awake()
         {
             PreviousGemsAmount = CurrentGemsAmount;
             CurrentGemsText.text = CurrentGemsAmount.ToString();
         }
+
+        //private void Start()
+        //{
+        //    SetValues(values);
+        //}
 
         public void TurnWheel()
         {
@@ -37,7 +51,10 @@ namespace IdolFever.UI
                 _currentLerpRotationTime = 0f;
 
                 // Fill the necessary angles 6 angle
-                _sectorsAngles = new float[] { 60, 120, 180, 240, 300, 360 };
+                //_sectorsAngles = new float[] { 60, 120, 180, 240, 300, 360 };
+
+                //RG (45%) ,RB (45%) , SRG (4%) ,SRB (4%) , SRG (1%) , SRB (1%) 
+                _sectorsAngles = new float[] { 126, 252, 288, 324, 342, 360 };
 
                 int fullCircles = 5;
                 float randomFinalAngle = _sectorsAngles[UnityEngine.Random.Range(0, _sectorsAngles.Length)];
@@ -46,7 +63,7 @@ namespace IdolFever.UI
                 _finalAngle = -(fullCircles * 360 + randomFinalAngle);
                 _isStarted = true;
 
-                Panel.gameObject.SetActive(false);
+                //Panel.gameObject.SetActive(false);
 
                 PreviousGemsAmount = CurrentGemsAmount;
 
@@ -70,59 +87,64 @@ namespace IdolFever.UI
             {
                 case 0://ssr
                     {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.R_Girl = true;
-                        //GameObject.Find("R_Girl(Clone").SetActive(true);
-                        RewardGems(1000);                       
+                        StaticDataStorage.SSR_Girl = true;
+                        RewardGems(1000);
+                        Rg_txt.text = "SSR_Girl";
                     }
                     break;
-                case -300:
+                case -342:
                     {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.R_Girl = true;
-                        RewardGems(200);               
+                        StaticDataStorage.SSR_Boy = true;
+                        RewardGems(200);
+                        Rb_txt.text = "SSR_Boy";
                     }
                     break;
-                case -240:
+                case -324:
                     {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.R_Girl = true;
+                        StaticDataStorage.SR_Girl = true;
                         RewardGems(300);
+                        SRg_txt.text = "SR_Girl";
                     }
                     break;
-                case -180:
+                case -288:
                     {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.R_Girl = true;
+                        StaticDataStorage.SR_Boy = true;
                         RewardGems(900);
+                        SRb_txt.text = "SR_Boy";
                     }
                     break;
-                case -120:
+                case -252:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Girl = true;
                         RewardGems(100);
+                        Rg_txt.text = "R_Girl";
                     }
                     break;
-                case -60:
+                case -126:
                     {
-                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
+                        CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
-                        StaticDataStorage.R_Girl = true;
+                        StaticDataStorage.R_Boy = true;
                         RewardGems(300);
+                        Rb_txt.text = "R_Boy";
                     }
                     break;
                 default:
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
-                        Debug.Log("You got " + c.ToString());
+                        Debug.Log("You got default. : " + c.ToString());
                         StaticDataStorage.R_Girl = true;
-                        RewardGems(1000);
+                        RewardGems(100);
                     }
                     break;
             }
@@ -157,7 +179,7 @@ namespace IdolFever.UI
 
                 GiveAwardByAngle();
                 StartCoroutine(HideGemsDelta());
-                StartCoroutine(ShowPanel());
+                //tartCoroutine(ShowPanel());
             }
 
             // Calculate current position using linear interpolation
@@ -203,7 +225,25 @@ namespace IdolFever.UI
             CurrentGemsText.text = CurrentGemsAmount.ToString();
         }
 
+        //public void SetValues(float[] valueToSet)
+        //{
+        //    float totalvalues = 0;
+        //    for (int i = 0; i < img.Length; ++i)
+        //    {
+        //        totalvalues += FindPercentage(valueToSet, 1);
+        //        img[i].fillAmount = totalvalues;
+        //    }
+        //}
 
+        //private float FindPercentage(float[] valueToSet,int index)
+        //{
+        //    float totalAmt = 0;
+        //    for (int i = 0; i < valueToSet.Length; ++i)
+        //    {
+        //        totalAmt += valueToSet[i];              
+        //    }
+        //    return valueToSet[index] / totalAmt;
+        //}
         //public bool WheelStop
         //{
         //    get { return wheelStop; }
@@ -219,10 +259,16 @@ namespace IdolFever.UI
         //}
 
 
-        private IEnumerator ShowPanel()
-        {
-            yield return new WaitForSeconds(1f);
-            Panel.gameObject.SetActive(true);
-        }
+        //private IEnumerator ShowPanel()
+        //{
+        //    yield return new WaitForSeconds(1f);
+        //    Panel.gameObject.SetActive(true);
+        //}
+
+        //public IEnumerator HidePanel()
+        //{
+        //    yield return new WaitForSeconds(1f);
+        //    Panel.gameObject.SetActive(false);
+        //}
     }
 }
