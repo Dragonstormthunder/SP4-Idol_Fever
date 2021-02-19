@@ -68,10 +68,8 @@ namespace IdolFever {
                     break;
                 }
                 case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddAdditive: {
-                    myInterest.SetActive(false);
-                    SceneManager.sceneLoaded += (Scene scene, LoadSceneMode mode) => {
-                        audioListener.enabled = false;
-                    };
+                    SceneManager.sceneLoaded += OnSceneLoaded;
+                    SceneManager.sceneUnloaded += OnSceneUnloaded;
 
                     AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
@@ -82,8 +80,16 @@ namespace IdolFever {
 
                     break;
                 }
-                case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.RemoveAdditive:
+                case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.RemoveAdditive: {
+                    AsyncOperation operation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name, UnloadSceneOptions.None);
+
+                    while(!operation.isDone) {
+                        img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
+                        yield return null;
+                    }
+
                     break;
+                }
                 default:
                    UnityEngine.Assertions.Assert.IsTrue(false);
                    break;
@@ -98,6 +104,22 @@ namespace IdolFever {
             img = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            myInterest.SetActive(false);
+            audioListener.enabled = false;
+
+            SceneManager.SetActiveScene(scene);
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneUnloaded(Scene scene) {
+            myInterest.SetActive(true);
+            audioListener.enabled = true;
+
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
     }
 }
