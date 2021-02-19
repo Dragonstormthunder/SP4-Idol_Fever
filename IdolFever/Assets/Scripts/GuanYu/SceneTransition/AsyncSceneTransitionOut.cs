@@ -6,6 +6,7 @@ namespace IdolFever {
     internal sealed class AsyncSceneTransitionOut: MonoBehaviour {
         #region Fields
 
+        [SerializeField] private bool isLoadAdditive;
         [SerializeField] private Animator animator;
         [SerializeField] private Image img;
         [SerializeField] private string sceneName;
@@ -53,7 +54,7 @@ namespace IdolFever {
 
             SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, isLoadAdditive ? LoadSceneMode.Additive : LoadSceneMode.Single);
 
             while(!operation.isDone) {
                 img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
@@ -62,6 +63,7 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
+            isLoadAdditive = false;
             animator = null;
             img = null;
             sceneName = string.Empty;
