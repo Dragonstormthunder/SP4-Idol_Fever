@@ -36,6 +36,10 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
+            if(PauseScreen.isPaused) {
+                return;
+            }
+
             float t = audio.time;
             usec = (ulong)(t * 1000000);
             long spawn = (long)(usec) + 2000000;
