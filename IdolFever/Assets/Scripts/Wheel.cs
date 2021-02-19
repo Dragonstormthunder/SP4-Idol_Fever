@@ -23,12 +23,12 @@ namespace IdolFever.UI
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
 
-        public TMP_Text Rg_txt;         // Pop-up text with card gotten/Turn Cost
-        public TMP_Text Rb_txt;         // Pop-up text with card gotten/Turn Cost
-        public TMP_Text SRb_txt;         // Pop-up text with card gotten/Turn Cost
-        public TMP_Text SRg_txt;         // Pop-up text with card gotten/Turn Cost
-        public TMP_Text SSRb_txt;         // Pop-up text with card gotten/Turn Cost
-        public TMP_Text SSRg_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text Rg_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text Rb_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text SRb_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text SRg_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text SSRb_txt;         // Pop-up text with card gotten/Turn Cost
+        //public TMP_Text SSRg_txt;         // Pop-up text with card gotten/Turn Cost
         //public Image[] img;
         //public float[] values;
 
@@ -90,8 +90,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SSR_Girl = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(1000);
-                        Rg_txt.text = "SSR_Girl";
+                        //Rg_txt.text = "SSR_Girl";
                     }
                     break;
                 case -300:
@@ -99,8 +100,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SR_Girl = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(300);
-                        SRg_txt.text = "SR_Girl";
+                        //SRg_txt.text = "SR_Girl";
                     }
                     break;
                 case -210:
@@ -108,8 +110,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Girl = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(100);
-                        Rg_txt.text = "R_Girl";
+                        //Rg_txt.text = "R_Girl";
                     }
                     break;
                 case -150:
@@ -117,8 +120,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SR_Boy = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(900);
-                        SRb_txt.text = "SR_Boy";
+                        //SRb_txt.text = "SR_Boy";
                     }
                     break;
                 case -120:
@@ -126,8 +130,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SSR_Boy = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(200);
-                        Rb_txt.text = "SSR_Boy";
+                        //Rb_txt.text = "SSR_Boy";
                     }
                     break;
                 case -90:
@@ -135,8 +140,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Boy = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(300);
-                        Rb_txt.text = "R_Boy";                  
+                        //Rb_txt.text = "R_Boy";                  
                     }
                     break;
                 default:
@@ -144,76 +150,12 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got default. : " + c.ToString());
                         StaticDataStorage.R_Girl = true;
+                        StaticDataStorage.CardBack = true;
                         RewardGems(100);
                     }
                     break;
             }
-            //        // Here you can set up rewards for every sector of wheel
-            //        switch ((int)_startAngle)
-            //{
-            //    case 0://ssr
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.SSR_Girl = true;
-            //            RewardGems(1000);
-            //            Rg_txt.text = "SSR_Girl";
-            //        }
-            //        break;
-            //    case -342:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.SSR_Boy = true;
-            //            RewardGems(200);
-            //            Rb_txt.text = "SSR_Boy";
-            //        }
-            //        break;
-            //    case -324:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.SR_Girl = true;
-            //            RewardGems(300);
-            //            SRg_txt.text = "SR_Girl";
-            //        }
-            //        break;
-            //    case -288:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.SR_Boy = true;
-            //            RewardGems(900);
-            //            SRb_txt.text = "SR_Boy";
-            //        }
-            //        break;
-            //    case -252:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.R_Girl = true;
-            //            RewardGems(100);
-            //            Rg_txt.text = "R_Girl";
-            //        }
-            //        break;
-            //    case -126:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
-            //            Debug.Log("You got " + c.ToString());
-            //            StaticDataStorage.R_Boy = true;
-            //            RewardGems(300);
-            //            Rb_txt.text = "R_Boy";
-            //        }
-            //        break;
-            //    default:
-            //        {
-            //            CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
-            //            Debug.Log("You got default. : " + c.ToString());
-            //            StaticDataStorage.R_Girl = true;
-            //            RewardGems(100);
-            //        }
-            //        break;
-            //}
+           
         }
 
         void Update()

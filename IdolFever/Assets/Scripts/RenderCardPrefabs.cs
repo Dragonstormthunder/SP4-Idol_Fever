@@ -9,6 +9,9 @@ namespace IdolFever.UI
     {
         public GameObject gameObjectPanelBg;
 
+        public GameObject CardBackPrefab;
+        private GameObject CardBack_Clone;
+
         public GameObject R_imageGirlPrefab;
         private GameObject R_Girl_Clone;
 
@@ -27,6 +30,9 @@ namespace IdolFever.UI
         public GameObject SSR_imageBoyPrefab;
         private GameObject SSR_Boy_Clone;
 
+
+        private bool keysActive = false;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -40,68 +46,96 @@ namespace IdolFever.UI
                 //have bg when card are rendered (hide the wheel)
                 OnPanel(gameObjectPanelBg);
             }
-            if (StaticDataStorage.R_Girl == true)
+            if (StaticDataStorage.CardBack == true)
             {
-                //render the card
-                createR_GirlPrefab();
-                StaticDataStorage.R_Girl = false;
-                //r girl drawn count
-                ++StaticDataStorage.R_GirlDrawCount;
-                Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
+                createCardBackPrefab();
+                StaticDataStorage.CardBack = false;
             }
-            if (StaticDataStorage.R_Boy == true)
+        
+            if (StaticDataStorage.isFlipped == true)
             {
-                //render the card
-                createR_BoyPrefab();
-                StaticDataStorage.R_Boy = false;
-                //r girl drawn count
-                ++StaticDataStorage.R_BoyDrawCount;
-                Debug.Log("StaticDataStorage.R_BoyDrawCount:" + StaticDataStorage.R_BoyDrawCount.ToString());
-            }
-            if (StaticDataStorage.SR_Girl == true)
-            {
-                //render the card
-                createSR_GirlPrefab();
-                StaticDataStorage.SR_Girl = false;
-                //r girl drawn count
-                ++StaticDataStorage.SR_GirlDrawCount;
-                Debug.Log("StaticDataStorage.SR_GirlDrawCount:" + StaticDataStorage.SR_GirlDrawCount.ToString());
-            }
-            if (StaticDataStorage.SR_Boy == true)
-            {
-                //render the card
-                createSR_BoyPrefab();
-                StaticDataStorage.SR_Boy = false;
-                //r girl drawn count
-                ++StaticDataStorage.SR_BoyDrawCount;
-                Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
-            }
-            if (StaticDataStorage.SSR_Girl == true)
-            {
-                //render the card
-                createSSR_GirlPrefab();
-                StaticDataStorage.SSR_Girl = false;
-                //r girl drawn count
-                ++StaticDataStorage.SSR_GirlDrawCount;
-                Debug.Log("StaticDataStorage.SSR_GirlDrawCount:" + StaticDataStorage.SSR_GirlDrawCount.ToString());
-            }
-            if (StaticDataStorage.SSR_Boy == true)
-            {
-                //render the card
-                createSSR_BoyPrefab();
-                StaticDataStorage.SSR_Boy = false;
-                //r girl drawn count
-                ++StaticDataStorage.SSR_BoyDrawCount;
-                Debug.Log("StaticDataStorage.SSR_BoyDrawCount:" + StaticDataStorage.SSR_BoyDrawCount.ToString());
+                DestroyCardBackPrefab();
+                StaticDataStorage.isFlipped = false;
+
+                if (StaticDataStorage.R_Girl == true && StaticDataStorage.CardBack == false)
+                {
+                    //render the card
+                    createR_GirlPrefab();
+                    StaticDataStorage.R_Girl = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.R_GirlDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
+                }
+                if (StaticDataStorage.R_Boy == true && StaticDataStorage.CardBack == false)
+                {
+                    //render the card
+                    createR_BoyPrefab();
+                    StaticDataStorage.R_Boy = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.R_BoyDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.R_BoyDrawCount:" + StaticDataStorage.R_BoyDrawCount.ToString());
+                }
+                if (StaticDataStorage.SR_Girl == true && StaticDataStorage.CardBack == false)
+                {
+                    //render the card
+                    createSR_GirlPrefab();
+                    StaticDataStorage.SR_Girl = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.SR_GirlDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.SR_GirlDrawCount:" + StaticDataStorage.SR_GirlDrawCount.ToString());
+                }
+                if (StaticDataStorage.SR_Boy == true && StaticDataStorage.CardBack == false)
+                {
+                    //render the card
+                    createSR_BoyPrefab();
+                    StaticDataStorage.SR_Boy = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.SR_BoyDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
+                }
+                if (StaticDataStorage.SSR_Girl == true && StaticDataStorage.CardBack == false)
+                {
+                    //render the card
+                    createSSR_GirlPrefab();
+                    StaticDataStorage.SSR_Girl = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.SSR_GirlDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.SSR_GirlDrawCount:" + StaticDataStorage.SSR_GirlDrawCount.ToString());
+                }
+                if (StaticDataStorage.SSR_Boy == true)
+                {
+                    //render the card
+                    createSSR_BoyPrefab();
+                    StaticDataStorage.SSR_Boy = false;
+                    //r girl drawn count
+                    ++StaticDataStorage.SSR_BoyDrawCount;
+                    keysActive = true;
+                    Debug.Log("StaticDataStorage.SSR_BoyDrawCount:" + StaticDataStorage.SSR_BoyDrawCount.ToString());
+                }
+
+                Debug.Log("cardBackIsActive.cardBackIsActive:");
             }
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (keysActive == true && Input.GetKeyDown(KeyCode.Return))
             {
                 //remove bg (unhide the wheel)
                 OffPanel(gameObjectPanelBg);
                 //Destroy everything in hierachy that i have created
                 DestroyR_GirlPrefab();
+                keysActive = false;
             }
+        }
+
+        private void createCardBackPrefab()
+        {
+            CardBack_Clone = Instantiate(CardBackPrefab, new Vector3(450, 209, 0), Quaternion.identity) as GameObject;
+
+            Debug.Log("Spawned CardBackInstantiate");
         }
 
         private void createR_GirlPrefab()
@@ -149,13 +183,18 @@ namespace IdolFever.UI
         private void DestroyR_GirlPrefab()
         {
             Destroy(R_Girl_Clone);
-            Destroy(R_Boy_Clone); 
+            Destroy(R_Boy_Clone);
             Destroy(SR_Girl_Clone);
             Destroy(SR_Boy_Clone);
             Destroy(SSR_Girl_Clone);
             Destroy(SSR_Boy_Clone);
+            Destroy(CardBack_Clone);
         }
 
+        private void DestroyCardBackPrefab()
+        {
+            Destroy(CardBack_Clone);
+        }
         private void OnPanel(GameObject gameObject)
         {
             gameObject.SetActive(true);
