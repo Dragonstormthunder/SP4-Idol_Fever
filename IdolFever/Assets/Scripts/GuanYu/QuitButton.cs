@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 namespace IdolFever {
@@ -24,6 +25,12 @@ namespace IdolFever {
         }
 
         private System.Collections.IEnumerator DisconnectAndChangeScene() {
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+                Receivers = ReceiverGroup.Others
+            };
+            PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.EnemyDisconnectedEvent,
+                null, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+
             PhotonNetwork.Disconnect();
 
             while(PhotonNetwork.IsConnected) {
