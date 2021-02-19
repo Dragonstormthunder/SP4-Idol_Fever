@@ -45,7 +45,11 @@ namespace IdolFever {
         #endregion
 
         public void OnEvent(EventData photonEvent) {
+            Debug.Log("Here2", this);
+
             if(photonEvent.Code == (byte)EventCodes.EventCode.EnemyDisconnectedEvent) {
+                Debug.Log("Here3", this);
+
                 GameObject dcGO = Instantiate(dcPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
                 dcGO.name = myName;
 
