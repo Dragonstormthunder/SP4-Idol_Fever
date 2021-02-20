@@ -15,8 +15,6 @@ namespace IdolFever {
             get {
                 return audioSrcs;
             }
-            private set {
-            }
         }
 
         #endregion

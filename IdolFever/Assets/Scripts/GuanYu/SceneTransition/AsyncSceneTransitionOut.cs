@@ -23,9 +23,6 @@ namespace IdolFever {
             get {
                 return sceneName;
             }
-            private set { //Not used
-                sceneName = value;
-            }
         }
 
         #endregion
