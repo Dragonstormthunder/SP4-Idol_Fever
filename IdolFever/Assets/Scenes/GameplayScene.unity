@@ -7203,8 +7203,14 @@ MonoBehaviour:
   parent: {fileID: 1480105619}
   myName: DcText
   siblingIndex: 1
+  spd: 4
   x: 0
-  y: -100
+  startY: -100
+  endY: 150
+  startSize: 42
+  endSize: 56
+  startAlpha: 1
+  endAlpha: 0
 --- !u!114 &1412053330
 MonoBehaviour:
   m_ObjectHideFlags: 0
