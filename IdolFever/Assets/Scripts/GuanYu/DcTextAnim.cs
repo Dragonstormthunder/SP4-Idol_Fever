@@ -29,7 +29,7 @@ namespace IdolFever {
 
             tmpComponent.alpha = (1.0f - lerpFactor) * startAlpha + lerpFactor * endAlpha;
             if(Mathf.Approximately(tmpComponent.alpha, 0.0f)) {
-                Destroy(this);
+                Destroy(gameObject);
                 return;
             }
 

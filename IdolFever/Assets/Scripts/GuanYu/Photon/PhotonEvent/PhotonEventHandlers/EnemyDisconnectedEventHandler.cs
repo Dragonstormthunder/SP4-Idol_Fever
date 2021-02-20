@@ -58,6 +58,25 @@ namespace IdolFever {
 
         #region Unity User Callback Event Funcs
 
+        private void Awake() {
+            GameObject dcGO = Instantiate(dcPrefab, new Vector3(x, startY, 0.0f), Quaternion.identity);
+            dcGO.name = myName;
+
+            DcTextAnim script = dcGO.GetComponent<DcTextAnim>();
+            script.spd = spd;
+            script.startY = startY;
+            script.endY = endY;
+            script.startSize = startSize;
+            script.endSize = endSize;
+            script.startAlpha = startAlpha;
+            script.endAlpha = endAlpha;
+
+            if(parent != null) {
+                dcGO.transform.SetParent(parent.transform, false);
+                dcGO.transform.SetSiblingIndex(siblingIndex);
+            }
+        }
+
         private void OnEnable() {
             PhotonNetwork.NetworkingClient.EventReceived += OnEvent;
         }
