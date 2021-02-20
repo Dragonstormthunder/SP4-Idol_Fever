@@ -20,7 +20,7 @@ MonoBehaviour:
     x: 941
     y: -190
     width: 1715
-    height: 2691
+    height: 2362
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  title: 
+  title: Trail System
   m_Owners:
   - {fileID: 8926484042661614682}
   - {fileID: 8926484042661614693}
