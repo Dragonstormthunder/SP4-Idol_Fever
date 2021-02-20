@@ -26,11 +26,16 @@ namespace IdolFever {
 
         private System.Collections.IEnumerator DisconnectAndChangeScene() {
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
-                Receivers = ReceiverGroup.Others
+                Receivers = ReceiverGroup.All
             };
             PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.EnemyDisconnectedEvent,
-                null, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+                PhotonNetwork.LocalPlayer.ActorNumber, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
 
+            while(!EnemyDisconnectedEventHandler.IsLocalPlayer) { //Ensure event has been raised before disconnecting
+                yield return null;
+            }
+
+            EnemyDisconnectedEventHandler.IsLocalPlayer = false;
             PhotonNetwork.Disconnect();
 
             while(PhotonNetwork.IsConnected) {

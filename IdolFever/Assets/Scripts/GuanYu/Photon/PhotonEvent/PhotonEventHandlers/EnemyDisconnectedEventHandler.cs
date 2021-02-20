@@ -17,9 +17,19 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        public static bool IsLocalPlayer {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Ctors and Dtor
+
+        static EnemyDisconnectedEventHandler() {
+            IsLocalPlayer = false;
+        }
 
         private EnemyDisconnectedEventHandler() {
             dcPrefab = null;
@@ -45,17 +55,17 @@ namespace IdolFever {
         #endregion
 
         public void OnEvent(EventData photonEvent) {
-            Debug.Log("Here2", this);
-
             if(photonEvent.Code == (byte)EventCodes.EventCode.EnemyDisconnectedEvent) {
-                Debug.Log("Here3", this);
+                IsLocalPlayer = PhotonNetwork.LocalPlayer.ActorNumber == (int)photonEvent.CustomData;
 
-                GameObject dcGO = Instantiate(dcPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
-                dcGO.name = myName;
+                if(!IsLocalPlayer) {
+                    GameObject dcGO = Instantiate(dcPrefab, new Vector3(x, y, 0.0f), Quaternion.identity);
+                    dcGO.name = myName;
 
-                if(parent != null) {
-                    dcGO.transform.SetParent(parent.transform, false);
-                    dcGO.transform.SetSiblingIndex(siblingIndex);
+                    if(parent != null) {
+                        dcGO.transform.SetParent(parent.transform, false);
+                        dcGO.transform.SetSiblingIndex(siblingIndex);
+                    }
                 }
             }
         }
