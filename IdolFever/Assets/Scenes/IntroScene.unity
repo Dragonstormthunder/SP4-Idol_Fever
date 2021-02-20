@@ -619,11 +619,32 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0
+        m_Name: RocketSpawnRateMin
+        m_Overridden: 1
+      - m_Value: 2
+        m_Name: RocketSpawnRateMax
+        m_Overridden: 1
+      - m_Value: 10
+        m_Name: RocketSpawnRate
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: -7, y: 0, z: 0}
+        m_Name: RocketLineStart
+        m_Overridden: 1
+      - m_Value: {x: 7, y: 0, z: 0}
+        m_Name: RocketLineEnd
+        m_Overridden: 1
+      - m_Value: {x: -2, y: 7, z: -2}
+        m_Name: RocketRandVelMin
+        m_Overridden: 1
+      - m_Value: {x: 2, y: 10, z: 2}
+        m_Name: RocketRandVelMax
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
