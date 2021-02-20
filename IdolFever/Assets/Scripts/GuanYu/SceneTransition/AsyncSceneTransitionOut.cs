@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -53,6 +54,9 @@ namespace IdolFever {
             }
 
             SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
+            if(PhotonNetwork.IsConnected) {
+                PhotonNetwork.IsMessageQueueRunning = false;
+            }
 
             switch(type) {
                 case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle: {
@@ -91,6 +95,10 @@ namespace IdolFever {
                 default:
                    UnityEngine.Assertions.Assert.IsTrue(false);
                    break;
+            }
+
+            if(PhotonNetwork.IsConnected) {
+                PhotonNetwork.IsMessageQueueRunning = true;
             }
         }
 
