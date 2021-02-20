@@ -629,6 +629,15 @@ VisualEffect:
       - m_Value: 10
         m_Name: RocketSpawnRate
         m_Overridden: 1
+      - m_Value: 0.7
+        m_Name: RocketRandLifetimeMin
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: RocketRandLifetimeMax
+        m_Overridden: 1
+      - m_Value: 0.25
+        m_Name: RocketSize
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -645,12 +654,24 @@ VisualEffect:
       - m_Value: {x: 2, y: 10, z: 2}
         m_Name: RocketRandVelMax
         m_Overridden: 1
+      - m_Value: {x: 0, y: -9.8, z: 0}
+        m_Name: RocketGrav
+        m_Overridden: 1
     m_Vector4f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 4, y: 0, z: 0, w: 0}
+        m_Name: RocketColor
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 80
+        m_Name: RocketExplosionSystemParticleCount
+        m_Overridden: 1
+      - m_Value: 20
+        m_Name: RocketTrailSystemParticleCount
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -658,7 +679,10 @@ VisualEffect:
     m_Gradient:
       m_Array: []
     m_NamedObject:
-      m_Array: []
+      m_Array:
+      - m_Value: {fileID: 2800000, guid: 1bd51e1b0fb99f746b00ed7d87e46a6d, type: 3}
+        m_Name: RocketMainTex
+        m_Overridden: 1
     m_Bool:
       m_Array: []
 --- !u!4 &1762555725
