@@ -16,7 +16,7 @@ namespace TwitchChatConnect.Client
         private string commandPrefix = "!";
 
         [Header("Optional init Twitch configuration")] [SerializeField]
-        private TwitchConnectData initTwitchConnectData;
+        private TwitchConnectData initTwitchConnectData = null;
 
         private TcpClient _twitchClient;
         private StreamReader _reader;
