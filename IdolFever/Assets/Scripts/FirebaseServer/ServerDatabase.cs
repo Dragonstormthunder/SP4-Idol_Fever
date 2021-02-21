@@ -374,7 +374,7 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Grab Characters");
+                //Debug.Log("Snapshot Grab Characters");
                 DataSnapshot snapshot = DBTask.Result;
 
                 // grab all the children of the achievement
@@ -384,11 +384,11 @@ namespace IdolFever.Server
                 // insert all the children into a list to return
                 for (int i = 0; i < snapshot.ChildrenCount; ++i)
                 {
-                    Debug.Log("Snapshot Key: " + snapshots[i].Key);
+                    //Debug.Log("Snapshot Key: " + snapshots[i].Key);
 
                     string name = snapshots[i].Key;
 
-                    Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
+                    //Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
                     int value = int.Parse(snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
