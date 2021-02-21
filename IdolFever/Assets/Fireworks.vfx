@@ -30,13 +30,15 @@ MonoBehaviour:
   - name: RocketExplosionUpdate
     collapsed: 1
   - name: RocketExplosionRender
-    collapsed: 0
+    collapsed: 1
+  - name: RocketExplosionTrailInit
+    collapsed: 1
   uiBounds:
     serializedVersion: 2
     x: 637
     y: -190
-    width: 2742
-    height: 2527
+    width: 3013
+    height: 2472
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +101,9 @@ MonoBehaviour:
   - {fileID: 8926484042661614937}
   - {fileID: 8926484042661614939}
   - {fileID: 8926484042661614941}
+  - {fileID: 8926484042661614943}
+  - {fileID: 8926484042661614945}
+  - {fileID: 8926484042661614947}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -370,8 +375,8 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
+    min: 0
+    max: 1
     descendantCount: 0
   - name: RocketTrailRender
     path: 
@@ -498,8 +503,8 @@ MonoBehaviour:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
       m_SerializableObject: 0
-    min: -Infinity
-    max: Infinity
+    min: 0
+    max: 1
     descendantCount: 0
   - name: RocketExplosionUpdate
     path: 
@@ -615,6 +620,57 @@ MonoBehaviour:
       m_SerializableObject: '{"colorKeys":[{"color":{"r":1.0,"g":1.0,"b":1.0,"a":1.0},"time":0.0},{"color":{"r":0.5,"g":0.5,"b":0.5,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":0.0,"time":0.0},{"alpha":1.0,"time":0.10000763088464737},{"alpha":0.800000011920929,"time":0.800000011920929},{"alpha":0.0,"time":1.0}],"gradientMode":0}'
     min: -Infinity
     max: Infinity
+    descendantCount: 0
+  - name: RocketExplosionTrailInit
+    path: 
+    tooltip: 
+    sheetType: 
+    realType: 
+    defaultValue:
+      m_Type:
+        m_SerializableType: 
+      m_SerializableObject: 
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
+  - name: RocketExplosionTrailLifetime
+    path: RocketExplosionTrailLifetime
+    tooltip: 
+    sheetType: m_Float
+    realType: Single
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
+  - name: RocketExplosionTrailSpd
+    path: RocketExplosionTrailSpd
+    tooltip: 
+    sheetType: m_Float
+    realType: Single
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    min: -Infinity
+    max: Infinity
+    descendantCount: 0
+  - name: RocketExplosionTrailDirBlend
+    path: RocketExplosionTrailDirBlend
+    tooltip: 
+    sheetType: m_Float
+    realType: Single
+    defaultValue:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    min: 0
+    max: 1
     descendantCount: 0
   m_ImportDependencies: []
   m_GraphVersion: 4
@@ -4635,7 +4691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2951, y: 890}
+  m_UIPosition: {x: 3222, y: 911}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -4701,7 +4757,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614742}
   - {fileID: 8926484042661614744}
   - {fileID: 8926484042661614745}
-  m_UIPosition: {x: 2955, y: 1173}
+  m_UIPosition: {x: 3226, y: 1194}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5083,7 +5139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 8926484042661614731}
   m_Children: []
-  m_UIPosition: {x: 8.637817, y: -199.37476}
+  m_UIPosition: {x: 0, y: 2}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5135,7 +5191,8 @@ MonoBehaviour:
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614944}
 --- !u!114 &8926484042661614744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5150,7 +5207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 8926484042661614731}
   m_Children: []
-  m_UIPosition: {x: 8.637817, y: -199.37476}
+  m_UIPosition: {x: 0, y: 77}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -5175,7 +5232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 8926484042661614731}
   m_Children: []
-  m_UIPosition: {x: 8.637817, y: -199.37476}
+  m_UIPosition: {x: 0, y: 119}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5224,7 +5281,8 @@ MonoBehaviour:
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614946}
 --- !u!114 &8926484042661614747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5271,7 +5329,8 @@ MonoBehaviour:
       m_Regex: 
       m_RegexMaxLength: 0
   m_Direction: 0
-  m_LinkedSlots: []
+  m_LinkedSlots:
+  - {fileID: 8926484042661614948}
 --- !u!114 &8926484042661614748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5286,7 +5345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2955, y: 1631}
+  m_UIPosition: {x: 3226, y: 1652}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -5319,10 +5378,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children:
-  - {fileID: 8926484042661614753}
   - {fileID: 8926484042661614754}
   - {fileID: 8926484042661614756}
-  m_UIPosition: {x: 2955, y: 1792}
+  m_UIPosition: {x: 3226, y: 1813}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5395,28 +5453,6 @@ MonoBehaviour:
       m_RegexMaxLength: 0
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661614753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d16c6aeaef944094b9a1633041804207, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Parent: {fileID: 8926484042661614750}
-  m_Children: []
-  m_UIPosition: {x: 508.96252, y: -376.11414}
-  m_UICollapsed: 0
-  m_UISuperCollapsed: 0
-  m_InputSlots: []
-  m_OutputSlots: []
-  m_Disabled: 0
-  mode: 0
-  axes: 4
 --- !u!114 &8926484042661614754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5431,7 +5467,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 8926484042661614750}
   m_Children: []
-  m_UIPosition: {x: 8.637817, y: -199.37476}
+  m_UIPosition: {x: 0, y: 2}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5493,7 +5529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 8926484042661614750}
   m_Children: []
-  m_UIPosition: {x: 275.57983, y: -433.68628}
+  m_UIPosition: {x: 0, y: 129}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -5529,7 +5565,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 0
+      m_SerializableObject: 0.2
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -5993,7 +6029,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614843}
   m_ExposedName: RocketLineStart
   m_Exposed: 1
-  m_Order: 6
+  m_Order: 10
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6172,7 +6208,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614848}
   m_ExposedName: RocketLineEnd
   m_Exposed: 1
-  m_Order: 10
+  m_Order: 14
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6351,7 +6387,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614853}
   m_ExposedName: RocketRandVelMin
   m_Exposed: 1
-  m_Order: 12
+  m_Order: 16
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6530,7 +6566,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614858}
   m_ExposedName: RocketRandVelMax
   m_Exposed: 1
-  m_Order: 13
+  m_Order: 17
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6709,7 +6745,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614863}
   m_ExposedName: RocketRandLifetimeMin
   m_Exposed: 1
-  m_Order: 14
+  m_Order: 18
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6786,7 +6822,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614865}
   m_ExposedName: RocketRandLifetimeMax
   m_Exposed: 1
-  m_Order: 15
+  m_Order: 19
   m_Category: RocketInit
   m_Min:
     m_Type:
@@ -6863,7 +6899,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614867}
   m_ExposedName: RocketGrav
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 6
   m_Category: RocketUpdate
   m_Min:
     m_Type:
@@ -7042,7 +7078,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614872}
   m_ExposedName: RocketExplosionParticleCount
   m_Exposed: 1
-  m_Order: 9
+  m_Order: 13
   m_Category: RocketUpdate
   m_Min:
     m_Type:
@@ -7119,7 +7155,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614874}
   m_ExposedName: RocketTrailParticleCount
   m_Exposed: 1
-  m_Order: 11
+  m_Order: 15
   m_Category: RocketUpdate
   m_Min:
     m_Type:
@@ -7196,7 +7232,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614876}
   m_ExposedName: RocketMainTex
   m_Exposed: 1
-  m_Order: 16
+  m_Order: 20
   m_Category: RocketRender
   m_Min:
     m_Type:
@@ -7273,7 +7309,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614883}
   m_ExposedName: RocketColor
   m_Exposed: 1
-  m_Order: 17
+  m_Order: 21
   m_Category: RocketRender
   m_Min:
     m_Type:
@@ -7486,7 +7522,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614889}
   m_ExposedName: RocketSize
   m_Exposed: 1
-  m_Order: 18
+  m_Order: 22
   m_Category: RocketRender
   m_Min:
     m_Type:
@@ -7563,7 +7599,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614893}
   m_ExposedName: RocketTrailLifetime
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 2
   m_Category: RocketTrailInit
   m_Min:
     m_Type:
@@ -7724,7 +7760,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614900}
   m_ExposedName: RocketTrailMinSpd
   m_Exposed: 1
-  m_Order: 4
+  m_Order: 8
   m_Category: RocketTrailInit
   m_Min:
     m_Type:
@@ -7801,7 +7837,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614902}
   m_ExposedName: RocketTrailMaxSpd
   m_Exposed: 1
-  m_Order: 7
+  m_Order: 11
   m_Category: RocketTrailInit
   m_Min:
     m_Type:
@@ -7878,16 +7914,18 @@ MonoBehaviour:
   - {fileID: 8926484042661614904}
   m_ExposedName: RocketTrailDirBlend
   m_Exposed: 1
-  m_Order: 19
+  m_Order: 23
   m_Category: RocketTrailInit
   m_Min:
     m_Type:
-      m_SerializableType: 
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
     m_SerializableObject: 
   m_Max:
     m_Type:
-      m_SerializableType: 
-    m_SerializableObject: 
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    m_SerializableObject: 1
   m_IsOutput: 0
   m_Tooltip: 
   m_Nodes:
@@ -7988,7 +8026,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614909}
   m_ExposedName: RocketTrailMainTex
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 4
   m_Category: RocketTrailRender
   m_Min:
     m_Type:
@@ -8065,7 +8103,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614911}
   m_ExposedName: RocketTrailGradient
   m_Exposed: 1
-  m_Order: 5
+  m_Order: 9
   m_Category: RocketTrailRender
   m_Min:
     m_Type:
@@ -8142,7 +8180,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614913}
   m_ExposedName: RocketTrailSize
   m_Exposed: 1
-  m_Order: 8
+  m_Order: 12
   m_Category: RocketTrailRender
   m_Min:
     m_Type:
@@ -8282,7 +8320,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614917}
   m_ExposedName: RocketExplosionRandLifetimeMin
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 1
   m_Category: RocketExplosionInit
   m_Min:
     m_Type:
@@ -8359,7 +8397,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614919}
   m_ExposedName: RocketExplosionRandLifetimeMax
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 3
   m_Category: RocketExplosionInit
   m_Min:
     m_Type:
@@ -8436,7 +8474,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614921}
   m_ExposedName: RocketExplosionMinSpd
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 5
   m_Category: RocketExplosionInit
   m_Min:
     m_Type:
@@ -8513,7 +8551,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614923}
   m_ExposedName: RocketExplosionMaxSpd
   m_Exposed: 1
-  m_Order: 3
+  m_Order: 7
   m_Category: RocketExplosionInit
   m_Min:
     m_Type:
@@ -8583,23 +8621,25 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661614925}
   m_ExposedName: RocketExplosionDirBlend
   m_Exposed: 1
-  m_Order: 20
+  m_Order: 24
   m_Category: RocketExplosionInit
   m_Min:
     m_Type:
-      m_SerializableType: 
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
     m_SerializableObject: 
   m_Max:
     m_Type:
-      m_SerializableType: 
-    m_SerializableObject: 
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    m_SerializableObject: 1
   m_IsOutput: 0
   m_Tooltip: 
   m_Nodes:
@@ -8667,7 +8707,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614927}
   m_ExposedName: RocketExplosionDragCoefficient
   m_Exposed: 1
-  m_Order: 21
+  m_Order: 25
   m_Category: RocketExplosionUpdate
   m_Min:
     m_Type:
@@ -8744,7 +8784,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614929}
   m_ExposedName: RocketExplosionGrav
   m_Exposed: 1
-  m_Order: 22
+  m_Order: 26
   m_Category: RocketExplosionUpdate
   m_Min:
     m_Type:
@@ -8923,7 +8963,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614934}
   m_ExposedName: RocketExplosionTrailParticleCount
   m_Exposed: 1
-  m_Order: 23
+  m_Order: 27
   m_Category: RocketExplosionUpdate
   m_Min:
     m_Type:
@@ -9000,7 +9040,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614936}
   m_ExposedName: RocketExplosionMainTex
   m_Exposed: 1
-  m_Order: 24
+  m_Order: 28
   m_Category: RocketExplosionRender
   m_Min:
     m_Type:
@@ -9077,7 +9117,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614938}
   m_ExposedName: RocketExplosionRandSizeMin
   m_Exposed: 1
-  m_Order: 25
+  m_Order: 29
   m_Category: RocketExplosionRender
   m_Min:
     m_Type:
@@ -9154,7 +9194,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614940}
   m_ExposedName: RocketExplosionRandSizeMax
   m_Exposed: 1
-  m_Order: 26
+  m_Order: 30
   m_Category: RocketExplosionRender
   m_Min:
     m_Type:
@@ -9231,7 +9271,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614942}
   m_ExposedName: RocketExplosionGradient
   m_Exposed: 1
-  m_Order: 27
+  m_Order: 31
   m_Category: RocketExplosionRender
   m_Min:
     m_Type:
@@ -9286,3 +9326,236 @@ MonoBehaviour:
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 8926484042661614676}
+--- !u!114 &8926484042661614943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614944}
+  m_ExposedName: RocketExplosionTrailLifetime
+  m_Exposed: 1
+  m_Order: 32
+  m_Category: RocketExplosionTrailInit
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614944}
+      inputSlot: {fileID: 8926484042661614743}
+    position: {x: 2924, y: 1367}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614944}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614943}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661614743}
+--- !u!114 &8926484042661614945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614946}
+  m_ExposedName: RocketExplosionTrailSpd
+  m_Exposed: 1
+  m_Order: 33
+  m_Category: RocketExplosionTrailInit
+  m_Min:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: 
+    m_SerializableObject: 
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614946}
+      inputSlot: {fileID: 8926484042661614746}
+    position: {x: 2935, y: 1457}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614946}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614945}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661614746}
+--- !u!114 &8926484042661614947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 330e0fca1717dde4aaa144f48232aa64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots:
+  - {fileID: 8926484042661614948}
+  m_ExposedName: RocketExplosionTrailDirBlend
+  m_Exposed: 1
+  m_Order: 34
+  m_Category: RocketExplosionTrailInit
+  m_Min:
+    m_Type:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    m_SerializableObject: 
+  m_Max:
+    m_Type:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    m_SerializableObject: 1
+  m_IsOutput: 0
+  m_Tooltip: 
+  m_Nodes:
+  - m_Id: 0
+    linkedSlots:
+    - outputSlot: {fileID: 8926484042661614948}
+      inputSlot: {fileID: 8926484042661614747}
+    position: {x: 2925, y: 1535}
+    expandedSlots: []
+    expanded: 0
+--- !u!114 &8926484042661614948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f780aa281814f9842a7c076d436932e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 0}
+  m_Children: []
+  m_UIPosition: {x: 0, y: 0}
+  m_UICollapsed: 1
+  m_UISuperCollapsed: 0
+  m_MasterSlot: {fileID: 8926484042661614948}
+  m_MasterData:
+    m_Owner: {fileID: 8926484042661614947}
+    m_Value:
+      m_Type:
+        m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+          PublicKeyToken=b77a5c561934e089
+      m_SerializableObject: 0
+    m_Space: 2147483647
+  m_Property:
+    name: o
+    m_serializedType:
+      m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+    attributes: []
+  m_Direction: 1
+  m_LinkedSlots:
+  - {fileID: 8926484042661614747}
