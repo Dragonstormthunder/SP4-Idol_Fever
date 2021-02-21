@@ -626,7 +626,7 @@ VisualEffect:
       - m_Value: 2
         m_Name: RocketSpawnRateMax
         m_Overridden: 1
-      - m_Value: 10
+      - m_Value: 7
         m_Name: RocketSpawnRate
         m_Overridden: 1
       - m_Value: 0.7
@@ -650,7 +650,7 @@ VisualEffect:
       - m_Value: 0.2
         m_Name: RocketTrailMaxSpd
         m_Overridden: 1
-      - m_Value: 0.1
+      - m_Value: 0.2
         m_Name: RocketTrailSize
         m_Overridden: 1
       - m_Value: 0.4
@@ -711,6 +711,18 @@ VisualEffect:
       - m_Value: {x: 0, y: -1.4, z: 0}
         m_Name: RocketExplosionGrav
         m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: -400}
+        m_Name: RocketExplosionRandAngularVelMin
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 400}
+        m_Name: RocketExplosionRandAngularVelMax
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: -700}
+        m_Name: RocketTrailRandAngularVelMin
+        m_Overridden: 1
+      - m_Value: {x: 0, y: 0, z: 700}
+        m_Name: RocketTrailRandAngularVelMax
+        m_Overridden: 1
     m_Vector4f:
       m_Array:
       - m_Value: {x: 4, y: 0, z: 0, w: 0}
@@ -743,8 +755,8 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-          key1: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0}
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 0}
           key2: {r: 0, g: 0, b: 0, a: 0}
           key3: {r: 0, g: 0, b: 0, a: 0}
           key4: {r: 0, g: 0, b: 0, a: 0}
