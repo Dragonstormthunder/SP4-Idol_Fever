@@ -110,9 +110,8 @@ namespace TwitchChatConnect.Client {
 
             // Checks
             if(_twitchConnectConfig == null) {
-                string errorMessage =
-                    "TwitchChatClient.Init :: Twitch connect data is invalid, all fields are mandatory.";
-                onError(errorMessage);
+                string errMsg = "Failed to connect to Twitch!";
+                onError(errMsg);
                 return;
             }
 
@@ -121,6 +120,12 @@ namespace TwitchChatConnect.Client {
                 string code = myCodeFileReader.ReadTextFromFile();
 
                 _twitchConnectConfig = new TwitchConnectConfig(username, code, username);
+
+                if(!_twitchConnectConfig.IsValid()) {
+                    string errMsg = "Failed to connect to Twitch!";
+                    onError(errMsg);
+                    return;
+                }
             }
 
             if(String.IsNullOrEmpty(commandPrefix))

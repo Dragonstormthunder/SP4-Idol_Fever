@@ -741,6 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd11f9edb5570848b43e64743c5f4d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myUsernameFileReader: {fileID: 813681984}
+  myCodeFileReader: {fileID: 672343992}
   commandPrefix: '!'
   initTwitchConnectData: {fileID: 11400000, guid: 5673bdcb0a98567478c683c8da08ee9b, type: 2}
 --- !u!1 &1754199006
