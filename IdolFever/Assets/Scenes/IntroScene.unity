@@ -650,7 +650,7 @@ VisualEffect:
       - m_Value: 0.2
         m_Name: RocketTrailMaxSpd
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.1
         m_Name: RocketTrailSize
         m_Overridden: 1
     m_Vector2f:
@@ -663,10 +663,10 @@ VisualEffect:
       - m_Value: {x: 7, y: -2, z: 0}
         m_Name: RocketLineEnd
         m_Overridden: 1
-      - m_Value: {x: -2, y: 7, z: -2}
+      - m_Value: {x: -2, y: 10, z: -2}
         m_Name: RocketRandVelMin
         m_Overridden: 1
-      - m_Value: {x: 2, y: 10, z: 2}
+      - m_Value: {x: 2, y: 12, z: 2}
         m_Name: RocketRandVelMax
         m_Overridden: 1
       - m_Value: {x: 0, y: -9.8, z: 0}
