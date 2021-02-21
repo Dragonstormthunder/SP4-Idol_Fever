@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   twitchConnectConfig:
     username: srhd_999
-    userToken: oauth:wc4zlg9pqq2m90covx6zfqjen3cbm9
+    userToken: oauth:np9cxcfhda110elm1kr08nldx0obxj
     channelName: srhd_999
