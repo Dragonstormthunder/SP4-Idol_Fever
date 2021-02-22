@@ -13,6 +13,7 @@ namespace IdolFever.Server.Leaderboard
         public GameObject contentPanel;
         public GameObject scorePrefab;
         public TextMeshProUGUI personalScore;
+        private SongRegistry.SongList currentSelectedSong;
         //[SerializeField] SongRegistry.SongList songLeaderboardToDisplay;
 
         #endregion
@@ -74,6 +75,7 @@ namespace IdolFever.Server.Leaderboard
 
             StartCoroutine(serverDatabase.GrabOwnHighScore(songName, (ownscore) =>
             {
+                currentSelectedSong = index;
                 personalScore.text = ownscore.ToString();
 
                 Debug.Log("Clearing Leaderboard");
@@ -84,6 +86,7 @@ namespace IdolFever.Server.Leaderboard
                 StartCoroutine(serverDatabase.GrabAllScoresOfASong(songName, (scores) =>
                 {
                     int position = 0;
+                    if(currentSelectedSong == index)
                     foreach (KeyValuePair<string, int> score in scores)
                     {
                         //Debug.Log(score.Key + " " + score.Value);

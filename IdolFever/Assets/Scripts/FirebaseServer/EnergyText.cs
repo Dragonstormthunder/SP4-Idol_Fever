@@ -19,12 +19,38 @@ namespace IdolFever.Server
         void Start()
         {
             // update the number of gems
-            StartCoroutine(serverDatabase.GetEnergy((energy) =>
-            {
-                energyText.text = energy.ToString();
-            }));
+            StartCoroutine(UpdateEnergy());
         }
 
+
+        IEnumerator UpdateEnergy()
+        {
+            while (true)
+            {
+                System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
+                int cur_time = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
+                StartCoroutine(serverDatabase.GetEnergy((energy) =>
+                {
+                    StartCoroutine(serverDatabase.GetMaxEnergy((maxEnergy) =>
+                    {
+                        StartCoroutine(serverDatabase.GetLastLogin((lastLogin) =>
+                        {
+                            if (lastLogin == 0) energy = maxEnergy;
+                            else
+                            {
+                                energy += cur_time / 150 - lastLogin / 150;
+                                if (energy > maxEnergy) energy = maxEnergy;
+                            }
+                            StartCoroutine(serverDatabase.UpdateEnergy(energy));
+                            StartCoroutine(serverDatabase.UpdateLastLogin());
+                            energyText.text = energy.ToString();
+
+                        }));
+                    }));
+                }));
+                yield return new WaitForSecondsRealtime(cur_time % 150 + 2);
+            }
+        }
     }
 
 }

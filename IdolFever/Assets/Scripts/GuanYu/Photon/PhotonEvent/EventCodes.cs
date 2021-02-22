@@ -3,7 +3,7 @@
         public enum EventCode: byte {
             NotAnEvent,
             SetScoreEvent,
-            SendSkillOver,  // send opponent's skill over
+            EnemyDisconnectedEvent,
             Amt
         };
 

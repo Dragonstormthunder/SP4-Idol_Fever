@@ -7,16 +7,20 @@ using System.Text.RegularExpressions;
 using TwitchChatConnect.Config;
 using TwitchChatConnect.Data;
 using TwitchChatConnect.Manager;
+using IdolFever;
 
-namespace TwitchChatConnect.Client
-{
-    public class TwitchChatClient : MonoBehaviour
-    {
-        [Header("Command prefix, by default is '!' (only 1 character)")] [SerializeField]
+namespace TwitchChatConnect.Client {
+    public class TwitchChatClient: MonoBehaviour {
+        [SerializeField] private FileReader myUsernameFileReader = null;
+        [SerializeField] private FileReader myCodeFileReader = null;
+
+        [Header("Command prefix, by default is '!' (only 1 character)")]
+        [SerializeField]
         private string commandPrefix = "!";
 
-        [Header("Optional init Twitch configuration")] [SerializeField]
-        private TwitchConnectData initTwitchConnectData;
+        [Header("Optional init Twitch configuration")]
+        [SerializeField]
+        private TwitchConnectData initTwitchConnectData = null;
 
         private TcpClient _twitchClient;
         private StreamReader _reader;
@@ -61,26 +65,24 @@ namespace TwitchChatConnect.Client
 
         #region Singleton
 
-        public static TwitchChatClient instance { get; private set; }
+        public static TwitchChatClient instance {
+            get; private set;
+        }
 
-        void Awake()
-        {
-            if (instance == null)
-            {
+        void Awake() {
+            if(instance == null) {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
+            } else {
                 Destroy(gameObject);
             }
         }
 
         #endregion
 
-        void FixedUpdate()
-        {
-            if (!IsConnected()) return;
+        void FixedUpdate() {
+            if(!IsConnected())
+                return;
             ReadChatLine();
         }
 
@@ -89,8 +91,7 @@ namespace TwitchChatConnect.Client
         /// You must have previously added the configuration to the component.
         /// Invokes onSuccess when the connection is done, otherwise onError will be invoked.
         /// </summary>
-        public void Init(OnSuccess onSuccess, OnError onError)
-        {
+        public void Init(OnSuccess onSuccess, OnError onError) {
             Init(initTwitchConnectData.TwitchConnectConfig, onSuccess, onError);
         }
 
@@ -99,29 +100,38 @@ namespace TwitchChatConnect.Client
         /// TwitchConnectData parameter is the init configuration to be able to connect.
         /// Invokes onSuccess when the connection is done, otherwise onError will be invoked.
         /// </summary>
-        public void Init(TwitchConnectConfig twitchConnectConfig, OnSuccess onSuccess, OnError onError)
-        {
+        public void Init(TwitchConnectConfig twitchConnectConfig, OnSuccess onSuccess, OnError onError) {
             _twitchConnectConfig = twitchConnectConfig;
 
-            if (IsConnected())
-            {
+            if(IsConnected()) {
                 onSuccess();
                 return;
             }
 
             // Checks
-            if (_twitchConnectConfig == null || !_twitchConnectConfig.IsValid())
-            {
-                string errorMessage =
-                    "TwitchChatClient.Init :: Twitch connect data is invalid, all fields are mandatory.";
-                onError(errorMessage);
+            if(_twitchConnectConfig == null) {
+                string errMsg = "Failed to connect to Twitch!";
+                onError(errMsg);
                 return;
             }
 
-            if (String.IsNullOrEmpty(commandPrefix)) commandPrefix = "!";
+            if(!_twitchConnectConfig.IsValid()) {
+                string username = myUsernameFileReader.ReadTextFromFile();
+                string code = myCodeFileReader.ReadTextFromFile();
 
-            if (commandPrefix.Length > 1)
-            {
+                _twitchConnectConfig = new TwitchConnectConfig(username, code, username);
+
+                if(!_twitchConnectConfig.IsValid()) {
+                    string errMsg = "Failed to connect to Twitch!";
+                    onError(errMsg);
+                    return;
+                }
+            }
+
+            if(String.IsNullOrEmpty(commandPrefix))
+                commandPrefix = "!";
+
+            if(commandPrefix.Length > 1) {
                 string errorMessage =
                     $"TwitchChatClient.Init :: Command prefix length should contain only 1 character. Command prefix: {commandPrefix}";
                 onError(errorMessage);
@@ -132,8 +142,7 @@ namespace TwitchChatConnect.Client
             onSuccess();
         }
 
-        private void Login()
-        {
+        private void Login() {
             _twitchClient = new TcpClient("irc.chat.twitch.tv", 6667);
             _reader = new StreamReader(_twitchClient.GetStream());
             _writer = new StreamWriter(_twitchClient.GetStream());
@@ -150,46 +159,38 @@ namespace TwitchChatConnect.Client
             _writer.Flush();
         }
 
-        private void ReadChatLine()
-        {
-            if (_twitchClient.Available <= 0) return;
+        private void ReadChatLine() {
+            if(_twitchClient.Available <= 0)
+                return;
             string message = _reader.ReadLine();
 
-            if (message == null) return;
-            if (message.Length == 0) return;
+            if(message == null)
+                return;
+            if(message.Length == 0)
+                return;
 
-            if (message.Contains("PING"))
-            {
+            if(message.Contains("PING")) {
                 _writer.WriteLine($"PONG #{_twitchConnectConfig.ChannelName}");
                 _writer.Flush();
                 return;
             }
 
-            if (message.Contains(COMMAND_MESSAGE))
-            {
-                if (message.Contains(CUSTOM_REWARD_TEXT))
-                {
+            if(message.Contains(COMMAND_MESSAGE)) {
+                if(message.Contains(CUSTOM_REWARD_TEXT)) {
                     ReadChatReward(message);
-                }
-                else
-                {
+                } else {
                     ReadChatMessage(message);
                 }
-            }
-            else if (message.Contains(COMMAND_JOIN))
-            {
+            } else if(message.Contains(COMMAND_JOIN)) {
                 string username = _joinRegexp.Match(message).Groups[1].Value;
                 TwitchUserManager.AddUser(username);
-            }
-            else if (message.Contains(COMMAND_PART))
-            {
+            } else if(message.Contains(COMMAND_PART)) {
                 string username = _partRegexp.Match(message).Groups[1].Value;
                 TwitchUserManager.RemoveUser(username);
             }
         }
 
-        private void ReadChatMessage(string message)
-        {
+        private void ReadChatMessage(string message) {
             string displayName = _messageRegexp.Match(message).Groups[1].Value;
             bool isSub = _messageRegexp.Match(message).Groups[2].Value == "1";
             string idUser = _messageRegexp.Match(message).Groups[3].Value;
@@ -200,31 +201,29 @@ namespace TwitchChatConnect.Client
             TwitchUser twitchUser = TwitchUserManager.AddUser(username);
             twitchUser.SetData(idUser, displayName, isSub);
 
-            if (messageSent.Length == 0) return;
+            if(messageSent.Length == 0)
+                return;
 
             MatchCollection matches = cheerRegexp.Matches(messageSent);
-            foreach (Match match in matches)
-            {
-                if (match.Groups.Count != 2) continue; // First group is 'cheerXX', second group is XX.
+            foreach(Match match in matches) {
+                if(match.Groups.Count != 2)
+                    continue; // First group is 'cheerXX', second group is XX.
                 string value = match.Groups[1].Value;
-                if (!Int32.TryParse(value, out int bitsAmount)) continue;
+                if(!Int32.TryParse(value, out int bitsAmount))
+                    continue;
                 bits += bitsAmount;
             }
 
-            if (messageSent[0] == commandPrefix[0])
-            {
+            if(messageSent[0] == commandPrefix[0]) {
                 TwitchChatCommand chatCommand = new TwitchChatCommand(twitchUser, messageSent, bits);
                 onChatCommandReceived?.Invoke(chatCommand);
-            }
-            else
-            {
+            } else {
                 TwitchChatMessage chatMessage = new TwitchChatMessage(twitchUser, messageSent, bits);
                 onChatMessageReceived?.Invoke(chatMessage);
             }
         }
 
-        private void ReadChatReward(string message)
-        {
+        private void ReadChatReward(string message) {
             string customRewardId = _rewardRegexp.Match(message).Groups[1].Value;
             string displayName = _rewardRegexp.Match(message).Groups[2].Value;
             bool isSub = _rewardRegexp.Match(message).Groups[3].Value == "1";
@@ -243,9 +242,9 @@ namespace TwitchChatConnect.Client
         /// Sends a chat message.
         /// Returns false when it is not connected, otherwise true.
         /// </summary>
-        public bool SendChatMessage(string message)
-        {
-            if (!IsConnected()) return false;
+        public bool SendChatMessage(string message) {
+            if(!IsConnected())
+                return false;
             SendTwitchMessage(message);
             return true;
         }
@@ -254,27 +253,24 @@ namespace TwitchChatConnect.Client
         /// Sends a chat message after X seconds.
         /// Returns false when it is not connected, otherwise true.
         /// </summary>
-        public bool SendChatMessage(string message, float seconds)
-        {
-            if (!IsConnected()) return false;
+        public bool SendChatMessage(string message, float seconds) {
+            if(!IsConnected())
+                return false;
             StartCoroutine(SendTwitchChatMessageWithDelay(message, seconds));
             return true;
         }
 
-        private IEnumerator SendTwitchChatMessageWithDelay(string message, float seconds)
-        {
+        private IEnumerator SendTwitchChatMessageWithDelay(string message, float seconds) {
             yield return new WaitForSeconds(seconds);
             SendTwitchMessage(message);
         }
 
-        private void SendTwitchMessage(string message)
-        {
+        private void SendTwitchMessage(string message) {
             _writer.WriteLine($"PRIVMSG #{_twitchConnectConfig.ChannelName} :/me {message}");
             _writer.Flush();
         }
 
-        private bool IsConnected()
-        {
+        private bool IsConnected() {
             return _twitchClient != null && _twitchClient.Connected;
         }
     }

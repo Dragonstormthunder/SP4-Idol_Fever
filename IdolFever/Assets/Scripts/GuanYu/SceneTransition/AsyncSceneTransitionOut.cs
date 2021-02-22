@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -6,7 +7,11 @@ namespace IdolFever {
     internal sealed class AsyncSceneTransitionOut: MonoBehaviour {
         #region Fields
 
+        [SerializeField] private AsyncSceneTransitionIn asyncSceneTransitionIn;
+        [SerializeField] private AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType type;
         [SerializeField] private Animator animator;
+        [SerializeField] private AudioListener audioListener;
+        [SerializeField] private GameObject myInterest;
         [SerializeField] private Image img;
         [SerializeField] private string sceneName;
         [SerializeField] private string startAnimName;
@@ -18,9 +23,6 @@ namespace IdolFever {
         public string SceneName {
             get {
                 return sceneName;
-            }
-            private set { //Not used
-                sceneName = value;
             }
         }
 
@@ -52,20 +54,81 @@ namespace IdolFever {
             }
 
             SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
+            if(PhotonNetwork.IsConnected) {
+                PhotonNetwork.IsMessageQueueRunning = false;
+            }
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+            switch(type) {
+                case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle: {
+                    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
-            while(!operation.isDone) {
-                img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
-                yield return null;
+                    while(!operation.isDone) {
+                        img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
+                        yield return null;
+                    }
+
+                    break;
+                }
+                case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddAdditive: {
+                    SceneManager.sceneLoaded += OnSceneLoaded;
+                    SceneManager.sceneUnloaded += OnSceneUnloaded;
+
+                    AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+                    while(!operation.isDone) {
+                        img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
+                        yield return null;
+                    }
+
+                    break;
+                }
+                case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.RemoveAdditive: {
+                    AsyncOperation operation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().name, UnloadSceneOptions.None);
+
+                    while(!operation.isDone) {
+                        img.fillAmount = Mathf.Clamp01(operation.progress / 0.9f);
+                        yield return null;
+                    }
+
+                    break;
+                }
+                default:
+                   UnityEngine.Assertions.Assert.IsTrue(false);
+                   break;
+            }
+
+            if(PhotonNetwork.IsConnected) {
+                PhotonNetwork.IsMessageQueueRunning = true;
             }
         }
 
         public AsyncSceneTransitionOut() {
+            asyncSceneTransitionIn = null;
+            type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;
+            audioListener = null;
+            myInterest = null;
             img = null;
             sceneName = string.Empty;
             startAnimName = string.Empty;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+            myInterest.SetActive(false);
+            audioListener.enabled = false;
+
+            SceneManager.SetActiveScene(scene);
+
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneUnloaded(Scene scene) {
+            myInterest.SetActive(true);
+            audioListener.enabled = true;
+
+            asyncSceneTransitionIn.TransitionIn();
+
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
     }
 }
