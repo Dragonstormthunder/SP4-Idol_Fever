@@ -32,14 +32,12 @@ namespace IdolFever {
         #endregion
 
         public void ChangeScene() {
+            //??
+
             _ = StartCoroutine(MyStartCoroutine(sceneName));
         }
 
         private System.Collections.IEnumerator MyStartCoroutine(string sceneName) {
-            img.fillAmount = 0.0f;
-
-            animator.SetTrigger("Start");
-
             float animLen = -1.0f;
             foreach(AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
                 if(clip.name == startAnimName) {
