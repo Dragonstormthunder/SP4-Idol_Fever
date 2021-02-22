@@ -21,6 +21,7 @@ namespace IdolFever.Game
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
+        [SerializeField] private AsyncSceneTransitionOut sceneOut;
         public AudioSource audio;
         private int beatIndex;
         private ulong usec;
@@ -90,6 +91,11 @@ namespace IdolFever.Game
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", "")))) NoteRelease(1);
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", "")))) NoteRelease(2);
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", "")))) NoteRelease(3);
+
+            if(audio.time > audio.clip.length - 1)
+            {
+                sceneOut.ChangeScene();
+            }
         }
 
         public void NoteHit(int k)
