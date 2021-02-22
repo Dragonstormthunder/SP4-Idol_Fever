@@ -42,6 +42,8 @@ namespace IdolFever {
                 img.fillAmount = 0.0f;
 
                 animator.SetTrigger("Start");
+
+                SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
             }
             _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
         }
@@ -59,8 +61,6 @@ namespace IdolFever {
             } else {
                 UnityEngine.Assertions.Assert.IsTrue(false);
             }
-
-            SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
 
             switch(type) {
                 case AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle: {

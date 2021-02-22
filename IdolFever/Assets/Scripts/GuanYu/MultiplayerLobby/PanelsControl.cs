@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-//TODO: Limit no. of players in room and change designs of...
-
 namespace IdolFever {
     internal sealed class PanelsControl: MonoBehaviourPunCallbacks {
         #region Fields

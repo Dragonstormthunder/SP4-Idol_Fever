@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IdolFever {
@@ -26,6 +27,8 @@ namespace IdolFever {
             img.fillAmount = 0.0f;
 
             animator.SetTrigger("Start");
+
+            SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
         }
     }
 }
