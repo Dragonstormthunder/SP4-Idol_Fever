@@ -1,18 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
-using IdolFever.Beatmap;
 
-public class Note : MonoBehaviour
+namespace IdolFever.Beatmap
 {
-    public BeatmapEvent noteEvent;
-    // Use this for initialization
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Note : MonoBehaviour
     {
+        public BeatmapEvent noteEvent;
+        public bool holdHit;
+        public Transform holdNote;
 
+       // Use this for initialization
+       void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

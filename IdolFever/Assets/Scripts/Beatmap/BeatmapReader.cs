@@ -214,19 +214,15 @@ namespace IdolFever.Beatmap
                     {
                         case 0x33:
                             b.beats.Add(new BeatmapEvent(holdBeats[0], usec - holdBeats[0], NoteKey.KEY1));
-                            b.beats.Add(new BeatmapEvent(usec, 0, NoteKey.KEY1, false));
                             break;
                         case 0x32:
                             b.beats.Add(new BeatmapEvent(holdBeats[1], usec - holdBeats[1], NoteKey.KEY2));
-                            b.beats.Add(new BeatmapEvent(usec, 0, NoteKey.KEY2, false));
                             break;
                         case 0x31:
                             b.beats.Add(new BeatmapEvent(holdBeats[2], usec - holdBeats[2], NoteKey.KEY3));
-                            b.beats.Add(new BeatmapEvent(usec, 0, NoteKey.KEY3, false));
                             break;
                         case 0x30:
                             b.beats.Add(new BeatmapEvent(holdBeats[3], usec - holdBeats[3], NoteKey.KEY4));
-                            b.beats.Add(new BeatmapEvent(usec, 0, NoteKey.KEY4, false));
                             break;
                     }
                 }

@@ -16,9 +16,9 @@ namespace IdolFever.Game
         public Transform particleHolder;
         public GameObject notePrefab;
         public GameObject hitPrefab;
+        public GameObject holdPrefab;
         public ComboCounter comboCounter;
         public ScoreMeter scoreMeter;
-        public Sprite start, end;
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
@@ -29,7 +29,6 @@ namespace IdolFever.Game
         private ulong usec;
         void Start()
         {
-            beatmap = BeatmapReader.Open("Wellerman.mid");
             if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
             {
                 audio.clip = songs[0];
@@ -37,13 +36,13 @@ namespace IdolFever.Game
             }
             if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
             {
-                audio.clip = songs[1];
-                beatmap = BeatmapReader.Open("MountainKing.mid");
+                audio.clip = songs[2];
+                beatmap = BeatmapReader.Open("Wellerman.mid");
             }
             if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
             {
-                audio.clip = songs[2];
-                beatmap = BeatmapReader.Open("Wellerman.mid");
+                audio.clip = songs[1];
+                beatmap = BeatmapReader.Open("MountainKing.mid");
             }
 
             audio.Play();
@@ -66,40 +65,55 @@ namespace IdolFever.Game
             long spawn = (long)(usec) + 2000000;
             while (beatmap.beats.Count > beatIndex && (long)beatmap.beats[beatIndex].timestamp < spawn)
             {
-                GameObject noteGO = Instantiate(notePrefab, Vector3.zero, Quaternion.identity);
-                noteGO.transform.SetParent(noteHolder, false);
-                noteGO.GetComponent<Note>().noteEvent = beatmap.beats[beatIndex];
-                switch (beatmap.beats[beatIndex].key)
+                if (beatmap.beats[beatIndex].down)
                 {
-                    case NoteKey.KEY1:
-                        noteGO.GetComponent<Image>().sprite = sprites[0];
-                        break;
-                    case NoteKey.KEY2:
-                        noteGO.GetComponent<Image>().sprite = sprites[1];
-                        break;
-                    case NoteKey.KEY3:
-                        noteGO.GetComponent<Image>().sprite = sprites[2];
-                        break;
-                    case NoteKey.KEY4:
-                        noteGO.GetComponent<Image>().sprite = sprites[3];
-                        break;
-                    default:
-                        break;
+                    GameObject noteGO = Instantiate(notePrefab, Vector3.zero, Quaternion.identity);
+                    if (beatmap.beats[beatIndex].length > 0)
+                    {
+                        GameObject holdGO = Instantiate(holdPrefab, Vector3.zero, Quaternion.identity);
+                        holdGO.transform.SetParent(noteHolder, false);
+                        noteGO.GetComponent<Note>().holdNote = holdGO.transform;
+                    }
+                    noteGO.transform.SetParent(noteHolder, false);
+                    noteGO.GetComponent<Note>().noteEvent = beatmap.beats[beatIndex];
+                    switch (beatmap.beats[beatIndex].key)
+                    {
+                        case NoteKey.KEY1:
+                            noteGO.GetComponent<Image>().sprite = sprites[0];
+                            break;
+                        case NoteKey.KEY2:
+                            noteGO.GetComponent<Image>().sprite = sprites[1];
+                            break;
+                        case NoteKey.KEY3:
+                            noteGO.GetComponent<Image>().sprite = sprites[2];
+                            break;
+                        case NoteKey.KEY4:
+                            noteGO.GetComponent<Image>().sprite = sprites[3];
+                            break;
+                        default:
+                            break;
+                    }
+                    notes.Add(noteGO.GetComponent<Note>());
                 }
-                notes.Add(noteGO.GetComponent<Note>());
                 beatIndex++;
             }
             for (int i = 0; i < notes.Count;)
             {
                 Note n = notes[i];
-                if ((long)n.noteEvent.timestamp < (long)usec - 400000)
+                if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec - 400000)
                 {
                     notes.RemoveAt(i);
+                    Destroy(n.GetComponent<Note>()?.holdNote.gameObject);
                     Destroy(n.transform.gameObject);
                     comboCounter.combo = 0;
                     continue;
                 }
-                n.transform.localPosition = new Vector3(n.noteEvent.XPos(), ((long)n.noteEvent.timestamp - (long)usec) / 1000 - 300, 0);
+                n.transform.localPosition = new Vector3(n.noteEvent.XPos(), (n.holdHit ? -300 : ((long)n.noteEvent.timestamp - (long)usec) / 1000 - 300), 0);
+                if (n.holdNote)
+                {
+                    n.holdNote.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((long)n.noteEvent.timestamp + (long)n.noteEvent.length - (long)usec) / 1000 - (n.holdHit ? 0 : ((long)n.noteEvent.timestamp - (long)usec) / 1000));
+                    n.holdNote.GetComponent<RectTransform>().position = n.transform.position;
+                }
                 ++i;
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", "")))) NoteHit(0);
@@ -130,37 +144,44 @@ namespace IdolFever.Game
             for (int i = 0; i < notes.Count; ++i)
             {
                 Note n = notes[i];
-                if (!n.noteEvent.down) continue;
-                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
+                if (!n.noteEvent.down)
                 {
-                    notes.RemoveAt(i);
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Image>().sprite = hitSprites[0];
-                    comboCounter.combo++;
-                    scoreMeter.AddScore(600);
-                    Destroy(n.transform.gameObject);
-                    return;
-                }
-                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
-                {
-                    notes.RemoveAt(i);
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Image>().sprite = hitSprites[1];
-                    comboCounter.combo++;
-                    scoreMeter.AddScore(400);
-                    Destroy(n.transform.gameObject);
-                    return;
+                    continue;
                 }
                 if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
                 {
-                    notes.RemoveAt(i);
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Image>().sprite = hitSprites[2];
-                    comboCounter.combo = 0;
-                    Destroy(n.transform.gameObject);
+                    if ((long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[0];
+                        comboCounter.combo++;
+                        scoreMeter.AddScore(600);
+                    }
+                    else if ((long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[1];
+                        comboCounter.combo++;
+                        scoreMeter.AddScore(400);
+                    }
+                    else
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[2];
+                        comboCounter.combo = 0;
+                    }
+                    if (n.noteEvent.length == 0)
+                    {
+                        notes.RemoveAt(i);
+                        Destroy(n.transform.gameObject);
+                    }
+                    else
+                    {
+                        n.holdHit = true;
+                    }
                     return;
                 }
             }
@@ -178,38 +199,35 @@ namespace IdolFever.Game
             for (int i = 0; i < notes.Count; ++i)
             {
                 Note n = notes[i];
-                if (n.noteEvent.down) continue;
-                notes.RemoveAt(i);
-                Destroy(n.transform.gameObject);
-                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
+                if (n.holdHit)
                 {
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "PERFECT";
-                    comboCounter.combo++;
-                    scoreMeter.AddScore(600 + comboCounter.combo * 10);
-                }
-                else if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 75000 && (long)n.noteEvent.timestamp > (long)usec - 75000)
-                {
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "GOOD";
-                    comboCounter.combo++;
-                    scoreMeter.AddScore(400 + comboCounter.combo * 10);
-                }
-                else if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
-                {
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "EH";
-                    scoreMeter.AddScore(200);
-                }
-                else if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
-                {
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "MISS";
-                    comboCounter.combo = 0;
+                    if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 37500 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 37500)
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[0];
+                        comboCounter.combo++;
+                        scoreMeter.AddScore(600);
+                    }
+                    else if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 125000 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 125000)
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[1];
+                        comboCounter.combo++;
+                        scoreMeter.AddScore(400);
+                    }
+                    else
+                    {
+                        GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
+                        hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
+                        hitGo.GetComponent<Image>().sprite = hitSprites[2];
+                        comboCounter.combo = 0;
+                    }
+                    Destroy(n.GetComponent<Note>().holdNote.gameObject);
+                    notes.RemoveAt(i);
+                    Destroy(n.transform.gameObject);
+                    return;
                 }
             }
         }
