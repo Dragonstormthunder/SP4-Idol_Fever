@@ -40,15 +40,12 @@ namespace IdolFever {
         public void ChangeScene() {
             if(PhotonNetwork.IsConnected) {
                 PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
-
-                /*RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
-                    Receivers = ReceiverGroup.All
-                };
-                PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.StartSceneTransitionOutAnimEvent,
-                    animator.gameObject.name, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);*/
-
                 _ = StartCoroutine(nameof(StartAnimCoroutine));
             } else {
+                img.fillAmount = 0.0f;
+
+                animator.SetTrigger("Start");
+
                 _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
             }
         }
