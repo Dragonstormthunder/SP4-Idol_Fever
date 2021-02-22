@@ -2934,6 +2934,7 @@ GameObject:
   - component: {fileID: 884705924700850650}
   - component: {fileID: 7116070622341830695}
   - component: {fileID: 7116070622341830691}
+  - component: {fileID: 1310044697}
   - component: {fileID: 7116070622341830692}
   m_Layer: 5
   m_Name: Panels
@@ -2967,6 +2968,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1310044697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310044695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ec5cdb2486df748a3b3cad11dd27fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &1310044698
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5016,6 +5029,8 @@ GameObject:
   - component: {fileID: 4767771762131971128}
   - component: {fileID: 4767771762131971134}
   - component: {fileID: 13}
+  - component: {fileID: 4767771762131971136}
+  - component: {fileID: 4767771762131971133}
   m_Layer: 0
   m_Name: Cam
   m_TagString: MainCamera
@@ -5037,6 +5052,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4767771762131971133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767771762131971131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecc28f3d7bfc6254bb7ceb9c1d56899d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4767771762131971134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5093,6 +5120,18 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &4767771762131971136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4767771762131971131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9051e81b62f5de4a900c8d94c3ee0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5244440434138475257
 Transform:
   m_ObjectHideFlags: 0
@@ -5119,10 +5158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoadAdditive: 0
+  asyncSceneTransitionIn: {fileID: 0}
+  type: 0
   animator: {fileID: 8291231422604694148}
   audioListener: {fileID: 0}
-  toHide: {fileID: 0}
+  myInterest: {fileID: 0}
   img: {fileID: 8291231422604694147}
   sceneName: MainMenuScene
   startAnimName: CircleWipeStart
@@ -5138,10 +5178,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoadAdditive: 0
+  asyncSceneTransitionIn: {fileID: 0}
+  type: 0
   animator: {fileID: 2161000700675807766}
   audioListener: {fileID: 0}
-  toHide: {fileID: 0}
+  myInterest: {fileID: 0}
   img: {fileID: 2161000700675807765}
   sceneName: GameplayScene
   startAnimName: CurtainTransitionStart
@@ -5315,6 +5356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: GameplayScene
   asyncSceneTransitionOutScript: {fileID: 5953765476958148041}
+  animator: {fileID: 2161000700675807766}
   LoginPanel: {fileID: 964844637}
   PlayerNameInput: {fileID: 328590478}
   SelectionPanel: {fileID: 1771933899}
