@@ -43,6 +43,11 @@ namespace IdolFever
                 UI.SongSelectionZoomAndEnhance songSelectionZoomAndEnhance = song.GetComponent<UI.SongSelectionZoomAndEnhance>();
                 songSelectionZoomAndEnhance.SongIndex = index;
 
+                // initialize the button song select
+                ButtonSongSelect buttonSongSelect = song.GetComponent<ButtonSongSelect>();
+                buttonSongSelect.SongIndex = index;
+
+
             }
 
 
