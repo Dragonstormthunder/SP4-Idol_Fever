@@ -29,17 +29,40 @@ namespace IdolFever {
         #endregion
 
         #region Unity User Callback Event Funcs
+
+        public static bool IsStartSceneTransitionOutAnimReceived {
+            get;
+            set;
+        }
+
         #endregion
 
         public void ChangeScene() {
-            _ = StartCoroutine(MyStartCoroutine(sceneName));
+            if(PhotonNetwork.IsConnected) {
+                PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
+
+                /*RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+                    Receivers = ReceiverGroup.All
+                };
+                PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.StartSceneTransitionOutAnimEvent,
+                    animator.gameObject.name, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);*/
+
+                _ = StartCoroutine(nameof(StartAnimCoroutine));
+            } else {
+                _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
+            }
         }
 
-        private System.Collections.IEnumerator MyStartCoroutine(string sceneName) {
-            img.fillAmount = 0.0f;
+        private System.Collections.IEnumerator StartAnimCoroutine() {
+            while(!IsStartSceneTransitionOutAnimReceived) {
+                yield return null;
+            }
 
-            animator.SetTrigger("Start");
+            IsStartSceneTransitionOutAnimReceived = false;
+            _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
+        }
 
+        private System.Collections.IEnumerator ChangeSceneCoroutine(string sceneName) {
             float animLen = -1.0f;
             foreach(AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
                 if(clip.name == startAnimName) {
@@ -96,6 +119,7 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
+            IsStartSceneTransitionOutAnimReceived = false;
             asyncSceneTransitionIn = null;
             type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;

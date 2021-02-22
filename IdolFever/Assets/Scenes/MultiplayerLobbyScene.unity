@@ -4959,6 +4959,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2519933439146286583}
   - component: {fileID: 5953765476958148041}
+  - component: {fileID: 2535516477415774704}
+  - component: {fileID: 2535516477415774703}
   m_Layer: 0
   m_Name: ToGameplay
   m_TagString: Untagged
@@ -4966,6 +4968,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2535516477415774703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535516477415774702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &2535516477415774704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2535516477415774702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ec5cdb2486df748a3b3cad11dd27fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2719246142246422841
 Transform:
   m_ObjectHideFlags: 0
@@ -5119,10 +5155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoadAdditive: 0
+  asyncSceneTransitionIn: {fileID: 0}
+  type: 0
   animator: {fileID: 8291231422604694148}
   audioListener: {fileID: 0}
-  toHide: {fileID: 0}
+  myInterest: {fileID: 0}
   img: {fileID: 8291231422604694147}
   sceneName: MainMenuScene
   startAnimName: CircleWipeStart
@@ -5138,10 +5175,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bfde5828428974e89504b257ed0e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLoadAdditive: 0
+  asyncSceneTransitionIn: {fileID: 0}
+  type: 0
   animator: {fileID: 2161000700675807766}
   audioListener: {fileID: 0}
-  toHide: {fileID: 0}
+  myInterest: {fileID: 0}
   img: {fileID: 2161000700675807765}
   sceneName: GameplayScene
   startAnimName: CurtainTransitionStart
