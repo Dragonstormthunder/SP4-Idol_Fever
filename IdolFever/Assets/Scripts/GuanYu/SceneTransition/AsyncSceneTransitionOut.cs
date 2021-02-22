@@ -38,32 +38,11 @@ namespace IdolFever {
         #endregion
 
         public void ChangeScene() {
-            if(PhotonNetwork.IsConnected) {
-                Debug.Log("here123", this);
+            if(!PhotonNetwork.IsConnected) {
+                img.fillAmount = 0.0f;
 
-                RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
-                    Receivers = ReceiverGroup.All
-                };
-                PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.StartSceneTransitionOutAnimEvent,
-                    animator.gameObject.name, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
-
-                _ = StartCoroutine(nameof(StartAnimCoroutine));
-            } else {
-                _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
+                animator.SetTrigger("Start");
             }
-        }
-
-        private System.Collections.IEnumerator StartAnimCoroutine() {
-            Debug.Log("here2", this);
-
-
-            while(!IsStartSceneTransitionOutAnimReceived) {
-                yield return null;
-            }
-
-            Debug.Log("here3", this);
-
-            IsStartSceneTransitionOutAnimReceived = false;
             _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
         }
 
@@ -124,7 +103,6 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
-            IsStartSceneTransitionOutAnimReceived = false;
             asyncSceneTransitionIn = null;
             type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;
