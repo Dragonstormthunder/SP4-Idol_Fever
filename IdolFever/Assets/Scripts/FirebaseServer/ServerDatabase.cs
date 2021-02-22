@@ -25,6 +25,7 @@ namespace IdolFever.Server
         public const string DATABASE_CHARACTER = "CHARACTER";
         public const string DATABASE_CHARACTER_NUMBER = "NUMBER";
         public const string DATABASE_ENERGY = "ENERGY";
+        public const string DATABASE_MAX_ENERGY = "MAX_ENERGY";
         public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
         public const string DATABASE_LEVEL = "LEVEL";
         public const string DATABASE_EXP = "EXP";
@@ -113,6 +114,57 @@ namespace IdolFever.Server
 
         }
 
+        public IEnumerator UpdateLastLogin()
+        {
+            System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
+            int cur_time = (int)(System.DateTime.UtcNow - epochStart).TotalSeconds;
+            // update the value of the gem
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_LAST_LOGIN).SetValueAsync(cur_time);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetLastLogin(System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot LastLogin");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(DATABASE_LAST_LOGIN))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_LAST_LOGIN).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish(0);
+                }
+            }
+
+        }
+
         public IEnumerator UpdateEnergy(int energy)
         {
             // update the value of the gem
@@ -150,13 +202,62 @@ namespace IdolFever.Server
                 if (snapshot.HasChild(DATABASE_ENERGY))
                 {
                     Debug.Log("Able to access data");
-                    int value = int.Parse(snapshot.Child(DATABASE_GEM).Value.ToString());
+                    int value = int.Parse(snapshot.Child(DATABASE_ENERGY).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
                     Debug.Log("Unable to access data");
                     callbackOnFinish(0);
+                }
+            }
+
+        }
+
+        public IEnumerator UpdateMaxEnergy(int energy)
+        {
+            // update the value of the gem
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_MAX_ENERGY).SetValueAsync(energy);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetMaxEnergy(System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(50);
+            }
+            else
+            {
+                Debug.Log("Snapshot MaxEnergy");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(DATABASE_MAX_ENERGY))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_MAX_ENERGY).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish(50);
                 }
             }
 
