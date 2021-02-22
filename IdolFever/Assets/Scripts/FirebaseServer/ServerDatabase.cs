@@ -63,18 +63,18 @@ namespace IdolFever.Server
             //StartCoroutine(UpdateSongHighscore(DBSH_ORIGINAL_SONG, 50));
             //StartCoroutine(UpdateSongHighscore(DBSH_WELLERMAN, 10));
 
-            StartCoroutine(GrabHighestScoreOfASong(DBSH_MOUNTAIN_KING, (scorer) =>
-            {
-                Debug.Log("Highest score: " + scorer);
-            }));
-
-            StartCoroutine(GrabAllScoresOfASong(DBSH_MOUNTAIN_KING, (scores) =>
-            {
-                foreach (KeyValuePair<string, int> keyValuePair in scores)
-                {
-                    Debug.Log("Scoring: " + keyValuePair);
-                }
-            }));
+            //StartCoroutine(GrabHighestScoreOfASong(DBSH_MOUNTAIN_KING, (scorer) =>
+            //{
+            //    Debug.Log("Highest score: " + scorer);
+            //}));
+            //
+            //StartCoroutine(GrabAllScoresOfASong(DBSH_MOUNTAIN_KING, (scores) =>
+            //{
+            //    foreach (KeyValuePair<string, int> keyValuePair in scores)
+            //    {
+            //        Debug.Log("Scoring: " + keyValuePair);
+            //    }
+            //}));
 
         }
 
@@ -475,7 +475,7 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Grab Characters");
+                //Debug.Log("Snapshot Grab Characters");
                 DataSnapshot snapshot = DBTask.Result;
 
                 // grab all the children of the achievement
@@ -485,11 +485,11 @@ namespace IdolFever.Server
                 // insert all the children into a list to return
                 for (int i = 0; i < snapshot.ChildrenCount; ++i)
                 {
-                    Debug.Log("Snapshot Key: " + snapshots[i].Key);
+                    //Debug.Log("Snapshot Key: " + snapshots[i].Key);
 
                     string name = snapshots[i].Key;
 
-                    Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
+                    //Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
                     int value = int.Parse(snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
@@ -519,6 +519,39 @@ namespace IdolFever.Server
             }
         }
 
+        public IEnumerator GrabOwnHighScore(string songName, System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                //Debug.Log("Snapshot Highscore");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(songName))
+                {
+                    //Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(songName).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    //Debug.Log("Unable to access data");
+                    callbackOnFinish(0);
+                }
+            }
+        }
+
         public IEnumerator GrabHighestScoreOfASong(string songName, System.Action<KeyValuePair<string, int>> callbackOnFinish)
         {
             // grab all the scores of a song
@@ -535,13 +568,13 @@ namespace IdolFever.Server
             {
                 DataSnapshot snapshot = DBTask.Result;
 
-                Debug.Log("Highest score of a song");
+                //Debug.Log("Highest score of a song");
 
                 // highest score of a song will be the last one in the snapshot
                 // the scores are sorted via ascending order when retrieving
                 DataSnapshot topScorer = snapshot.Children.Last();
 
-                Debug.Log("Username: " + topScorer.Child(DATABASE_USERNAME).Value.ToString() + "; Score: " + topScorer.Child(songName).Value.ToString());
+                //Debug.Log("Username: " + topScorer.Child(DATABASE_USERNAME).Value.ToString() + "; Score: " + topScorer.Child(songName).Value.ToString());
 
                 callbackOnFinish(new KeyValuePair<string, int>(topScorer.Child(DATABASE_USERNAME).Value.ToString(), int.Parse(topScorer.Child(songName).Value.ToString())));
 
@@ -569,7 +602,7 @@ namespace IdolFever.Server
             {
                 DataSnapshot snapshot = DBTask.Result;
 
-                Debug.Log("Highest score of a song");
+                //Debug.Log("Highest score of a song");
 
                 // the scores are sorted via ascending order when retrieving
 
@@ -583,13 +616,13 @@ namespace IdolFever.Server
                     {
                         //Debug.Log("Username: " + childSnapshot.Child(DATABASE_USERNAME).Value.ToString() + "; Score: " + childSnapshot.Child(songName).Value.ToString());
 
-                        songScores.Add(new KeyValuePair<string, int>(childSnapshot.Value.ToString(), int.Parse(snapshot.Child(songName).Value.ToString())));
+                        songScores.Add(new KeyValuePair<string, int>(childSnapshot.Child(DATABASE_USERNAME).Value.ToString(), int.Parse(childSnapshot.Child(songName).Value.ToString())));
 
                     }
 
-
-
                 }
+
+                callbackOnFinish(songScores);
 
             }
 
