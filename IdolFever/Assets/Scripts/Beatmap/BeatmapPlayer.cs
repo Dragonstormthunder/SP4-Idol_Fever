@@ -36,13 +36,13 @@ namespace IdolFever.Game
             }
             if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
             {
-                audio.clip = songs[2];
-                beatmap = BeatmapReader.Open("Wellerman.mid");
+                audio.clip = songs[1];
+                beatmap = BeatmapReader.Open("MountainKing.mid");
             }
             if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
             {
-                audio.clip = songs[1];
-                beatmap = BeatmapReader.Open("MountainKing.mid");
+                audio.clip = songs[2];
+                beatmap = BeatmapReader.Open("Wellerman.mid");
             }
 
             audio.Play();
@@ -112,7 +112,7 @@ namespace IdolFever.Game
                 if (n.holdNote)
                 {
                     n.holdNote.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((long)n.noteEvent.timestamp + (long)n.noteEvent.length - (long)usec) / 1000 - (n.holdHit ? 0 : ((long)n.noteEvent.timestamp - (long)usec) / 1000));
-                    n.holdNote.GetComponent<RectTransform>().position = n.transform.position;
+                    n.holdNote.GetComponent<RectTransform>().localPosition = new Vector3(n.noteEvent.XPos() - 5, n.holdHit ? -310 : ((long)n.noteEvent.timestamp - (long)usec) / 1000 - 310, 0);
                 }
                 ++i;
             }
@@ -199,7 +199,7 @@ namespace IdolFever.Game
             for (int i = 0; i < notes.Count; ++i)
             {
                 Note n = notes[i];
-                if (n.holdHit)
+                if (n.holdHit && n.noteEvent.key == key)
                 {
                     if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 37500 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 37500)
                     {
