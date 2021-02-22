@@ -19,6 +19,7 @@ namespace IdolFever.Game
         public GameObject holdPrefab;
         public ComboCounter comboCounter;
         public ScoreMeter scoreMeter;
+        public Sprite start, end;
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
@@ -29,6 +30,7 @@ namespace IdolFever.Game
         private ulong usec;
         void Start()
         {
+            beatmap = BeatmapReader.Open("Wellerman.mid");
             if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
             {
                 audio.clip = songs[0];

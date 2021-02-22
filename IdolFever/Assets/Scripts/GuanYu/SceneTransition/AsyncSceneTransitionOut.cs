@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,11 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        public static bool IsStartSceneTransitionOutAnimReceived {
+            get;
+            set;
+        }
 
         public string SceneName {
             get {
