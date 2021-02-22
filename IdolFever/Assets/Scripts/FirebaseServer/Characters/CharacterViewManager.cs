@@ -14,20 +14,42 @@ namespace IdolFever.Server.Characters
         [EnumNamedArray(typeof(CharacterFactory.eCHARACTER))]
         public GameObject[] splashViewImages;
 
+        [SerializeField] private CharacterFactory.eCHARACTER index;
+
         #endregion
 
-        public void SetWhichImageActive(CharacterFactory.eCHARACTER index)
+        #region Unity Messages
+
+        private void Start()
         {
+            // subscribe to the event
+            CharacterStorageEvents.INSTANCE.onCharacterSwitched += OnSwitchImageActive;
+        }
 
-            for (int i = 0; i < splashViewImages.Length; ++i)
-                if (splashViewImages[i] != null)
-                splashViewImages[i].SetActive(false);
+        private void OnDestroy()
+        {
+            // unsubscribe to the event
+            CharacterStorageEvents.INSTANCE.onCharacterSwitched -= OnSwitchImageActive;
+        }
 
-            splashViewImages[(int)index].SetActive(true);
+        #endregion
+
+        public void OnSwitchImageActive(CharacterFactory.eCHARACTER _newIndex)
+        {
+            //Debug.Log("Awful: " + _newIndex.ToString());
+
+            // set the old image to inactive
+            if (splashViewImages[(int)index] != null)
+                splashViewImages[(int)index].SetActive(false);
+
+            // set the index to the new one
+            index = _newIndex;
+
+            if (splashViewImages[(int)index] != null)
+                splashViewImages[(int)index]?.SetActive(true);
 
         }
 
-
-
     }
+
 }

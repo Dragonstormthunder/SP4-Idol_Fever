@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 2988747748043484609}
   - component: {fileID: 7950701464419096016}
   - component: {fileID: 3740033566242313346}
+  - component: {fileID: -5190095854951731603}
   m_Layer: 5
   m_Name: CharacterThumbnailIcon
   m_TagString: Untagged
@@ -173,7 +174,7 @@ MonoBehaviour:
       - m_Target: {fileID: 3740033566242313346}
         m_TargetAssemblyTypeName: IdolFever.Server.Characters.CharacterViewButtonSwitch,
           Assembly-CSharp
-        m_MethodName: SwitchView
+        m_MethodName: Clicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -196,4 +197,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  characterViewManager: {fileID: 0}
+--- !u!114 &-5190095854951731603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2988747748043484610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1264cc9b50e554ea4e25ff9fae4f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
