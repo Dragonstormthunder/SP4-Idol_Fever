@@ -60,16 +60,6 @@ namespace IdolFever.Server
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
 
-            StartCoroutine(GetLevel((level) =>
-           {
-               Debug.Log("level: " + level);
-           }));
-
-            StartCoroutine(GetEXP((exp) =>
-            {
-                Debug.Log("exp: " + exp);
-            }));
-
         }
 
         public IEnumerator UpdateGems(int gems)
