@@ -10,15 +10,25 @@ namespace IdolFever.Server.Characters
 
         #region Fields
 
-        public CharacterFactory.eCHARACTER index;
-        public CharacterViewManager characterViewManager;
+        [SerializeField] private CharacterFactory.eCHARACTER index;
 
         #endregion
 
-        // switch the view
-        public void SwitchView()
+        #region Properties
+
+        internal CharacterFactory.eCHARACTER CharacterIndex
         {
-            characterViewManager.SetWhichImageActive(index);
+            // no need get
+            set { index = value; }
+        }
+
+        #endregion
+
+        // on click button
+        public void Clicked()
+        {
+            // trigger the event
+            CharacterStorageEvents.INSTANCE.CharacterSwitched(index);
         }
 
     }
