@@ -7696,7 +7696,6 @@ MonoBehaviour:
   particleHolder: {fileID: 214592095}
   notePrefab: {fileID: 3723309258374306637, guid: 01cf579afdf40364aabfa8c6bc02d65e, type: 3}
   hitPrefab: {fileID: 1403360201626637450, guid: 44527d32223658f4ab39b7c033d6a799, type: 3}
-  holdPrefab: {fileID: 1379542477031253941, guid: e60947871a7ba5e46a21ea911e1aa9fb, type: 3}
   comboCounter: {fileID: 1264823314}
   scoreMeter: {fileID: 1738874820}
   songs:
