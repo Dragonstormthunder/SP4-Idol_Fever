@@ -22,7 +22,7 @@ namespace IdolFever.Game
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
-        [SerializeField] private List<Sprite> sprites;
+        [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
         public AudioSource audio;
         private int beatIndex;
@@ -48,7 +48,7 @@ namespace IdolFever.Game
 
             audio.Play();
             int n = beatmap.beats.Count;
-            scoreMeter.maxscore = n * n * 10 + n * 610;
+            scoreMeter.maxscore = n * 600;
             beatIndex = 0;
             notes = new List<Note>();
         }
@@ -136,20 +136,9 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "PERFECT";
+                    hitGo.GetComponent<Image>().sprite = hitSprites[0];
                     comboCounter.combo++;
-                    scoreMeter.AddScore(600 + comboCounter.combo * 10);
-                    Destroy(n.transform.gameObject);
-                    return;
-                }
-                if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 75000 && (long)n.noteEvent.timestamp > (long)usec - 75000)
-                {
-                    notes.RemoveAt(i);
-                    GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
-                    hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "GOOD";
-                    comboCounter.combo++;
-                    scoreMeter.AddScore(400 + comboCounter.combo * 10);
+                    scoreMeter.AddScore(600);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -158,8 +147,9 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "EH";
-                    scoreMeter.AddScore(200);
+                    hitGo.GetComponent<Image>().sprite = hitSprites[1];
+                    comboCounter.combo++;
+                    scoreMeter.AddScore(400);
                     Destroy(n.transform.gameObject);
                     return;
                 }
@@ -168,7 +158,7 @@ namespace IdolFever.Game
                     notes.RemoveAt(i);
                     GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
                     hitGo.transform.localPosition = new Vector3(hitGo.transform.localPosition.x, -300, 0);
-                    hitGo.GetComponent<Text>().text = "MISS";
+                    hitGo.GetComponent<Image>().sprite = hitSprites[2];
                     comboCounter.combo = 0;
                     Destroy(n.transform.gameObject);
                     return;
