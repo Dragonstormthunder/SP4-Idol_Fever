@@ -217,6 +217,7 @@ RectTransform:
   - {fileID: 1891732742}
   - {fileID: 1921491809}
   - {fileID: 1705556270}
+  - {fileID: 952965586}
   - {fileID: 1583831628}
   - {fileID: 1325758414}
   m_Father: {fileID: 0}
@@ -240,7 +241,7 @@ GameObject:
   - component: {fileID: 316137837}
   - component: {fileID: 316137840}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Cam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,17 +405,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Personal Best:'
+  m_text: Personal Best
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}
-  m_sharedMaterial: {fileID: 4192796084788672715, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7ee9aa7fd8abc474d8e4316b55eb3759, type: 2}
+  m_sharedMaterial: {fileID: -6968949261168041812, guid: 7ee9aa7fd8abc474d8e4316b55eb3759, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294317311
+  m_fontColor: {r: 1, g: 0.08018869, b: 0.96451724, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -530,7 +531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4969638043679083047, guid: 5c322688afeba624cb182312c359c546, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4969638043679083047, guid: 5c322688afeba624cb182312c359c546, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -605,12 +606,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 952965583}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960.43555, y: -540, z: 0}
+  m_LocalScale: {x: 1.9600725, y: 1.9600725, z: 1.9600725}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 306481201}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1129212758
 GameObject:
@@ -717,7 +718,7 @@ RectTransform:
   - {fileID: 1447020387}
   - {fileID: 1645299308}
   m_Father: {fileID: 306481201}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1022,7 +1023,7 @@ RectTransform:
   - {fileID: 583469882}
   - {fileID: 1360404200}
   m_Father: {fileID: 306481201}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -1659,7 +1660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1677359071901681831, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1677359071901681831, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1775,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5093653835154507873, guid: c0031a17683a5b540abe4864c8b349d3, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5093653835154507873, guid: c0031a17683a5b540abe4864c8b349d3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

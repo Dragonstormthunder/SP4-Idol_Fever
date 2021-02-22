@@ -20,15 +20,31 @@ namespace IdolFever.Game
         public ScoreMeter scoreMeter;
         private BeatmapData beatmap;
         private List<Note> notes;
+        [SerializeField] private List<AudioClip> songs;
         public AudioSource audio;
         private int beatIndex;
         private ulong usec;
         void Start()
         {
-            beatmap = BeatmapReader.Open("Wellerman.mid");
+            if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
+            {
+                audio.clip = songs[0];
+                beatmap = BeatmapReader.Open("OriginalSong1.mid");
+            }
+            if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
+            {
+                audio.clip = songs[1];
+                beatmap = BeatmapReader.Open("MountainKing.mid");
+            }
+            if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
+            {
+                audio.clip = songs[2];
+                beatmap = BeatmapReader.Open("Wellerman.mid");
+            }
+
+            audio.Play();
             int n = beatmap.beats.Count;
             scoreMeter.maxscore = n * n * 10 + n * 610;
-            audio.Play();
             beatIndex = 0;
             notes = new List<Note>();
         }
