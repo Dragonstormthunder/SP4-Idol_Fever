@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 namespace IdolFever
 {
     [CustomPropertyDrawer(typeof(EnumNamedArrayAttribute))]
@@ -22,3 +24,5 @@ namespace IdolFever
     // credit to https://answers.unity.com/questions/1589226/showing-an-array-with-enum-as-keys-in-the-property.html
 
 }
+
+#endif

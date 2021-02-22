@@ -3,6 +3,7 @@
         public enum EventCode: byte {
             NotAnEvent,
             SetScoreEvent,
+            EnemyDisconnectedEvent,
             Amt
         };
 

@@ -18,11 +18,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            if(SceneTracker.prevSceneName == sceneName) {
-                animator.SetTrigger("End");
-            }
-
-            img.fillAmount = 100.0f;
+            TransitionIn();
         }
 
         #endregion
@@ -31,6 +27,14 @@ namespace IdolFever {
             sceneName = string.Empty;
             animator = null;
             img = null;
+        }
+
+        public void TransitionIn() {
+            if(SceneTracker.prevSceneName == sceneName) {
+                animator.SetTrigger("End");
+            }
+
+            img.fillAmount = 100.0f;
         }
     }
 }

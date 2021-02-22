@@ -20,8 +20,6 @@ namespace IdolFever {
 
                 return musicVol;
             }
-            private set {
-            }
         }
 
         public static float SoundVol {
@@ -32,15 +30,11 @@ namespace IdolFever {
 
                 return soundVol;
             }
-            private set {
-            }
         }
 
         public static GraphicsQualityOptions.GraphicsQualityOption CurrGraphicsOption {
             get {
                 return currGraphicsOption;
-            }
-            private set {
             }
         }
 

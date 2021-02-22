@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database;
+using System.Linq;
 using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 namespace IdolFever.Server
 {
@@ -18,10 +24,15 @@ namespace IdolFever.Server
         public DependencyStatus dependencyStatus;
         public FirebaseAuth auth;
         public FirebaseUser User;
+        public DatabaseReference DBreference;
 
         // UI Buttons
-        public Button logoutButton;
-        public Button deleteAccountButton;
+        //public Button logoutButton;
+        //public Button deleteAccountButton;
+
+        public GameObject panel;
+        public Button noButton;
+        public Button yesButton;
 
         #endregion
 
@@ -35,6 +46,7 @@ namespace IdolFever.Server
             // grab firebase for requirement needs
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
+            DBreference = FirebaseDatabase.DefaultInstance.RootReference;
         }
 
         public void LogOut()
@@ -46,11 +58,15 @@ namespace IdolFever.Server
             SceneManager.LoadScene("LoginScene");
         }
 
+
         public void DeleteAccount()
         {
             // if there's no user no need to delete
             if (User != null)
             {
+
+                var DBTask = DBreference.Child("users").Child(User.UserId).RemoveValueAsync();
+
                 User.DeleteAsync().ContinueWith(task => {
                     if (task.IsCanceled)
                     {
@@ -63,15 +79,33 @@ namespace IdolFever.Server
                         return;
                     }
 
-                    Debug.Log("User deleted successfully.");
+                    //Debug.Log("User deleted successfully.");
 
-                    // go back to login screen
-                    SceneManager.LoadScene("LoginScene");
+                    //// go back to login screen
+                    //SceneManager.LoadScene("LoginScene");
+
+                    //DeleteConfirmed();
+
 
                 });
             }
 
+            // change back to login scene
+            SceneManager.LoadScene("LoginScene");
+
         }
+
+        public void CancelOperation()
+        {
+            panel.SetActive(false);
+        }
+
+        public void BringUpConfirmationPopUp()
+        {
+            panel.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(panel);
+        }
+
     }
 
 }
