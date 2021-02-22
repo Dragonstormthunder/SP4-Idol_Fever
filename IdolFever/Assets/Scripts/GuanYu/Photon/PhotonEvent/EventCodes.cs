@@ -4,7 +4,6 @@
             NotAnEvent,
             SetScoreEvent,
             EnemyDisconnectedEvent,
-            StartSceneTransitionOutAnimEvent,
             Amt
         };
 
