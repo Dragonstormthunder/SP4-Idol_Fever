@@ -29,33 +29,14 @@ namespace IdolFever {
         #endregion
 
         #region Unity User Callback Event Funcs
-
-        public static bool IsStartSceneTransitionOutAnimReceived {
-            get;
-            set;
-        }
-
         #endregion
 
         public void ChangeScene() {
-            if(PhotonNetwork.IsConnected) {
-                PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
-                _ = StartCoroutine(nameof(StartAnimCoroutine));
-            } else {
+            if(!PhotonNetwork.IsConnected) {
                 img.fillAmount = 0.0f;
 
                 animator.SetTrigger("Start");
-
-                _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
             }
-        }
-
-        private System.Collections.IEnumerator StartAnimCoroutine() {
-            while(!IsStartSceneTransitionOutAnimReceived) {
-                yield return null;
-            }
-
-            IsStartSceneTransitionOutAnimReceived = false;
             _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
         }
 
@@ -116,7 +97,6 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
-            IsStartSceneTransitionOutAnimReceived = false;
             asyncSceneTransitionIn = null;
             type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;

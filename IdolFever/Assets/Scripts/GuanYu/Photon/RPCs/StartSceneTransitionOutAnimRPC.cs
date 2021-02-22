@@ -14,7 +14,7 @@ namespace IdolFever {
         #endregion
 
         [PunRPC] public void StartSceneTransitionOutAnim(string GOName) {
-            AsyncSceneTransitionOut.IsStartSceneTransitionOutAnimReceived = true;
+            PanelsControl.IsStartSceneTransitionOutAnimReceived = true;
 
             GameObject sceneTransitionGO = GameObject.Find(GOName);
             Animator animator = sceneTransitionGO.GetComponent<Animator>();

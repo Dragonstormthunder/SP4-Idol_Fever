@@ -17,6 +17,7 @@ namespace IdolFever {
 
         [SerializeField] private string sceneName;
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
+        [SerializeField] private Animator animator;
 
         [Header("Login")]
         [SerializeField] private GameObject LoginPanel;
@@ -46,11 +47,19 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        public static bool IsStartSceneTransitionOutAnimReceived {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Unity User Callback Event Funcs
 
         private void Awake() {
+            IsStartSceneTransitionOutAnimReceived = false;
+
             PhotonNetwork.AutomaticallySyncScene = true;
 
             cachedRoomList = new Dictionary<string, RoomInfo>();
@@ -68,6 +77,7 @@ namespace IdolFever {
 
             sceneName = string.Empty;
             asyncSceneTransitionOutScript = null;
+            animator = null;
 
             LoginPanel = null;
             PlayerNameInput = null;
@@ -203,7 +213,6 @@ namespace IdolFever {
             yield return null;
         }
 
-
         public override void OnPlayerLeftRoom(Player otherPlayer) {
             Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
             playerListEntries.Remove(otherPlayer.ActorNumber);
@@ -286,11 +295,22 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonNetwork.LoadLvlPrep(asyncSceneTransitionOutScript.SceneName);
-            asyncSceneTransitionOutScript.ChangeScene();
+            PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
+            _ = StartCoroutine(nameof(StartAnimCoroutine));
         }
 
         #endregion
+
+        private System.Collections.IEnumerator StartAnimCoroutine() {
+            while(!IsStartSceneTransitionOutAnimReceived) {
+                yield return null;
+            }
+
+            IsStartSceneTransitionOutAnimReceived = false;
+
+            PhotonNetwork.LoadLvlPrep(asyncSceneTransitionOutScript.SceneName);
+            asyncSceneTransitionOutScript.ChangeScene();
+        }
 
         private bool CheckPlayersReady() {
             if(!PhotonNetwork.IsMasterClient) {
