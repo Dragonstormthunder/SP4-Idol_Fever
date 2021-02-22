@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -20,6 +21,11 @@ namespace IdolFever {
 
         #region Properties
 
+        public static bool IsStartSceneTransitionOutAnimReceived {
+            get;
+            set;
+        }
+
         public string SceneName {
             get {
                 return sceneName;
@@ -32,11 +38,32 @@ namespace IdolFever {
         #endregion
 
         public void ChangeScene() {
-            if(!PhotonNetwork.IsConnected) {
-                img.fillAmount = 0.0f;
+            if(PhotonNetwork.IsConnected) {
+                Debug.Log("here123", this);
 
-                animator.SetTrigger("Start");
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+                    Receivers = ReceiverGroup.All
+                };
+                PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.StartSceneTransitionOutAnimEvent,
+                    animator.gameObject.name, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+
+                _ = StartCoroutine(nameof(StartAnimCoroutine));
+            } else {
+                _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
             }
+        }
+
+        private System.Collections.IEnumerator StartAnimCoroutine() {
+            Debug.Log("here2", this);
+
+
+            while(!IsStartSceneTransitionOutAnimReceived) {
+                yield return null;
+            }
+
+            Debug.Log("here3", this);
+
+            IsStartSceneTransitionOutAnimReceived = false;
             _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
         }
 
@@ -97,6 +124,7 @@ namespace IdolFever {
         }
 
         public AsyncSceneTransitionOut() {
+            IsStartSceneTransitionOutAnimReceived = false;
             asyncSceneTransitionIn = null;
             type = AsyncSceneTransitionOutTypes.AsyncSceneTransitionOutType.AddSingle;
             animator = null;
