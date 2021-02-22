@@ -21,8 +21,8 @@ public class TimedLifespan : MonoBehaviour
         
         for(int i = 0; i < 30; ++i)
         {
-            Color x = this.GetComponent<UnityEngine.UI.Image>().color;
-            this.GetComponent<UnityEngine.UI.Image>().color = new Color(x.r, x.g, x.b, x.a - 0.034f);
+            Color x = this.GetComponent<UnityEngine.UI.Text>().color;
+            this.GetComponent<UnityEngine.UI.Text>().color = new Color(x.r, x.g, x.b, x.a - 0.034f);
             yield return null;
         }
 
