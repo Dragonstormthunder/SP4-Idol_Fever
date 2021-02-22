@@ -19,14 +19,18 @@ namespace IdolFever.Game
         public GameObject holdPrefab;
         public ComboCounter comboCounter;
         public ScoreMeter scoreMeter;
+        public Sprite start, end;
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
+        [SerializeField] private List<Sprite> sprites, hitSprites;
+        [SerializeField] private AsyncSceneTransitionOut sceneOut;
         public AudioSource audio;
         private int beatIndex;
         private ulong usec;
         void Start()
         {
+            beatmap = BeatmapReader.Open("Wellerman.mid");
             if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
             {
                 audio.clip = songs[0];
@@ -45,7 +49,7 @@ namespace IdolFever.Game
 
             audio.Play();
             int n = beatmap.beats.Count;
-            scoreMeter.maxscore = n * n * 10 + n * 610;
+            scoreMeter.maxscore = n * 600;
             beatIndex = 0;
             notes = new List<Note>();
         }
@@ -53,14 +57,15 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            if(PauseScreen.isPaused) {
+            if (PauseScreen.isPaused)
+            {
                 return;
             }
 
             float t = audio.time;
             usec = (ulong)(t * 1000000);
             long spawn = (long)(usec) + 2000000;
-            while (beatmap.beats.Count > beatIndex && (long) beatmap.beats[beatIndex].timestamp < spawn)
+            while (beatmap.beats.Count > beatIndex && (long)beatmap.beats[beatIndex].timestamp < spawn)
             {
                 if (beatmap.beats[beatIndex].down)
                 {
@@ -94,7 +99,7 @@ namespace IdolFever.Game
                 }
                 beatIndex++;
             }
-            for(int i = 0; i < notes.Count;)
+            for (int i = 0; i < notes.Count;)
             {
                 Note n = notes[i];
                 if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec - 400000)
@@ -121,6 +126,11 @@ namespace IdolFever.Game
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", "")))) NoteRelease(1);
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", "")))) NoteRelease(2);
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", "")))) NoteRelease(3);
+
+            if (audio.time > audio.clip.length - 1)
+            {
+                sceneOut.ChangeScene();
+            }
         }
 
         public void NoteHit(int k)
@@ -181,7 +191,7 @@ namespace IdolFever.Game
         public void NoteRelease(int k)
         {
             NoteKey key = NoteKey.KEY1;
-            switch(k)
+            switch (k)
             {
                 case 0: key = NoteKey.KEY1; break;
                 case 1: key = NoteKey.KEY2; break;
