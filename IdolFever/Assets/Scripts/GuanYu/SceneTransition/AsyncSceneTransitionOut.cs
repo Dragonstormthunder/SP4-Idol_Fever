@@ -38,28 +38,29 @@ namespace IdolFever {
         #endregion
 
         public void ChangeScene() {
+            _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
+        }
+
+        private System.Collections.IEnumerator ChangeSceneCoroutine(string sceneName) {
             if(!PhotonNetwork.IsConnected) {
                 img.fillAmount = 0.0f;
 
                 animator.SetTrigger("Start");
 
                 SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
-            }
-            _ = StartCoroutine(ChangeSceneCoroutine(sceneName));
-        }
 
-        private System.Collections.IEnumerator ChangeSceneCoroutine(string sceneName) {
-            float animLen = -1.0f;
-            foreach(AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
-                if(clip.name == startAnimName) {
-                    animLen = clip.length;
+                float animLen = -1.0f;
+                foreach(AnimationClip clip in animator.runtimeAnimatorController.animationClips) {
+                    if(clip.name == startAnimName) {
+                        animLen = clip.length;
+                    }
                 }
-            }
 
-            if(animLen >= 0.0f) {
-                yield return new WaitForSeconds(animLen);
-            } else {
-                UnityEngine.Assertions.Assert.IsTrue(false);
+                if(animLen >= 0.0f) {
+                    yield return new WaitForSeconds(animLen);
+                } else {
+                    UnityEngine.Assertions.Assert.IsTrue(false);
+                }
             }
 
             switch(type) {

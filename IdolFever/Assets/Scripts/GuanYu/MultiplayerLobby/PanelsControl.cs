@@ -294,6 +294,7 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
             PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
+
             _ = StartCoroutine(nameof(StartAnimCoroutine));
         }
 
