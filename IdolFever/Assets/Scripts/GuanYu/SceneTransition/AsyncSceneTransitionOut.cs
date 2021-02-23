@@ -44,9 +44,7 @@ namespace IdolFever {
         private System.Collections.IEnumerator ChangeSceneCoroutine(string sceneName) {
             img.fillAmount = 0.0f;
 
-            if(!PhotonNetwork.IsConnected || (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)) {
-                animator.SetTrigger("Start");
-            }
+            animator.SetTrigger("Start");
 
             SceneTracker.prevSceneName = SceneManager.GetActiveScene().name;
 
