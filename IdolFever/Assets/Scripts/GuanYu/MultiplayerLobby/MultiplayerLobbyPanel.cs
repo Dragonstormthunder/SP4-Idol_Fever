@@ -1,16 +1,19 @@
-﻿using IdolFever.Server;
+﻿using ExitGames.Client.Photon;
+using IdolFever.Server;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace IdolFever {
-    internal sealed class MultiplayerButton: MonoBehaviourPunCallbacks {
+    internal sealed class MultiplayerLobbyPanel: MonoBehaviourPunCallbacks {
         #region Fields
 
         private Dictionary<string, RoomInfo> cachedRoomList;
+        private Dictionary<int, GameObject> playerListEntries;
+        [SerializeField] private GameObject playerListEntryPrefab;
+        [SerializeField] private GameObject startButton;
         [SerializeField] private ServerDatabase serverDatabaseScript;
-        [SerializeField] private PanelsControl panelsControl;
 
         #endregion
 
@@ -30,8 +33,11 @@ namespace IdolFever {
 
         #endregion
 
-        public MultiplayerButton() {
+        public MultiplayerLobbyPanel() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
+            playerListEntries = null;
+            startButton = null;
+            playerListEntryPrefab = null;
             serverDatabaseScript = null;
         }
 
@@ -98,7 +104,63 @@ namespace IdolFever {
 				}
 			}
 
-			_ = StartCoroutine(panelsControl.My1stEverCoroutine());
+			_ = StartCoroutine(My1stEverCoroutine());
 		}
-	}
+
+        private System.Collections.IEnumerator My1stEverCoroutine() {
+            while(PlayerUniversal.Colors.Length == 0) {
+                yield return null;
+            }
+
+            if(playerListEntries == null) {
+                playerListEntries = new Dictionary<int, GameObject>();
+            }
+
+            foreach(Player p in PhotonNetwork.PlayerList) {
+                GameObject entry = Instantiate(playerListEntryPrefab);
+                entry.transform.SetParent(transform);
+                entry.transform.localScale = Vector3.one;
+                entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+
+                if(p.CustomProperties.TryGetValue("IsPlayerReady", out object isPlayerReady)) { //Inline var declaration
+                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
+                }
+
+                entry.GetComponent<PlayerListEntry>().SetPlayerListEntryColors();
+
+                playerListEntries.Add(p.ActorNumber, entry);
+            }
+
+            startButton.SetActive(CheckPlayersReady());
+
+            Hashtable props = new Hashtable {
+                {"PlayerLoadedLevel", false}
+            };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+
+            yield return null;
+        }
+
+        private bool CheckPlayersReady() {
+            if(!PhotonNetwork.IsMasterClient) {
+                return false;
+            }
+
+            foreach(Player p in PhotonNetwork.PlayerList) {
+                if(p.CustomProperties.TryGetValue("IsPlayerReady", out object isPlayerReady)) { //Inline var declaration
+                    if(!(bool)isPlayerReady) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void LocalPlayerPropertiesUpdated() {
+            startButton.SetActive(CheckPlayersReady());
+        }
+    }
 }

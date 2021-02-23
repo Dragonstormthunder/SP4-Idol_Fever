@@ -40,7 +40,7 @@ namespace IdolFever {
                     PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
                     if(PhotonNetwork.IsMasterClient) {
-                        FindObjectOfType<PanelsControl>().LocalPlayerPropertiesUpdated();
+                        FindObjectOfType<MultiplayerLobbyPanel>().LocalPlayerPropertiesUpdated();
                     }
                 });
             }

@@ -125,7 +125,7 @@ namespace IdolFever {
             _ = StartCoroutine(nameof(My1stEverCoroutine));
         }
 
-        public System.Collections.IEnumerator My1stEverCoroutine() {
+        private System.Collections.IEnumerator My1stEverCoroutine() {
             while(PlayerUniversal.Colors.Length == 0) {
                 yield return null;
             }
