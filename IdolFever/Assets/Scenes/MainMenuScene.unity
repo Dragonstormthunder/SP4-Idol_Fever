@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 7548101}
   - component: {fileID: 7548102}
   m_Layer: 0
-  m_Name: FromIntro
+  m_Name: FromLogin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: IntroScene
+  sceneName: LoginScene
   animator: {fileID: 757253348}
   img: {fileID: 757253347}
 --- !u!224 &64150161 stripped
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 662452590}
   - component: {fileID: 662452591}
   m_Layer: 0
-  m_Name: ToIntro
+  m_Name: ToLogin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   audioListener: {fileID: 0}
   myInterest: {fileID: 0}
   img: {fileID: 757253347}
-  sceneName: IntroScene
+  sceneName: LoginScene
   startAnimName: CrossfadeStart
 --- !u!1001 &757253345
 PrefabInstance:
