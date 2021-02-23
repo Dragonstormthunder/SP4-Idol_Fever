@@ -10,6 +10,8 @@ namespace IdolFever {
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private ServerDatabase serverDatabaseScript;
+        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
+        [SerializeField] private PanelsControl panelsControl;
 
         #endregion
 
@@ -22,6 +24,7 @@ namespace IdolFever {
         public MultiplayerButton() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
             serverDatabaseScript = null;
+            asyncSceneTransitionOutScript = null;
         }
 
         public void OnClick() {
@@ -39,13 +42,14 @@ namespace IdolFever {
                     continue;
                 }
 
-                //Join room??
+                JoinRoom(info.Name);
             }
 
-            //Create room??
+            CreateRoom();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+            Debug.Log("OnRoomListUpdate");
             UpdateCachedRoomList(roomList);
         }
 
@@ -66,5 +70,42 @@ namespace IdolFever {
                 }
             }
         }
+
+        private void JoinRoom(string name) {
+            if(PhotonNetwork.InLobby) {
+                PhotonNetwork.LeaveLobby();
+            }
+            PhotonNetwork.JoinRoom(name);
+        }
+
+        private void CreateRoom() {
+            string roomName = Random.Range(6969, 420420).ToString();
+
+            RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 10000 };
+
+            PhotonNetwork.CreateRoom(roomName, options, null);
+
+            asyncSceneTransitionOutScript.ChangeScene();
+        }
+
+        public override void OnCreatedRoom() {
+            Debug.Log("OnCreatedRoom() : You Have Created...");
+        }
+
+        public override void OnJoinedRoom() {
+            print("here000");
+        }
+
+/*        public override void OnJoinedRoom() {
+            if(PlayerUniversal.Colors.Length == 0) {
+                if(PhotonNetwork.IsMasterClient) {
+                    PlayerUniversal.InitColors();
+                } else {
+                    PhotonView.Get(this).RPC("RetrievePlayerColors", RpcTarget.MasterClient);
+                }
+            }
+
+            _ = StartCoroutine(panelsControl.My1stEverCoroutine());
+        }*/
     }
 }
