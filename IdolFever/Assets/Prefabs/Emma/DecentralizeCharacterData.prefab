@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1795183233397208474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1795183233397208475}
+  - component: {fileID: 7908041373656152067}
+  m_Layer: 0
+  m_Name: DecentralizeCharacterData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1795183233397208475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795183233397208474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7908041373656152067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795183233397208474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae1dc937f66cbe45b5ac8b4ed6f442d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thumbnailPrefabs:
+  - {fileID: 0}
+  - {fileID: 3220603987452677006, guid: 99f9d399acfc41f4cb1919c730c55157, type: 3}
+  - {fileID: 6685725278966991882, guid: d45e801dc035cb044b36b9b6872b3da4, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3220603987452677006, guid: 99f9d399acfc41f4cb1919c730c55157, type: 3}
+  - {fileID: 6685725278966991882, guid: d45e801dc035cb044b36b9b6872b3da4, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 3220603987452677006, guid: 99f9d399acfc41f4cb1919c730c55157, type: 3}
+  - {fileID: 6685725278966991882, guid: d45e801dc035cb044b36b9b6872b3da4, type: 3}
+  - {fileID: 0}
+  splashArtPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  featureArtPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skillMultiplier:
+  - 0
+  - 1.1
+  - 0.9
+  - 0
+  - 0
+  - 1.3
+  - 0.7
+  - 0
+  - 0
+  - 1.5
+  - 0.5
+  - 0
+  skillCooldown:
+  - 0
+  - 10
+  - 10
+  - 0
+  - 0
+  - 12
+  - 12
+  - 0
+  - 0
+  - 15
+  - 15
+  - 0
+  skillDuration:
+  - 0
+  - 15
+  - 15
+  - 0
+  - 0
+  - 13
+  - 13
+  - 0
+  - 0
+  - 10
+  - 10
+  - 0

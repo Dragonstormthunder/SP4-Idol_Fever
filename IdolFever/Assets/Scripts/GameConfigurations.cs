@@ -13,6 +13,9 @@ namespace IdolFever
 
         private static SongRegistry.SongList songChosen;
 
+        private static Character.CharacterFactory.eCHARACTER characterIndex;
+        private static int bonus;
+
         #endregion
 
 
@@ -31,11 +34,25 @@ namespace IdolFever
             set { songChosen = value; }
         }
 
+        public static Character.CharacterFactory.eCHARACTER CharacterIndex
+        {
+            get { return characterIndex; }
+            set { characterIndex = value; }
+        }
+
+        public static int CharacterBonus
+        {
+            get { return bonus; }
+            set { bonus = value; }
+        }
+
         #endregion
 
         static GameConfigurations()
         {
             songChosen = SongRegistry.SongList.NOT_OPTION;
+            characterIndex = Character.CharacterFactory.eCHARACTER.NUM_CHARACTER;
+            bonus = 0;
         }
 
     }
