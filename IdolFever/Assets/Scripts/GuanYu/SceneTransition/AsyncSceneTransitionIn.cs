@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace IdolFever {
@@ -18,7 +18,9 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            TransitionIn();
+            if(!PhotonNetwork.IsConnected || (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)){
+                TransitionIn();
+            }
         }
 
         #endregion
@@ -30,11 +32,11 @@ namespace IdolFever {
         }
 
         public void TransitionIn() {
+            img.fillAmount = 100.0f;
+
             if(SceneTracker.prevSceneName == sceneName) {
                 animator.SetTrigger("End");
             }
-
-            img.fillAmount = 100.0f;
         }
     }
 }
