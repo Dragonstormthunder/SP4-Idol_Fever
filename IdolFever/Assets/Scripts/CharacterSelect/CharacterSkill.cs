@@ -18,24 +18,39 @@ namespace IdolFever.Character
             NUM_SKILL_TYPE
         }
 
+        // make sure I don't get the numbers wrong
+        internal enum PHOTON_DATA_SEND
+        {
+            SEND_OPPONENT_INDEX,
+            SEND_MULTIPLIER,
+            SEND_COOLDOWN,
+            SEND_SKILL_TYPE,
+            NUM_PHOTON_DATA_SEND
+        }
+
         #endregion
 
         #region Fields
 
         [Header("My Skill")]
-        [SerializeField] private float multiplier;           // score multiplier
+        [SerializeField] private CharacterFactory.eCHARACTER characterIndex; // thumbnail item
+        [SerializeField] private float multiplier;           // score multiplier, may change due to bonus
         [SerializeField] private float elaspedTime;          // elasped time
         [SerializeField] private float fixedCooldown;        // the constant cooldown
         [SerializeField] private float fixedSkillDuration;   // the constant duration
         [SerializeField] private SKILL_TYPE skill_type;      // skill type
         [SerializeField] private bool active;                // whether the skill is active
+        [SerializeField] SkillProgressBarUI skillProgressBarUI;
 
         // these variables should only be filled if the opponent
         // has a multiplier that damages our score gain
         [Header("Opponent's Skill (Photon Handling)")]
-        [SerializeField] private float opponentMultiplier;
-        [SerializeField] private float opponentCooldown;
-        [SerializeField] private bool opponentActive = false;
+        [SerializeField] private CharacterFactory.eCHARACTER opponentIndex; // thumbnail item
+        [SerializeField] private float opponentMultiplier;      // may change due to bonus
+        [SerializeField] private float opponentSkillDuration;        // reduce sending, so send cooldown time
+        [SerializeField] private SKILL_TYPE opponentSkill_Type; // even if it's bonus to self want to show opponent's thing
+        [SerializeField] private bool opponentActive = false;   // default value so in singleplayer this will not get activated
+        [SerializeField] SkillProgressBarUI opponentskillProgressBarUI;
 
         [Header("Feedback")]
         public GameObject mySkill;
@@ -44,6 +59,12 @@ namespace IdolFever.Character
         #endregion
 
         #region Properties
+
+        public CharacterFactory.eCHARACTER CharacterIndex
+        {
+            get { return characterIndex; }
+            set { characterIndex = value; }
+        }
 
         public float SkillMultiplier
         {
@@ -66,7 +87,11 @@ namespace IdolFever.Character
         public float FixedSkillDuration
         {
             get { return fixedSkillDuration; }
-            set { fixedSkillDuration = value; }
+            set
+            {
+                skillProgressBarUI.MaxValue = skillProgressBarUI.MinValue = value;
+                fixedSkillDuration = value;
+            }
         }
 
         internal SKILL_TYPE Skill_Type
@@ -85,16 +110,32 @@ namespace IdolFever.Character
             }
         }
 
+        public CharacterFactory.eCHARACTER OpponentCharacterIndex
+        {
+            get { return opponentIndex; }
+            set { opponentIndex = value; }
+        }
+
         public float OpponentMultiplier
         {
             get { return opponentMultiplier; }
             set { opponentMultiplier = value; }
         }
 
-        public float OpponentCooldown
+        public float OpponentSkillDuration
         {
-            get { return opponentCooldown; }
-            set { opponentCooldown = value; }
+            get { return opponentSkillDuration; }
+            set
+            {
+                opponentskillProgressBarUI.MaxValue = opponentskillProgressBarUI.MinValue = value;
+                opponentSkillDuration = value;
+            }
+        }
+
+        internal SKILL_TYPE OpponentSkill_Type
+        {
+            get { return opponentSkill_Type; }
+            set { opponentSkill_Type = value; }
         }
 
         public bool OpponentActive
@@ -111,6 +152,11 @@ namespace IdolFever.Character
 
         #region Unity Messages
 
+        private void Start()
+        {
+            skillProgressBarUI.MaxValue = skillProgressBarUI.MinValue = fixedSkillDuration;
+        }
+
         public void Update()
         {
 
@@ -120,15 +166,19 @@ namespace IdolFever.Character
             if (elaspedTime <= 0)
             {
                 // flip the active state
+                // this makes sure to flip the activity of the gameobjects as well
                 Active = !Active;
 
-                if (active)
+                if (Active)
                 {
                     // get the skill duration
-                    elaspedTime = FixedSkillDuration;
+                    ElaspedTime = FixedSkillDuration;
+
+                    // reset our own skill progress bar
+                    skillProgressBarUI.MinValue = skillProgressBarUI.MaxValue = FixedSkillDuration;
 
                     // send the raise event here
-                    if (PhotonNetwork.IsConnected && SKILL_TYPE.HINDER_TO_ENEMY == skill_type)
+                    if (PhotonNetwork.IsConnected)
                     {
 
                         RaiseEventOptions raiseEventOptions = new RaiseEventOptions
@@ -137,11 +187,12 @@ namespace IdolFever.Character
                             Receivers = ReceiverGroup.All   // for editor testing
                         };
 
-                        float[] data = new float[2];
+                        float[] data = new float[(int)PHOTON_DATA_SEND.NUM_PHOTON_DATA_SEND];
 
-                        // multiplier
-                        data[0] = SkillMultiplier;
-                        data[1] = FixedSkillDuration;
+                        data[(int)PHOTON_DATA_SEND.SEND_OPPONENT_INDEX] = (float)CharacterIndex;
+                        data[(int)PHOTON_DATA_SEND.SEND_MULTIPLIER] = SkillMultiplier;
+                        data[(int)PHOTON_DATA_SEND.SEND_COOLDOWN] = FixedSkillDuration;
+                        data[(int)PHOTON_DATA_SEND.SEND_SKILL_TYPE] = (float)Skill_Type;
 
                         //Debug.Log("Sending the opponent skill over");
                         PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SendSkillOver, data, raiseEventOptions, SendOptions.SendReliable);
@@ -151,17 +202,20 @@ namespace IdolFever.Character
                 {
                     // get the skill cooldown
                     elaspedTime = FixedCooldown;
+
+                    // do no need to send the photon network because they have the cooldown on their side
+                    // cuts down on the information needing to be sent
                 }
             }
 
             // -------------- if opponent skill is active ----------------
             if (OpponentActive)
             {
-                OpponentCooldown -= Time.deltaTime;
+                OpponentSkillDuration -= Time.deltaTime;
 
                 // put it back to inactive and wait for the next event call to set it to active
                 // if it comes
-                if (OpponentCooldown <= 0f)
+                if (OpponentSkillDuration <= 0f)
                 {
                     OpponentActive = false;
                 }
@@ -174,13 +228,13 @@ namespace IdolFever.Character
         {
             if (active && SKILL_TYPE.HINDER_TO_ENEMY != skill_type)
             {
-                Debug.Log("Apply Bonus: Mine: " + score + " to " + (score * multiplier));
+                Debug.Log("Apply Bonus: Mine: " + score + " * " + multiplier + " :" + (score * multiplier));
                 score *= multiplier;
             }
 
             if (opponentActive)
             {
-                Debug.Log("Apply Bonus: Opponent: " + score + " to " + (score * opponentMultiplier));
+                Debug.Log("Apply Bonus: Opponent: " + score + " * " + multiplier + " :" + (score * opponentMultiplier));
                 score *= opponentMultiplier;
             }
 

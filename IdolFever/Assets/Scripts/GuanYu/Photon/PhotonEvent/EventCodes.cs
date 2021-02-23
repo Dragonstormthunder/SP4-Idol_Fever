@@ -4,6 +4,7 @@
             NotAnEvent,
             SetScoreEvent,
             EnemyDisconnectedEvent,
+            SendSkillOver,
             Amt
         };
 
