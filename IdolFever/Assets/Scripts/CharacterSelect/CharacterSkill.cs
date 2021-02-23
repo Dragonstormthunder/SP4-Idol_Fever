@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using TMPro;
 
 namespace IdolFever.Character
 {
@@ -54,7 +55,16 @@ namespace IdolFever.Character
 
         [Header("Feedback")]
         public GameObject mySkill;
+        public TextMeshProUGUI mySkillName;
+        public TextMeshProUGUI mySkillMultiplier;
+        public Transform myThumbnailParent;
         public GameObject opponentSkill;
+        public TextMeshProUGUI opponentSkillName;
+        public TextMeshProUGUI opponentSkillMultiplier;
+        public Transform opponentThumbnailParent;
+
+        [Header("Data")]
+        public CharacterDecentralizeData characterDecentralizeData;
 
         #endregion
 
@@ -154,14 +164,46 @@ namespace IdolFever.Character
 
         private void Start()
         {
+
+            // time to initialize all the values
+            CharacterIndex = GameConfigurations.CharacterIndex;
+            SkillMultiplier = characterDecentralizeData.AccessSkillMultiplier(CharacterIndex, GameConfigurations.CharacterBonus);
+            FixedCooldown = characterDecentralizeData.AccessSkillCooldown(CharacterIndex, GameConfigurations.CharacterBonus);
+            FixedSkillDuration = characterDecentralizeData.AccessSkillDuration(CharacterIndex, GameConfigurations.CharacterBonus);
+            if (characterDecentralizeData.BonusToSelf(CharacterIndex))
+            {
+                Skill_Type = SKILL_TYPE.BONUS_TO_SELF;
+            }
+            else
+            {
+                Skill_Type = SKILL_TYPE.HINDER_TO_ENEMY;
+            }
+
+            // set to inactive, don't want to start skill in the beginning
+            Active = false;
+            // set to inactive as default, if a photon network comes in they will init this one
+            OpponentActive = false;
+
+            // wait for a time before starting the skill
+            ElaspedTime = FixedCooldown;
+
+            // feedback initilization
+            mySkillName.text = characterDecentralizeData.AccessCharacterSkillName(CharacterIndex);
+            mySkillMultiplier.text = SkillMultiplier.ToString() + "x";
+
+            // get the thumbnail instantiation
+            Instantiate(characterDecentralizeData.AccessThumbnailPrefab(CharacterIndex), myThumbnailParent);
+
+            // prepare for the skill items
             skillProgressBarUI.MaxValue = skillProgressBarUI.MinValue = fixedSkillDuration;
+
         }
 
         public void Update()
         {
 
             // -------------- if our skill is active ----------------
-            elaspedTime -= Time.deltaTime;
+            ElaspedTime -= Time.deltaTime;
 
             if (elaspedTime <= 0)
             {
@@ -226,13 +268,15 @@ namespace IdolFever.Character
 
         public float ApplyBonuses(float score)
         {
-            if (active && SKILL_TYPE.HINDER_TO_ENEMY != skill_type)
+            // if I am active, and my skill isn't the type to hinder the enemy
+            if (Active && SKILL_TYPE.HINDER_TO_ENEMY != Skill_Type)
             {
                 Debug.Log("Apply Bonus: Mine: " + score + " * " + multiplier + " :" + (score * multiplier));
                 score *= multiplier;
             }
 
-            if (opponentActive)
+            // if opponent skill is active, and my opponent skill is to hinder me
+            if (OpponentActive && SKILL_TYPE.HINDER_TO_ENEMY == OpponentSkill_Type)
             {
                 Debug.Log("Apply Bonus: Opponent: " + score + " * " + multiplier + " :" + (score * opponentMultiplier));
                 score *= opponentMultiplier;

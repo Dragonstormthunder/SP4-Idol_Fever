@@ -40,8 +40,8 @@ namespace IdolFever.Character
             GameConfigurations.CharacterIndex = characterIndex;
             GameConfigurations.CharacterBonus = bonus;
 
-            Debug.Log("Character: " + GameConfigurations.CharacterIndex.ToString());
-            Debug.Log("Bonus: " + GameConfigurations.CharacterBonus);
+            //Debug.Log("Character: " + GameConfigurations.CharacterIndex.ToString());
+            //Debug.Log("Bonus: " + GameConfigurations.CharacterBonus);
 
 
         }

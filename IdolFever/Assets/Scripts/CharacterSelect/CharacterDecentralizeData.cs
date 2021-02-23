@@ -65,21 +65,93 @@ namespace IdolFever.Character
 
         }
 
-        public string AccessCharacterSkillDescription(CharacterFactory.eCHARACTER index, int bonus)
+        public string AccessCharacterSkillDescription(CharacterFactory.eCHARACTER index, int number)
         {
-            --bonus; // >1 chara grant bonus
+            //--number; // >1 chara grant bonus
             switch (index)
             {
                 default:
                     return "";
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
-                    return (skillMultiplier[(int)index] + 0.3f * bonus) + "x to score gain for " + (skillDuration[(int)index] + 0.3f * bonus) + " seconds. Cooldown: " + skillCooldown[(int)index] + " seconds.";
+                    return AccessSkillMultiplier(index, number) + "x to score gain for " + AccessSkillDuration(index, number) + " seconds. Cooldown: " + AccessSkillCooldown(index, number) + " seconds.";
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
-                    return skillMultiplier[(int)index] + "x to the opponent's score gain " + (skillDuration[(int)index] + 0.3f * bonus) + " seconds. Cooldown: " + (skillDuration[(int)index] - 0.3f * bonus) + " seconds.";
+                    return AccessSkillMultiplier(index, number) + "x to the opponent's score gain " + AccessSkillDuration(index, number) + " seconds. Cooldown: " + AccessSkillCooldown(index, number) + " seconds.";
 
             }
+        }
+
+        public float AccessSkillMultiplier(CharacterFactory.eCHARACTER index, int number)
+        {
+            --number; // >1 chara grant bonus
+
+            switch (index)
+            {
+                default:
+                    return 0f;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                    return skillMultiplier[(int)index] + 0.3f * number;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                    return skillMultiplier[(int)index];
+
+            }
+        }
+
+        public float AccessSkillDuration(CharacterFactory.eCHARACTER index, int number)
+        {
+            --number; // >1 chara grant bonus
+
+            switch (index)
+            {
+                default:
+                    return 0f;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                    return skillDuration[(int)index] + 0.3f * number;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                    return (skillDuration[(int)index] + 0.3f * number);
+
+            }
+        }
+
+        public float AccessSkillCooldown(CharacterFactory.eCHARACTER index, int number)
+        {
+            --number; // >1 chara grant bonus
+
+            switch (index)
+            {
+                default:
+                    return 0f;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                    return skillCooldown[(int)index];
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                    return skillDuration[(int)index] - 0.3f * number;
+
+            }
+        }
+
+        public bool BonusToSelf(CharacterFactory.eCHARACTER index)
+        {
+
+            switch (index)
+            {
+                default:
+                    return true;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                    return true;
+
+                case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                    return false;
+
+            }
+
         }
 
     }

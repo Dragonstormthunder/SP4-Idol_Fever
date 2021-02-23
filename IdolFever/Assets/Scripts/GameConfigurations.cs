@@ -51,7 +51,7 @@ namespace IdolFever
         static GameConfigurations()
         {
             songChosen = SongRegistry.SongList.NOT_OPTION;
-            characterIndex = Character.CharacterFactory.eCHARACTER.NUM_CHARACTER;
+            characterIndex = Character.CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
             bonus = 0;
         }
 
