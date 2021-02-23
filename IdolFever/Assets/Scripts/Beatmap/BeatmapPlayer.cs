@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using IdolFever.Beatmap;
+using Photon.Pun;
+
 namespace IdolFever.Game
 {
 
@@ -129,8 +131,18 @@ namespace IdolFever.Game
 
             if (audio.time > audio.clip.length - 1)
             {
-                sceneOut.ChangeScene();
+                _ = StartCoroutine(nameof(DcAndChangeScene));
             }
+        }
+
+        private IEnumerator DcAndChangeScene() {
+            PhotonNetwork.Disconnect();
+
+            while(PhotonNetwork.IsConnected) {
+                yield return null;
+            }
+
+            sceneOut.ChangeScene();
         }
 
         public void NoteHit(int k)
