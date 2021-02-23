@@ -39,7 +39,7 @@ namespace IdolFever
         {
             SetScoreMeterValue(score + a);
 
-            score = skills.ApplyBonuses(score);
+            //score = skills.ApplyBonuses(score);
 
             RaiseEventOptions raiseEventOptions = new RaiseEventOptions
             {

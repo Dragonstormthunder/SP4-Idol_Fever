@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-//TODO: Limit no. of players in room and change designs of...
-
 namespace IdolFever {
     internal sealed class PanelsControl: MonoBehaviourPunCallbacks {
         #region Fields
@@ -295,8 +293,11 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
-            _ = StartCoroutine(nameof(StartAnimCoroutine));
+            animator.SetTrigger("Start");
+
+            //PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
+
+            //_ = StartCoroutine(nameof(StartAnimCoroutine));
         }
 
         #endregion
