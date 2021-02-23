@@ -277,7 +277,7 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, null);
+            PhotonView.Get(this).RPC("ToGameplay", RpcTarget.All, null);
         }
 
         #endregion

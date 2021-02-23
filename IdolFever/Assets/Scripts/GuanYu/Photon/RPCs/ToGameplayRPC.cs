@@ -4,13 +4,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace IdolFever {
-    internal sealed class StartSceneTransitionOutAnimRPC: MonoBehaviour {
+    internal sealed class ToGameplayRPC: MonoBehaviour {
         #region Fields
 
-        [SerializeField] private string sceneName;
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
-        [SerializeField] private Animator animator;
-        [SerializeField] private string startAnimName;
 
         #endregion
 
@@ -20,14 +17,11 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
         #endregion
 
-        public StartSceneTransitionOutAnimRPC() {
-            sceneName = string.Empty;
+        public ToGameplayRPC() {
             asyncSceneTransitionOutScript = null;
-            animator = null;
-            startAnimName = string.Empty;
         }
 
-        [PunRPC] public void StartSceneTransitionOutAnim() {
+        [PunRPC] public void ToGameplay() {
             asyncSceneTransitionOutScript.ChangeScene();
         }
     }
