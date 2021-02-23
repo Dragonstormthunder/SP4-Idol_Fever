@@ -18,9 +18,9 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            if(!PhotonNetwork.IsConnected || (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)){
+            //if(!PhotonNetwork.IsConnected || (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)){
                 TransitionIn();
-            }
+            //}
         }
 
         #endregion
