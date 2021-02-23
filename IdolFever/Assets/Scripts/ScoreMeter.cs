@@ -4,50 +4,65 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreMeter : MonoBehaviour
+namespace IdolFever
 {
-    private Image scoreMeterImg;
-    private float score;
-    public float maxscore;
-
-    /// Sets the health bar value
-    /// value should be between 0 to 1</param>
-    public void SetScoreMeterValue(float value)
+    public class ScoreMeter : MonoBehaviour
     {
-        score = value;
-        scoreMeterImg.fillAmount = score / maxscore;
-    }
+        private Image scoreMeterImg;
+        private float score;
+        public float maxscore;
 
-    public float GetScoreMeterValue()
-    {
-        return score;
-    }
+        public Character.CharacterSkill skills;
 
-    public void AddScore(float a)
-    {
-        SetScoreMeterValue(score + a);
 
-        if(PhotonNetwork.IsConnected) {
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+        /// Sets the health bar value
+        /// value should be between 0 to 1</param>
+        public void SetScoreMeterValue(float value)
+        {
+            score = value;
+            scoreMeterImg.fillAmount = score / maxscore;
+
+            float factor = scoreMeterImg.fillAmount * 0.5f + 0.8f;
+            if (factor > 1.0f)
+            {
+                factor -= 1.0f;
+            }
+            SetScoreMeterColor(Color.HSVToRGB(factor, 1.0f, 1.0f));
+        }
+
+        public float GetScoreMeterValue()
+        {
+            return score;
+        }
+
+        public void AddScore(float a)
+        {
+            SetScoreMeterValue(score + a);
+
+            //score = skills.ApplyBonuses(score);
+
+            RaiseEventOptions raiseEventOptions = new RaiseEventOptions
+            {
                 Receivers = ReceiverGroup.Others
             };
             PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SetScoreEvent,
                 score, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
         }
-    }
 
-    public void SetScore(float score) {
-        SetScoreMeterValue(score);
-    }
+        public void SetScore(float score)
+        {
+            SetScoreMeterValue(score);
+        }
 
-    public void SetScoreMeterColor(Color healthColor)
-    {
-        scoreMeterImg.color = healthColor;
-    }
+        public void SetScoreMeterColor(Color healthColor)
+        {
+            scoreMeterImg.color = healthColor;
+        }
 
-    private void Start()
-    {
-        scoreMeterImg = GetComponent<Image>();
-        score = 0;
+        private void Start()
+        {
+            scoreMeterImg = GetComponent<Image>();
+            score = 0;
+        }
     }
 }

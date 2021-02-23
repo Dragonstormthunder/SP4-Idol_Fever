@@ -105,13 +105,13 @@ namespace IdolFever.Game
                 if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec - 400000)
                 {
                     notes.RemoveAt(i);
-                    Destroy(n.GetComponent<Note>()?.holdNote.gameObject);
+                    Destroy(n.GetComponent<Note>()?.holdNote?.gameObject);
                     Destroy(n.transform.gameObject);
                     comboCounter.combo = 0;
                     continue;
                 }
                 n.transform.localPosition = new Vector3(n.noteEvent.XPos(), (n.holdHit ? -300 : ((long)n.noteEvent.timestamp - (long)usec) / 1000 - 300), 0);
-                if (n.holdNote)
+                if (n.holdNote != null)
                 {
                     n.holdNote.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, ((long)n.noteEvent.timestamp + (long)n.noteEvent.length - (long)usec) / 1000 - (n.holdHit ? 0 : ((long)n.noteEvent.timestamp - (long)usec) / 1000));
                     n.holdNote.GetComponent<RectTransform>().localPosition = new Vector3(n.noteEvent.XPos() - 5, n.holdHit ? -310 : ((long)n.noteEvent.timestamp - (long)usec) / 1000 - 310, 0);

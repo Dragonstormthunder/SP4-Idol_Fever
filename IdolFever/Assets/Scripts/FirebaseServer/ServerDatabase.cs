@@ -27,6 +27,8 @@ namespace IdolFever.Server
         public const string DATABASE_ENERGY = "ENERGY";
         public const string DATABASE_MAX_ENERGY = "MAX_ENERGY";
         public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
+        public const string DATABASE_LEVEL = "LEVEL";
+        public const string DATABASE_EXP = "EXP";
 
         //public const string DATABASE_SONG_HIGHSCORE = "SONG_HIGHSCORE";
         #region SONG_DATABASE_KEYS
@@ -58,23 +60,6 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-
-            //StartCoroutine(UpdateSongHighscore(DBSH_MOUNTAIN_KING, 100));
-            //StartCoroutine(UpdateSongHighscore(DBSH_ORIGINAL_SONG, 50));
-            //StartCoroutine(UpdateSongHighscore(DBSH_WELLERMAN, 10));
-
-            //StartCoroutine(GrabHighestScoreOfASong(DBSH_MOUNTAIN_KING, (scorer) =>
-            //{
-            //    Debug.Log("Highest score: " + scorer);
-            //}));
-            //
-            //StartCoroutine(GrabAllScoresOfASong(DBSH_MOUNTAIN_KING, (scores) =>
-            //{
-            //    foreach (KeyValuePair<string, int> keyValuePair in scores)
-            //    {
-            //        Debug.Log("Scoring: " + keyValuePair);
-            //    }
-            //}));
 
         }
 
@@ -128,6 +113,7 @@ namespace IdolFever.Server
             }
 
         }
+
         public IEnumerator UpdateLastLogin()
         {
             System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
@@ -228,7 +214,6 @@ namespace IdolFever.Server
 
         }
 
-
         public IEnumerator UpdateMaxEnergy(int energy)
         {
             // update the value of the gem
@@ -278,6 +263,103 @@ namespace IdolFever.Server
 
         }
 
+        public IEnumerator UpdateLevel(int level)
+        {
+            // update the value of the level
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_LEVEL).SetValueAsync(level);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetLevel(System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot Level");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(DATABASE_LEVEL))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_LEVEL).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish(0);
+                }
+            }
+
+        }
+
+        public IEnumerator UpdateEXP(int exp)
+        {
+            // update the value of the level
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_EXP).SetValueAsync(exp);
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetEXP(System.Action<int> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot Level");
+                DataSnapshot snapshot = DBTask.Result;
+
+                if (snapshot.HasChild(DATABASE_EXP))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_EXP).Value.ToString());
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish(0);
+                }
+            }
+        }
+
         public IEnumerator UpdateUsername(string username)
         {
             // update the value of the username
@@ -290,6 +372,40 @@ namespace IdolFever.Server
             if (DBTask.Exception != null)
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+        }
+
+        public IEnumerator GetUsername(System.Action<string> callbackOnFinish)
+        {
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish("");
+            }
+            else
+            {
+                Debug.Log("Snapshot Username");
+                DataSnapshot snapshot = DBTask.Result;
+
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+
+                if (snapshot.HasChild(DATABASE_USERNAME))
+                {
+                    Debug.Log("Able to access data");
+                    callbackOnFinish(snapshot.Child(DATABASE_USERNAME).Value.ToString());
+                }
+                else
+                {
+                    Debug.Log("Unable to access data");
+                    callbackOnFinish("");
+                }
             }
         }
 

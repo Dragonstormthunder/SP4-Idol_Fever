@@ -52,12 +52,7 @@ namespace IdolFever.Server.Achievements
 
             for (ListAchievements i = 0; i < ListAchievements.NUM_ACHIEVEMENTS; ++i)
             {
-                GameObject achievement = Instantiate(achievementPrefab, new Vector2(0, 0), Quaternion.identity);
-
-                contentAchievements.Add(achievement);
-
-                // place into the list
-                achievement.transform.parent = achievementLocation;
+                GameObject achievement = Instantiate(achievementPrefab, achievementLocation.transform, false);
 
                 // name the achievements
                 Transform achievementName = achievement.transform.GetChild(0).transform.Find("AchievementName");
@@ -68,6 +63,7 @@ namespace IdolFever.Server.Achievements
                 achievementName.GetComponent<TextMeshProUGUI>().text = name;
                 achievementDescription.GetComponent<TextMeshProUGUI>().text = description;
 
+                // add it to the list
                 contentAchievements.Add(achievement);
 
             }
