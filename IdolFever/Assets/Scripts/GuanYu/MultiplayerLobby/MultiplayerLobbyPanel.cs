@@ -54,7 +54,7 @@ namespace IdolFever {
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
-            Debug.Log("OnRoomListUpdate");
+            Debug.Log("OnRoomListUpdate"); //??
             UpdateCachedRoomList(roomList);
         }
 
@@ -120,23 +120,21 @@ namespace IdolFever {
                 GameObject entry = Instantiate(playerListEntryPrefab);
                 entry.transform.SetParent(transform);
                 entry.transform.localScale = Vector3.one;
-                entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
-                if(p.CustomProperties.TryGetValue("IsPlayerReady", out object isPlayerReady)) { //Inline var declaration
-                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
-                }
+                PlayerListEntry playerListEntry = entry.GetComponent<PlayerListEntry>();
+                playerListEntry.Initialize(p.ActorNumber, p.NickName);
+                playerListEntry.SetPlayerListEntryColors();
 
-                entry.GetComponent<PlayerListEntry>().SetPlayerListEntryColors();
+                playerListEntry.SetPlayerReady(false);
+                Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
+                p.SetCustomProperties(props);
 
                 playerListEntries.Add(p.ActorNumber, entry);
             }
 
+            PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
+            Debug.Log(fakeVal, this);
             startButton.SetActive(CheckPlayersReady());
-
-            Hashtable props = new Hashtable {
-                {"PlayerLoadedLevel", false}
-            };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
             yield return null;
         }
