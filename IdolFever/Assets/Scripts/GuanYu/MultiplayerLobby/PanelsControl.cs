@@ -13,10 +13,6 @@ namespace IdolFever {
         private Dictionary<string, GameObject> roomListEntries;
         private Dictionary<int, GameObject> playerListEntries;
 
-        [SerializeField] private string sceneName;
-        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
-        [SerializeField] private Animator animator;
-
         [Header("Login")]
         [SerializeField] private GameObject LoginPanel;
         [SerializeField] private InputField PlayerNameInput;
@@ -45,20 +41,12 @@ namespace IdolFever {
         #endregion
 
         #region Properties
-
-        public static bool IsStartSceneTransitionOutAnimReceived {
-            get;
-            set;
-        }
-
         #endregion
 
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            IsStartSceneTransitionOutAnimReceived = false;
-
-            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.AutomaticallySyncScene = false;
 
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
@@ -72,10 +60,6 @@ namespace IdolFever {
             cachedRoomList = null;
             roomListEntries = null;
             playerListEntries = null;
-
-            sceneName = string.Empty;
-            asyncSceneTransitionOutScript = null;
-            animator = null;
 
             LoginPanel = null;
             PlayerNameInput = null;
@@ -293,25 +277,10 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            animator.SetTrigger("Start");
-
-            //PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, animator.gameObject.name);
-
-            //_ = StartCoroutine(nameof(StartAnimCoroutine));
+            PhotonView.Get(this).RPC("StartSceneTransitionOutAnim", RpcTarget.All, null);
         }
 
         #endregion
-
-        private System.Collections.IEnumerator StartAnimCoroutine() {
-            while(!IsStartSceneTransitionOutAnimReceived) {
-                yield return null;
-            }
-
-            IsStartSceneTransitionOutAnimReceived = false;
-
-            PhotonNetwork.LoadLvlPrep(asyncSceneTransitionOutScript.SceneName);
-            asyncSceneTransitionOutScript.ChangeScene();
-        }
 
         private bool CheckPlayersReady() {
             if(!PhotonNetwork.IsMasterClient) {
