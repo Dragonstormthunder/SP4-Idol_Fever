@@ -113,14 +113,7 @@ namespace IdolFever {
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
 
-        public override void OnCreatedRoom() {
-            print("here2");
-        }
-
         public override void OnJoinedRoom() {
-            print("here");
-
-
             if(PlayerUniversal.Colors.Length == 0) {
                 if(PhotonNetwork.IsMasterClient) {
                     PlayerUniversal.InitColors();

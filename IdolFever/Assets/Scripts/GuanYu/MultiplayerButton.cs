@@ -10,7 +10,6 @@ namespace IdolFever {
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private ServerDatabase serverDatabaseScript;
-        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
         [SerializeField] private PanelsControl panelsControl;
 
         #endregion
@@ -19,21 +18,21 @@ namespace IdolFever {
         #endregion
 
         #region Unity User Callback Event Funcs
-        #endregion
 
-        public MultiplayerButton() {
-            cachedRoomList = new Dictionary<string, RoomInfo>();
-            serverDatabaseScript = null;
-            asyncSceneTransitionOutScript = null;
-        }
-
-        public void OnClick() {
+        private void Awake() {
             _ = StartCoroutine(serverDatabaseScript.GetUsername((playerName) => {
                 PhotonNetwork.LocalPlayer.NickName = playerName;
                 if(!PhotonNetwork.IsConnected) {
                     PhotonNetwork.ConnectUsingSettings();
                 }
             }));
+        }
+
+        #endregion
+
+        public MultiplayerButton() {
+            cachedRoomList = new Dictionary<string, RoomInfo>();
+            serverDatabaseScript = null;
         }
 
         public override void OnConnectedToMaster() {
@@ -84,28 +83,22 @@ namespace IdolFever {
             RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 10000 };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
-
-            asyncSceneTransitionOutScript.ChangeScene();
         }
 
         public override void OnCreatedRoom() {
-            Debug.Log("OnCreatedRoom() : You Have Created...");
+            Debug.Log("OnCreatedRoom(): You Have Created...");
         }
 
-        public override void OnJoinedRoom() {
-            print("here000");
-        }
+		public override void OnJoinedRoom() {
+			if(PlayerUniversal.Colors.Length == 0) {
+				if(PhotonNetwork.IsMasterClient) {
+					PlayerUniversal.InitColors();
+				} else {
+					PhotonView.Get(this).RPC("RetrievePlayerColors", RpcTarget.MasterClient);
+				}
+			}
 
-/*        public override void OnJoinedRoom() {
-            if(PlayerUniversal.Colors.Length == 0) {
-                if(PhotonNetwork.IsMasterClient) {
-                    PlayerUniversal.InitColors();
-                } else {
-                    PhotonView.Get(this).RPC("RetrievePlayerColors", RpcTarget.MasterClient);
-                }
-            }
-
-            _ = StartCoroutine(panelsControl.My1stEverCoroutine());
-        }*/
-    }
+			_ = StartCoroutine(panelsControl.My1stEverCoroutine());
+		}
+	}
 }
