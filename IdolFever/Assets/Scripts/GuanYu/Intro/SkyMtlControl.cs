@@ -23,6 +23,10 @@ namespace IdolFever {
             skyMtl.SetFloat("_Rotation", Time.time * rotationVel);
         }
 
+        private void OnDisable() {
+            skyMtl.SetFloat("_Rotation", 0.0f);
+        }
+
         #endregion
     }
 }
