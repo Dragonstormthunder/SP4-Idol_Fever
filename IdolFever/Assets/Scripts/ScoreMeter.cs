@@ -22,12 +22,6 @@ namespace IdolFever
             score = value;
             scoreMeterImg.fillAmount = score / maxscore;
 
-            float factor = scoreMeterImg.fillAmount * 0.5f + 0.8f;
-            if (factor > 1.0f)
-            {
-                factor -= 1.0f;
-            }
-            SetScoreMeterColor(Color.HSVToRGB(factor, 1.0f, 1.0f));
         }
 
         public float GetScoreMeterValue()
