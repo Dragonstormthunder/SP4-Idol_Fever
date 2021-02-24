@@ -37,5 +37,6 @@ namespace IdolFever.Server
             loginUI.SetActive(false);
             registerUI.SetActive(true);
         }
+
     }
 }
