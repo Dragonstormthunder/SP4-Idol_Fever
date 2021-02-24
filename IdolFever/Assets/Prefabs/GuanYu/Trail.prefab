@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8082038435937766044}
-  - component: {fileID: 7669040118753420423}
+  - component: {fileID: 8082038435937766033}
   - component: {fileID: 8082038435937766034}
   - component: {fileID: 8082038435937766035}
   m_Layer: 5
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7669040118753420423
+--- !u!114 &8082038435937766033
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   distFromCam: 5
   camComponent: {fileID: 0}
   parent: {fileID: 8082038435937766045}
-  particleSystemPrefab: {fileID: 8081341272190078897, guid: a05a7c38871161443b4139aa1a0a86ec, type: 3}
+  particleSystemPrefab: {fileID: 0}
   mtls:
   - {fileID: 2100000, guid: 632e85ddef7845a42969e84701cbfbd9, type: 2}
   - {fileID: 2100000, guid: 0c59f0a43fa7add4091264f7741ae496, type: 2}
