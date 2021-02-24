@@ -10,8 +10,8 @@ namespace IdolFever {
         #region Fields
 
         private Dictionary<string, RoomInfo> cachedRoomList;
-        private List<int> roomIndices;
         [SerializeField] private GameObject[] playerBlocks;
+        [SerializeField] private int currRoomIndex;
         [SerializeField] private int maxRooms;
         [SerializeField] private ServerDatabase serverDatabaseScript;
 
@@ -22,8 +22,8 @@ namespace IdolFever {
 
         public ListOfPlayers() {
             cachedRoomList = null;
-            roomIndices = null;
             playerBlocks = System.Array.Empty<GameObject>();
+            currRoomIndex = 0;
             maxRooms = 0;
             serverDatabaseScript = null;
         }
@@ -32,11 +32,6 @@ namespace IdolFever {
 
         private void Awake() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
-
-            roomIndices = new List<int>();
-            for(int i = 0; i < maxRooms; ++i) {
-                roomIndices.Add(i);
-            }
 
             PhotonNetwork.LocalPlayer.NickName = GameConfigurations.Username;
             if(!PhotonNetwork.IsConnected) {
@@ -77,6 +72,8 @@ namespace IdolFever {
                 return;
             }
 
+            Debug.Log("here", this);
+
             CreateRoom();
         }
 
@@ -88,10 +85,13 @@ namespace IdolFever {
         }
 
         private void CreateRoom() {
-            string roomName = roomIndices[0].ToString();
-            roomIndices.RemoveAt(0);
+            string roomName = currRoomIndex++.ToString();
+
+            Debug.Log(roomName, this);
 
             RoomOptions options = new RoomOptions { MaxPlayers = (byte)playerBlocks.Length, PlayerTtl = 10000 };
+
+            Debug.Log("here " + roomName, this);
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
