@@ -14,6 +14,7 @@ namespace IdolFever.Game
     {
         // Start is called before the first frame update
 
+        private bool isExitingScene = false;
         public Transform noteHolder;
         public Transform particleHolder;
         public GameObject notePrefab;
@@ -170,7 +171,10 @@ namespace IdolFever.Game
 
             if (audio.time > audio.clip.length - 1)
             {
-                _ = StartCoroutine(nameof(DcAndChangeScene));
+                if(!isExitingScene) {
+                    _ = StartCoroutine(nameof(DcAndChangeScene));
+                    isExitingScene = true;
+                }
             }
         }
 
