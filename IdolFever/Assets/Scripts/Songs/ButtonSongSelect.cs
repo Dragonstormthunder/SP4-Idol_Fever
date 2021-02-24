@@ -26,8 +26,7 @@ namespace IdolFever
         public void OnClick()
         {
             GameConfigurations.SongChosen = index;
-            Debug.Log("index: " + index);
-
+            //Debug.Log("index: " + GameConfigurations.SongChosen);
 
             SingleSongSelectionEvents.INSTANCE.LeaderboardChange(index);
 

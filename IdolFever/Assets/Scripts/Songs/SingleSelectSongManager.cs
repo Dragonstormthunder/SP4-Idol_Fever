@@ -49,8 +49,20 @@ namespace IdolFever
 
             //}
 
+            // set the default to mountain king as the first one
+            StartCoroutine(SetDefaultLeaderboard());
 
+        }
 
+        IEnumerator SetDefaultLeaderboard()
+        {
+
+            // wait one frame
+            // want to wait for the rest to initalize their start first before doing anything
+            yield return 0;
+
+            //code goes here
+            SingleSongSelectionEvents.INSTANCE.LeaderboardChange(SongRegistry.SongList.MOUNTAIN_KING);
 
         }
 

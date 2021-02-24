@@ -28,6 +28,7 @@ namespace IdolFever
         {
             // subscribe to the event
             SingleSongSelectionEvents.INSTANCE.onLeaderboardChange += OnLeaderboardChange;
+
         }
 
         public void OnDestroy()

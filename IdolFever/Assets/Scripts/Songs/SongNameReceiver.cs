@@ -19,10 +19,11 @@ namespace IdolFever
 
         public void Start()
         {
-            text = GetComponent<TextMeshProUGUI>();
-
             // subscribe to the event
             SingleSongSelectionEvents.INSTANCE.onLeaderboardChange += OnLeaderboardChange;
+
+            text = GetComponent<TextMeshProUGUI>();
+
         }
 
         public void OnDestroy()
