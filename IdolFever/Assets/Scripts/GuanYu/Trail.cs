@@ -26,7 +26,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Start() {
-            ParticleSystem particleSystemComponentParent = parent.GetComponent<ParticleSystem>();
+            /*ParticleSystem particleSystemComponentParent = parent.GetComponent<ParticleSystem>();
 
             foreach(Material mtl in mtls) {
                 GameObject particleSystemGO = Instantiate(particleSystemPrefab);
@@ -34,8 +34,8 @@ namespace IdolFever {
 
                 ParticleSystem particleSystemComponent = particleSystemGO.GetComponent<ParticleSystem>();
                 particleSystemComponent.GetComponent<Renderer>().material = mtl;
-                particleSystemComponentParent.subEmitters.AddSubEmitter(particleSystemComponent, ParticleSystemSubEmitterType.Manual, ParticleSystemSubEmitterProperties.InheritNothing);
-            }
+                particleSystemComponentParent.subEmitters.AddSubEmitter(particleSystemComponent, ParticleSystemSubEmitterType.Birth, ParticleSystemSubEmitterProperties.InheritEverything);
+            }*/
         }
 
         private void Update() {
