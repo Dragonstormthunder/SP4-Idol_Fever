@@ -123,7 +123,19 @@ namespace IdolFever.Character
         public CharacterFactory.eCHARACTER OpponentCharacterIndex
         {
             get { return opponentIndex; }
-            set { opponentIndex = value; }
+            set
+            {
+                opponentIndex = value;
+
+                // instantiate the opponent's thumbnail here
+                if (opponentThumbnailParent.childCount <= 0)    // if mask has children, this photon event has been received before, 
+                                                                // do not make more gameobjects
+                                                                // cannot change character in the middle of a match anyway
+                {
+                    Instantiate(characterDecentralizeData.AccessThumbnailPrefab(value), opponentThumbnailParent);
+                }
+
+            }
         }
 
         public float OpponentMultiplier
@@ -189,7 +201,7 @@ namespace IdolFever.Character
 
             // feedback initilization
             mySkillName.text = characterDecentralizeData.AccessCharacterSkillName(CharacterIndex);
-            mySkillMultiplier.text = SkillMultiplier.ToString() + "x";
+            mySkillMultiplier.text = SkillMultiplier.ToString() + "x ";
 
             // get the thumbnail instantiation
             Instantiate(characterDecentralizeData.AccessThumbnailPrefab(CharacterIndex), myThumbnailParent);

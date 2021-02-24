@@ -12,6 +12,7 @@ namespace IdolFever.Server
 
         public ServerDatabase serverDatabase;
         public TextMeshProUGUI energyText;
+        public Transform progressbar;
 
         #endregion
 
@@ -43,7 +44,12 @@ namespace IdolFever.Server
                             }
                             StartCoroutine(serverDatabase.UpdateEnergy(energy));
                             StartCoroutine(serverDatabase.UpdateLastLogin());
-                            energyText.text = energy.ToString();
+                            energyText.text = energy.ToString() + " / " + maxEnergy.ToString();
+                            
+                            if (progressbar != null)
+                            {
+                                progressbar.localScale = new Vector3((float)energy / (float)maxEnergy, progressbar.localScale.y, 0);
+                            }
 
                         }));
                     }));
