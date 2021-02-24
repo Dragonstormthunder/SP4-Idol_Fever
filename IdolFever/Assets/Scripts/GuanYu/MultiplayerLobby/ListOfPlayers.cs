@@ -27,6 +27,8 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
+            PhotonNetwork.AutomaticallySyncScene = false;
+
             cachedRoomList = new Dictionary<string, RoomInfo>();
 
             PhotonNetwork.LocalPlayer.NickName = GameConfigurations.Username;
@@ -34,6 +36,10 @@ namespace IdolFever {
                 PhotonNetwork.ConnectUsingSettings();
             }
 		}
+
+        #endregion
+
+        #region Pun Callback Funcs
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
             Debug.Log("OnRoomListUpdate", this);
@@ -68,8 +74,6 @@ namespace IdolFever {
                 return;
             }
 
-            Debug.Log("here", this);
-
             CreateRoom();
         }
 
@@ -83,11 +87,7 @@ namespace IdolFever {
         private void CreateRoom() {
             string roomName = Random.Range(400, 4000000).ToString();
 
-            Debug.Log(roomName, this);
-
             RoomOptions options = new RoomOptions { MaxPlayers = (byte)playerBlocks.Length, PlayerTtl = 10000 };
-
-            Debug.Log("here " + roomName, this);
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
