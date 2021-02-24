@@ -35,6 +35,10 @@ namespace DissolveControl {
             }
         }
 
+        private void OnDisable() {
+            dissolveMtl.SetFloat("_StepThreshold", 1.0f);
+        }
+
         #endregion
 
         public DissolveControl() {
