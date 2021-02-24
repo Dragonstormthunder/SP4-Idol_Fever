@@ -8,6 +8,10 @@ namespace IdolFever {
         private float offsetX;
         private float offsetY;
         private RectTransform rectTransformComponent;
+        [SerializeField] private float spdSin;
+        [SerializeField] private float magnitudeSin;
+        [SerializeField] private float spdCos;
+        [SerializeField] private float magnitudeCos;
 
         #endregion
 
@@ -21,6 +25,10 @@ namespace IdolFever {
             offsetX = 0.0f;
             offsetY = 0.0f;
             rectTransformComponent = null;
+            spdSin = 0.0f;
+            magnitudeSin = 0.0f;
+            spdCos = 0.0f;
+            magnitudeCos = 0.0f;
         }
 
         #endregion
@@ -36,8 +44,8 @@ namespace IdolFever {
         }
 
         private void FixedUpdate() {
-            offsetX = Mathf.Sin(4.0f * elapsedTime) * 0.4f;
-            offsetY = Mathf.Cos(4.0f * elapsedTime) * 0.4f;
+            offsetX = Mathf.Sin(spdSin * elapsedTime) * magnitudeSin;
+            offsetY = Mathf.Cos(spdCos * elapsedTime) * magnitudeCos;
 
             rectTransformComponent.localPosition = new Vector3(
                 rectTransformComponent.localPosition.x + offsetX,

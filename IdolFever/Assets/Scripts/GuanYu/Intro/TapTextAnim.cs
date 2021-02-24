@@ -41,7 +41,7 @@ namespace IdolFever {
         }
 
         private void FixedUpdate() {
-            float lerpFactor = EaseInSine(Mathf.Cos(elapsedTime * 4.0f) * 0.5f + 0.5f);
+            float lerpFactor = EaseInOutQuad(Mathf.Cos(elapsedTime * 4.0f) * 0.5f + 0.5f);
 
             Color myColor = img.color;
             img.color = new Color(myColor.r, myColor.g, myColor.b, (1.0f - lerpFactor) * startAlpha + lerpFactor * endAlpha);
@@ -52,8 +52,8 @@ namespace IdolFever {
 
         #endregion
 
-        private float EaseInSine(float x) {
-            return 1.0f - Mathf.Cos((x * Mathf.PI) * 0.5f);
+        private float EaseInOutQuad(float x) {
+                return x < 0.5f ? 2.0f * x * x : 1.0f - Mathf.Pow(-2.0f * x + 2.0f, 2.0f) * 0.5f;
+            }
         }
-    }
 }
