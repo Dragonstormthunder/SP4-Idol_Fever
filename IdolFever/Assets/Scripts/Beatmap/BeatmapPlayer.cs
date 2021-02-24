@@ -25,9 +25,12 @@ namespace IdolFever.Game
         [SerializeField] private List<AudioClip> songs;
         [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
+        [SerializeField] private List<GameObject> characters;
         public AudioSource audio;
         private int beatIndex;
         private ulong usec;
+
+        private Transform myChar;
         void Start()
         {
             beatmap = BeatmapReader.Open("Wellerman.mid");
@@ -46,6 +49,10 @@ namespace IdolFever.Game
                 audio.clip = songs[2];
                 beatmap = BeatmapReader.Open("Wellerman.mid");
             }
+
+            myChar = Instantiate(characters[0], new Vector3(-0.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0,1,0))).transform;
+            myChar.GetComponent<Animator>().Rebind();
+            myChar.GetComponent<Animator>().Play("omurice_Char_Female_anim_idle", 0);
 
             audio.Play();
             int n = beatmap.beats.Count;
@@ -105,7 +112,7 @@ namespace IdolFever.Game
                 if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec - 400000)
                 {
                     notes.RemoveAt(i);
-                    Destroy(n.GetComponent<Note>()?.holdNote?.gameObject);
+                    if(n.holdNote) Destroy(n.holdNote.gameObject);
                     Destroy(n.transform.gameObject);
                     comboCounter.combo = 0;
                     continue;
@@ -118,14 +125,46 @@ namespace IdolFever.Game
                 }
                 ++i;
             }
-            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", "")))) NoteHit(0);
-            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", "")))) NoteHit(1);
-            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", "")))) NoteHit(2);
-            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", "")))) NoteHit(3);
-            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", "")))) NoteRelease(0);
-            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", "")))) NoteRelease(1);
-            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", "")))) NoteRelease(2);
-            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", "")))) NoteRelease(3);
+            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Left", true);
+                NoteHit(0);
+            }
+            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Up", true);
+                NoteHit(1);
+            }
+            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Down", true);
+                NoteHit(2);
+            }
+            if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Right", true);
+                NoteHit(3);
+            }
+            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Left", false);
+                NoteRelease(0);
+            }
+            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Up", false);
+                NoteRelease(1);
+            }
+            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Down", false);
+                NoteRelease(2);
+            }
+            if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
+            {
+                myChar.GetComponent<Animator>().SetBool("Right", false);
+                NoteRelease(3);
+            }
 
             if (audio.time > audio.clip.length - 1)
             {
