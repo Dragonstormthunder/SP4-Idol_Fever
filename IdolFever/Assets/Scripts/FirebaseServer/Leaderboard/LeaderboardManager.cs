@@ -16,6 +16,9 @@ namespace IdolFever.Server.Leaderboard
         private SongRegistry.SongList currentSelectedSong;
         //[SerializeField] SongRegistry.SongList songLeaderboardToDisplay;
 
+        public TextMeshProUGUI[] names;
+        public TextMeshProUGUI[] scores;
+
         #endregion
 
         #region Properties
@@ -86,13 +89,25 @@ namespace IdolFever.Server.Leaderboard
                 StartCoroutine(serverDatabase.GrabAllScoresOfASong(songName, (scores) =>
                 {
                     int position = 0;
-                    if(currentSelectedSong == index)
-                    foreach (KeyValuePair<string, int> score in scores)
-                    {
-                        //Debug.Log(score.Key + " " + score.Value);
-                        GameObject scoreElement = Instantiate(scorePrefab, contentPanel.transform);
-                        scoreElement.GetComponent<ScoreData>().SetScoreData(++position, score.Key, score.Value);
-                    }
+                    if (currentSelectedSong == index)
+                        foreach (KeyValuePair<string, int> score in scores)
+                        {
+                            // would instiantiate here for vertical layout
+                            //Debug.Log(score.Key + " " + score.Value);
+                            //GameObject scoreElement = Instantiate(scorePrefab, contentPanel.transform);
+                            //scoreElement.GetComponent<ScoreData>().SetScoreData(++position, score.Key, score.Value);
+
+                            // for the hardcoded UI
+
+                            names[position] = score.Key;
+                            names[position] = score.Value;
+
+                            ++position;
+
+                            if (position > 2)
+                                break;
+
+                        }
                 }));
 
             }));
@@ -101,11 +116,22 @@ namespace IdolFever.Server.Leaderboard
 
         public void ClearLeaderBoard()
         {
-            foreach (Transform child in contentPanel.transform)
-            {
+            //foreach (Transform child in contentPanel.transform)
+            //{
                 // destroy it
-                Destroy(child.gameObject);
+            //    Destroy(child.gameObject);
+            //}
+
+            for (int i = 0; i < names.Length; ++i)
+            {
+                names[i].text = "";
             }
+
+            for (int i = 0; i < scores.Length; ++i)
+            {
+                scores[i].text = "";
+            }
+
         }
 
 
