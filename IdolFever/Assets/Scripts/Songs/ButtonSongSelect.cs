@@ -7,7 +7,7 @@ namespace IdolFever
     public class ButtonSongSelect : MonoBehaviour
     {
 
-        #region 
+        #region Fields
 
         [SerializeField] SongRegistry.SongList index;
 
@@ -26,6 +26,11 @@ namespace IdolFever
         public void OnClick()
         {
             GameConfigurations.SongChosen = index;
+            Debug.Log("index: " + index);
+
+
+            SingleSongSelectionEvents.INSTANCE.LeaderboardChange(index);
+
         }
 
     }

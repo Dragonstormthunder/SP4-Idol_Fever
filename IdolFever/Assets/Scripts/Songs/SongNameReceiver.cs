@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace IdolFever
 {
-
-    public class AlbumImageReceiver : MonoBehaviour
+    public class SongNameReceiver : MonoBehaviour
     {
 
         #region Fields
-
-        [EnumNamedArray(typeof(SongRegistry.SongList))]
-        public GameObject[] thumbnailPrefabs = new GameObject[(int)SongRegistry.SongList.NOT_OPTION];
-
+        [SerializeField] private TextMeshProUGUI text;
         #endregion
 
         #region Properties
@@ -22,6 +19,8 @@ namespace IdolFever
 
         public void Start()
         {
+            text = GetComponent<TextMeshProUGUI>();
+
             // subscribe to the event
             SingleSongSelectionEvents.INSTANCE.onLeaderboardChange += OnLeaderboardChange;
         }
@@ -36,13 +35,31 @@ namespace IdolFever
 
         private void OnLeaderboardChange(SongRegistry.SongList index)
         {
-            for (int i = 0; i < thumbnailPrefabs.Length; ++i)
+
+            switch(index)
             {
-                thumbnailPrefabs[i].SetActive(false);
+                default:
+                    text.text = "";
+                    break;
+
+                case SongRegistry.SongList.FUMO_SONG:
+                    text.text = "Fumo Song";
+                    break;
+
+                case SongRegistry.SongList.MOUNTAIN_KING:
+
+                    text.text = "Hall of the Mountain King";
+                    break;
+
+                case SongRegistry.SongList.WELLERMAN:
+
+                    text.text = "Wellerman";
+                    break;
+
             }
-            thumbnailPrefabs[(int)index].SetActive(true);
+
         }
 
-    }
 
+    }
 }
