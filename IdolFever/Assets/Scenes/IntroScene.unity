@@ -1228,7 +1228,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
+  - {fileID: 2100000, guid: f7d20a73e7aebf5449d64997f071eb9e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2375,12 +2375,12 @@ ParticleSystem:
         m_RotationOrder: 4
     separateAxes: 0
   RotationModule:
-    enabled: 0
+    enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
-      minScalar: 0
+      minMaxState: 3
+      scalar: -5.2359877
+      minScalar: 5.2359877
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2431,9 +2431,9 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
-      minScalar: 0
+      minMaxState: 3
+      scalar: -5.2359877
+      minScalar: 5.2359877
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2484,9 +2484,9 @@ ParticleSystem:
         m_RotationOrder: 4
     curve:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0.7853982
-      minScalar: 0.7853982
+      minMaxState: 3
+      scalar: -5.2359877
+      minScalar: 5.2359877
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -2535,7 +2535,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    separateAxes: 0
+    separateAxes: 1
   ColorModule:
     enabled: 1
     gradient:
@@ -6000,7 +6000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f9167be8651fa429d9cc253eda42a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distFromCam: 5
+  distFromCam: 40
   camComponent: {fileID: 2027784711}
 --- !u!1 &1546580213
 GameObject:
