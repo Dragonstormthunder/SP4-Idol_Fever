@@ -38,17 +38,10 @@ namespace IdolFever {
                 roomIndices.Add(i);
             }
 
-            /*PhotonNetwork.LocalPlayer.NickName = "2169test2169";
+            PhotonNetwork.LocalPlayer.NickName = GameConfigurations.Username;
             if(!PhotonNetwork.IsConnected) {
                 PhotonNetwork.ConnectUsingSettings();
-            }*/
-
-            _ = StartCoroutine(serverDatabaseScript.GetUsername((playerName) => {
-                PhotonNetwork.LocalPlayer.NickName = playerName;
-				if(!PhotonNetwork.IsConnected) {
-                    PhotonNetwork.ConnectUsingSettings();
-				}
-			}));
+            }
 		}
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {

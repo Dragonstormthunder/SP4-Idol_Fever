@@ -15,6 +15,7 @@ namespace IdolFever
 
         private static Character.CharacterFactory.eCHARACTER characterIndex;
         private static int bonus;
+        private static string username;
 
         #endregion
 
@@ -44,6 +45,15 @@ namespace IdolFever
         {
             get { return bonus; }
             set { bonus = value; }
+        }
+
+        public static string Username {
+            get {
+                return username;
+            }
+            set {
+                username = value;
+            }
         }
 
         #endregion
