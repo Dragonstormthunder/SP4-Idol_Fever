@@ -99,8 +99,8 @@ namespace IdolFever.Server.Leaderboard
 
                             // for the hardcoded UI
 
-                            names[position] = score.Key;
-                            names[position] = score.Value;
+                            names[position].text = score.Key;
+                            names[position].text = score.Value.ToString();
 
                             ++position;
 
