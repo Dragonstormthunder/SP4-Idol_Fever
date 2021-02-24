@@ -38,12 +38,40 @@ namespace IdolFever {
                 roomIndices.Add(i);
             }
 
+            /*PhotonNetwork.LocalPlayer.NickName = "2169test2169";
+            if(!PhotonNetwork.IsConnected) {
+                PhotonNetwork.ConnectUsingSettings();
+            }*/
+
             _ = StartCoroutine(serverDatabaseScript.GetUsername((playerName) => {
                 PhotonNetwork.LocalPlayer.NickName = playerName;
-                if(!PhotonNetwork.IsConnected) {
+				if(!PhotonNetwork.IsConnected) {
                     PhotonNetwork.ConnectUsingSettings();
+				}
+			}));
+		}
+
+        public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+            Debug.Log("OnRoomListUpdate", this);
+            UpdateCachedRoomList(roomList);
+        }
+
+        private void UpdateCachedRoomList(List<RoomInfo> roomList) {
+            foreach(RoomInfo info in roomList) {
+                ///Remove room from cached room list if it got closed, became invisible or was marked as removed
+                if(!info.IsOpen || !info.IsVisible || info.RemovedFromList) {
+                    if(cachedRoomList.ContainsKey(info.Name)) {
+                        cachedRoomList.Remove(info.Name);
+                    }
+                    continue;
                 }
-            }));
+
+                if(cachedRoomList.ContainsKey(info.Name)) {
+                    cachedRoomList[info.Name] = info; //Update cached room info
+                } else {
+                    cachedRoomList.Add(info.Name, info); //Add new room info to cache
+                }
+            }
         }
 
         public override void OnConnectedToMaster() {
@@ -82,17 +110,16 @@ namespace IdolFever {
         public override void OnJoinedRoom() {
             Debug.Log("Room joined!", this);
 
-            int amtOfPlayers = PhotonNetwork.PlayerList.Length;
             int index = 1;
             foreach(Player player in PhotonNetwork.PlayerList) {
                 GameObject playerBlockGO = playerBlocks[player == PhotonNetwork.LocalPlayer ? 0 : index];
 
                 PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
                 playerBlockScript.ActorNumber = player.ActorNumber;
-                playerBlockScript.Name = player.NickName;
+                playerBlockScript.Nickname = player.NickName;
 
                 TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();
-                tmpComponent.text = playerBlockScript.Name;
+                tmpComponent.text = playerBlockScript.Nickname;
 
                 if(player != PhotonNetwork.LocalPlayer) {
                     ++index;

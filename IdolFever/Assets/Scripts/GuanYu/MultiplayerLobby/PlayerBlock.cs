@@ -5,7 +5,7 @@ namespace IdolFever {
         #region Fields
 
         private int actorNumber;
-        private string name; 
+        private string nickname; 
 
         #endregion
 
@@ -20,12 +20,12 @@ namespace IdolFever {
             }
         }
 
-        public string Name{
+        public string Nickname{
             get {
-                return name;
+                return nickname;
             }
             set {
-                name = value;
+                nickname = value;
             }
         }
 
@@ -33,7 +33,7 @@ namespace IdolFever {
 
         public PlayerBlock() {
             actorNumber = -999;
-            name = string.Empty;
+            nickname = string.Empty;
         }
 
         #region Unity User Callback Event Funcs
