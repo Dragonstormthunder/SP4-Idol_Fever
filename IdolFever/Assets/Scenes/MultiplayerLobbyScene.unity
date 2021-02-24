@@ -398,6 +398,11 @@ MonoBehaviour:
   img: {fileID: 28697002}
   sceneName: GameplayScene
   startAnimName: CurtainTransitionStart
+--- !u!1 &176645157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3638241146389367130, guid: e828a525a41dc17438f5c58c70284df7, type: 3}
+  m_PrefabInstance: {fileID: 3638241146548317567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &176645158 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3638241146389367129, guid: e828a525a41dc17438f5c58c70284df7, type: 3}
@@ -1058,6 +1063,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3638241146389367129, guid: e828a525a41dc17438f5c58c70284df7, type: 3}
   m_PrefabInstance: {fileID: 1811577758}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1811577760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3638241146389367130, guid: e828a525a41dc17438f5c58c70284df7, type: 3}
+  m_PrefabInstance: {fileID: 1811577758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1843918989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1216,7 +1226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0047c3e4ae3f63b46951a1a95993752d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxPlayers: 2
+  playerBlocks:
+  - {fileID: 176645157}
+  - {fileID: 1811577760}
   maxRooms: 10
   serverDatabaseScript: {fileID: 1843918990}
 --- !u!1 &2050557060

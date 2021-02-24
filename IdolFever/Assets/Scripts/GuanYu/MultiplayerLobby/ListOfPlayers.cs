@@ -10,7 +10,7 @@ namespace IdolFever {
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         private List<int> roomIndices;
-        [SerializeField] private byte maxPlayers;
+        [SerializeField] private GameObject[] playerBlocks;
         [SerializeField] private int maxRooms;
         [SerializeField] private ServerDatabase serverDatabaseScript;
 
@@ -22,7 +22,7 @@ namespace IdolFever {
         public ListOfPlayers() {
             cachedRoomList = null;
             roomIndices = null;
-            maxPlayers = 0;
+            playerBlocks = System.Array.Empty<GameObject>();
             maxRooms = 0;
             serverDatabaseScript = null;
         }
@@ -69,7 +69,7 @@ namespace IdolFever {
             string roomName = roomIndices[0].ToString();
             roomIndices.RemoveAt(0);
 
-            RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers, PlayerTtl = 10000 };
+            RoomOptions options = new RoomOptions { MaxPlayers = (byte)playerBlocks.Length, PlayerTtl = 10000 };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
         }
@@ -80,6 +80,34 @@ namespace IdolFever {
 
         public override void OnJoinedRoom() {
             Debug.Log("Room joined!", this);
+
+            int amtOfPlayers = PhotonNetwork.PlayerList.Length;
+            int index = 1;
+            while(index < amtOfPlayers){
+                Player player = PhotonNetwork.PlayerList[index];
+
+                if(player == PhotonNetwork.LocalPlayer) {
+                    GameObject playerBlockGO = playerBlocks[0];
+                    PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
+
+                    playerBlockScript.ActorNumber = player.ActorNumber;
+                    playerBlockScript.Name = player.NickName;
+                } else {
+                    ++index;
+                }
+                /*playerListEntry.Initialize(p.ActorNumber, p.NickName);
+                playerListEntry.SetPlayerListEntryColors();
+
+                playerListEntry.SetPlayerReady(false);
+                Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
+                p.SetCustomProperties(props);
+
+                playerListEntries.Add(p.ActorNumber, entry);*/
+            }
+
+            /*PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
+            Debug.Log(fakeVal, this);
+            startButton.SetActive(CheckPlayersReady());*/
         }
 
         #endregion
