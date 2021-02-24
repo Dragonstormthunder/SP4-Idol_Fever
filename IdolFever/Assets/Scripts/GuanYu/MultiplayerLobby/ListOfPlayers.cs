@@ -2,6 +2,7 @@
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace IdolFever {
@@ -83,18 +84,20 @@ namespace IdolFever {
 
             int amtOfPlayers = PhotonNetwork.PlayerList.Length;
             int index = 1;
-            while(index < amtOfPlayers){
-                Player player = PhotonNetwork.PlayerList[index];
+            foreach(Player player in PhotonNetwork.PlayerList) {
+                GameObject playerBlockGO = playerBlocks[player == PhotonNetwork.LocalPlayer ? 0 : index];
 
-                if(player == PhotonNetwork.LocalPlayer) {
-                    GameObject playerBlockGO = playerBlocks[0];
-                    PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
+                PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
+                playerBlockScript.ActorNumber = player.ActorNumber;
+                playerBlockScript.Name = player.NickName;
 
-                    playerBlockScript.ActorNumber = player.ActorNumber;
-                    playerBlockScript.Name = player.NickName;
-                } else {
+                TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();
+                tmpComponent.text = playerBlockScript.Name;
+
+                if(player != PhotonNetwork.LocalPlayer) {
                     ++index;
                 }
+            }
                 /*playerListEntry.Initialize(p.ActorNumber, p.NickName);
                 playerListEntry.SetPlayerListEntryColors();
 
@@ -103,7 +106,6 @@ namespace IdolFever {
                 p.SetCustomProperties(props);
 
                 playerListEntries.Add(p.ActorNumber, entry);*/
-            }
 
             /*PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
             Debug.Log(fakeVal, this);
