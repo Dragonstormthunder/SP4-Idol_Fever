@@ -44,6 +44,22 @@ namespace IdolFever.UI
         public static int SSR_GirlDrawCount = 0;
         public static int SSR_BoyDrawCount = 0;
 
+        public static int roundPlayed = 0;
+        public static int roundMulti = 0;
+        public static int dailyDone = 0;
+
+        public static string nowTime = "";
+        public static string nextRound = "";
+        public static string nextMulti = "300";
+        public static string nextAll = "";
+
+        public static int gems = 0;
+
+        
+        
+
+        //tasks
+        
     }
 
 }

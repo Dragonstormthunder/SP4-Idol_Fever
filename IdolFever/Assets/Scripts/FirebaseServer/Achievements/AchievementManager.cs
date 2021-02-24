@@ -8,7 +8,6 @@ namespace IdolFever.Server.Achievements
 
     public class AchievementManager : MonoBehaviour
     {
-
         #region Fields
 
         public ServerDatabase serverDatabase;
@@ -100,8 +99,7 @@ namespace IdolFever.Server.Achievements
                 }
 
             }));
-
+         
         }
-
     }
 }

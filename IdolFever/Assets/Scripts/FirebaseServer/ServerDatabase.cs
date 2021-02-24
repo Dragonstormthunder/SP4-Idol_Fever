@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IdolFever.UI;
 
 using Firebase;
 using Firebase.Auth;
@@ -28,6 +29,33 @@ namespace IdolFever.Server
         public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
         public const string DATABASE_LEVEL = "LEVEL";
         public const string DATABASE_EXP = "EXP";
+
+        /////////////////////////////////////////////////////////
+        public const string DATABASE_TASK = "TASK";
+        public const string DATABASE_TASK_DONE = "TASK_DONE";
+        public const string DATABASE_TOTAL_ROUND_PLAYED = "TOTAL_ROUND_PLAYED";
+        //////////////////////////////////////////////////////////
+        public const string DATABASE_TOTAL_ROUND_MULTI = "TOTAL_ROUND_MULTI";
+        public const string DATABASE_TOTAL_ALL_DONE = "TOTAL_ALL_DONE";
+
+        public const string DATABASE_MULTI_UTC = "MULTI_UTC";
+        public const string DATABASE_FIVEROUND_UTC = "FIVEROUND_UTC";
+        public const string DATABASE_ALLDONE_UTC = "ALLDONE_UTC";
+
+
+
+
+        public const string DATABASE_PRESS_REWARD = "PRESS_REWARD";
+        public const string DATABASE_PRESS_REWARD_CLAIMED = "PRESS_REWARD_CLAIMED";
+
+
+        public const string DATABASE_REWARD = "REWARD";
+        public const string DATABASE_REWARD_CLAIMED = "REWARD_CLAIMED";
+
+
+        public ManOfUI ui;
+
+
 
         //public const string DATABASE_SONG_HIGHSCORE = "SONG_HIGHSCORE";
         #region SONG_DATABASE_KEYS
@@ -60,6 +88,22 @@ namespace IdolFever.Server
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
 
+            //bool notall = true;
+            //StartCoroutine(Updatetask(DailyTask.TaskType.COMPLETE_ONE_GAME_OF_MULTI.ToString(), false));
+            //StartCoroutine(Updatetask(DailyTask.TaskType.COMPLETE_FIVE_GAME.ToString(), true));
+            //if (notall == true)
+            //{
+            //    StartCoroutine(Updatetask(DailyTask.TaskType.COMPLETE_ALL_TASK.ToString(), true));
+            //}
+            StartCoroutine(UpdatProgress(4,2));
+
+
+            StartCoroutine(GetProgress((progress) =>
+            {
+                Debug.Log("sucess: " + StaticDataStorage.roundPlayed);
+                ui.UpdateFills();
+
+            }));
         }
 
         public IEnumerator UpdateGems(int gems)
@@ -74,6 +118,10 @@ namespace IdolFever.Server
             if (DBTask.Exception != null)
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else
+            {
+                Debug.Log("GEMS UPDATED");
             }
         }
 
@@ -643,7 +691,326 @@ namespace IdolFever.Server
 
         }
 
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public IEnumerator UpdateProgress(string progressName, bool isDone)
+        //{
+        //    //update the taskName
+        //    //will create here if it doesn't exist
+        //    var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_TASK).Child(progressName).Child(DATABASE_PROGRESS_FINISH).SetValueAsync(isDone);
+
+        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        //    if (DBTask.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        //    }
+        //}
+
+
+        //public IEnumerator GrabProgress(System.Action<List<string>> callbackOnFinish)
+        //{
+        //    List<string> progress = new List<string>();
+
+        //    var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_PROGRESS).GetValueAsync();
+
+        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        //    if (DBTask.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        //        callbackOnFinish(progress);
+        //    }
+        //    else if (DBTask.Result.Value == null)
+        //    {
+        //        Debug.Log("Progress no result");
+        //        callbackOnFinish(progress);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Snapshot Progress");
+        //        DataSnapshot snapshot = DBTask.Result;
+
+        //        // grab all the children of the achievement
+        //        List<DataSnapshot> snapshots = snapshot.Children.ToList();
+
+        //        // insert all the children into a list to return
+        //        for (int i = 0; i < snapshot.ChildrenCount; ++i)
+        //        {
+        //            progress.Add(snapshots[i].Key);
+        //        }
+
+
+        //        callbackOnFinish(progress);
+
+        //    }
+
+        //}
+
+        //public IEnumerator UpdateTask(string taskName, bool isDone)
+        //{
+        //    //update the taskName
+        //    //will create here if it doesn't exist
+        //    var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_TASK).Child(taskName).Child(DATABASE_TASK_DONE).SetValueAsync(isDone);
+
+        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        //    if (DBTask.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        //    }
+        //}
+
+        //public IEnumerator GrabTask(System.Action<List<string>> callbackOnFinish)
+        //{
+        //    List<string> task = new List<string>();
+
+        //    var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_TASK).GetValueAsync();
+
+        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        //    if (DBTask.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        //        callbackOnFinish(task);
+        //    }
+        //    else if (DBTask.Result.Value == null)
+        //    {
+        //        Debug.Log("Task no result");
+        //        callbackOnFinish(task);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Snapshot Task");
+        //        DataSnapshot snapshot = DBTask.Result;
+
+        //        // grab all the children of the achievement
+        //        List<DataSnapshot> snapshots = snapshot.Children.ToList();
+
+        //        // insert all the children into a list to return
+        //        for (int i = 0; i < snapshot.ChildrenCount; ++i)
+        //        {
+        //            //string value = snapshots[i].Value.ToString();
+        //            //string value = snapshots[i].Key;
+        //            task.Add(snapshots[i].Key);
+        //        }
+
+
+        //        callbackOnFinish(task);
+
+        //    }
+
+        //}
+
+        public IEnumerator UpdatProgress(int progressOfFive, int progressMulti)
+        {
+            // update the value of the round 
+            // will create here if it doesn't exist
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_TOTAL_ROUND_PLAYED).SetValueAsync(progressOfFive);
+            var DBTaskMulti = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_TOTAL_ROUND_MULTI).SetValueAsync(progressMulti);
+
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+            yield return new WaitUntil(predicate: () => DBTaskMulti.IsCompleted);
+
+            // error
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTaskMulti.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTaskMulti.Exception}");
+            }
+        }
+
+        public IEnumerator GetProgress(System.Action<int> callbackOnFinish)
+        {
+            Debug.Log("getRound called");
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot RoundOfFive");
+                DataSnapshot snapshot = DBTask.Result;
+
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+
+                if (snapshot.HasChild(DATABASE_TOTAL_ROUND_PLAYED))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_PLAYED).Value.ToString());
+
+                    Debug.LogWarning("value: " + value);
+                    StaticDataStorage.roundPlayed = value;
+
+
+
+
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data ");
+                    callbackOnFinish(0);
+                }
+
+                if (snapshot.HasChild(DATABASE_TOTAL_ROUND_MULTI))
+                {
+                    Debug.Log("Able to access data multi");
+                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_MULTI).Value.ToString());
+
+                    Debug.LogWarning("value multi: " + value);
+                    StaticDataStorage.roundMulti = value;
+
+
+
+
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data multi");
+                    callbackOnFinish(0);
+                }
+
+
+
+            }
+
+        }
+
+
+
+
+        public IEnumerator UpdateTaskUTC(string utc, int task)
+        {
+            // update the value of the round 
+            // will create here if it doesn't exist
+            if (task == 1)
+            {
+                Debug.Log(task + " send");
+                var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_MULTI_UTC).SetValueAsync(utc);
+                yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+                // error
+                if (DBTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                }
+
+            }
+            else if (task == 2)
+            {
+                var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_FIVEROUND_UTC).SetValueAsync(utc);
+                yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+            }
+            else 
+            {
+               var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_ALLDONE_UTC).SetValueAsync(utc);
+                yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+            }
+
+
+
+
+           
+          
+
+
+
+        }
+
+
+
+        public IEnumerator GetTaskUTC(System.Action<int> callbackOnFinish)
+        {
+            Debug.Log("getRound called");
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot RoundOfFive");
+                DataSnapshot snapshot = DBTask.Result;
+
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+
+                if (snapshot.HasChild(DATABASE_TOTAL_ROUND_PLAYED))
+                {
+                    Debug.Log("Able to access data");
+                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_PLAYED).Value.ToString());
+
+                    Debug.LogWarning("value: " + value);
+                    StaticDataStorage.roundPlayed = value;
+
+
+
+
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data ");
+                    callbackOnFinish(0);
+                }
+
+                if (snapshot.HasChild(DATABASE_TOTAL_ROUND_MULTI))
+                {
+                    Debug.Log("Able to access data multi");
+                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_MULTI).Value.ToString());
+
+                    Debug.LogWarning("value multi: " + value);
+                    StaticDataStorage.roundMulti = value;
+
+
+
+
+                    callbackOnFinish(value);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data multi");
+                    callbackOnFinish(0);
+                }
+
+
+
+            }
+
+        }
+    }
 }
 
