@@ -16,8 +16,8 @@ namespace IdolFever.Server.Leaderboard
         private SongRegistry.SongList currentSelectedSong;
         //[SerializeField] SongRegistry.SongList songLeaderboardToDisplay;
 
-        public TextMeshProUGUI[] names;
-        public TextMeshProUGUI[] scores;
+        public TextMeshProUGUI[] namesText;
+        public TextMeshProUGUI[] scoresText;
 
         #endregion
 
@@ -93,14 +93,14 @@ namespace IdolFever.Server.Leaderboard
                         foreach (KeyValuePair<string, int> score in scores)
                         {
                             // would instiantiate here for vertical layout
-                            //Debug.Log(score.Key + " " + score.Value);
+                            Debug.Log(score.Key + " " + score.Value);
                             //GameObject scoreElement = Instantiate(scorePrefab, contentPanel.transform);
                             //scoreElement.GetComponent<ScoreData>().SetScoreData(++position, score.Key, score.Value);
 
                             // for the hardcoded UI
 
-                            names[position] = score.Key;
-                            names[position] = score.Value;
+                            namesText[position].text = score.Key;
+                            scoresText[position].text = score.Value.ToString();
 
                             ++position;
 
@@ -118,18 +118,18 @@ namespace IdolFever.Server.Leaderboard
         {
             //foreach (Transform child in contentPanel.transform)
             //{
-                // destroy it
+            // destroy it
             //    Destroy(child.gameObject);
             //}
 
-            for (int i = 0; i < names.Length; ++i)
+            for (int i = 0; i < namesText.Length; ++i)
             {
-                names[i].text = "";
+                namesText[i].text = "";
             }
 
-            for (int i = 0; i < scores.Length; ++i)
+            for (int i = 0; i < scoresText.Length; ++i)
             {
-                scores[i].text = "";
+                scoresText[i].text = "";
             }
 
         }

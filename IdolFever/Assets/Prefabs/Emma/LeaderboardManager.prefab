@@ -43,6 +43,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e8664b5fcaa964a9abb512d22104f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serverDatabase: {fileID: 0}
   contentPanel: {fileID: 0}
   scorePrefab: {fileID: 6601968284711607265, guid: ee0ee1024e7264a4f93438abeaf6ce3a, type: 3}
-  songLeaderboardToDisplay: 0
+  personalScore: {fileID: 0}
+  namesText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  scoresText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
