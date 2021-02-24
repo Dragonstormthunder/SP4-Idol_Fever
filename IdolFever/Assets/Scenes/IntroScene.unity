@@ -1651,7 +1651,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.007
-      minScalar: 0.02
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1757,7 +1757,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.007
-      minScalar: 0.02
+      minScalar: 0.03
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6204,7 +6204,7 @@ VisualEffect:
       - m_Value: 1
         m_Name: RocketRandLifetimeMax
         m_Overridden: 1
-      - m_Value: 0.25
+      - m_Value: 0.2
         m_Name: RocketSize
         m_Overridden: 1
       - m_Value: 0.04
@@ -6219,7 +6219,7 @@ VisualEffect:
       - m_Value: 0.2
         m_Name: RocketTrailMaxSpd
         m_Overridden: 1
-      - m_Value: 0.2
+      - m_Value: 0.18
         m_Name: RocketTrailSize
         m_Overridden: 1
       - m_Value: 0.4
@@ -6294,7 +6294,7 @@ VisualEffect:
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 4, y: 0, z: 0, w: 0}
+      - m_Value: {x: 0, y: 5.992157, z: 0, w: 0}
         m_Name: RocketColor
         m_Overridden: 1
     m_Uint:
