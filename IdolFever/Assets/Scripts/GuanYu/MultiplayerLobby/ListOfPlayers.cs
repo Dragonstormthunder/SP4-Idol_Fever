@@ -11,8 +11,6 @@ namespace IdolFever {
 
         private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private GameObject[] playerBlocks;
-        [SerializeField] private int currRoomIndex;
-        [SerializeField] private int maxRooms;
         [SerializeField] private ServerDatabase serverDatabaseScript;
 
         #endregion
@@ -23,8 +21,6 @@ namespace IdolFever {
         public ListOfPlayers() {
             cachedRoomList = null;
             playerBlocks = System.Array.Empty<GameObject>();
-            currRoomIndex = 0;
-            maxRooms = 0;
             serverDatabaseScript = null;
         }
 
@@ -85,7 +81,7 @@ namespace IdolFever {
         }
 
         private void CreateRoom() {
-            string roomName = currRoomIndex++.ToString();
+            string roomName = Random.Range(400, 4000000).ToString();
 
             Debug.Log(roomName, this);
 
