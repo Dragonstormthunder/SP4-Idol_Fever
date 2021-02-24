@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace InterfaceA2 {
+namespace IdolFever {
     internal sealed class TitleTextAnim: MonoBehaviour {
         #region Fields
 

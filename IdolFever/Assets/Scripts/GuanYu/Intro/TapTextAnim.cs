@@ -1,12 +1,12 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-namespace InterfaceA2 {
+namespace IdolFever {
     internal sealed class TapTextAnim: MonoBehaviour {
         #region Fields
 
         private float elapsedTime;
-        [SerializeField] private TextMeshProUGUI tmpComponent;
+        [SerializeField] private Image img;
         [SerializeField] private float startSize;
         [SerializeField] private float endSize;
         [SerializeField] private float startAlpha;
@@ -21,7 +21,7 @@ namespace InterfaceA2 {
 
         public TapTextAnim() {
             elapsedTime = 0.0f;
-            tmpComponent = null;
+            img = null;
             startSize = 0.0f;
             endSize = 0.0f;
             startAlpha = 0.0f;
@@ -33,7 +33,7 @@ namespace InterfaceA2 {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
-            UnityEngine.Assertions.Assert.IsNotNull(tmpComponent);
+            UnityEngine.Assertions.Assert.IsNotNull(img);
         }
 
         private void Update() {
@@ -42,8 +42,12 @@ namespace InterfaceA2 {
 
         private void FixedUpdate() {
             float lerpFactor = EaseInSine(Mathf.Cos(elapsedTime * 4.0f) * 0.5f + 0.5f);
-            tmpComponent.alpha = (1.0f - lerpFactor) * startAlpha + lerpFactor * endAlpha;
-            tmpComponent.fontSize = (1.0f - lerpFactor) * startSize + lerpFactor * endSize;
+
+            Color myColor = img.color;
+            img.color = new Color(myColor.r, myColor.g, myColor.b, (1.0f - lerpFactor) * startAlpha + lerpFactor * endAlpha);
+
+            float scaleFactor = (1.0f - lerpFactor) * startSize + lerpFactor * endSize;
+            img.gameObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         }
 
         #endregion
