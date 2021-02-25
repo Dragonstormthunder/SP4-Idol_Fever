@@ -4,11 +4,10 @@ namespace IdolFever {
     internal sealed class TitleTextMtlControl: MonoBehaviour {
         #region Fields
 
-        private float elapsedTime;
         private float hue;
         private Vector4 OG;
         [SerializeField] private float factor;
-        [SerializeField] private float initialVal;
+        [SerializeField] private float spd;
         [SerializeField] private Material titleTextMtl;
 
         #endregion
@@ -17,11 +16,10 @@ namespace IdolFever {
         #endregion
 
         public TitleTextMtlControl() {
-            elapsedTime = 0.0f;
             hue = 0.0f;
             //OG = new Vector4(); //hmmm
             factor = 0.0f;
-            initialVal = 0.0f;
+            spd = 0.0f;
             titleTextMtl = null;
         }
 
@@ -32,15 +30,16 @@ namespace IdolFever {
         }
 
         private void Update() {
-            elapsedTime += Time.deltaTime;
-
-            hue = Mathf.Sin(elapsedTime) * 0.5f + 0.5f;
+            hue += Time.deltaTime * spd;
+            if(hue >= 1.0f) {
+                hue = 0.0f;
+            }
             Color myColorMultiplier = Color.HSVToRGB(hue, 1.0f, 1.0f);
 
             titleTextMtl.SetVector("_IntensityVec", new Vector4(
-                initialVal + myColorMultiplier.r * factor,
-                initialVal + myColorMultiplier.g * factor,
-                initialVal + myColorMultiplier.b * factor,
+                OG.x + myColorMultiplier.r * factor,
+                OG.y + myColorMultiplier.g * factor,
+                OG.z + myColorMultiplier.b * factor,
                 0.0f
             ));
         }
