@@ -53,8 +53,8 @@ MonoBehaviour:
   - {fileID: 4850717790525988211, guid: f6daff7be1aacd449a538670fde1c8e5, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 3220603987452677006, guid: 99f9d399acfc41f4cb1919c730c55157, type: 3}
-  - {fileID: 6685725278966991882, guid: d45e801dc035cb044b36b9b6872b3da4, type: 3}
+  - {fileID: 37127798380108256, guid: bb960c3d23e806343acf1448c55cb8f9, type: 3}
+  - {fileID: 5524057480594436581, guid: f1f86e3189468b240aded590a0a4d241, type: 3}
   - {fileID: 0}
   splashArtPrefabs:
   - {fileID: 0}
