@@ -50,11 +50,11 @@ namespace IdolFever.Character
                     GameObject mask = selectCharacterObject.transform.Find("CharacterThumbnailIcon").gameObject.transform.GetChild(1).gameObject;
 
 
-                    Button button = selectCharacterObject.GetComponent<Button>();
+                    GameObject selectButtonGO = selectCharacterObject.transform.Find("SelectButton").gameObject;
+                    Button button = selectButtonGO.GetComponent<Button>();
                     SelectCharacterButton selectCharButtonScript = button.GetComponent<SelectCharacterButton>();
-                    button.onClick.AddListener(() => {
-                        selectCharButtonScript.AsyncSceneTransitionOutScript = asyncSceneTransitionOutScript;
-                    });
+                    selectCharButtonScript.AsyncSceneTransitionOutScript = asyncSceneTransitionOutScript;
+
 
                     // inefficient loop code
                     for (CharacterFactory.eCHARACTER index = 0; index < CharacterFactory.eCHARACTER.NUM_CHARACTER; ++index)
