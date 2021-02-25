@@ -26,6 +26,7 @@ namespace IdolFever.Game
         [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
         [SerializeField] private List<GameObject> characters;
+        [SerializeField] private List<GameObject> stages;
         public AudioSource audio;
         private int beatIndex;
         private ulong usec;
@@ -57,6 +58,10 @@ namespace IdolFever.Game
             otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+
+
+            Instantiate(stages[UnityEngine.Random.Range(0,2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+
             audio.Play();
             int n = beatmap.beats.Count;
             scoreMeter.maxscore = n * 600;
