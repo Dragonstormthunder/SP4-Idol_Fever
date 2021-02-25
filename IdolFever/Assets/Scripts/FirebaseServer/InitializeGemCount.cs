@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using IdolFever.UI;
 
 namespace IdolFever.Server
 {
@@ -22,6 +23,7 @@ namespace IdolFever.Server
             StartCoroutine(serverDatabase.GetGems((gems) =>
             {
                 numberOfGemsText.text = gems.ToString();
+                StaticDataStorage.gems = gems;
             }));
         }
 

@@ -11,8 +11,6 @@ namespace IdolFever.Server
 {
     public class FirebaseManager : MonoBehaviour
     {
-
-
         //Firebase variables
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;

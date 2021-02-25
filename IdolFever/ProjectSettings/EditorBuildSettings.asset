@@ -30,11 +30,14 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterStorageScene.unity
     guid: d0fb23b4958b2d84b979826c07e168e1
   - enabled: 1
+    path: Assets/Scenes/DailyScene.unity
+    guid: ce135b2f8d4e17848b6380b1d3ee68b6
+  - enabled: 1
     path: Assets/Scenes/DrawScene.unity
     guid: 26bb3b7f2ab2d7c43a81acd647187ca3
-  - enabled: 1
-    path: Assets/Scenes/GachaScene.unity
-    guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/OptionsScene.unity
     guid: acdbe69fe4182f844a2071e029c77888
