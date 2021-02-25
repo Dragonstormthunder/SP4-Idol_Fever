@@ -133,6 +133,7 @@ namespace IdolFever.Character
                                                                 // cannot change character in the middle of a match anyway
                 {
                     Instantiate(characterDecentralizeData.AccessThumbnailPrefab(value), opponentThumbnailParent);
+                    opponentSkillName.text = characterDecentralizeData.AccessCharacterSkillName(value);
                 }
 
             }
@@ -141,7 +142,11 @@ namespace IdolFever.Character
         public float OpponentMultiplier
         {
             get { return opponentMultiplier; }
-            set { opponentMultiplier = value; }
+            set
+            {
+                opponentMultiplier = value;
+                opponentSkillMultiplier.text = value.ToString();
+            }
         }
 
         public float OpponentSkillDuration
@@ -178,6 +183,10 @@ namespace IdolFever.Character
         {
 
             // time to initialize all the values
+
+            //GameConfigurations.CharacterIndex = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
+            //GameConfigurations.CharacterBonus = 1;
+
             CharacterIndex = GameConfigurations.CharacterIndex;
             SkillMultiplier = characterDecentralizeData.AccessSkillMultiplier(CharacterIndex, GameConfigurations.CharacterBonus);
             FixedCooldown = characterDecentralizeData.AccessSkillCooldown(CharacterIndex, GameConfigurations.CharacterBonus);
@@ -238,7 +247,7 @@ namespace IdolFever.Character
                         RaiseEventOptions raiseEventOptions = new RaiseEventOptions
                         {
                             //Receivers = ReceiverGroup.Others
-                            Receivers = ReceiverGroup.All   // for editor testing
+                            Receivers = ReceiverGroup.Others   // for editor testing
                         };
 
                         float[] data = new float[(int)PHOTON_DATA_SEND.NUM_PHOTON_DATA_SEND];
@@ -248,7 +257,7 @@ namespace IdolFever.Character
                         data[(int)PHOTON_DATA_SEND.SEND_COOLDOWN] = FixedSkillDuration;
                         data[(int)PHOTON_DATA_SEND.SEND_SKILL_TYPE] = (float)Skill_Type;
 
-                        //Debug.Log("Sending the opponent skill over");
+                        Debug.Log("Sending the my skill over");
                         PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SendSkillOver, data, raiseEventOptions, SendOptions.SendReliable);
                     }
                 }
@@ -265,11 +274,11 @@ namespace IdolFever.Character
             // -------------- if opponent skill is active ----------------
             if (OpponentActive)
             {
-                OpponentSkillDuration -= Time.deltaTime;
+                //OpponentSkillDuration -= Time.deltaTime;
 
                 // put it back to inactive and wait for the next event call to set it to active
                 // if it comes
-                if (OpponentSkillDuration <= 0f)
+                if (opponentskillProgressBarUI.MinValue <= 0f)
                 {
                     OpponentActive = false;
                 }

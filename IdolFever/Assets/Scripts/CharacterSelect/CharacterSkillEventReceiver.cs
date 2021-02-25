@@ -34,7 +34,7 @@ namespace IdolFever.Character
 
             if (photonEvent.Code == (byte)EventCodes.EventCode.SendSkillOver)
             {
-                //Debug.Log("Character Skill Event Receiver Inside");
+                Debug.Log("Character Skill Event Receiver Inside");
 
                 float[] data = (float[])photonEvent.CustomData;
 
@@ -42,6 +42,7 @@ namespace IdolFever.Character
                 characterSkill.OpponentMultiplier = data[(int)CharacterSkill.PHOTON_DATA_SEND.SEND_MULTIPLIER];
                 characterSkill.OpponentSkillDuration = data[(int)CharacterSkill.PHOTON_DATA_SEND.SEND_COOLDOWN];
                 characterSkill.OpponentSkill_Type = (CharacterSkill.SKILL_TYPE)data[(int)CharacterSkill.PHOTON_DATA_SEND.SEND_SKILL_TYPE];
+                characterSkill.OpponentActive = true;
 
             }
         }

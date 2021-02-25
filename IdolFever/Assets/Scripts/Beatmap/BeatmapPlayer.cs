@@ -37,6 +37,18 @@ namespace IdolFever.Game
         private Transform myChar, otherChar;
         void Start()
         {
+            // check for opponent's presence
+            if (PhotonNetwork.IsConnected)
+            {
+                GameConfigurations.WasThereOpponent = true;
+                if (PhotonNetwork.PlayerListOthers.Length != 0)
+                    GameConfigurations.OpponentUsername = PhotonNetwork.PlayerListOthers[0].NickName;
+            }
+            else
+            {
+                GameConfigurations.WasThereOpponent = false;
+            }
+
             beatmap = BeatmapReader.Open("Wellerman.mid");
             if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
             {
@@ -63,7 +75,7 @@ namespace IdolFever.Game
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
 
 
-            Instantiate(stages[UnityEngine.Random.Range(0,2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
 
             audio.Play();
             int n = beatmap.beats.Count;
@@ -194,17 +206,20 @@ namespace IdolFever.Game
 
             if (audio.time > audio.clip.length - 1)
             {
-                if(!isExitingScene) {
+                if (!isExitingScene)
+                {
                     _ = StartCoroutine(nameof(DcAndChangeScene));
                     isExitingScene = true;
                 }
             }
         }
 
-        private IEnumerator DcAndChangeScene() {
+        private IEnumerator DcAndChangeScene()
+        {
             PhotonNetwork.Disconnect();
 
-            while(PhotonNetwork.IsConnected) {
+            while (PhotonNetwork.IsConnected)
+            {
                 yield return null;
             }
 
@@ -237,6 +252,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
                     {
@@ -245,6 +261,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {
@@ -288,6 +305,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 125000 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 125000)
                     {
@@ -296,6 +314,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {

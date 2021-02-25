@@ -103,6 +103,9 @@ namespace IdolFever.Character
         {
             --number; // >1 chara grant bonus
 
+            // clamp it, don't want it to go too high
+            number = Mathf.Clamp(number, 0, 5);
+
             switch (index)
             {
                 default:

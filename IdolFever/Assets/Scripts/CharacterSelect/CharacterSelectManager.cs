@@ -21,6 +21,8 @@ namespace IdolFever.Character
         public Transform characterPanel;
         public ScrollRect scrollRect;
 
+        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript = null;
+
         #endregion
 
 
@@ -46,6 +48,12 @@ namespace IdolFever.Character
 
                     // for the thumbnail
                     GameObject mask = selectCharacterObject.transform.Find("CharacterThumbnailIcon").gameObject.transform.GetChild(1).gameObject;
+
+
+                    GameObject selectButtonGO = selectCharacterObject.transform.Find("SelectButton").gameObject;
+                    Button button = selectButtonGO.GetComponent<Button>();
+                    SelectCharacterButton selectCharButtonScript = button.GetComponent<SelectCharacterButton>();
+                    selectCharButtonScript.AsyncSceneTransitionOutScript = asyncSceneTransitionOutScript;
 
 
                     // inefficient loop code
