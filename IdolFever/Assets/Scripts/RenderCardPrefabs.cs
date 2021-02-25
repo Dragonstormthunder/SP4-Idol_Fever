@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using IdolFever.Server;
+using IdolFever.Character;
 
 namespace IdolFever.UI
 {
     public class RenderCardPrefabs : MonoBehaviour
     {
+        public ServerDatabase database;
+
         public GameObject gameObjectPanelBg;
 
         public GameObject CardBackPrefab;
@@ -66,6 +70,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.R_GirlDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
+               
+
                 }
                 if (StaticDataStorage.R_Boy == true && StaticDataStorage.CardBack == false)
                 {
@@ -76,6 +82,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.R_BoyDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.R_BoyDrawCount:" + StaticDataStorage.R_BoyDrawCount.ToString());
+             
                 }
                 if (StaticDataStorage.SR_Girl == true && StaticDataStorage.CardBack == false)
                 {
@@ -86,6 +93,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SR_GirlDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.SR_GirlDrawCount:" + StaticDataStorage.SR_GirlDrawCount.ToString());
+                 
                 }
                 if (StaticDataStorage.SR_Boy == true && StaticDataStorage.CardBack == false)
                 {
@@ -96,6 +104,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SR_BoyDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
+                 
                 }
                 if (StaticDataStorage.SSR_Girl == true && StaticDataStorage.CardBack == false)
                 {
@@ -106,6 +115,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SSR_GirlDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.SSR_GirlDrawCount:" + StaticDataStorage.SSR_GirlDrawCount.ToString());
+                 
                 }
                 if (StaticDataStorage.SSR_Boy == true)
                 {
@@ -116,6 +126,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SSR_BoyDrawCount;
                     keysActive = true;
                     Debug.Log("StaticDataStorage.SSR_BoyDrawCount:" + StaticDataStorage.SSR_BoyDrawCount.ToString());
+                 
                 }
 
                 Debug.Log("cardBackIsActive.cardBackIsActive:");
@@ -127,6 +138,8 @@ namespace IdolFever.UI
                 OffPanel(gameObjectPanelBg);
                 //Destroy everything in hierachy that i have created
                 DestroyPrefab();
+                StartCoroutine(database.UpdateCharacter(StaticDataStorage.R_GirlDrawCount, StaticDataStorage.R_BoyDrawCount, StaticDataStorage.SR_GirlDrawCount, StaticDataStorage.SR_BoyDrawCount,
+                    StaticDataStorage.SSR_GirlDrawCount, StaticDataStorage.SSR_BoyDrawCount));
                 keysActive = false;
             }
         }

@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using IdolFever.Character;
+using IdolFever.Server;
 
 namespace IdolFever.UI
 {
     public class Wheel : MonoBehaviour
     {
+        public ServerDatabase database;
+
         private bool _isStarted;
         private float[] _sectorsAngles;
         private float _finalAngle;
@@ -19,19 +22,21 @@ namespace IdolFever.UI
         public TMP_Text reward_txt;         // Pop-up text with card gotten/Turn Cost
         public TMP_Text CurrentGemsText;        // Pop-up text with curr gems
         public int TurnCost = 100;          // How much coins user waste when turn whe wheel
-        public int CurrentGemsAmount = 1000;    // Started gems amount.
+        public int CurrentGemsAmount;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
         private void Awake()
         {
-            PreviousGemsAmount = CurrentGemsAmount;
-            CurrentGemsText.text = CurrentGemsAmount.ToString();
+            StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
+            PreviousGemsAmount = StaticDataStorage.gems;
+            CurrentGemsText.text = StaticDataStorage.gems.ToString();
+            Debug.Log("awake");
         }
 
         public void TurnWheel()
         {
             // Player has enough money to turn the wheel
-            if (CurrentGemsAmount >= TurnCost)
+            if (StaticDataStorage.gems >= TurnCost)
             {
                 _currentLerpRotationTime = 0f;
 
@@ -49,17 +54,20 @@ namespace IdolFever.UI
                 _isStarted = true;
 
 
-                PreviousGemsAmount = CurrentGemsAmount;
+                StartCoroutine(database.UpdateGems(StaticDataStorage.gems));//is it latest gems
+                PreviousGemsAmount = StaticDataStorage.gems; //== currGems
 
                 // Decrease money for the turn
-                CurrentGemsAmount -= TurnCost;
+                StaticDataStorage.gems -= TurnCost;
+                StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
+                Debug.Log("start");
 
                 // Show wasted coins
                 reward_txt.text = "Turn Cost: " + TurnCost;
                 reward_txt.gameObject.SetActive(true);
 
                 // Animate coins
-                StartCoroutine(HideGemsDelta());
+                //StartCoroutine(HideGemsDelta());
                 StartCoroutine(UpdateGemsAmount());
             }
         }
@@ -120,7 +128,7 @@ namespace IdolFever.UI
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.R_Boy = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(300);                  
+                        RewardGems(300);
                     }
                     break;
                 default:
@@ -138,8 +146,9 @@ namespace IdolFever.UI
 
         void Update()
         {
+            StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
             // Make turn button non interactable if user has not enough money for the turn
-            if (_isStarted || CurrentGemsAmount < TurnCost)
+            if (_isStarted || StaticDataStorage.gems < TurnCost)
             {
                 TurnButton.interactable = false;
                 TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
@@ -163,9 +172,7 @@ namespace IdolFever.UI
                 _isStarted = false;
                 _startAngle = _finalAngle % 360;
 
-                GiveAwardByAngle();
-                StartCoroutine(HideGemsDelta());
-                //tartCoroutine(ShowPanel());
+                GiveAwardByAngle();             
             }
 
             // Calculate current position using linear interpolation
@@ -181,34 +188,38 @@ namespace IdolFever.UI
 
         private void RewardGems(int awardGems)
         {
-            CurrentGemsAmount += awardGems;
+            StaticDataStorage.gems += awardGems;
+           
             reward_txt.text = "Gotten: +" + awardGems;
             reward_txt.gameObject.SetActive(true);
-            StartCoroutine(UpdateGemsAmount());
-        }
 
-        private IEnumerator HideGemsDelta()
-        {
-            yield return new WaitForSeconds(1f);
-            reward_txt.gameObject.SetActive(false);
+            Debug.Log("gems = " + StaticDataStorage.gems);
+            StartCoroutine(UpdateGemsAmount());
+            StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
+            Debug.Log("reward");
         }
 
         private IEnumerator UpdateGemsAmount()
         {
+
             // Animation for increasing and decreasing of coins amount
             const float seconds = 0.5f;
             float elapsedTime = 0;
 
             while (elapsedTime < seconds)
             {
-                CurrentGemsText.text = Mathf.Floor(Mathf.Lerp(PreviousGemsAmount, CurrentGemsAmount, (elapsedTime / seconds))).ToString();
-                elapsedTime += Time.deltaTime;
+                StartCoroutine(database.GetGems((gems) =>
+                {
+                    CurrentGemsText.text = Mathf.Floor(Mathf.Lerp(PreviousGemsAmount, gems, (elapsedTime / seconds))).ToString();
+                    elapsedTime += Time.deltaTime;
+                }));
 
                 yield return new WaitForEndOfFrame();
             }
 
-            PreviousGemsAmount = CurrentGemsAmount;
-            CurrentGemsText.text = "Current Gems: " + CurrentGemsAmount.ToString();
+            StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
+            PreviousGemsAmount = StaticDataStorage.gems; //== currGems
+            CurrentGemsText.text = "Current Gems: " + StaticDataStorage.gems.ToString();
         }
     }
 }

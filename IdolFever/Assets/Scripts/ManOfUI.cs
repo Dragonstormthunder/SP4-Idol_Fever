@@ -105,8 +105,7 @@ namespace IdolFever.Server
                 multi_Btn.GetComponent<Image>().sprite = Btn_ImageAfter;
             }
             else
-            {
-                    
+            {                    
                 multi_Btn.GetComponent<Image>().sprite = Btn_ImageBefore;
                 Debug.Log("before IMG");
             }      
@@ -142,7 +141,7 @@ namespace IdolFever.Server
             }
             else
             {
-                //display wait for
+                //display wait time
                 int h = (Int32.Parse(StaticDataStorage.nextMulti) - Int32.Parse(StaticDataStorage.nowTime)) / 3600;
 
                 multi_infoTXT.text = "locked "  + h + "h";
@@ -163,21 +162,21 @@ namespace IdolFever.Server
             int gems = 0;
 
 
-            if (task == 1)
+            if (task == 1)//Multi
             {
                 gems = 100;
                 StaticDataStorage.roundMulti = 0;
                 StaticDataStorage.nextMulti = (Int32.Parse(StaticDataStorage.nowTime) + 84600).ToString(); // nextMulti will be now + 24h
                 StartCoroutine(database.UpdateTaskUTC(StaticDataStorage.nextMulti, task));
             }
-            else if (task == 2)
+            else if (task == 2)//Round
             {
                 gems = 200;
                 StaticDataStorage.roundPlayed = 0;
                 StaticDataStorage.nextRound = (Int32.Parse(StaticDataStorage.nowTime) + 84600).ToString();
                 StartCoroutine(database.UpdateTaskUTC(StaticDataStorage.nextRound, task));
             }
-            else
+            else//all done
             {
                 gems = 300;
                 StaticDataStorage.roundPlayed = 0;
@@ -187,16 +186,14 @@ namespace IdolFever.Server
 
             StaticDataStorage.gems += gems;
             StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
-            StartCoroutine(database.UpdatProgress(StaticDataStorage.roundPlayed, StaticDataStorage.roundMulti));
+            StartCoroutine(database.UpdateProgress(StaticDataStorage.roundPlayed, StaticDataStorage.roundMulti));
 
-            Debug.Log("gems= " + gems);
+            Debug.Log("gems = " + gems);
         }
 
 
         int getDate()
         {
-           
-
             System.DateTime epochStart = new System.DateTime(1970, 1, 1, 0, 0, 0, System.DateTimeKind.Utc);
             Int32 cur_time = (Int32)(System.DateTime.UtcNow - epochStart).TotalSeconds;
             Debug.LogWarning("nowTime: " + cur_time);
