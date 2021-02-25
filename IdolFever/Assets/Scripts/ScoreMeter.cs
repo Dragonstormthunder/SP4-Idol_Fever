@@ -33,8 +33,8 @@ namespace IdolFever
         {
             SetScoreMeterValue(score + a);
 
-            //if (skills != null)
-            //    score = skills.ApplyBonuses(score);
+            if (skills != null)
+                score = skills.ApplyBonuses(score);
 
             if(PhotonNetwork.IsConnected) {
                 RaiseEventOptions raiseEventOptions = new RaiseEventOptions {

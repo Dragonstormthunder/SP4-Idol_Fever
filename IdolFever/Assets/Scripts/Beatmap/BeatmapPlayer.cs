@@ -37,6 +37,17 @@ namespace IdolFever.Game
         private Transform myChar, otherChar;
         void Start()
         {
+            // check for opponent's presence
+            if (PhotonNetwork.IsConnected)
+            {
+                GameConfigurations.WasThereOpponent = true;
+                GameConfigurations.OpponentUsername =  PhotonNetwork.PlayerListOthers[0].NickName;
+            }
+            else
+            {
+                GameConfigurations.WasThereOpponent = false;
+            }
+
             beatmap = BeatmapReader.Open("Wellerman.mid");
             if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
             {
@@ -237,6 +248,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
                     {
@@ -245,6 +257,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {
@@ -288,6 +301,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 125000 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 125000)
                     {
@@ -296,6 +310,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {
