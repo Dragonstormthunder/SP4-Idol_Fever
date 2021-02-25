@@ -50,11 +50,11 @@ namespace IdolFever.Game
                 beatmap = BeatmapReader.Open("Wellerman.mid");
             }
 
-            myChar = Instantiate(characters[0], new Vector3(-5.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+            myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
 
-            otherChar = Instantiate(characters[1], new Vector3(5.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+            otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             audio.Play();
@@ -109,13 +109,22 @@ namespace IdolFever.Game
                 }
                 beatIndex++;
             }
+            bool key1 = false, key2 = false, key3 = false, key4 = false;
             for (int i = 0; i < notes.Count;)
             {
                 Note n = notes[i];
+
+                if ((long)n.noteEvent.timestamp > (long)usec && (long)n.noteEvent.timestamp < (long)usec + 100000)
+                {
+                    if (n.noteEvent.key == NoteKey.KEY1) key1 = true;
+                    if (n.noteEvent.key == NoteKey.KEY2) key2 = true;
+                    if (n.noteEvent.key == NoteKey.KEY3) key3 = true;
+                    if (n.noteEvent.key == NoteKey.KEY4) key4 = true;
+                }
                 if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec - 400000)
                 {
                     notes.RemoveAt(i);
-                    if(n.holdNote) Destroy(n.holdNote.gameObject);
+                    if (n.holdNote) Destroy(n.holdNote.gameObject);
                     Destroy(n.transform.gameObject);
                     comboCounter.combo = 0;
                     continue;
@@ -128,6 +137,12 @@ namespace IdolFever.Game
                 }
                 ++i;
             }
+
+            otherChar.GetComponent<Animator>().SetBool("Left", key1);
+            otherChar.GetComponent<Animator>().SetBool("Up", key2);
+            otherChar.GetComponent<Animator>().SetBool("Down", key3);
+            otherChar.GetComponent<Animator>().SetBool("Right", key4);
+
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
             {
                 myChar.GetComponent<Animator>().SetBool("Left", true);
