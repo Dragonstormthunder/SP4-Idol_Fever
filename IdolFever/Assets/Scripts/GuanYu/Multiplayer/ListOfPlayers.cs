@@ -61,12 +61,6 @@ namespace IdolFever {
                     ++index;
                 }
             }
-
-            /*playerListEntry.SetPlayerListEntryColors();
-
-            playerListEntry.SetPlayerReady(false);
-            Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
-            p.SetCustomProperties(props);*/
         }
 
         public void OnStartButtonClick() {

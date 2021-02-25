@@ -79,9 +79,9 @@ namespace IdolFever {
         public override void OnCreatedRoom() {
             Debug.Log("Room created!", this);
 
-            /*if(PhotonNetwork.InLobby) {
+            if(PhotonNetwork.InLobby) {
                 PhotonNetwork.LeaveLobby();
-            }*/
+            }
         }
 
         public override void OnJoinedRoom() {
