@@ -82,11 +82,8 @@ namespace IdolFever {
 
         public override void OnJoinedRoom() {
             Debug.Log("Room joined!", this);
-        }
 
-        public override void OnLeftLobby() {
-            //cachedRoomList.Clear();
-            //ClearRoomListView();
+            asyncSceneTransitionOut.ChangeScene();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message) {
@@ -96,6 +93,10 @@ namespace IdolFever {
         public override void OnJoinRoomFailed(short returnCode, string message) {
             Debug.LogError("OnJoinRoomFailed " + '(' + returnCode + "): " + message);
         }
+
+
+
+
 
         public override void OnLeftRoom() {
             /*SetActivePanel(SelectionPanel.name);
