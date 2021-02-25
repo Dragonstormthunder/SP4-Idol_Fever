@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 76986568}
   - component: {fileID: 76986569}
   m_Layer: 0
-  m_Name: ToMainMenu
+  m_Name: ToWinLose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -626,7 +626,7 @@ MonoBehaviour:
   audioListener: {fileID: 0}
   myInterest: {fileID: 0}
   img: {fileID: 203299295}
-  sceneName: MainMenuScene
+  sceneName: WinLoseScene
   startAnimName: CurtainTransitionStart
 --- !u!1 &99513755
 GameObject:

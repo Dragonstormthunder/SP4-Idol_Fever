@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/OptionsScene.unity
     guid: acdbe69fe4182f844a2071e029c77888
   - enabled: 1
+    path: Assets/Scenes/CharacterSelectScene.unity
+    guid: 11238fa8c32b1ae4789a20750bf4b6e9
+  - enabled: 1
+    path: Assets/Scenes/SongSelectScene.unity
+    guid: a3472345938f9e345960057e6695af74
+  - enabled: 1
     path: Assets/Scenes/MultiplayerLobbyScene.unity
     guid: c8f554dc564162849bda1409e85bac00
   - enabled: 1
@@ -39,6 +45,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GachaScene.unity
     guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
   - enabled: 1
-    path: Assets/Scenes/SongSelectScene.unity
-    guid: a3472345938f9e345960057e6695af74
+    path: Assets/Scenes/WinLoseScene.unity
+    guid: 4e9adc4b8b985944684dcc7660c12056
   m_configObjects: {}
