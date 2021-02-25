@@ -29,7 +29,7 @@ namespace IdolFever {
         }
 
         #endregion
-
+        
         public RoomListEntry() {
             RoomNameText = null;
             RoomPlayersText = null;

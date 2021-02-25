@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using Photon.Pun;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace IdolFever {
@@ -30,11 +30,11 @@ namespace IdolFever {
         }
 
         public void TransitionIn() {
+            img.fillAmount = 100.0f;
+
             if(SceneTracker.prevSceneName == sceneName) {
                 animator.SetTrigger("End");
             }
-
-            img.fillAmount = 100.0f;
         }
     }
 }

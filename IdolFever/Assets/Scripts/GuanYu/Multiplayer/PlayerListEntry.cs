@@ -1,5 +1,4 @@
 ﻿using ExitGames.Client.Photon;
-using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -28,10 +27,6 @@ namespace IdolFever {
             if(PhotonNetwork.LocalPlayer.ActorNumber != ownerID) {
                 PlayerReadyButton.gameObject.SetActive(false);
             } else {
-                Hashtable initialProps = new Hashtable() { { "IsPlayerReady", isPlayerReady }, { "PlayerLives", "PlayerMaxLives" } };
-                PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
-                PhotonNetwork.LocalPlayer.SetScore(0);
-
                 PlayerReadyButton.onClick.AddListener(() => {
                     isPlayerReady = !isPlayerReady;
                     SetPlayerReady(isPlayerReady);
@@ -39,9 +34,13 @@ namespace IdolFever {
                     Hashtable props = new Hashtable() { { "IsPlayerReady", isPlayerReady } };
                     PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-                    if(PhotonNetwork.IsMasterClient) {
+                    /*PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
+                    Debug.Log(isPlayerReady, this);
+                    Debug.Log((bool)fakeVal, this);*/
+
+                    /*if(PhotonNetwork.IsMasterClient) {
                         FindObjectOfType<PanelsControl>().LocalPlayerPropertiesUpdated();
-                    }
+                    }*/
                 });
             }
         }
@@ -49,6 +48,8 @@ namespace IdolFever {
         #endregion
 
         public PlayerListEntry() {
+            isPlayerReady = false;
+            ownerID = 0;
             PlayerNameText = null;
             PlayerColorImage = null;
             PlayerReadyButton = null;

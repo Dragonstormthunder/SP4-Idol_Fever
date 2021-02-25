@@ -19,12 +19,15 @@ EditorBuildSettings:
     guid: acdbe69fe4182f844a2071e029c77888
   - enabled: 1
     path: Assets/Scenes/MultiplayerLobbyScene.unity
-    guid: e56e24e91c959134d8a9488a9647a69d
+    guid: c8f554dc564162849bda1409e85bac00
+  - enabled: 1
+    path: Assets/Scenes/MultiplayerRoomScene.unity
+    guid: b997499788d2ab644bf63ad347e3487e
   - enabled: 1
     path: Assets/Scenes/GameplayScene.unity
     guid: 7f01d364f61447648a175bead78e3121
   - enabled: 1
-    path: Assets/Scenes/AchievementScene.unity
+    path: Assets/Scenes/AchievementsScene.unity
     guid: 3ff11fe3b84464f43b1eaf1049b374a6
   - enabled: 1
     path: Assets/Scenes/CharacterStorageScene.unity
@@ -35,9 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GachaScene.unity
     guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
-  - enabled: 1
-    path: Assets/Scenes/OptionsScene.unity
-    guid: acdbe69fe4182f844a2071e029c77888
   - enabled: 1
     path: Assets/Scenes/SinglePlayerSelectSongScene.unity
     guid: a3472345938f9e345960057e6695af74

@@ -6,8 +6,9 @@ namespace DissolveControl {
         #region Fields
 
         private float stepThreshold;
-        [SerializeField] private float spd;
         private Material dissolveMtl;
+        [SerializeField] private float startStepThreshold;
+        [SerializeField] private float vel;
 
         #endregion
 
@@ -18,29 +19,41 @@ namespace DissolveControl {
 
         private void Awake() {
             dissolveMtl = GetComponent<Image>().material;
+            dissolveMtl.SetFloat("_StepThreshold", startStepThreshold);
+            stepThreshold = startStepThreshold;
         }
 
 	    private void Update() {
-            stepThreshold -= spd * Time.deltaTime;
+            stepThreshold += vel * Time.deltaTime;
 
-            if(stepThreshold < 0.0f) {
-                stepThreshold = 0.0f;
+            if(vel < 0.0f) {
+                if(stepThreshold < 0.0f) {
+                    stepThreshold = 0.0f;
+                }
+            } else {
+                if(stepThreshold > 1.0f) {
+                    stepThreshold = 1.0f;
+                }
             }
 
             dissolveMtl.SetFloat("_StepThreshold", stepThreshold);
 
             if(Mathf.Approximately(stepThreshold, 0.0f)) {
                 gameObject.SetActive(false);
-                dissolveMtl.SetFloat("_StepThreshold", 1.0f);
             }
+        }
+
+        private void OnDisable() {
+            dissolveMtl.SetFloat("_StepThreshold", 1.0f);
         }
 
         #endregion
 
         public DissolveControl() {
-            stepThreshold = 1.0f;
-            spd = 0.0f;
+            stepThreshold = 0.0f;
             dissolveMtl = null;
+            startStepThreshold = 0.0f;
+            vel = 0.0f;
         }
     }
 }

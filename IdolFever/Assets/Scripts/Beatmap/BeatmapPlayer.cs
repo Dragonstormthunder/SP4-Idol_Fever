@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using IdolFever.Beatmap;
+using Photon.Pun;
+
 namespace IdolFever.Game
 {
 
@@ -12,6 +14,7 @@ namespace IdolFever.Game
     {
         // Start is called before the first frame update
 
+        private bool isExitingScene = false;
         public Transform noteHolder;
         public Transform particleHolder;
         public GameObject notePrefab;
@@ -191,8 +194,21 @@ namespace IdolFever.Game
 
             if (audio.time > audio.clip.length - 1)
             {
-                sceneOut.ChangeScene();
+                if(!isExitingScene) {
+                    _ = StartCoroutine(nameof(DcAndChangeScene));
+                    isExitingScene = true;
+                }
             }
+        }
+
+        private IEnumerator DcAndChangeScene() {
+            PhotonNetwork.Disconnect();
+
+            while(PhotonNetwork.IsConnected) {
+                yield return null;
+            }
+
+            sceneOut.ChangeScene();
         }
 
         public void NoteHit(int k)

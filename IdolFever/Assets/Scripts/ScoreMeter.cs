@@ -36,12 +36,13 @@ namespace IdolFever
             //if (skills != null)
             //    score = skills.ApplyBonuses(score);
 
-            RaiseEventOptions raiseEventOptions = new RaiseEventOptions
-            {
-                Receivers = ReceiverGroup.Others
-            };
-            PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SetScoreEvent,
-                score, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+            if(PhotonNetwork.IsConnected) {
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions {
+                    Receivers = ReceiverGroup.Others
+                };
+                PhotonNetwork.RaiseEvent((byte)EventCodes.EventCode.SetScoreEvent,
+                    score, raiseEventOptions, ExitGames.Client.Photon.SendOptions.SendReliable);
+            }
         }
 
         public void SetScore(float score)
