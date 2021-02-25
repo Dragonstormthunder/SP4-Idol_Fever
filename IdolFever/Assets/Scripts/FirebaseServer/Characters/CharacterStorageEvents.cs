@@ -29,8 +29,14 @@ namespace IdolFever
 
         #region Different Character Selected
 
-        internal event Action<Character.CharacterFactory.eCHARACTER> onCharacterSwitched;
-        internal void CharacterSwitched(Character.CharacterFactory.eCHARACTER index)
+        //internal event Action<Character.CharacterFactory.eCHARACTER> onCharacterSwitched;
+        //internal void CharacterSwitched(Character.CharacterFactory.eCHARACTER index)
+        //{
+        //    onCharacterSwitched?.Invoke(index);
+        //}
+
+        internal event Action<KeyValuePair<Character.CharacterFactory.eCHARACTER, int>> onCharacterSwitched;
+        internal void CharacterSwitched(KeyValuePair<Character.CharacterFactory.eCHARACTER, int> index)
         {
             onCharacterSwitched?.Invoke(index);
         }

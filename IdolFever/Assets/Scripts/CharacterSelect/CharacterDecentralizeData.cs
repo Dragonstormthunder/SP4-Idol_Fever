@@ -61,6 +61,19 @@ namespace IdolFever.Character
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
                     return "Swirling Song";
 
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                    return "Uplifting Song+";
+
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                    return "Swirling Song+";
+
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
+                    return "Uplifting Song++";
+
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
+                    return "Swirling Song++";
+
+
             }
 
         }
@@ -74,9 +87,13 @@ namespace IdolFever.Character
                     return "";
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
                     return AccessSkillMultiplier(index, number) + "x to score gain for " + AccessSkillDuration(index, number) + " seconds. Cooldown: " + AccessSkillCooldown(index, number) + " seconds.";
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
                     return AccessSkillMultiplier(index, number) + "x to the opponent's score gain " + AccessSkillDuration(index, number) + " seconds. Cooldown: " + AccessSkillCooldown(index, number) + " seconds.";
 
             }
@@ -92,9 +109,13 @@ namespace IdolFever.Character
                     return 0f;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
                     return skillMultiplier[(int)index] + 0.3f * number;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
                     return skillMultiplier[(int)index];
 
             }
@@ -110,9 +131,13 @@ namespace IdolFever.Character
                     return 0f;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
                     return skillDuration[(int)index] + 0.3f * number;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
                     return (skillDuration[(int)index] + 0.3f * number);
 
             }
@@ -128,9 +153,13 @@ namespace IdolFever.Character
                     return 0f;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
                     return skillCooldown[(int)index];
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
                     return skillDuration[(int)index] - 0.3f * number;
 
             }
@@ -145,9 +174,13 @@ namespace IdolFever.Character
                     return true;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0:
                     return true;
 
                 case CharacterFactory.eCHARACTER.R_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0:
+                case CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0:
                     return false;
 
             }
