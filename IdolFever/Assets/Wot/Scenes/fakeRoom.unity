@@ -903,7 +903,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -1368,7 +1368,6 @@ MonoBehaviour:
   playerBlocks:
   - {fileID: 176645157}
   - {fileID: 1811577760}
-  maxRooms: 10
   serverDatabaseScript: {fileID: 1843918990}
 --- !u!1 &2050557060
 GameObject:
