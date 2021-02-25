@@ -18,10 +18,10 @@ EditorBuildSettings:
     path: Assets/Scenes/OptionsScene.unity
     guid: acdbe69fe4182f844a2071e029c77888
   - enabled: 1
-    path: Assets/Wot/Scenes/fakeLobby.unity
+    path: Assets/Wot/Scenes/MultiplayerLobbyScene.unity
     guid: c8f554dc564162849bda1409e85bac00
   - enabled: 1
-    path: Assets/Wot/Scenes/fakeRoom.unity
+    path: Assets/Wot/Scenes/MultiplayerRoomScene.unity
     guid: b997499788d2ab644bf63ad347e3487e
   - enabled: 1
     path: Assets/Scenes/GameplayScene.unity
