@@ -41,7 +41,8 @@ namespace IdolFever.Game
             if (PhotonNetwork.IsConnected)
             {
                 GameConfigurations.WasThereOpponent = true;
-                GameConfigurations.OpponentUsername =  PhotonNetwork.PlayerListOthers[0].NickName;
+                if (PhotonNetwork.PlayerListOthers.Length != 0)
+                    GameConfigurations.OpponentUsername = PhotonNetwork.PlayerListOthers[0].NickName;
             }
             else
             {
@@ -74,7 +75,7 @@ namespace IdolFever.Game
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
 
 
-            Instantiate(stages[UnityEngine.Random.Range(0,2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
 
             audio.Play();
             int n = beatmap.beats.Count;
@@ -205,17 +206,20 @@ namespace IdolFever.Game
 
             if (audio.time > audio.clip.length - 1)
             {
-                if(!isExitingScene) {
+                if (!isExitingScene)
+                {
                     _ = StartCoroutine(nameof(DcAndChangeScene));
                     isExitingScene = true;
                 }
             }
         }
 
-        private IEnumerator DcAndChangeScene() {
+        private IEnumerator DcAndChangeScene()
+        {
             PhotonNetwork.Disconnect();
 
-            while(PhotonNetwork.IsConnected) {
+            while (PhotonNetwork.IsConnected)
+            {
                 yield return null;
             }
 
