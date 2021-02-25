@@ -8,6 +8,7 @@ namespace IdolFever {
     internal sealed class MultiplayerConnect: MonoBehaviourPunCallbacks {
         #region Fields
 
+        private bool is1stUpdated;
         private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut;
 
@@ -17,6 +18,7 @@ namespace IdolFever {
         #endregion
 
         public MultiplayerConnect() {
+            is1stUpdated = false;
             cachedRoomList = null;
             asyncSceneTransitionOut = null;
         }
@@ -46,21 +48,31 @@ namespace IdolFever {
         public override void OnJoinedLobby() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
             
-            //start coroutine??
-            
+            _ = StartCoroutine(nameof(RoomListFunc));
+        }
+
+        private System.Collections.IEnumerator RoomListFunc() {
+            while(!is1stUpdated) {
+                yield return null;
+            }
+
             foreach(RoomInfo info in cachedRoomList.Values) {
                 if(info.PlayerCount == 2) {
                     continue;
                 }
 
                 JoinRoom(info.Name);
-                return;
+                yield break;
             }
 
             CreateRoom();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+            if(!is1stUpdated) {
+                is1stUpdated = true;
+            }
+
             UpdateCachedRoomList(roomList);
         }
 
