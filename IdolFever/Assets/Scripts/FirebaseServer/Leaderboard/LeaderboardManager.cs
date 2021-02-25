@@ -40,6 +40,7 @@ namespace IdolFever.Server.Leaderboard
         {
             // subscribe to the event
             SingleSongSelectionEvents.INSTANCE.onLeaderboardChange += OnLeaderboardChange;
+
         }
 
         public void OnDestroy()

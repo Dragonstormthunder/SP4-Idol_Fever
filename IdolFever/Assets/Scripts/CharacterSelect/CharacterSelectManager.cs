@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using IdolFever.Server;
 using TMPro;
 
@@ -18,6 +19,7 @@ namespace IdolFever.Character
         public CharacterDecentralizeData characterDecentralizeData;
         public GameObject selectCharacterPrefab;
         public Transform characterPanel;
+        public ScrollRect scrollRect;
 
         #endregion
 
@@ -43,8 +45,7 @@ namespace IdolFever.Character
                     GameObject selectCharacterObject = Instantiate(selectCharacterPrefab, characterPanel.transform, false);
 
                     // for the thumbnail
-                    GameObject circleMask = selectCharacterObject.transform.Find("CharacterThumbnailIcon").gameObject.transform.GetChild(0).gameObject;
-
+                    GameObject mask = selectCharacterObject.transform.Find("CharacterThumbnailIcon").gameObject.transform.GetChild(1).gameObject;
 
 
                     // inefficient loop code
@@ -55,7 +56,7 @@ namespace IdolFever.Character
                         {
 
                             // add the image prefab to it
-                            GameObject thumbnail = Instantiate(characterDecentralizeData.AccessThumbnailPrefab(index), circleMask.transform);
+                            GameObject thumbnail = Instantiate(characterDecentralizeData.AccessThumbnailPrefab(index), mask.transform);
 
                             TextMeshProUGUI skillName = selectCharacterObject.transform.Find("CharacterSkillName").GetComponent<TextMeshProUGUI>();
                             TextMeshProUGUI skillDescription = selectCharacterObject.transform.Find("CharacterSkillDescription").GetComponent<TextMeshProUGUI>();
@@ -81,15 +82,24 @@ namespace IdolFever.Character
                         }
                     }
 
+                    StartCoroutine(YieldOneFrame());
 
                 }
 
             }));
 
+
         }
 
         #endregion
 
+        private IEnumerator YieldOneFrame()
+        {
+            yield return 0;
+
+            scrollRect.verticalNormalizedPosition = 1;
+
+        }
 
     }
 }
