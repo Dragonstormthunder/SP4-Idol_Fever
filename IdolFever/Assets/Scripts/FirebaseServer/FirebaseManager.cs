@@ -35,6 +35,8 @@ namespace IdolFever.Server
         public TMP_InputField passwordRegisterVerifyField;
         public TMP_Text warningRegisterText;
 
+        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut = null;
+
         void Awake()
         {
             Init();
@@ -128,9 +130,7 @@ namespace IdolFever.Server
                 warningLoginText.text = "";
                 confirmLoginText.text = "Logged In";
 
-                // change scene
-                SceneManager.LoadScene("MainMenuScene");
-
+                asyncSceneTransitionOut.ChangeScene();
             }
         }
 
