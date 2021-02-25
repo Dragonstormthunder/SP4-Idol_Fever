@@ -13,9 +13,15 @@ namespace IdolFever {
 
         #region Unity User Callback Event Funcs
 
+        private void Start() {
+            if(!musicCentralControl.dontDestroyOnLoad) {
+                AdjustVolOfMusic();
+            }
+        }
+
         private void FixedUpdate() {
-            foreach(AudioSource audioSrc in musicCentralControl.AudioSrcs) {
-                audioSrc.volume = Options.MusicVol;
+            if(musicCentralControl.dontDestroyOnLoad) {
+                AdjustVolOfMusic();
             }
         }
 
@@ -23,6 +29,12 @@ namespace IdolFever {
 
         public MusicVolControl() {
             musicCentralControl = null;
+        }
+
+        private void AdjustVolOfMusic() {
+            foreach(AudioSource audioSrc in musicCentralControl.AudioSrcs) {
+                audioSrc.volume = Options.MusicVol;
+            }
         }
     }
 }
