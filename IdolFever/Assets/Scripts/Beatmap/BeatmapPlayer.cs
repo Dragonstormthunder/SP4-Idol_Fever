@@ -30,7 +30,7 @@ namespace IdolFever.Game
         private int beatIndex;
         private ulong usec;
 
-        private Transform myChar;
+        private Transform myChar, otherChar;
         void Start()
         {
             beatmap = BeatmapReader.Open("Wellerman.mid");
@@ -50,10 +50,13 @@ namespace IdolFever.Game
                 beatmap = BeatmapReader.Open("Wellerman.mid");
             }
 
-            myChar = Instantiate(characters[0], new Vector3(-0.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0,1,0))).transform;
+            myChar = Instantiate(characters[0], new Vector3(-5.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
-            myChar.GetComponent<Animator>().Play("omurice_Char_Female_anim_idle", 0);
+            myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
 
+            otherChar = Instantiate(characters[1], new Vector3(5.4f, 0, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+            otherChar.GetComponent<Animator>().Rebind();
+            otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             audio.Play();
             int n = beatmap.beats.Count;
             scoreMeter.maxscore = n * 600;

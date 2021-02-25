@@ -8015,7 +8015,7 @@ MonoBehaviour:
   sceneOut: {fileID: 76986569}
   characters:
   - {fileID: 4150167060755409014, guid: 08319bf79c94346468f7066cb1466201, type: 3}
-  - {fileID: 2741401412775581213, guid: 7f9cbbf060880a848aa9e4879234b553, type: 3}
+  - {fileID: 6606623744814327501, guid: 4cb867101be4b854e8518228dc2c5b70, type: 3}
   audio: {fileID: 210078380}
 --- !u!114 &1523373743
 MonoBehaviour:
