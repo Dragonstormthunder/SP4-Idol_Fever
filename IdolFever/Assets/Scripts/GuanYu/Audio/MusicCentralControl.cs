@@ -22,6 +22,8 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Awake() {
+            DontDestroyOnLoad(gameObject);
+
             foreach(Transform child in transform) {
                 audioSrcs.Add(child.GetComponent<AudioSource>());
             }
