@@ -27,7 +27,6 @@ namespace IdolFever {
             PhotonNetwork.LocalPlayer.NickName = GameConfigurations.Username;
 
             if(!PhotonNetwork.IsConnected) {
-                Debug.Log("here");
                 PhotonNetwork.ConnectUsingSettings();
             }
         }
@@ -37,14 +36,18 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnConnectedToMaster() {
-            Debug.Log(PhotonNetwork.InLobby, this);
+            if(!PhotonNetwork.InLobby) {
+                PhotonNetwork.JoinLobby();
+            }
+        }
 
-            asyncSceneTransitionOut.ChangeScene();
-
+        public override void OnJoinedLobby() {
             Debug.Log(PhotonNetwork.InLobby, this);
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+            Debug.Log("OnRoomListUpdate", this);
+
             /*ClearRoomListView();
             UpdateCachedRoomList(roomList);
             UpdateRoomListView();*/
