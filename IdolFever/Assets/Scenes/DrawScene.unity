@@ -2806,9 +2806,8 @@ MonoBehaviour:
   TurnButton: {fileID: 1983312918}
   Circle: {fileID: 1310094050}
   reward_txt: {fileID: 1987020801}
-  CurrentGemsText: {fileID: 2000865399}
+  CurrentGemsText: {fileID: 2000865400}
   TurnCost: 100
-  CurrentGemsAmount: 1000
   PreviousGemsAmount: 0
 --- !u!1 &1613125971
 GameObject:
@@ -3591,7 +3590,7 @@ PrefabInstance:
     - target: {fileID: 4591032172843108524, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
       propertyPath: numberOfGemsText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2000865400}
     - target: {fileID: 7525137353673814324, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3687,9 +3686,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7525137353673814324, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
   m_PrefabInstance: {fileID: 2000865397}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2000865399 stripped
+--- !u!114 &2000865400 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4151692791593548567, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7525137354385083468, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
   m_PrefabInstance: {fileID: 2000865397}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

@@ -22,7 +22,7 @@ namespace IdolFever.UI
         public TMP_Text reward_txt;         // Pop-up text with card gotten/Turn Cost
         public TMP_Text CurrentGemsText;        // Pop-up text with curr gems
         public int TurnCost = 100;          // How much coins user waste when turn whe wheel
-        public int CurrentGemsAmount;    // Started gems amount.
+        //public int CurrentGemsAmount;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
         private void Awake()

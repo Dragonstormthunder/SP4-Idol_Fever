@@ -9,7 +9,7 @@ namespace IdolFever.UI
 {
     public class RenderCardPrefabs : MonoBehaviour
     {
-        public ServerDatabase database;
+        //public DailyManager database;
 
         public GameObject gameObjectPanelBg;
 
@@ -138,8 +138,8 @@ namespace IdolFever.UI
                 OffPanel(gameObjectPanelBg);
                 //Destroy everything in hierachy that i have created
                 DestroyPrefab();
-                StartCoroutine(database.UpdateCharacter(StaticDataStorage.R_GirlDrawCount, StaticDataStorage.R_BoyDrawCount, StaticDataStorage.SR_GirlDrawCount, StaticDataStorage.SR_BoyDrawCount,
-                    StaticDataStorage.SSR_GirlDrawCount, StaticDataStorage.SSR_BoyDrawCount));
+                //StartCoroutine(database.UpdateCharacter(StaticDataStorage.R_GirlDrawCount, StaticDataStorage.R_BoyDrawCount, StaticDataStorage.SR_GirlDrawCount, StaticDataStorage.SR_BoyDrawCount,
+                //    StaticDataStorage.SSR_GirlDrawCount, StaticDataStorage.SSR_BoyDrawCount));
                 keysActive = false;
             }
         }

@@ -10,7 +10,7 @@ namespace IdolFever.Server
 {
     public class ManOfUI : MonoBehaviour
     {
-        public ServerDatabase database;
+        public DailyManager database;
 
         //change button image after press
         public Sprite Btn_ImageBefore;
