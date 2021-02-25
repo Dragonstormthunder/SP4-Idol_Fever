@@ -60,7 +60,6 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-
         }
 
         public IEnumerator UpdateGems(int gems)
@@ -524,6 +523,30 @@ namespace IdolFever.Server
             if (DBTask.Exception != null)
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+
+        }
+        
+        public IEnumerator IsCharacterValuePresent(System.Action<bool> callbackOnFinish)
+        {
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(false);
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Character no result");
+                callbackOnFinish(false);
+            }
+            else
+            {
+                callbackOnFinish(true);
             }
 
         }
