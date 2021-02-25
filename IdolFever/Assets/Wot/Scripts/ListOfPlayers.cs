@@ -67,19 +67,14 @@ namespace IdolFever {
             RoomOptions options = new RoomOptions { MaxPlayers = (byte)playerBlocks.Length, PlayerTtl = 10000 };
 
             PhotonNetwork.CreateRoom(roomName, options, null);
-
-
-            Debug.Log(PhotonNetwork.InLobby, this);
         }
 
         public override void OnCreatedRoom() {
             Debug.Log("Room created!", this);
-            Debug.Log(PhotonNetwork.InLobby, this);
         }
 
         public override void OnJoinedRoom() {
             Debug.Log("Room joined!", this);
-            Debug.Log(PhotonNetwork.InLobby, this);
 
             int index = 1;
             foreach(Player player in PhotonNetwork.PlayerList) {

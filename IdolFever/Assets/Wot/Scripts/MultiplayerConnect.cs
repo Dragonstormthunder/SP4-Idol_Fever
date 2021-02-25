@@ -45,10 +45,10 @@ namespace IdolFever {
 
         public override void OnJoinedLobby() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
-
-            Debug.Log("here1");
-
-            /*foreach(RoomInfo info in cachedRoomList.Values) {
+            
+            //start coroutine??
+            
+            foreach(RoomInfo info in cachedRoomList.Values) {
                 if(info.PlayerCount == 2) {
                     continue;
                 }
@@ -57,11 +57,19 @@ namespace IdolFever {
                 return;
             }
 
-            CreateRoom();*/
+            CreateRoom();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
             UpdateCachedRoomList(roomList);
+        }
+
+        public override void OnCreatedRoom() {
+            Debug.Log("Room created!", this);
+        }
+
+        public override void OnJoinedRoom() {
+            Debug.Log("Room joined!", this);
         }
 
         public override void OnLeftLobby() {
@@ -75,54 +83,6 @@ namespace IdolFever {
 
         public override void OnJoinRoomFailed(short returnCode, string message) {
             Debug.LogError("OnJoinRoomFailed " + '(' + returnCode + "): " + message);
-        }
-
-        public override void OnJoinedRoom() {
-            /*if(PlayerUniversal.Colors.Length == 0) {
-                if(PhotonNetwork.IsMasterClient) {
-                    PlayerUniversal.InitColors();
-                } else {
-                    PhotonView.Get(this).RPC("RetrievePlayerColors", RpcTarget.MasterClient);
-                }
-            }
-
-            _ = StartCoroutine(nameof(My1stEverCoroutine));*/
-        }
-
-        private System.Collections.IEnumerator My1stEverCoroutine() {
-            /*while(PlayerUniversal.Colors.Length == 0) {
-                yield return null;
-            }
-
-            SetActivePanel(InsideRoomPanel.name);
-
-            if(playerListEntries == null) {
-                playerListEntries = new Dictionary<int, GameObject>();
-            }
-
-            foreach(Player p in PhotonNetwork.PlayerList) {
-                GameObject entry = Instantiate(PlayerListEntryPrefab);
-                entry.transform.SetParent(InsideRoomPanel.transform);
-                entry.transform.localScale = Vector3.one;
-                entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
-
-                if(p.CustomProperties.TryGetValue("IsPlayerReady", out object isPlayerReady)) { //Inline var declaration
-                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
-                }
-
-                entry.GetComponent<PlayerListEntry>().SetPlayerListEntryColors();
-
-                playerListEntries.Add(p.ActorNumber, entry);
-            }
-
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
-
-            Hashtable props = new Hashtable {
-                {"PlayerLoadedLevel", false}
-            };
-            PhotonNetwork.LocalPlayer.SetCustomProperties(props);*/
-
-            yield return null;
         }
 
         public override void OnLeftRoom() {
@@ -189,9 +149,6 @@ namespace IdolFever {
         #endregion
 
         private void UpdateCachedRoomList(List<RoomInfo> roomList) {
-            Debug.Log("here2");
-
-
             foreach(RoomInfo info in roomList) {
                 ///Remove room from cached room list if it got closed, became invisible or was marked as removed
                 if(!info.IsOpen || !info.IsVisible || info.RemovedFromList) {
@@ -207,6 +164,18 @@ namespace IdolFever {
                     cachedRoomList.Add(info.Name, info); //Add new room info to cache
                 }
             }
+        }
+
+        private void JoinRoom(string name) {
+            PhotonNetwork.JoinRoom(name);
+        }
+
+        private void CreateRoom() {
+            string roomName = Random.Range(400, 4000000).ToString();
+
+            RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 10000 };
+
+            PhotonNetwork.CreateRoom(roomName, options, null);
         }
     }
 }
