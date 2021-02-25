@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2980,10 +2980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9ec5cdb2486df748a3b3cad11dd27fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: GameplayScene
   asyncSceneTransitionOutScript: {fileID: 5953765476958148041}
-  animator: {fileID: 2161000700675807766}
-  startAnimName: CurtainTransitionStart
 --- !u!222 &1310044698
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5517,7 +5514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -850
+      value: -800
       objectReference: {fileID: 0}
     - target: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5525,11 +5522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 400
+      value: 280
       objectReference: {fileID: 0}
     - target: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 400
+      value: 130
       objectReference: {fileID: 0}
     - target: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_AnchorMin.x
