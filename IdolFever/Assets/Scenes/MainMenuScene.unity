@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 387956533}
   - component: {fileID: 387956534}
   m_Layer: 0
-  m_Name: ToMultiplayerLobby
+  m_Name: ToCharacterSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
   audioListener: {fileID: 0}
   myInterest: {fileID: 0}
   img: {fileID: 1030770387}
-  sceneName: MultiplayerLobbyScene
+  sceneName: CharacterSelectScene
   startAnimName: CircleWipeStart
 --- !u!1 &393953813 stripped
 GameObject:
@@ -1018,7 +1018,7 @@ GameObject:
   - component: {fileID: 652931574}
   - component: {fileID: 652931575}
   m_Layer: 0
-  m_Name: FromMultiplayerLobby
+  m_Name: FromCharacterSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1050,7 +1050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f02f2b10f9611c5449062c7dedc04e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MultiplayerLobbyScene
+  sceneName: CharacterSelectScene
   animator: {fileID: 1327738583}
   img: {fileID: 1030770387}
 --- !u!1 &738889913

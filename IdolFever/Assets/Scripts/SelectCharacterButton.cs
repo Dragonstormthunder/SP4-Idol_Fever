@@ -15,7 +15,6 @@ namespace IdolFever.Character
 
         #endregion
 
-
         #region Properties
 
         public Character.CharacterFactory.eCHARACTER CharacterIndex
@@ -28,6 +27,11 @@ namespace IdolFever.Character
         {
             get { return bonus; }
             set { bonus = value; }
+        }
+
+        internal AsyncSceneTransitionOut AsyncSceneTransitionOutScript {
+            private get;
+            set;
         }
 
         #endregion
@@ -43,7 +47,7 @@ namespace IdolFever.Character
             Debug.Log("SelectButton: Character: " + GameConfigurations.CharacterIndex.ToString());
             Debug.Log("SelectButton: Bonus: " + GameConfigurations.CharacterBonus);
 
-
+            AsyncSceneTransitionOutScript.ChangeScene();
         }
 
     }

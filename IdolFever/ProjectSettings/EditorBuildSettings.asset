@@ -39,6 +39,6 @@ EditorBuildSettings:
     path: Assets/Scenes/GachaScene.unity
     guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
   - enabled: 1
-    path: Assets/Scenes/SinglePlayerSelectSongScene.unity
+    path: Assets/Scenes/SongSelectScene.unity
     guid: a3472345938f9e345960057e6695af74
   m_configObjects: {}
