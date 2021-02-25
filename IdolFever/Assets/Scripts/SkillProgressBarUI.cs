@@ -47,8 +47,7 @@ public class SkillProgressBarUI : MonoBehaviour
 
         // set the color
         float factor = minValue / maxValue * 0.5f + 0.8f;
-        if (factor > 1.0f)
-        {
+        if(factor > 1.0f){
             factor -= 1.0f;
         }
 
