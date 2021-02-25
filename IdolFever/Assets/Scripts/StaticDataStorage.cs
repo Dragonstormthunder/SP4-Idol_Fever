@@ -48,10 +48,10 @@ namespace IdolFever.UI
         public static int roundMulti = 0;
         public static int dailyDone = 0;
 
-        public static string nowTime = "";
-        public static string nextRound = "";
+        public static string nowTime = "50";
+        public static string nextRound = "50";
         public static string nextMulti = "300";
-        public static string nextAll = "";
+        public static string nextAll = "10";
 
         public static int gems = 0;
 

@@ -88,6 +88,7 @@ namespace IdolFever.Server
         {
             // update the value of the gem
             // will create here if it doesn't exist
+
             var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_GEM).SetValueAsync(gems);
 
             yield return new WaitUntil(predicate: () => DBTask.IsCompleted);

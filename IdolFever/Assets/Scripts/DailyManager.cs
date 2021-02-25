@@ -57,11 +57,19 @@ namespace IdolFever.Server
 
         private void Init()
         {
+            
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+            Debug.Log("daily called");
 
-            StartCoroutine(UpdateProgress(4, 2));
+            //StartCoroutine(UpdateProgress(5, 2));
+
+            StartCoroutine(GetTaskUTC((progress) =>
+            {
+                Debug.Log("sucess utc get");
+                
+            }));
 
 
             StartCoroutine(GetProgress((progress) =>
@@ -384,71 +392,83 @@ namespace IdolFever.Server
 
 
 
-        //public IEnumerator GetTaskUTC(System.Action<int> callbackOnFinish)
-        //{
-        //    Debug.Log("getRound called");
-        //    var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).GetValueAsync();
+        public IEnumerator GetTaskUTC(System.Action<int> callbackOnFinish)
+        {
+            Debug.Log("getRound called");
+            var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
 
-        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
-        //    if (DBTask.Exception != null)
-        //    {
-        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        //    }
-        //    else if (DBTask.Result.Value == null)
-        //    {
-        //        callbackOnFinish(0);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("Snapshot TaskUTC");
-        //        DataSnapshot snapshot = DBTask.Result;
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                callbackOnFinish(0);
+            }
+            else
+            {
+                Debug.Log("Snapshot TaskUTC");
+                DataSnapshot snapshot = DBTask.Result;
 
-        //        List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
-        //        if (snapshot.HasChild(DATABASE_TOTAL_ROUND_PLAYED))
-        //        {
-        //            Debug.Log("Able to access data");
-        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_PLAYED).Value.ToString());
+                if (snapshot.HasChild(DATABASE_MULTI_UTC))
+                {
+                    Debug.Log("Able to access data");
+                    string value = snapshot.Child(DATABASE_MULTI_UTC).Value.ToString();
 
-        //            Debug.LogWarning("value: " + value);
-        //            StaticDataStorage.roundPlayed = value;
-
-
-
-
-        //            callbackOnFinish(value);
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("Unable to access data ");
-        //            callbackOnFinish(0);
-        //        }
-
-        //        if (snapshot.HasChild(DATABASE_TOTAL_ROUND_MULTI))
-        //        {
-        //            Debug.Log("Able to access data multi");
-        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_MULTI).Value.ToString());
-
-        //            Debug.LogWarning("value multi: " + value);
-        //            StaticDataStorage.roundMulti = value;
+                    StaticDataStorage.nextMulti = value;
 
 
 
 
-        //            callbackOnFinish(value);
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("Unable to access data multi");
-        //            callbackOnFinish(0);
-        //        }
+                    callbackOnFinish(1);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data ");
+                    callbackOnFinish(0);
+                }
+
+                if (snapshot.HasChild(DATABASE_FIVEROUND_UTC))
+                {
+                    Debug.Log("Able to access data");
+                    string value = snapshot.Child(DATABASE_FIVEROUND_UTC).Value.ToString();
+
+                    StaticDataStorage.nextRound = value;
 
 
+                    callbackOnFinish(1);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data ");
+                    callbackOnFinish(0);
+                }
 
-        //    }
 
-        //}
+                if (snapshot.HasChild(DATABASE_ALLDONE_UTC))
+                {
+                    Debug.Log("Able to access data");
+                    string value = snapshot.Child(DATABASE_ALLDONE_UTC).Value.ToString();
+
+                    StaticDataStorage.nextAll = value;
+
+
+                    callbackOnFinish(1);
+                }
+                else
+                {
+                    Debug.Log("Unable to access data ");
+                    callbackOnFinish(0);
+                }
+
+
+            }
+
+        }
     }
 }
 
