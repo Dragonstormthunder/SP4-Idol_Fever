@@ -9,9 +9,7 @@ namespace IdolFever {
     internal sealed class ListOfPlayers: MonoBehaviourPunCallbacks {
         #region Fields
 
-        private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private GameObject[] playerBlocks;
-        [SerializeField] private ServerDatabase serverDatabaseScript;
 
         #endregion
 
@@ -19,63 +17,26 @@ namespace IdolFever {
         #endregion
 
         public ListOfPlayers() {
-            cachedRoomList = null;
             playerBlocks = System.Array.Empty<GameObject>();
-            serverDatabaseScript = null;
         }
 
         #region Unity User Callback Event Funcs
 
-        private void Awake() {
-            PhotonNetwork.AutomaticallySyncScene = false;
-
-            cachedRoomList = new Dictionary<string, RoomInfo>();
-
-            PhotonNetwork.LocalPlayer.NickName = GameConfigurations.Username;
+        private void Start() {
             if(!PhotonNetwork.IsConnected) {
-                PhotonNetwork.ConnectUsingSettings();
+                Debug.LogWarning("Photon is not connected.", this);
+                return;
             }
-		}
+
+            UpdatePlayerBlocks();
+        }
 
         #endregion
 
         #region Pun Callback Funcs
+        #endregion
 
-        public override void OnConnectedToMaster() {
-            foreach(RoomInfo info in cachedRoomList.Values) {
-                if(info.PlayerCount == 2) {
-                    continue;
-                }
-
-                JoinRoom(info.Name);
-                return;
-            }
-
-            CreateRoom();
-        }
-
-        private void JoinRoom(string name) {
-            if(PhotonNetwork.InLobby) {
-                PhotonNetwork.LeaveLobby();
-            }
-            PhotonNetwork.JoinRoom(name);
-        }
-
-        private void CreateRoom() {
-            string roomName = Random.Range(400, 4000000).ToString();
-
-            RoomOptions options = new RoomOptions { MaxPlayers = (byte)playerBlocks.Length, PlayerTtl = 10000 };
-
-            PhotonNetwork.CreateRoom(roomName, options, null);
-        }
-
-        public override void OnCreatedRoom() {
-            Debug.Log("Room created!", this);
-        }
-
-        public override void OnJoinedRoom() {
-            Debug.Log("Room joined!", this);
-
+        private void UpdatePlayerBlocks() {
             int index = 1;
             foreach(Player player in PhotonNetwork.PlayerList) {
                 GameObject playerBlockGO = playerBlocks[player == PhotonNetwork.LocalPlayer ? 0 : index];
@@ -91,20 +52,12 @@ namespace IdolFever {
                     ++index;
                 }
             }
-                /*playerListEntry.Initialize(p.ActorNumber, p.NickName);
-                playerListEntry.SetPlayerListEntryColors();
 
-                playerListEntry.SetPlayerReady(false);
-                Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
-                p.SetCustomProperties(props);
+            /*playerListEntry.SetPlayerListEntryColors();
 
-                playerListEntries.Add(p.ActorNumber, entry);*/
-
-            /*PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
-            Debug.Log(fakeVal, this);
-            startButton.SetActive(CheckPlayersReady());*/
+            playerListEntry.SetPlayerReady(false);
+            Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
+            p.SetCustomProperties(props);*/
         }
-
-        #endregion
     }
 }
