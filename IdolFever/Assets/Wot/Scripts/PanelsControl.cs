@@ -219,7 +219,7 @@ namespace IdolFever {
                 }
             }
 
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            //StartGameButton.gameObject.SetActive(CheckPlayersReady()); //here
         }
 
         #endregion
@@ -306,10 +306,6 @@ namespace IdolFever {
             }
 
             roomListEntries.Clear();
-        }
-
-        public void LocalPlayerPropertiesUpdated() {
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
 
         public void SetActivePanel(string activePanel) {

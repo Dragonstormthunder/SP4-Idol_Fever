@@ -1,5 +1,4 @@
 ﻿using ExitGames.Client.Photon;
-using Photon.Pun.UtilityScripts;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -35,13 +34,13 @@ namespace IdolFever {
                     Hashtable props = new Hashtable() { { "IsPlayerReady", isPlayerReady } };
                     PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
-                    PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
+                    /*PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("IsPlayerReady", out object fakeVal);
                     Debug.Log(isPlayerReady, this);
-                    Debug.Log(fakeVal, this);
+                    Debug.Log((bool)fakeVal, this);*/
 
-                    if(PhotonNetwork.IsMasterClient) {
-                        FindObjectOfType<MultiplayerLobbyPanel>().LocalPlayerPropertiesUpdated();
-                    }
+                    /*if(PhotonNetwork.IsMasterClient) {
+                        FindObjectOfType<PanelsControl>().LocalPlayerPropertiesUpdated();
+                    }*/
                 });
             }
         }

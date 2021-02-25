@@ -51,8 +51,9 @@ namespace DissolveControl {
 
         public DissolveControl() {
             stepThreshold = 0.0f;
-            vel = 0.0f;
             dissolveMtl = null;
+            startStepThreshold = 0.0f;
+            vel = 0.0f;
         }
     }
 }
