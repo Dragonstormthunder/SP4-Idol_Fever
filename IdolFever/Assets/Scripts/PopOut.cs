@@ -8,7 +8,7 @@ namespace IdolFever.UI
     public class PopOut : MonoBehaviour
     {
         // Start is called before the first frame update
-        public GameObject panelX;
+        //public GameObject panelX;
 
         void Start()
         {
@@ -20,20 +20,25 @@ namespace IdolFever.UI
 
         }
 
-        public void OnPanel()
-        {
-            panelX.SetActive(true);
-        }
+        //public void OnPanel()
+        //{
+        //    panelX.SetActive(true);
+        //}
 
-        public void OffPanel()
-        {
-            panelX.SetActive(false);
-        }
+        //public void OffPanel()
+        //{
+        //    panelX.SetActive(false);
+        //}
 
 
         public void OnPanelMainGame(GameObject gameObject)
         {
             gameObject.SetActive(true);
+        }
+
+        public void OffPanelMainGame(GameObject gameObject)
+        {
+            gameObject.SetActive(false);
         }
 
     }
