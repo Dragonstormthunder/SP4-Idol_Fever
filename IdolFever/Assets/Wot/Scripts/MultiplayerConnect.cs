@@ -8,6 +8,7 @@ namespace IdolFever {
     internal sealed class MultiplayerConnect: MonoBehaviourPunCallbacks {
         #region Fields
 
+        private Dictionary<string, RoomInfo> cachedRoomList;
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut;
 
         #endregion
@@ -16,6 +17,7 @@ namespace IdolFever {
         #endregion
 
         public MultiplayerConnect() {
+            cachedRoomList = null;
             asyncSceneTransitionOut = null;
         }
 
@@ -42,15 +44,24 @@ namespace IdolFever {
         }
 
         public override void OnJoinedLobby() {
-            Debug.Log(PhotonNetwork.InLobby, this);
+            cachedRoomList = new Dictionary<string, RoomInfo>();
+
+            Debug.Log("here1");
+
+            /*foreach(RoomInfo info in cachedRoomList.Values) {
+                if(info.PlayerCount == 2) {
+                    continue;
+                }
+
+                JoinRoom(info.Name);
+                return;
+            }
+
+            CreateRoom();*/
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
-            Debug.Log("OnRoomListUpdate", this);
-
-            /*ClearRoomListView();
             UpdateCachedRoomList(roomList);
-            UpdateRoomListView();*/
         }
 
         public override void OnLeftLobby() {
@@ -176,5 +187,26 @@ namespace IdolFever {
         }
 
         #endregion
+
+        private void UpdateCachedRoomList(List<RoomInfo> roomList) {
+            Debug.Log("here2");
+
+
+            foreach(RoomInfo info in roomList) {
+                ///Remove room from cached room list if it got closed, became invisible or was marked as removed
+                if(!info.IsOpen || !info.IsVisible || info.RemovedFromList) {
+                    if(cachedRoomList.ContainsKey(info.Name)) {
+                        cachedRoomList.Remove(info.Name);
+                    }
+                    continue;
+                }
+
+                if(cachedRoomList.ContainsKey(info.Name)) {
+                    cachedRoomList[info.Name] = info; //Update cached room info
+                } else {
+                    cachedRoomList.Add(info.Name, info); //Add new room info to cache
+                }
+            }
+        }
     }
 }
