@@ -15,18 +15,39 @@ namespace IdolFever.Server.Characters
         public GameObject thumbnailPrefab;
         public Transform characterLocation;
         public CharacterViewManager characterViewManager;
+        public CharacterDecentralizeData characterDecentralizeData;
 
         // character prefabs
 
         //[SerializeField] private List<GameObject> contentCharacters;
 
-        [EnumNamedArray(typeof(CharacterFactory.eCHARACTER))]
-        public GameObject[] thumbnailPrefabs = new GameObject[(int)CharacterFactory.eCHARACTER.NUM_CHARACTER];
+        //[EnumNamedArray(typeof(CharacterFactory.eCHARACTER))]
+        //public GameObject[] thumbnailPrefabs = new GameObject[(int)CharacterFactory.eCHARACTER.NUM_CHARACTER];
 
         #endregion
 
         void Start()
         {
+
+            //for (CharacterFactory.eCHARACTER i = 0; i < CharacterFactory.eCHARACTER.NUM_CHARACTER; ++i)
+            //{
+            //    if (i == CharacterFactory.eCHARACTER.R_CHARACTER_BEGIN || i == CharacterFactory.eCHARACTER.R_CHARACTER_END ||
+            //        i == CharacterFactory.eCHARACTER.SR_CHARACTER_BEGIN || i == CharacterFactory.eCHARACTER.SSR_CHARACTER_END ||
+            //        i == CharacterFactory.eCHARACTER.SSR_CHARACTER_BEGIN || i == CharacterFactory.eCHARACTER.SSR_CHARACTER_END)
+            //            continue;
+
+            //    StartCoroutine(serverDatabase.UpdateCharacters(i.ToString(), 1));
+            //}
+
+            StartCoroutine(Initailize());
+
+        }
+
+
+        private IEnumerator Initailize()
+        {
+            // wait one frame, just in case the database hasn't started yet
+            yield return 0;
 
             StartCoroutine(serverDatabase.GrabCharacters((characters) =>
             {
@@ -51,19 +72,23 @@ namespace IdolFever.Server.Characters
                     {
                         if (index.ToString() == characters[i].Key)
                         {
-                            GameObject thumbnail = Instantiate(thumbnailPrefabs[(int)index], CircleMask.transform, false);
+                            GameObject thumbnail = Instantiate(characterDecentralizeData.AccessThumbnailPrefab(index), CircleMask.transform, false);
 
                             // set it to the correct index for the event messaging system
-                            thumbnailButton.GetComponent<CharacterViewButtonSwitch>().CharacterIndex = index;
+
+                            CharacterViewButtonSwitch characterViewButtonSwitch = thumbnailButton.GetComponent<CharacterViewButtonSwitch>();
+                            characterViewButtonSwitch.CharacterIndex = index;
 
                             StartCoroutine(serverDatabase.NumberOfCharacters(characters[i].Key, (numberOfCharas) =>
                             {
 
-                                //Debug.Log("Character: " + index.ToString() + " has " + numberOfCharas);
+                                Debug.Log("Character: " + index.ToString() + " has " + numberOfCharas);
 
-                                CharacterDataDisplay characterDataDisplay = thumbnailButton.GetComponent<CharacterDataDisplay>();
-                                characterDataDisplay.Bonus = numberOfCharas;
-                                characterDataDisplay.SetDescription(index);
+                                characterViewButtonSwitch.CharacterBonus = numberOfCharas;
+
+                                //CharacterDataDisplay characterDataDisplay = thumbnailButton.GetComponent<CharacterDataDisplay>();
+                                //characterDataDisplay.Bonus = numberOfCharas;
+                                //characterDataDisplay.SetDescription(index);
 
                             }));
 

@@ -11,6 +11,7 @@ namespace IdolFever.Server.Characters
         #region Fields
 
         [SerializeField] private CharacterFactory.eCHARACTER index;
+        [SerializeField] private int bonus;
 
         #endregion
 
@@ -22,13 +23,20 @@ namespace IdolFever.Server.Characters
             set { index = value; }
         }
 
+        internal int CharacterBonus
+        {
+            // no need get
+            set { bonus = value; }
+        }
+
         #endregion
 
         // on click button
         public void Clicked()
         {
             // trigger the event
-            CharacterStorageEvents.INSTANCE.CharacterSwitched(index);
+
+            CharacterStorageEvents.INSTANCE.CharacterSwitched(new KeyValuePair<CharacterFactory.eCHARACTER, int>(index, bonus));
         }
 
     }

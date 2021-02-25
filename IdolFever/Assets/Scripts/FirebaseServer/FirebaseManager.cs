@@ -71,6 +71,8 @@ namespace IdolFever.Server
         //Function for the login button
         public void LoginButton()
         {
+            warningLoginText.text = confirmLoginText.text = "";
+
             //Call the login coroutine passing the email and password
             StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
         }

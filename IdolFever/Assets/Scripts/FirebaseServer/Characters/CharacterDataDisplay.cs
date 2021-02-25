@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IdolFever.Character;
 
 namespace IdolFever.Server.Characters
 {
@@ -9,6 +10,7 @@ namespace IdolFever.Server.Characters
 
         #region Fields 
 
+        [SerializeField] CharacterFactory.eCHARACTER index;
         [SerializeField] int bonus;             // number of charas
         [SerializeField] string description;    // description
 
@@ -22,24 +24,7 @@ namespace IdolFever.Server.Characters
             set { bonus = value; }
         }
 
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
-
         #endregion
-
-        public void SetDescription(Character.CharacterFactory.eCHARACTER index)
-        {
-            switch (index)
-            {
-                default:
-                    description = "Nothing For Now: Bonus: " + bonus;
-                    break;
-            }
-        }
-
 
 
     }

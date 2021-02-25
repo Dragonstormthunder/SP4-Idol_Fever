@@ -16,6 +16,9 @@ namespace IdolFever.Server.Leaderboard
         private SongRegistry.SongList currentSelectedSong;
         //[SerializeField] SongRegistry.SongList songLeaderboardToDisplay;
 
+        public TextMeshProUGUI[] namesText;
+        public TextMeshProUGUI[] scoresText;
+
         #endregion
 
         #region Properties
@@ -37,6 +40,7 @@ namespace IdolFever.Server.Leaderboard
         {
             // subscribe to the event
             SingleSongSelectionEvents.INSTANCE.onLeaderboardChange += OnLeaderboardChange;
+
         }
 
         public void OnDestroy()
@@ -86,13 +90,25 @@ namespace IdolFever.Server.Leaderboard
                 StartCoroutine(serverDatabase.GrabAllScoresOfASong(songName, (scores) =>
                 {
                     int position = 0;
-                    if(currentSelectedSong == index)
-                    foreach (KeyValuePair<string, int> score in scores)
-                    {
-                        //Debug.Log(score.Key + " " + score.Value);
-                        GameObject scoreElement = Instantiate(scorePrefab, contentPanel.transform);
-                        scoreElement.GetComponent<ScoreData>().SetScoreData(++position, score.Key, score.Value);
-                    }
+                    if (currentSelectedSong == index)
+                        foreach (KeyValuePair<string, int> score in scores)
+                        {
+                            // would instiantiate here for vertical layout
+                            Debug.Log(score.Key + " " + score.Value);
+                            //GameObject scoreElement = Instantiate(scorePrefab, contentPanel.transform);
+                            //scoreElement.GetComponent<ScoreData>().SetScoreData(++position, score.Key, score.Value);
+
+                            // for the hardcoded UI
+
+                            namesText[position].text = score.Key;
+                            scoresText[position].text = score.Value.ToString();
+
+                            ++position;
+
+                            if (position > 2)
+                                break;
+
+                        }
                 }));
 
             }));
@@ -101,11 +117,22 @@ namespace IdolFever.Server.Leaderboard
 
         public void ClearLeaderBoard()
         {
-            foreach (Transform child in contentPanel.transform)
+            //foreach (Transform child in contentPanel.transform)
+            //{
+            // destroy it
+            //    Destroy(child.gameObject);
+            //}
+
+            for (int i = 0; i < namesText.Length; ++i)
             {
-                // destroy it
-                Destroy(child.gameObject);
+                namesText[i].text = "";
             }
+
+            for (int i = 0; i < scoresText.Length; ++i)
+            {
+                scoresText[i].text = "";
+            }
+
         }
 
 
