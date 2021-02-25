@@ -1363,6 +1363,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startStepThreshold: 0
   vel: 0.7
+--- !u!1 &1360168810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8293394446578864465, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
+  m_PrefabInstance: {fileID: 420473822}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1360168811 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8836246703474543327, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
+  m_PrefabInstance: {fileID: 420473822}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360168810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08217c17607bdb040b0dbb7be7579969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1360168814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360168810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3777e0aabf546459fd9e939430450b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicPauseControl: {fileID: 1360168811}
+  sceneNames:
+  - GameplayScene
 --- !u!1 &1511876246
 GameObject:
   m_ObjectHideFlags: 0
