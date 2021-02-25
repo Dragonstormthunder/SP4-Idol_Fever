@@ -10,6 +10,7 @@ namespace IdolFever.Server
 {
     public class ManOfUI : MonoBehaviour
     {
+        public ServerDatabase serverdatabase;
         public DailyManager database;
 
         //change button image after press
@@ -185,7 +186,7 @@ namespace IdolFever.Server
             }
 
             StaticDataStorage.gems += gems;
-            StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
+            StartCoroutine(serverdatabase.UpdateGems(StaticDataStorage.gems));
             StartCoroutine(database.UpdateProgress(StaticDataStorage.roundPlayed, StaticDataStorage.roundMulti));
 
             Debug.Log("gems = " + gems);
