@@ -34,6 +34,15 @@ namespace IdolFever {
         #endregion
 
         #region Pun Callback Funcs
+
+        public override void OnPlayerEnteredRoom(Player newPlayer) {
+            UpdatePlayerBlocks();
+        }
+
+        public override void OnPlayerLeftRoom(Player otherPlayer) {
+            UpdatePlayerBlocks();
+        }
+
         #endregion
 
         private void UpdatePlayerBlocks() {
@@ -58,6 +67,13 @@ namespace IdolFever {
             playerListEntry.SetPlayerReady(false);
             Hashtable props = new Hashtable() { { "IsPlayerReady", false } };
             p.SetCustomProperties(props);*/
+        }
+
+        public void OnStartButtonClick() {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+
+            PhotonView.Get(this).RPC("ToGameplay", RpcTarget.All, null);
         }
     }
 }

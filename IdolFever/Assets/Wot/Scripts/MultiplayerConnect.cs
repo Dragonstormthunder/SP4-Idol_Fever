@@ -113,36 +113,6 @@ namespace IdolFever {
             playerListEntries = null;*/
         }
 
-        public override void OnPlayerEnteredRoom(Player newPlayer) {
-            //StartCoroutine(My2ndEverCoroutine(newPlayer));
-        }
-
-        private System.Collections.IEnumerator My2ndEverCoroutine(Player newPlayer) {
-            /*while(PlayerUniversal.Colors.Length == 0) {
-                yield return null;
-            }
-
-            GameObject entry = Instantiate(PlayerListEntryPrefab);
-            entry.transform.SetParent(InsideRoomPanel.transform);
-            entry.transform.localScale = Vector3.one;
-            entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
-
-            entry.GetComponent<PlayerListEntry>().SetPlayerListEntryColors();
-
-            playerListEntries.Add(newPlayer.ActorNumber, entry);
-
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());*/
-
-            yield return null;
-        }
-
-        public override void OnPlayerLeftRoom(Player otherPlayer) {
-            /*Destroy(playerListEntries[otherPlayer.ActorNumber].gameObject);
-            playerListEntries.Remove(otherPlayer.ActorNumber);
-
-            StartGameButton.gameObject.SetActive(CheckPlayersReady());*/
-        }
-
         public override void OnMasterClientSwitched(Player newMasterClient) {
             /*if(PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber) {
                 StartGameButton.gameObject.SetActive(CheckPlayersReady());

@@ -336,6 +336,18 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2046964957}
+    - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnStartButtonClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: IdolFever.ListOfPlayers, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7137554613801523367, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
       propertyPath: m_Name
       value: StartButton
@@ -1362,17 +1374,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
---- !u!114 &1843918990 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1677359071901681832, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
-  m_PrefabInstance: {fileID: 1843918989}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef5a6ba04361b6439da83840ecbacf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2046964955
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1384,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2046964956}
   - component: {fileID: 2046964957}
+  - component: {fileID: 2046964958}
+  - component: {fileID: 2046964959}
   m_Layer: 5
   m_Name: ListOfPlayers
   m_TagString: Untagged
@@ -1426,7 +1429,41 @@ MonoBehaviour:
   playerBlocks:
   - {fileID: 176645157}
   - {fileID: 1811577760}
-  serverDatabaseScript: {fileID: 1843918990}
+--- !u!114 &2046964958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046964955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9ec5cdb2486df748a3b3cad11dd27fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asyncSceneTransitionOutScript: {fileID: 134388435}
+--- !u!114 &2046964959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046964955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &3638241146548317567
 PrefabInstance:
   m_ObjectHideFlags: 0
