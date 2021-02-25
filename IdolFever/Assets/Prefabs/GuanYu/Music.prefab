@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8293394446578864466}
   - component: {fileID: 6215150516399556129}
-  - component: {fileID: 1503500551581886251}
+  - component: {fileID: 7794357919420366077}
   - component: {fileID: 8836246703474543327}
   m_Layer: 0
   m_Name: Music
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
---- !u!114 &1503500551581886251
+--- !u!114 &7794357919420366077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

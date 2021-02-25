@@ -6,7 +6,7 @@ namespace IdolFever {
         #region Fields
 
         private List<AudioSource> audioSrcs;
-        public bool dontDestroyOnLoad;
+        [SerializeField] private bool dontDestroyOnLoad;
 
         #endregion
 
