@@ -41,31 +41,10 @@ namespace IdolFever {
 
         #region Pun Callback Funcs
 
-        public override void OnRoomListUpdate(List<RoomInfo> roomList) {
-            Debug.Log("OnRoomListUpdate", this);
-            UpdateCachedRoomList(roomList);
-        }
-
-        private void UpdateCachedRoomList(List<RoomInfo> roomList) {
-            foreach(RoomInfo info in roomList) {
-                ///Remove room from cached room list if it got closed, became invisible or was marked as removed
-                if(!info.IsOpen || !info.IsVisible || info.RemovedFromList) {
-                    if(cachedRoomList.ContainsKey(info.Name)) {
-                        cachedRoomList.Remove(info.Name);
-                    }
-                    continue;
-                }
-
-                if(cachedRoomList.ContainsKey(info.Name)) {
-                    cachedRoomList[info.Name] = info; //Update cached room info
-                } else {
-                    cachedRoomList.Add(info.Name, info); //Add new room info to cache
-                }
-            }
-        }
-
         public override void OnConnectedToMaster() {
-            foreach(RoomInfo info in cachedRoomList.Values) {
+            Debug.Log("hereOther");
+
+            /*foreach(RoomInfo info in cachedRoomList.Values) {
                 if(info.PlayerCount == 2) {
                     continue;
                 }
@@ -74,7 +53,7 @@ namespace IdolFever {
                 return;
             }
 
-            CreateRoom();
+            CreateRoom();*/
         }
 
         private void JoinRoom(string name) {

@@ -7,10 +7,17 @@ using UnityEngine;
 namespace IdolFever {
     internal sealed class MultiplayerConnect: MonoBehaviourPunCallbacks {
         #region Fields
+
+        [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut;
+
         #endregion
 
         #region Properties
         #endregion
+
+        public MultiplayerConnect() {
+            asyncSceneTransitionOut = null;
+        }
 
         #region Unity User Callback Event Funcs
 
@@ -30,8 +37,10 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnConnectedToMaster() {
-            //SetActivePanel(SelectionPanel.name);
-            Debug.Log("here2");
+            Debug.Log(PhotonNetwork.InLobby, this);
+
+            asyncSceneTransitionOut.ChangeScene();
+
             Debug.Log(PhotonNetwork.InLobby, this);
         }
 
