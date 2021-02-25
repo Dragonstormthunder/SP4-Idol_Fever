@@ -16,6 +16,15 @@ namespace IdolFever
         private static Character.CharacterFactory.eCHARACTER characterIndex;
         private static int bonus;
 
+        private static string username;
+        private static float lastHighScore;
+
+        private static bool wasThereOpponent;
+        private static string opponentUsername;
+        private static float opponentHighScore;
+
+        private static bool uploadToFirebase;
+
         #endregion
 
 
@@ -46,6 +55,42 @@ namespace IdolFever
             set { bonus = value; }
         }
 
+        public static string Username
+        {
+            get { return username; }
+            set { username = value; }
+        }
+
+        public static float LastHighScore
+        {
+            get { return lastHighScore; }
+            set { lastHighScore = value; }
+        }
+
+        public static bool WasThereOpponent
+        {
+            get { return wasThereOpponent; }
+            set { wasThereOpponent = value; }
+        }
+
+        public static string OpponentUsername
+        {
+            get { return opponentUsername; }
+            set { opponentUsername = value; }
+        }
+
+        public static float OpponentHighScore
+        {
+            get { return opponentHighScore; }
+            set { opponentHighScore = value; }
+        }
+
+        public static bool UploadToFirebase
+        {
+            get { return uploadToFirebase; }
+            set { uploadToFirebase = value; }
+        }
+
         #endregion
 
         static GameConfigurations()
@@ -53,6 +98,16 @@ namespace IdolFever
             songChosen = SongRegistry.SongList.NOT_OPTION;
             characterIndex = Character.CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
             bonus = 0;
+
+            username = "";
+            lastHighScore = 0;
+
+            wasThereOpponent = false;
+            opponentUsername = "";
+            opponentHighScore = 0;
+
+            uploadToFirebase = false;
+
         }
 
     }

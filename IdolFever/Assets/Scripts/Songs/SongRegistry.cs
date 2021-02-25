@@ -14,6 +14,25 @@ namespace IdolFever
             NOT_OPTION
         };
 
+        internal static string GetSongName(SongList index)
+        {
+            switch (index)
+            {
+                default:
+                    return "";
+
+                case SongList.WELLERMAN:
+                    return "Wellerman";
+
+                case SongList.MOUNTAIN_KING:
+                    return "Mountain King";
+
+                case SongList.FUMO_SONG:
+                    return "Fumo Song";
+
+            }
+        }
+
     }
 
 }
