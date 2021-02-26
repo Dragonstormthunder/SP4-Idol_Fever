@@ -12,7 +12,7 @@ namespace IdolFever {
             public static AndroidJavaClass unityPlayer;
             public static AndroidJavaObject currentActivity;
             public static AndroidJavaObject vibrator;
-        #endif
+#endif
 
         #endregion
 
@@ -22,18 +22,24 @@ namespace IdolFever {
         public static void StartVibration() {
             if(isAndroid()) {
                 vibrator.Call("vibrate");
+            } else {
+                Handheld.Vibrate();
             }
         }
 
         public static void StartVibration(long milliseconds) {
             if(isAndroid()) {
                 vibrator.Call("vibrate", milliseconds);
+            } else {
+                Handheld.Vibrate();
             }
         }
 
         public static void StartVibration(long[] pattern, int repeat) {
             if(isAndroid()) {
                 vibrator.Call("vibrate", pattern, repeat);
+            } else {
+                Handheld.Vibrate();
             }
         }
 
