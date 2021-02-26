@@ -14,37 +14,37 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 67a053f5bd83d2d41a1ef828fb86da2b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OptionsScene.unity
     guid: acdbe69fe4182f844a2071e029c77888
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CharacterSelectScene.unity
     guid: 11238fa8c32b1ae4789a20750bf4b6e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SongSelectScene.unity
     guid: a3472345938f9e345960057e6695af74
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MultiplayerLobbyScene.unity
     guid: c8f554dc564162849bda1409e85bac00
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MultiplayerRoomScene.unity
     guid: b997499788d2ab644bf63ad347e3487e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameplayScene.unity
     guid: 7f01d364f61447648a175bead78e3121
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AchievementsScene.unity
     guid: 3ff11fe3b84464f43b1eaf1049b374a6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CharacterStorageScene.unity
     guid: d0fb23b4958b2d84b979826c07e168e1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DrawScene.unity
     guid: 26bb3b7f2ab2d7c43a81acd647187ca3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GachaScene.unity
     guid: 0cb1b1e521e9ca9458eba2f5e50d5e4b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WinLoseScene.unity
     guid: 4e9adc4b8b985944684dcc7660c12056
   m_configObjects: {}
