@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 namespace IdolFever {
     internal sealed class PauseScreen: MonoBehaviour {
@@ -28,14 +29,22 @@ namespace IdolFever {
         public void ActivateSelf() {
             gameObject.SetActive(true);
             pauseButton.SetActive(false);
-            musicPauseControl.PauseAllMusic();
+
+            if(!PhotonNetwork.IsConnected) {
+                musicPauseControl.PauseAllMusic();
+            }
+
             isPaused = true;
         }
 
         public void DeactivateSelf() {
             gameObject.SetActive(false);
             pauseButton.SetActive(true);
-            musicPauseControl.PlayAllMusic();
+
+            if(!PhotonNetwork.IsConnected) {
+                musicPauseControl.PlayAllMusic();
+            }
+
             isPaused = false;
         }
     }
