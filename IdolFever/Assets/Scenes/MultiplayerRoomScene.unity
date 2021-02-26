@@ -1147,14 +1147,14 @@ PrefabInstance:
     - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1449346397}
+      objectReference: {fileID: 1700160504}
     - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: OnClick
       objectReference: {fileID: 0}
     - target: {fileID: 7137554613801523365, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
+      value: IdolFever.LeaveButton, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7137554613801523367, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
       propertyPath: m_Name
@@ -1167,6 +1167,24 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7137554613801523364, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
   m_PrefabInstance: {fileID: 1700160501}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1700160503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7137554613801523367, guid: 87c913d41654ed24eae4ccc0e3d795d1, type: 3}
+  m_PrefabInstance: {fileID: 1700160501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1700160504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700160503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0158e3b1e7756f84890b990facbbfbf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  asyncSceneTransitionOut: {fileID: 1449346397}
 --- !u!1001 &1811577758
 PrefabInstance:
   m_ObjectHideFlags: 0

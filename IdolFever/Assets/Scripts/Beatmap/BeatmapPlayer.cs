@@ -204,22 +204,18 @@ namespace IdolFever.Game
                 NoteRelease(3);
             }
 
-            if (audio.time > audio.clip.length - 1)
-            {
-                if (!isExitingScene)
-                {
+            if(audio.time > audio.clip.length - 1) {
+                if(!isExitingScene) {
                     _ = StartCoroutine(nameof(DcAndChangeScene));
                     isExitingScene = true;
                 }
             }
         }
 
-        private IEnumerator DcAndChangeScene()
-        {
+        private IEnumerator DcAndChangeScene() {
             PhotonNetwork.Disconnect();
 
-            while (PhotonNetwork.IsConnected)
-            {
+            while(PhotonNetwork.IsConnected) {
                 yield return null;
             }
 
@@ -245,6 +241,8 @@ namespace IdolFever.Game
                 }
                 if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
                 {
+                    VibrationControl.StartVibration();
+
                     if ((long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
                     {
                         GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);

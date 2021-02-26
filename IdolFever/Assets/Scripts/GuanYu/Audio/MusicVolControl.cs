@@ -14,15 +14,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Start() {
-            if(!musicCentralControl.dontDestroyOnLoad) {
-                AdjustVolOfMusic();
-            }
-        }
-
-        private void FixedUpdate() {
-            if(musicCentralControl.dontDestroyOnLoad) {
-                AdjustVolOfMusic();
-            }
+            AdjustVolOfMusic();
         }
 
         #endregion

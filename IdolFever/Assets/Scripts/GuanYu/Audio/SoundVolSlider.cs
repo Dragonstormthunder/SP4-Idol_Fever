@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace IdolFever {
@@ -26,6 +27,15 @@ namespace IdolFever {
 
         private void OnSliderValChange() {
             Options.SetSoundVol(soundVolSlider.value);
+
+            var objs = Resources.FindObjectsOfTypeAll<GameObject>().Where(obj => obj.name == "Sound");
+            foreach(GameObject GO in objs) {
+                if(GO.activeSelf) {
+                    foreach(Transform child in GO.transform) {
+                        child.GetComponent<AudioSource>().volume = Options.SoundVol;
+                    }
+                }
+            }
         }
 
         public SoundVolSlider() {
