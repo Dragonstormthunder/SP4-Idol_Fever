@@ -71,13 +71,15 @@ namespace IdolFever.Game
             myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            myChar.name = "GirlCharacter";
 
             otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            otherChar.name = "BoyCharacter";
 
-
-            Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            GameObject stage = Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            stage.name = "Stage";
 
             audio.Play();
             int n = beatmap.beats.Count;
