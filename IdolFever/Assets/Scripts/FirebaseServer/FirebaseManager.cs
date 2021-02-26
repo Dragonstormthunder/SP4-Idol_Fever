@@ -50,7 +50,8 @@ namespace IdolFever.Server
                 {
                     //If they are avalible Initialize Firebase
                     InitializeFirebase();
-
+                    auth.SignOut();
+                    Debug.Log("Log out");
                 }
                 else
                 {
