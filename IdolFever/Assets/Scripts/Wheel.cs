@@ -25,6 +25,7 @@ namespace IdolFever.UI
         //public int CurrentGemsAmount;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
+
         private void Awake()
         {
             StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
@@ -172,7 +173,7 @@ namespace IdolFever.UI
                 _isStarted = false;
                 _startAngle = _finalAngle % 360;
 
-                GiveAwardByAngle();             
+                GiveAwardByAngle();
             }
 
             // Calculate current position using linear interpolation
@@ -189,7 +190,7 @@ namespace IdolFever.UI
         private void RewardGems(int awardGems)
         {
             StaticDataStorage.gems += awardGems;
-           
+
             reward_txt.text = "Gotten: +" + awardGems;
             reward_txt.gameObject.SetActive(true);
 
@@ -219,7 +220,8 @@ namespace IdolFever.UI
 
             StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
             PreviousGemsAmount = StaticDataStorage.gems; //== currGems
-            CurrentGemsText.text = "Current Gems: " + StaticDataStorage.gems.ToString();
+            //CurrentGemsText.text = "Current Gems: " + StaticDataStorage.gems.ToString();
+            CurrentGemsText.text = StaticDataStorage.gems.ToString();
         }
     }
 }
