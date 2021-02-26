@@ -9,7 +9,7 @@ namespace IdolFever.UI
 {
     public class RenderCardPrefabs : MonoBehaviour
     {
-        //public DailyManager database;
+        public ServerDatabase database;
 
         public GameObject gameObjectPanelBg;
 
@@ -74,6 +74,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.R_GirlDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+
+
                     Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
                
 
@@ -111,6 +113,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SR_BoyDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    //StartCoroutine(database.UpdateCharacters//(CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0.ToString(), StaticDataStorage.SR_BoyDrawCount));
+                    
                     Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
                  
                 }

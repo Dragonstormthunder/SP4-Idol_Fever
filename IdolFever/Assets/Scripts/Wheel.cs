@@ -37,7 +37,7 @@ namespace IdolFever.UI
         public void TurnWheel()
         {
             // Player has enough money to turn the wheel
-            //if (StaticDataStorage.gems >= TurnCost)
+            if (StaticDataStorage.gems >= TurnCost)
             {
                 _currentLerpRotationTime = 0f;
 
@@ -83,6 +83,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SSR_Girl = true;
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.CardBack = true;
                         RewardGems(1000);
                     }
@@ -92,6 +95,9 @@ namespace IdolFever.UI
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
                         StaticDataStorage.SR_Girl = true;
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.CardBack = true;
                         RewardGems(300);
                     }
@@ -100,6 +106,9 @@ namespace IdolFever.UI
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got " + c.ToString());
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.R_Girl = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(100);
@@ -109,6 +118,9 @@ namespace IdolFever.UI
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.SR_Boy = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(900);
@@ -118,6 +130,9 @@ namespace IdolFever.UI
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.SSR_Boy = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(200);
@@ -127,6 +142,9 @@ namespace IdolFever.UI
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_BOY0;
                         Debug.Log("You got " + c.ToString());
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.R_Boy = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(300);
@@ -136,6 +154,9 @@ namespace IdolFever.UI
                     {
                         CharacterFactory.eCHARACTER c = CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0;
                         Debug.Log("You got default. : " + c.ToString());
+
+                        SaveCharacter(c);
+
                         StaticDataStorage.R_Girl = true;
                         StaticDataStorage.CardBack = true;
                         RewardGems(100);
@@ -145,20 +166,30 @@ namespace IdolFever.UI
 
         }
 
+        private void SaveCharacter(CharacterFactory.eCHARACTER c)
+        {
+            _ = StartCoroutine(database.NumberOfCharacters(c.ToString(), (numberOfChara) =>
+            {
+                ++numberOfChara;
+                _ = StartCoroutine(database.UpdateCharacters(c.ToString(), numberOfChara));
+            }));
+        }
+
         void Update()
         {
             StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
-            // Make turn button non interactable if user has not enough money for the turn
-            //if (_isStarted || StaticDataStorage.gems < TurnCost)
-            //{
-            //    TurnButton.interactable = false;
-            //    TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
-            //}
-            //else
-            //{
-            //    TurnButton.interactable = true;
-            //    TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 1);
-            //}
+
+            //Make turn button non interactable if user has not enough money for the turn
+            if (_isStarted || StaticDataStorage.gems < TurnCost)
+                {
+                    TurnButton.interactable = false;
+                    TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+                }
+                else
+                {
+                    TurnButton.interactable = true;
+                    TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 1);
+                }
 
             if (!_isStarted)
                 return;
