@@ -545,8 +545,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_ScreenMatchMode: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -586,10 +586,6 @@ PrefabInstance:
     - target: {fileID: 8293394446578864465, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
       propertyPath: m_Name
       value: Music
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293394446578864465, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8293394446578864466, guid: 684f5ba2d41318241aac91ebf2e36b59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1127,7 +1123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1105772766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11497,10 +11493,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fireworks
       objectReference: {fileID: 0}
-    - target: {fileID: 898430569411318242, guid: 5c45dafa7038541458bb47eabb46428e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 898430569411318243, guid: 5c45dafa7038541458bb47eabb46428e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -11516,10 +11508,6 @@ PrefabInstance:
     - target: {fileID: 898430569411318243, guid: 5c45dafa7038541458bb47eabb46428e, type: 3}
       propertyPath: m_Materials.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 898430569411318243, guid: 5c45dafa7038541458bb47eabb46428e, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 898430569411318245, guid: 5c45dafa7038541458bb47eabb46428e, type: 3}
       propertyPath: m_LocalPosition.x
