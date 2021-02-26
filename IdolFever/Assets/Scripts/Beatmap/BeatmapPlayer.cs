@@ -37,6 +37,8 @@ namespace IdolFever.Game
         private Transform myChar, otherChar;
         void Start()
         {
+            // game has started, so we're going to upload the highscore data to firebase after this
+            GameConfigurations.UploadToFirebase = true;
             // check for opponent's presence
             if (PhotonNetwork.IsConnected)
             {
