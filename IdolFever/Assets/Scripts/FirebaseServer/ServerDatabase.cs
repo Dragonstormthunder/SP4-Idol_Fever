@@ -166,7 +166,7 @@ namespace IdolFever.Server
             }
             else if (DBTask.Result.Value == null)
             {
-                callbackOnFinish(0);
+                callbackOnFinish(-1);
             }
             else
             {
