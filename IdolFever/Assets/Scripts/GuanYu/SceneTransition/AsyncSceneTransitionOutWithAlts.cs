@@ -11,12 +11,19 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        public bool Flag {
+            private get;
+            set;
+        }
+
         #endregion
 
         #region Unity User Callback Event Funcs
         #endregion
 
         public AsyncSceneTransitionOutWithAlts() {
+            Flag = false;
             scripts = Array.Empty<AsyncSceneTransitionOut>();
         }
 
@@ -31,8 +38,8 @@ namespace IdolFever {
             UnityEngine.Assertions.Assert.IsTrue(false);
         }
 
-        /*public void ChangeSceneBy() {
-            scripts[Convert.ToInt32(PhotonNetwork.IsConnected)].ChangeScene();
-        }*/
+        public void ChangeSceneByFlag() {
+            scripts[Convert.ToInt32(Flag)].ChangeScene();
+        }
     }
 }
