@@ -23,7 +23,9 @@ namespace IdolFever {
             if(isAndroid()) {
                 vibrator.Call("vibrate");
             } else {
-                Handheld.Vibrate();
+                #if UNITY_ANDROID || UNITY_IPHONE
+                    Handheld.Vibrate();
+                #endif
             }
         }
 
@@ -31,7 +33,9 @@ namespace IdolFever {
             if(isAndroid()) {
                 vibrator.Call("vibrate", milliseconds);
             } else {
-                Handheld.Vibrate();
+                #if UNITY_ANDROID || UNITY_IPHONE
+                    Handheld.Vibrate();
+                #endif
             }
         }
 
@@ -39,7 +43,9 @@ namespace IdolFever {
             if(isAndroid()) {
                 vibrator.Call("vibrate", pattern, repeat);
             } else {
-                Handheld.Vibrate();
+                #if UNITY_ANDROID || UNITY_IPHONE
+                    Handheld.Vibrate();
+                #endif
             }
         }
 
