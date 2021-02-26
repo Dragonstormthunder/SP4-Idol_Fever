@@ -5,7 +5,7 @@ public class EnergyCost : MonoBehaviour
 {
 
     [SerializeField] IdolFever.Server.ServerDatabase b;
-    [SerializeField] IdolFever.AsyncSceneTransitionOut o;
+    [SerializeField] IdolFever.AsyncSceneTransitionOutWithAlts o;
 
     // Use this for initialization
     void Start()
@@ -22,10 +22,11 @@ public class EnergyCost : MonoBehaviour
     public void ChangeEnergy(int i)
     {
         StartCoroutine(b.GetEnergy((d) => {
-            if(d+i > 0)
+            Debug.Log("Energy: " + (d).ToString());
+            if (d+i > 0)
             {
-                b.UpdateEnergy(d + i);
-                o.ChangeScene();
+                StartCoroutine(b.UpdateEnergy(d + i));
+                o.ChangeSceneByFlag();
             }
         }));
     }
