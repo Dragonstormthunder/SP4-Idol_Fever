@@ -18,9 +18,10 @@ namespace IdolFever.Server
         private void Start()
         {
 
-            GameConfigurations.UploadToFirebase = true;
-            GameConfigurations.SongChosen = SongRegistry.SongList.MOUNTAIN_KING;
-            GameConfigurations.LastHighScore = 12345;
+            // for debug accounts to generate the firebase scores
+            //GameConfigurations.UploadToFirebase = true;
+            //GameConfigurations.SongChosen = SongRegistry.SongList.WELLERMAN;
+            //GameConfigurations.LastHighScore = 321432;
 
             // that means a game was played
             // upload the relevant scores to firebase
@@ -54,6 +55,8 @@ namespace IdolFever.Server
                         songKey = ServerDatabase.DBSH_WELLERMAN;
                         break;
                 }
+
+                Debug.Log("Score Just Played: " + GameConfigurations.SongChosen);
 
                 _ = StartCoroutine(serverDatabase.GrabOwnHighScore(songKey, (databaseHighScore) =>
                 {
