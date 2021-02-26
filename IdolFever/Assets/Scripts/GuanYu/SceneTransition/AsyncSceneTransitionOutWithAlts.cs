@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using System;
+using UnityEngine;
 
 namespace IdolFever {
     internal sealed class AsyncSceneTransitionOutWithAlts: MonoBehaviour {
@@ -15,10 +17,10 @@ namespace IdolFever {
         #endregion
 
         public AsyncSceneTransitionOutWithAlts() {
-            scripts = System.Array.Empty<AsyncSceneTransitionOut>();
+            scripts = Array.Empty<AsyncSceneTransitionOut>();
         }
 
-        public void ChangeScene() {
+        public void ChangeSceneByPrevSceneName() {
             foreach(AsyncSceneTransitionOut script in scripts) {
                 if(script.SceneName == SceneTracker.prevSceneName) {
                     script.ChangeScene();
@@ -28,5 +30,9 @@ namespace IdolFever {
 
             UnityEngine.Assertions.Assert.IsTrue(false);
         }
+
+        /*public void ChangeSceneBy() {
+            scripts[Convert.ToInt32(PhotonNetwork.IsConnected)].ChangeScene();
+        }*/
     }
 }
