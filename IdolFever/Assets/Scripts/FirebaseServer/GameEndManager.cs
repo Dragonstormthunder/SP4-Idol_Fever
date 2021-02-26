@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace IdolFever.Server
 {
@@ -10,6 +11,7 @@ namespace IdolFever.Server
         #region
 
         public ServerDatabase serverDatabase;
+        public TextMeshProUGUI gemText;
 
         #endregion
 
@@ -22,6 +24,17 @@ namespace IdolFever.Server
             //GameConfigurations.UploadToFirebase = true;
             //GameConfigurations.SongChosen = SongRegistry.SongList.WELLERMAN;
             //GameConfigurations.LastHighScore = 321432;
+
+            // let the other components update first
+            StartCoroutine(YieldWaitOneSecond());
+
+        }
+
+        #endregion
+
+        private IEnumerator YieldWaitOneSecond()
+        {
+            yield return new WaitForSeconds(1);
 
             // that means a game was played
             // upload the relevant scores to firebase
@@ -41,7 +54,7 @@ namespace IdolFever.Server
                         // there is no song match
                         Debug.LogError("No song match");
                         GameConfigurations.UploadToFirebase = false;
-                        return; // kill the function here
+                        yield break;
 
                     case SongRegistry.SongList.FUMO_SONG:
                         songKey = ServerDatabase.DBSH_ORIGINAL_SONG;
@@ -76,13 +89,37 @@ namespace IdolFever.Server
 
                 }));
 
+                // reward gems for completing a valid song
+                _ = StartCoroutine(serverDatabase.GetGems((gems) =>
+                {
+
+                    Debug.Log("Gems Before: " + gems);
+
+                    gems += 10;
+
+                    Debug.Log("Gems After: " + gems);
+
+                    _ = StartCoroutine(serverDatabase.UpdateGems(gems));
+
+                    // just check if there's an UI available
+                    if (gemText != null)
+                    {
+                        Debug.Log("inside: " + gems);
+
+                        // update here beause the stat box may not retrieve the correct data
+                        // since asynchronous it probably completed its gem pull already
+                        gemText.text = gems.ToString();
+
+                    }
+
+                }));
+
                 // reset to false
                 // the results have been uploaded to firebase, don't want it to call again
                 GameConfigurations.UploadToFirebase = false;
             }
-        }
 
-        #endregion
+        }
 
 
     }
