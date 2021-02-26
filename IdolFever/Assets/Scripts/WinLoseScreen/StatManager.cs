@@ -38,14 +38,14 @@ namespace IdolFever
 
             // init
             myName.text = GameConfigurations.Username;
-            myScore.text = "Score: " + GameConfigurations.LastHighScore.ToString();
+            myScore.text = "Score: " + GameConfigurations.LastHighScore.ToString("#.");
 
             // if there is an opponent then we need to set opponent values
             // and positions
             if (GameConfigurations.WasThereOpponent)
             {
                 opponentName.text = GameConfigurations.OpponentUsername;
-                opponentScore.text = "Score: " + GameConfigurations.OpponentHighScore.ToString();
+                opponentScore.text = "Score: " + GameConfigurations.OpponentHighScore.ToString("#.");
 
                 // i win
                 if (GameConfigurations.LastHighScore > GameConfigurations.OpponentHighScore)
