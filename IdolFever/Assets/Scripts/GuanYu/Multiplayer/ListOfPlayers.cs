@@ -34,13 +34,13 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnPlayerEnteredRoom(Player newPlayer) {
-            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount, this);
 
             UpdatePlayerBlocks();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer) {
-            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount, this);
 
             UpdatePlayerBlocks();
         }

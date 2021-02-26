@@ -158,7 +158,7 @@ namespace IdolFever {
         }
 
         private void CreateRoom() {
-            RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 10000 };
+            RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 0 };
 
             PhotonNetwork.CreateRoom(null, options, null);
         }

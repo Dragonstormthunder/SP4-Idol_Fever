@@ -29,22 +29,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerRoomScene.unity
     guid: b997499788d2ab644bf63ad347e3487e
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameplayScene.unity
     guid: 7f01d364f61447648a175bead78e3121
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/AchievementsScene.unity
     guid: 3ff11fe3b84464f43b1eaf1049b374a6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CharacterStorageScene.unity
     guid: d0fb23b4958b2d84b979826c07e168e1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DailyScene.unity
     guid: ce135b2f8d4e17848b6380b1d3ee68b6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DrawScene.unity
     guid: 26bb3b7f2ab2d7c43a81acd647187ca3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/WinLoseScene.unity
     guid: 4e9adc4b8b985944684dcc7660c12056
   m_configObjects: {}
