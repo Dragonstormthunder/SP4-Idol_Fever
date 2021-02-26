@@ -91,8 +91,7 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            if (PauseScreen.isPaused)
-            {
+            if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
                 return;
             }
 

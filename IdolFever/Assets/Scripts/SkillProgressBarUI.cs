@@ -1,11 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using IdolFever;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillProgressBarUI : MonoBehaviour
-{
-
+public class SkillProgressBarUI: MonoBehaviour {
     #region Fields
 
     [SerializeField] private float maxValue;
@@ -16,29 +14,34 @@ public class SkillProgressBarUI : MonoBehaviour
 
     #region Properties
 
-    public float MaxValue
-    {
-        get { return maxValue; }
-        set { maxValue = value; }
+    public float MaxValue {
+        get {
+            return maxValue;
+        }
+        set {
+            maxValue = value;
+        }
     }
 
-    public float MinValue
-    {
-        get { return minValue; }
-        set { minValue = value; }
+    public float MinValue {
+        get {
+            return minValue;
+        }
+        set {
+            minValue = value;
+        }
     }
 
     #endregion
 
-    #region Unity Messages
-
-    private void Start()
-    {
+    private void Start() {
         image = GetComponent<Image>();
     }
 
-    void Update()
-    {
+    void Update() {
+        if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
+            return;
+        }
 
         minValue -= Time.deltaTime;
 
@@ -47,14 +50,10 @@ public class SkillProgressBarUI : MonoBehaviour
 
         // set the color
         float factor = minValue / maxValue * 0.5f + 0.8f;
-        if(factor > 1.0f){
+        if(factor > 1.0f) {
             factor -= 1.0f;
         }
 
         image.color = Color.HSVToRGB(factor, 1.0f, 1.0f);
-
     }
-
-    #endregion
-
 }
