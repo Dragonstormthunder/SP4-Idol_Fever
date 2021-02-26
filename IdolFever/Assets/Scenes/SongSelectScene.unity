@@ -244,7 +244,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2242,7 +2242,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2618,7 +2618,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2752,7 +2752,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -4333,7 +4333,7 @@ MonoBehaviour:
   m_fontSize: 48
   m_fontSizeBase: 48
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -4501,6 +4501,7 @@ GameObject:
   - component: {fileID: 2119153572}
   - component: {fileID: 2119153571}
   - component: {fileID: 2119153574}
+  - component: {fileID: 2119153575}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -4571,13 +4572,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2119153574}
-        m_TargetAssemblyTypeName: EnergyCost, Assembly-CSharp
-        m_MethodName: ChangeEnergy
-        m_Mode: 3
+        m_TargetAssemblyTypeName: IdolFever.AsyncSceneTransitionOutWithAlts, Assembly-CSharp
+        m_MethodName: ChangeSceneByFlag
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: -5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4629,11 +4630,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 2119153569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ba4740a27205444999e72bbd3c574b5, type: 3}
+  m_Script: {fileID: 11500000, guid: c6c667fdb09262941bc509554c6b4345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  b: {fileID: 2116204606}
-  o: {fileID: 1433928518}
+  scripts:
+  - {fileID: 1433928518}
+  - {fileID: 1544518611}
+--- !u!114 &2119153575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119153569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfa638348e9d8a489ba9f2a85bc5743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 2119153574}
 --- !u!1001 &352150138511293063
 PrefabInstance:
   m_ObjectHideFlags: 0
