@@ -33,7 +33,7 @@ namespace IdolFever.Server
                     StartCoroutine(serverDatabase.UpdateCharacters(Character.CharacterFactory.eCHARACTER.R_CHARACTER_BOY0.ToString(), 1));
                     StartCoroutine(serverDatabase.UpdateCharacters(Character.CharacterFactory.eCHARACTER.R_CHARACTER_GIRL0.ToString(), 1));
                     StartCoroutine(serverDatabase.UpdateGems(500));
-                    gemText.text = "500";
+                    gemText.text = "500"; // probably won't update in time for the firebase to retrieve in the scene in energy text
                 }
 
             }));
