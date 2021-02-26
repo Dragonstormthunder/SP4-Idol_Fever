@@ -45,10 +45,8 @@ public class SkillProgressBarUI: MonoBehaviour {
 
         minValue -= Time.deltaTime;
 
-        // scale the item
         transform.localScale = new Vector2(minValue / maxValue, transform.localScale.y);
 
-        // set the color
         float factor = minValue / maxValue * 0.5f + 0.8f;
         if(factor > 1.0f) {
             factor -= 1.0f;

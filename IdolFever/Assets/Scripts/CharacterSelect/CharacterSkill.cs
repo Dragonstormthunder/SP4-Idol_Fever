@@ -225,6 +225,9 @@ namespace IdolFever.Character
 
         public void Update()
         {
+            if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
+                return;
+            }
 
             // -------------- if our skill is active ----------------
             ElaspedTime -= Time.deltaTime;
