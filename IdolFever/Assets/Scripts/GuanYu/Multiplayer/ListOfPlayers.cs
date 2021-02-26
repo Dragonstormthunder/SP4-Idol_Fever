@@ -36,30 +36,50 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnPlayerEnteredRoom(Player newPlayer) {
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+
             UpdatePlayerBlocks();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer) {
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+
             UpdatePlayerBlocks();
         }
 
         #endregion
 
         private void UpdatePlayerBlocks() {
-            int index = 1;
-            foreach(Player player in PhotonNetwork.PlayerList) {
-                GameObject playerBlockGO = playerBlocks[player == PhotonNetwork.LocalPlayer ? 0 : index];
+            int amtOfPlayerBlocks = playerBlocks.Length;
+            Player[] players = PhotonNetwork.PlayerList;
+            int index = 0;
+
+            for(int i = 0; i < amtOfPlayerBlocks; ++i){
+                GameObject playerBlockGO = playerBlocks[i];
 
                 PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
-                playerBlockScript.ActorNumber = player.ActorNumber;
-                playerBlockScript.Nickname = player.NickName;
+
+                if(i < PhotonNetwork.CurrentRoom.PlayerCount) {
+                    if(i == 0) {
+                        playerBlockScript.ActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+                        playerBlockScript.Nickname = PhotonNetwork.LocalPlayer.NickName;
+                    } else {
+                        Player myPlayer = players[index];
+
+                        if(myPlayer == PhotonNetwork.LocalPlayer) {
+                            myPlayer = players[++index];
+                        }
+
+                        playerBlockScript.ActorNumber = myPlayer.ActorNumber;
+                        playerBlockScript.Nickname = myPlayer.NickName;
+                    }
+                } else {
+                    playerBlockScript.ActorNumber = -999;
+                    playerBlockScript.Nickname = string.Empty;
+                }
 
                 TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();
                 tmpComponent.text = playerBlockScript.Nickname;
-
-                if(player != PhotonNetwork.LocalPlayer) {
-                    ++index;
-                }
             }
         }
 
