@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using IdolFever.Server;
 using IdolFever.Character;
+using TMPro;
 
 namespace IdolFever.UI
 {
     public class RenderCardPrefabs : MonoBehaviour
     {
         public ServerDatabase database;
+
+        public TextMeshProUGUI cardDrawnTxt;
 
         public GameObject gameObjectPanelBg;
 
@@ -52,11 +55,13 @@ namespace IdolFever.UI
                 //have bg when card are rendered (hide the wheel)
                 OnPanel(gameObjectPanelBg);
                 btnClose.GetComponent<Button>().interactable = false;
+                cardDrawnTxt.text = "";
             }
             if (StaticDataStorage.CardBack == true)
             {
                 createCardBackPrefab();
                 StaticDataStorage.CardBack = false;
+                cardDrawnTxt.text = "";
             }
         
             if (StaticDataStorage.isFlipped == true)
@@ -77,7 +82,7 @@ namespace IdolFever.UI
 
 
                     Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
-               
+                    cardDrawnTxt.text = "Congrats! R GIRL Drawn !";
 
                 }
                 if (StaticDataStorage.R_Boy == true && StaticDataStorage.CardBack == false)
@@ -90,7 +95,9 @@ namespace IdolFever.UI
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
                     Debug.Log("StaticDataStorage.R_BoyDrawCount:" + StaticDataStorage.R_BoyDrawCount.ToString());
-             
+                    cardDrawnTxt.text = "Congrats! R BOY Drawn !";
+
+
                 }
                 if (StaticDataStorage.SR_Girl == true && StaticDataStorage.CardBack == false)
                 {
@@ -102,7 +109,7 @@ namespace IdolFever.UI
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
                     Debug.Log("StaticDataStorage.SR_GirlDrawCount:" + StaticDataStorage.SR_GirlDrawCount.ToString());
-                 
+                    cardDrawnTxt.text = "Congrats! SR GIRL Drawn !";
                 }
                 if (StaticDataStorage.SR_Boy == true && StaticDataStorage.CardBack == false)
                 {
@@ -116,7 +123,7 @@ namespace IdolFever.UI
                     //StartCoroutine(database.UpdateCharacters//(CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0.ToString(), StaticDataStorage.SR_BoyDrawCount));
                     
                     Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
-                 
+                    cardDrawnTxt.text = "Congrats! SR BOY Drawn !";
                 }
                 if (StaticDataStorage.SSR_Girl == true && StaticDataStorage.CardBack == false)
                 {
@@ -128,7 +135,7 @@ namespace IdolFever.UI
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
                     Debug.Log("StaticDataStorage.SSR_GirlDrawCount:" + StaticDataStorage.SSR_GirlDrawCount.ToString());
-                 
+                    cardDrawnTxt.text = "Congrats! SSR GIRL Drawn !";
                 }
                 if (StaticDataStorage.SSR_Boy == true)
                 {
@@ -140,7 +147,7 @@ namespace IdolFever.UI
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
                     Debug.Log("StaticDataStorage.SSR_BoyDrawCount:" + StaticDataStorage.SSR_BoyDrawCount.ToString());
-                 
+                    cardDrawnTxt.text = "Congrats! SSR BOY Drawn !";
                 }
 
                 Debug.Log("cardBackIsActive.cardBackIsActive:");
@@ -156,54 +163,55 @@ namespace IdolFever.UI
                 //    StaticDataStorage.SSR_GirlDrawCount, StaticDataStorage.SSR_BoyDrawCount));
                 keysActive = false;
                 btnClose.GetComponent<Button>().interactable = false;
+                cardDrawnTxt.text = "";
             }
         }
 
         private void createCardBackPrefab()
         {
-            CardBack_Clone = Instantiate(CardBackPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            CardBack_Clone = Instantiate(CardBackPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned CardBackInstantiate");
         }
 
         private void createR_GirlPrefab()
         {
-            R_Girl_Clone = Instantiate(R_imageGirlPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            R_Girl_Clone = Instantiate(R_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned R GirlInstantiate");
         }
 
         private void createR_BoyPrefab()
         {
-            R_Boy_Clone = Instantiate(R_imageBoyPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            R_Boy_Clone = Instantiate(R_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned R_Boy_Instantiate");
         }
 
         private void createSR_GirlPrefab()
         {
-            SR_Girl_Clone = Instantiate(SR_imageGirlPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            SR_Girl_Clone = Instantiate(SR_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned SR GirlInstantiate");
         }
 
         private void createSR_BoyPrefab()
         {
-            SR_Boy_Clone = Instantiate(SR_imageBoyPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            SR_Boy_Clone = Instantiate(SR_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned SR_Boy_Instantiate");
         }
 
         private void createSSR_GirlPrefab()
         {
-            SSR_Girl_Clone = Instantiate(SSR_imageGirlPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            SSR_Girl_Clone = Instantiate(SSR_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned SSR GirlInstantiate");
         }
 
         private void createSSR_BoyPrefab()
         {
-            SSR_Boy_Clone = Instantiate(SSR_imageBoyPrefab, new Vector3(450, 207, 0), Quaternion.identity) as GameObject;
+            SSR_Boy_Clone = Instantiate(SSR_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
             Debug.Log("Spawned SSR_Boy_Instantiate");
         }

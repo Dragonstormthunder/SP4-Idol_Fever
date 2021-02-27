@@ -37,7 +37,7 @@ namespace IdolFever.UI
         public void TurnWheel()
         {
             // Player has enough money to turn the wheel
-            //if (StaticDataStorage.gems >= TurnCost)
+            if (StaticDataStorage.gems >= TurnCost)
             {
                 _currentLerpRotationTime = 0f;
 
@@ -180,16 +180,16 @@ namespace IdolFever.UI
             StartCoroutine(database.UpdateGems(StaticDataStorage.gems));
 
             //Make turn button non interactable if user has not enough money for the turn
-            //if (_isStarted || StaticDataStorage.gems < TurnCost)
-            //    {
-            //        TurnButton.interactable = false;
-            //        TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
-            //    }
-            //    else
-            //    {
-            //        TurnButton.interactable = true;
-            //        TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 1);
-            //    }
+            if (_isStarted || StaticDataStorage.gems < TurnCost)
+            {
+                TurnButton.interactable = false;
+                TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 0.5f);
+            }
+            else
+            {
+                TurnButton.interactable = true;
+                TurnButton.GetComponent<Image>().color = new Color(255, 255, 255, 1);
+            }
 
             if (!_isStarted)
                 return;
