@@ -65,26 +65,20 @@ namespace IdolFever {
                 }
                 if(info.CustomProperties.TryGetValue("songSelected", out object songSelected)) { //Inline var declaration
                     if((int)GameConfigurations.SongChosen != (int)songSelected) {
-                        Debug.Log("here1", this);
                         continue;
                     }
                 } else {
-                    Debug.Log("here2", this);
                     continue;
                 }
 
-                Debug.Log("here3", this);
                 JoinRoom(info.Name);
                 yield break;
             }
 
-            Debug.Log("here4", this);
             CreateRoom();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
-            Debug.Log("here_la2");
-
             if(!is1stUpdated) {
                 is1stUpdated = true;
             }
@@ -106,39 +100,12 @@ namespace IdolFever {
             asyncSceneTransitionOut.ChangeScene();
         }
 
-        public override void OnRoomPropertiesUpdate(Hashtable hashtable) {
-            Debug.Log("here_la");
-        }
-
         public override void OnCreateRoomFailed(short returnCode, string message) {
             Debug.LogError("OnCreateRoomFailed " + '(' + returnCode + "): " + message);
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message) {
             Debug.LogError("OnJoinRoomFailed " + '(' + returnCode + "): " + message);
-        }
-
-
-
-
-        public override void OnMasterClientSwitched(Player newMasterClient) {
-            /*if(PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber) {
-                StartGameButton.gameObject.SetActive(CheckPlayersReady());
-            }*/
-        }
-
-        public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps) {
-            /*if(playerListEntries == null) {
-                playerListEntries = new Dictionary<int, GameObject>();
-            }
-
-            if(playerListEntries.TryGetValue(targetPlayer.ActorNumber, out GameObject entry)) { //Inline var declaration
-                if(changedProps.TryGetValue("IsPlayerReady", out object isPlayerReady)) { //Inline var declaration
-                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
-                }
-            }*/
-
-            //StartGameButton.gameObject.SetActive(CheckPlayersReady()); //here
         }
 
         #endregion
