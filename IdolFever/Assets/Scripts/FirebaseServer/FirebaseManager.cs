@@ -11,12 +11,17 @@ namespace IdolFever.Server
 {
     public class FirebaseManager : MonoBehaviour
     {
+
+        #region Fields
+
         //Firebase variables
         [Header("Firebase")]
         public DependencyStatus dependencyStatus;
         public FirebaseAuth auth;
         public FirebaseUser User;
         public DatabaseReference DBreference;
+        //public static bool firebaseReady;
+        //public TextMeshProUGUI helpDebug;
 
         //Login variables
         [Header("Login")]
@@ -35,38 +40,111 @@ namespace IdolFever.Server
 
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut = null;
 
-        void Awake()
+        #endregion
+
+        #region Unity Messages
+
+        void Start()
         {
             Init();
         }
 
+        //private void OnDestroy()
+        //{
+            //if (auth != null)
+            //{
+            //    auth.StateChanged -= AuthStateChanged;
+            //}
+        //}
+
+        #endregion
+
         private void Init()
         {
             //Check that all of the necessary dependencies for Firebase are present on the system
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+            Debug.Log("Inside Init");
+
+            //firebaseReady = true;
+
+            //firebaseReady = false;
+            auth = null;
+            User = null;
+            DBreference = null;
+
+            // CheckAndFixDependenciesAsync() appears to conflict with android builds
+            // so we are removing it here
+            // this allows android to access firebase correctly
+            // however we need to integrate our own check for internet here
+
+            //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+            //{
+            //    dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
             {
-                dependencyStatus = task.Result;
-                if (dependencyStatus == DependencyStatus.Available)
-                {
-                    //If they are avalible Initialize Firebase
-                    InitializeFirebase();
-                    auth.SignOut();
-                    Debug.Log("Log out");
-                }
-                else
-                {
-                    Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
-                }
-            });
+                //If they are avalible Initialize Firebase
+                InitializeFirebase();
+
+                //auth.StateChanged += AuthStateChanged;
+                //AuthStateChanged(this, null);
+                //if (auth.CurrentUser != null)
+                //    Debug.Log("User: " + auth.CurrentUser.DisplayName + " is logged in");
+                //if (auth.CurrentUser != null)
+                //    Debug.Log("User2: " + auth.CurrentUser.DisplayName + " is logged in");
+                //Debug.Log("Log out");
+                //warningLoginText.text = "Auth signed out";
+
+            }
+            else
+            {
+                Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
+            }
+            //});
 
         }
+
+        // check if auth changed, useful for debugging
+        //void AuthStateChanged(object sender, System.EventArgs eventArgs)
+        //{
+        //    if (auth.CurrentUser != User)
+        //    {
+        //        bool signedIn = User != auth.CurrentUser && auth.CurrentUser != null;
+        //        if (!signedIn && User != null)
+        //        {
+        //            Debug.Log("Signed out " + User.DisplayName + " :" + User.UserId);
+        //            //helpDebug.text = "Signed out " + User.DisplayName + " :" + User.UserId;
+        //        }
+        //        User = auth.CurrentUser;
+        //        if (signedIn)
+        //        {
+        //            Debug.Log("Signed in " + User.DisplayName + " :" + User.UserId);
+        //            //helpDebug.text = "Signed in " + User.DisplayName + " :" + User.UserId;
+        //        }
+        //    }
+        //}
 
         private void InitializeFirebase()
         {
             Debug.Log("Setting up Firebase Auth");
             //Set the authentication instance object
             auth = FirebaseAuth.DefaultInstance;
+
+            FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+
+            //if (auth.CurrentUser != null)
+            //{
+            //    helpDebug.text = "Hi Ro";
+            //}
+
+            auth.SignOut();
+
+            //if (auth.CurrentUser != null)
+            //{
+            //    helpDebug.text = "Hi So";
+            //}
+
+            //firebaseReady = true;
+
         }
 
         //Function for the login button
@@ -74,22 +152,92 @@ namespace IdolFever.Server
         {
             warningLoginText.text = confirmLoginText.text = "";
 
+            //if (firebaseReady)
+            //{
             //Call the login coroutine passing the email and password
             StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
+            //Login(emailLoginField.text, passwordLoginField.text);
+            //}
+            //else
+            //{
+            Debug.Log("Login: Firebase not ready!");
+            //}
         }
+
         //Function for the register button
         public void RegisterButton()
         {
+            //if (firebaseReady)
+            //{
             //Call the register coroutine passing the email, password, and username
             StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
+            //}
+            //else
+            //{
+            Debug.Log("Register: Firebase not ready!");
+            //}
         }
 
         private IEnumerator Login(string _email, string _password)
         {
+
+            warningLoginText.text = "Inside Login";
+
+            auth.SignOut();
+
+            warningLoginText.text = "Auth Signed out";
+
+            //auth.SignInWithEmailAndPasswordAsync(_email, _password).ContinueWith(task =>
+            //{
+            //    if (task.IsCanceled)
+            //    {
+            //        Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
+            //        return;
+            //    }
+            //    if (task.IsFaulted)
+            //    {
+            //        Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
+            //        string message = "Login Failed!";
+            //        FirebaseException firebaseEx = task.Exception.GetBaseException() as FirebaseException;
+            //        AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
+            //        switch (errorCode)
+            //        {
+            //            case AuthError.MissingEmail:
+            //                message = "Missing Email";
+            //                break;
+            //            case AuthError.MissingPassword:
+            //                message = "Missing Password";
+            //                break;
+            //            case AuthError.WrongPassword:
+            //                message = "Wrong Password";
+            //                break;
+            //            case AuthError.InvalidEmail:
+            //                message = "Invalid Email";
+            //                break;
+            //            case AuthError.UserNotFound:
+            //                message = "Account does not exist";
+            //                break;
+            //        }
+            //        confirmLoginText.text = "";
+            //        warningLoginText.text = message;
+            //        return;
+            //    }
+            //    FirebaseUser newUser = task.Result;
+            //    Debug.LogFormat("User signed in successfully: {0} ({1})",
+            //        newUser.DisplayName, newUser.UserId);
+            //    warningLoginText.text = "";
+            //    confirmLoginText.text = "Logged In";
+            //    asyncSceneTransitionOut.ChangeScene();
+            //});
+
+
             //Call the Firebase auth signin function passing the email and password
             var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
+
             //Wait until the task completes
             yield return new WaitUntil(predicate: () => LoginTask.IsCompleted);
+
+            warningLoginText.text = "Login Task Is Done";
 
             if (LoginTask.Exception != null)
             {
@@ -98,7 +246,7 @@ namespace IdolFever.Server
                 FirebaseException firebaseEx = LoginTask.Exception.GetBaseException() as FirebaseException;
                 AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
 
-                string message = "Login Failed!";
+                string message = "Login Failed: ";
                 switch (errorCode)
                 {
                     case AuthError.MissingEmail:
@@ -228,6 +376,7 @@ namespace IdolFever.Server
                 }
             }
         }
+
     }
 
 }

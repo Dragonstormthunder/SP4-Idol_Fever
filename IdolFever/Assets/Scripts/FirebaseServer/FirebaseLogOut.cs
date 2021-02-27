@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Firebase.Auth;
+using Firebase.Database;
 
 namespace IdolFever.Server
 {
@@ -24,6 +25,7 @@ namespace IdolFever.Server
         {
             // sign out the user
             FirebaseAuth.DefaultInstance.SignOut();
+            Debug.Log("Signed out");
         }
 
         #endregion
