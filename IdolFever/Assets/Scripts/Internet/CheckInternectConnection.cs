@@ -89,7 +89,13 @@ namespace IdolFever.Internet
                 else if (Time.time - pingStartTime < waitingTime)
                     stopCheck = false;
                 else
+                {
                     InternetIsNotAvailable();
+
+                    // make a new ping to look for more internet
+                    ping = new Ping(pingAddress);
+                    pingStartTime = Time.time;
+                }
                 if (stopCheck)
                     ping = null; // reset check
             }
@@ -105,7 +111,7 @@ namespace IdolFever.Internet
         private void InternetAvailable()
         {
             Debug.Log("Internet is available! ;)");
-            // do nothing
+            InternetPanelPopUp.SetActive(false);
         }
 
         public void QuitButton()
