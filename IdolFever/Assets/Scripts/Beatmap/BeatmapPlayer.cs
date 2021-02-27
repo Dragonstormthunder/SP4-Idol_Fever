@@ -36,6 +36,25 @@ namespace IdolFever.Game
         private ulong usec;
 
         private Transform myChar, otherChar;
+
+
+
+        internal static int StageIndex {
+            get;
+            set;
+        }
+
+        static BeatmapPlayer() {
+            StageIndex = -1;
+        }
+
+
+        private void Awake() {
+            if(!PhotonNetwork.IsConnected) {
+                StageIndex = UnityEngine.Random.Range(0, 1);
+            }
+        }
+
         void Start()
         {
             // game has started, so we're going to upload the highscore data to firebase after this
@@ -70,7 +89,7 @@ namespace IdolFever.Game
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             otherChar.name = "BoyCharacter";
 
-            GameObject stage = Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            GameObject stage = Instantiate(stages[StageIndex], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
             stage.name = "Stage";
 
             audio.Play();
