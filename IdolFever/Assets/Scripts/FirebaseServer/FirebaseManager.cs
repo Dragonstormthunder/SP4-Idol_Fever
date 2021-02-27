@@ -38,6 +38,9 @@ namespace IdolFever.Server
         public TMP_InputField passwordRegisterVerifyField;
         public TMP_Text warningRegisterText;
 
+        private const string PLAYER_LAST_EMAIL = "last_email";
+        private const string PLAYER_LAST_PASSWORD = "last_password";
+
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut = null;
 
         #endregion
@@ -70,6 +73,10 @@ namespace IdolFever.Server
             auth = null;
             User = null;
             DBreference = null;
+
+            // load from playerprefs the password and the username if any
+            emailLoginField.text = PlayerPrefs.GetString(PLAYER_LAST_EMAIL, "");
+            passwordLoginField.text = PlayerPrefs.GetString(PLAYER_LAST_PASSWORD, "");
 
             // CheckAndFixDependenciesAsync() appears to conflict with android builds
             // so we are removing it here
@@ -235,6 +242,11 @@ namespace IdolFever.Server
                 Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
                 warningLoginText.text = "";
                 confirmLoginText.text = "Logged In";
+
+                // save to player prefs the password and username
+                PlayerPrefs.SetString(PLAYER_LAST_EMAIL, _email);
+                PlayerPrefs.SetString(PLAYER_LAST_PASSWORD, _password);
+                PlayerPrefs.Save(); // just to save it
 
                 asyncSceneTransitionOut.ChangeScene();
             }
