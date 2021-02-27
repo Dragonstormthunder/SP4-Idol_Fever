@@ -7874,9 +7874,13 @@ MonoBehaviour:
   start: {fileID: 21300000, guid: 4bd3ae5c8ae54f64aafdf3939fe9c4e1, type: 3}
   end: {fileID: 21300000, guid: eb00163238f201643bcebde8db0d055c, type: 3}
   songs:
-  - {fileID: 8300000, guid: 9638e6fbcd61e7a4fbb6d0bde1a51c16, type: 3}
-  - {fileID: 8300000, guid: 9db00402927b7ec46ac0f71277ef5334, type: 3}
   - {fileID: 8300000, guid: 003855e696a79bd4494fba64c70833c8, type: 3}
+  - {fileID: 8300000, guid: 9db00402927b7ec46ac0f71277ef5334, type: 3}
+  - {fileID: 8300000, guid: 9638e6fbcd61e7a4fbb6d0bde1a51c16, type: 3}
+  songFileNames:
+  - Wellerman.mid
+  - MountainKing.mid
+  - OriginalSong1.mid
   sprites:
   - {fileID: 21300000, guid: 0174df9bcd4e3d948927db157875c78b, type: 3}
   - {fileID: 21300000, guid: 9b4ee0f5224829a4e8765e9b3813e2f6, type: 3}

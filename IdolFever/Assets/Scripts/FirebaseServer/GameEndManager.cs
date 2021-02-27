@@ -69,7 +69,7 @@ namespace IdolFever.Server
                         break;
                 }
 
-                Debug.Log("Score Just Played: " + GameConfigurations.SongChosen);
+                Debug.Log("Song Just Played: " + GameConfigurations.SongChosen);
 
                 _ = StartCoroutine(serverDatabase.GrabOwnHighScore(songKey, (databaseHighScore) =>
                 {

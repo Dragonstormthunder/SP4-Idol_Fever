@@ -34,7 +34,7 @@ namespace IdolFever
         {
             get
             {
-                if (SongRegistry.SongList.NOT_OPTION == songChosen)
+                if (songChosen == SongRegistry.SongList.NOT_OPTION)
                 {
                     songChosen = SongRegistry.SongList.MOUNTAIN_KING;
                 }

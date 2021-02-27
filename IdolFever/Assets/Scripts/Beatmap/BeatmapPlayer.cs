@@ -26,6 +26,7 @@ namespace IdolFever.Game
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
+        [SerializeField] private List<string> songFileNames;
         [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
         [SerializeField] private List<GameObject> characters;
@@ -51,21 +52,12 @@ namespace IdolFever.Game
                 GameConfigurations.WasThereOpponent = false;
             }
 
-            beatmap = BeatmapReader.Open("Wellerman.mid");
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
-            {
-                audio.clip = songs[0];
-                beatmap = BeatmapReader.Open("OriginalSong1.mid");
-            }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
-            {
-                audio.clip = songs[1];
-                beatmap = BeatmapReader.Open("MountainKing.mid");
-            }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
-            {
-                audio.clip = songs[2];
-                beatmap = BeatmapReader.Open("Wellerman.mid");
+            if((int)GameConfigurations.SongChosen < (int)SongRegistry.SongList.NOT_OPTION) {
+                int index = (int)GameConfigurations.SongChosen;
+                audio.clip = songs[index];
+                beatmap = BeatmapReader.Open(songFileNames[index]);
+            } else {
+                beatmap = BeatmapReader.Open(songFileNames[0]);
             }
 
             myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
