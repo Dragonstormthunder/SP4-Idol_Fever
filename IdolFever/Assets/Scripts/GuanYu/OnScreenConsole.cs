@@ -32,7 +32,7 @@ namespace IdolFever {
         }
 
         private void Update() {
-            if(Debug.isDebugBuild && Input.GetKeyDown(KeyCode.RightShift)) {
+            if(Input.GetKeyDown(KeyCode.RightShift)) {
                 doShow = !doShow;
             }
         }

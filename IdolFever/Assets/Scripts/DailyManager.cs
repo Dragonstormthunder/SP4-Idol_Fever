@@ -147,14 +147,14 @@ namespace IdolFever.Server
         //    }
         //    else
         //    {
-        //        Debug.Log("Snapshot Progress");
+        //        //Debug.Log("Snapshot Progress");
         //        DataSnapshot snapshot = DBTask.Result;
 
         //        List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
         //        if (snapshot.HasChild(DATABASE_TOTAL_RGIRLS_DRAWN))
         //        {
-        //            Debug.Log("Able to access data");
+        //            //Debug.Log("Able to access data");
         //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_RGIRLS_DRAWN).Value.ToString());
 
         //            Debug.LogWarning("value: " + value);
@@ -167,7 +167,7 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data ");
+        //            //Debug.Log("Unable to access data ");
         //            callbackOnFinish(0);
         //        }
 
@@ -186,13 +186,13 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data multi");
+        //            //Debug.Log("Unable to access data multi");
         //            callbackOnFinish(0);
         //        }
 
         //        if (snapshot.HasChild(DATABASE_TOTAL_SRGIRLS_DRAWN))
         //        {
-        //            Debug.Log("Able to access data");
+        //            //Debug.Log("Able to access data");
         //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SRGIRLS_DRAWN).Value.ToString());
 
         //            Debug.LogWarning("value: " + value);
@@ -205,7 +205,7 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data ");
+        //            //Debug.Log("Unable to access data ");
         //            callbackOnFinish(0);
         //        }
 
@@ -224,13 +224,13 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data multi");
+        //            //Debug.Log("Unable to access data multi");
         //            callbackOnFinish(0);
         //        }
 
         //        if (snapshot.HasChild(DATABASE_TOTAL_SSRGIRLS_DRAWN))
         //        {
-        //            Debug.Log("Able to access data");
+        //            //Debug.Log("Able to access data");
         //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SSRGIRLS_DRAWN).Value.ToString());
 
         //            Debug.LogWarning("value: " + value);
@@ -243,7 +243,7 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data ");
+        //            //Debug.Log("Unable to access data ");
         //            callbackOnFinish(0);
         //        }
 
@@ -262,7 +262,7 @@ namespace IdolFever.Server
         //        }
         //        else
         //        {
-        //            Debug.Log("Unable to access data multi");
+        //            //Debug.Log("Unable to access data multi");
         //            callbackOnFinish(0);
         //        }
 
@@ -310,14 +310,14 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Progress");
+                //Debug.Log("Snapshot Progress");
                 DataSnapshot snapshot = DBTask.Result;
 
                 List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_TOTAL_ROUND_PLAYED))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_TOTAL_ROUND_PLAYED).Value.ToString());
 
                     Debug.LogWarning("value: " + value);
@@ -330,7 +330,7 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Unable to access data ");
+                    //Debug.Log("Unable to access data ");
                     callbackOnFinish(0);
                 }
 
@@ -349,7 +349,7 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Unable to access data multi");
+                    //Debug.Log("Unable to access data multi");
                     callbackOnFinish(0);
                 }
 
@@ -409,14 +409,14 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot TaskUTC");
+                //Debug.Log("Snapshot TaskUTC");
                 DataSnapshot snapshot = DBTask.Result;
 
                 List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_MULTI_UTC))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     string value = snapshot.Child(DATABASE_MULTI_UTC).Value.ToString();
 
                     StaticDataStorage.nextMulti = value;
@@ -428,13 +428,13 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Unable to access data ");
+                    //Debug.Log("Unable to access data ");
                     callbackOnFinish(0);
                 }
 
                 if (snapshot.HasChild(DATABASE_FIVEROUND_UTC))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     string value = snapshot.Child(DATABASE_FIVEROUND_UTC).Value.ToString();
 
                     StaticDataStorage.nextRound = value;
@@ -444,14 +444,14 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Unable to access data ");
+                    //Debug.Log("Unable to access data ");
                     callbackOnFinish(0);
                 }
 
 
                 if (snapshot.HasChild(DATABASE_ALLDONE_UTC))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     string value = snapshot.Child(DATABASE_ALLDONE_UTC).Value.ToString();
 
                     StaticDataStorage.nextAll = value;
@@ -461,7 +461,7 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Unable to access data ");
+                    //Debug.Log("Unable to access data ");
                     callbackOnFinish(0);
                 }
 
