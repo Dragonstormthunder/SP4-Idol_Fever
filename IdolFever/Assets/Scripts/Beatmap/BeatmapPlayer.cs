@@ -39,18 +39,22 @@ namespace IdolFever.Game
 
 
 
-        internal static int StageIndex {
+        internal static int StageIndex
+        {
             get;
             set;
         }
 
-        static BeatmapPlayer() {
+        static BeatmapPlayer()
+        {
             StageIndex = -1;
         }
 
 
-        private void Awake() {
-            if(!PhotonNetwork.IsConnected) {
+        private void Awake()
+        {
+            if (!PhotonNetwork.IsConnected)
+            {
                 StageIndex = UnityEngine.Random.Range(0, 1);
             }
         }
@@ -71,11 +75,14 @@ namespace IdolFever.Game
                 GameConfigurations.WasThereOpponent = false;
             }
 
-            if((int)GameConfigurations.SongChosen < (int)SongRegistry.SongList.NOT_OPTION) {
+            if ((int)GameConfigurations.SongChosen < (int)SongRegistry.SongList.NOT_OPTION)
+            {
                 int index = (int)GameConfigurations.SongChosen;
                 audio.clip = songs[index];
                 beatmap = BeatmapReader.Open(songFileNames[index]);
-            } else {
+            }
+            else
+            {
                 beatmap = BeatmapReader.Open(songFileNames[0]);
             }
 
@@ -102,7 +109,8 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
+            if (PauseScreen.isPaused && !PhotonNetwork.IsConnected)
+            {
                 return;
             }
 
@@ -218,18 +226,22 @@ namespace IdolFever.Game
                 NoteRelease(3);
             }
 
-            if(audio.time > audio.clip.length - 1) {
-                if(!isExitingScene) {
+            if (audio.time > audio.clip.length - 1)
+            {
+                if (!isExitingScene)
+                {
                     _ = StartCoroutine(nameof(DcAndChangeScene));
                     isExitingScene = true;
                 }
             }
         }
 
-        private IEnumerator DcAndChangeScene() {
+        private IEnumerator DcAndChangeScene()
+        {
             PhotonNetwork.Disconnect();
 
-            while(PhotonNetwork.IsConnected) {
+            while (PhotonNetwork.IsConnected)
+            {
                 yield return null;
             }
 
@@ -238,6 +250,8 @@ namespace IdolFever.Game
 
         public void NoteHit(int k)
         {
+            //Debug.Log("Note Hit Begin: id:" + k);
+
             NoteKey key = NoteKey.KEY1;
             switch (k)
             {
@@ -251,11 +265,14 @@ namespace IdolFever.Game
                 Note n = notes[i];
                 if (!n.noteEvent.down)
                 {
+                    //Debug.Log("Note Hit Continue" + k);
                     continue;
                 }
                 if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
                 {
-                    VibrationControl.StartVibration();
+                    //Debug.Log("Note Hit B4 Vibration" + k);
+                    //VibrationControl.StartVibration();
+                    //Debug.Log("Note Hit AFT Vibration" + k);
 
                     if ((long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
                     {
