@@ -51,10 +51,10 @@ namespace IdolFever.Server
 
         //private void OnDestroy()
         //{
-            //if (auth != null)
-            //{
-            //    auth.StateChanged -= AuthStateChanged;
-            //}
+        //if (auth != null)
+        //{
+        //    auth.StateChanged -= AuthStateChanged;
+        //}
         //}
 
         #endregion
@@ -174,62 +174,18 @@ namespace IdolFever.Server
             //}
             //else
             //{
-            Debug.Log("Register: Firebase not ready!");
+            //Debug.Log("Register: Firebase not ready!");
             //}
         }
 
         private IEnumerator Login(string _email, string _password)
         {
 
-            warningLoginText.text = "Inside Login";
+            //warningLoginText.text = "Inside Login";
 
             auth.SignOut();
 
-            warningLoginText.text = "Auth Signed out";
-
-            //auth.SignInWithEmailAndPasswordAsync(_email, _password).ContinueWith(task =>
-            //{
-            //    if (task.IsCanceled)
-            //    {
-            //        Debug.LogError("SignInWithEmailAndPasswordAsync was canceled.");
-            //        return;
-            //    }
-            //    if (task.IsFaulted)
-            //    {
-            //        Debug.LogError("SignInWithEmailAndPasswordAsync encountered an error: " + task.Exception);
-            //        string message = "Login Failed!";
-            //        FirebaseException firebaseEx = task.Exception.GetBaseException() as FirebaseException;
-            //        AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
-            //        switch (errorCode)
-            //        {
-            //            case AuthError.MissingEmail:
-            //                message = "Missing Email";
-            //                break;
-            //            case AuthError.MissingPassword:
-            //                message = "Missing Password";
-            //                break;
-            //            case AuthError.WrongPassword:
-            //                message = "Wrong Password";
-            //                break;
-            //            case AuthError.InvalidEmail:
-            //                message = "Invalid Email";
-            //                break;
-            //            case AuthError.UserNotFound:
-            //                message = "Account does not exist";
-            //                break;
-            //        }
-            //        confirmLoginText.text = "";
-            //        warningLoginText.text = message;
-            //        return;
-            //    }
-            //    FirebaseUser newUser = task.Result;
-            //    Debug.LogFormat("User signed in successfully: {0} ({1})",
-            //        newUser.DisplayName, newUser.UserId);
-            //    warningLoginText.text = "";
-            //    confirmLoginText.text = "Logged In";
-            //    asyncSceneTransitionOut.ChangeScene();
-            //});
-
+            //warningLoginText.text = "Auth Signed out";
 
             //Call the Firebase auth signin function passing the email and password
             var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
@@ -237,7 +193,7 @@ namespace IdolFever.Server
             //Wait until the task completes
             yield return new WaitUntil(predicate: () => LoginTask.IsCompleted);
 
-            warningLoginText.text = "Login Task Is Done";
+            //warningLoginText.text = "Login Task Is Done";
 
             if (LoginTask.Exception != null)
             {
@@ -249,6 +205,9 @@ namespace IdolFever.Server
                 string message = "Login Failed: ";
                 switch (errorCode)
                 {
+                    default:
+                        message = "Are you connected to the internet?";
+                        break;
                     case AuthError.MissingEmail:
                         message = "Missing Email";
                         break;
@@ -310,6 +269,9 @@ namespace IdolFever.Server
                     string message = "Register Failed!";
                     switch (errorCode)
                     {
+                        default:
+                            message = "Are you connected to the internet?";
+                            break;
                         case AuthError.MissingEmail:
                             message = "Missing Email";
                             break;

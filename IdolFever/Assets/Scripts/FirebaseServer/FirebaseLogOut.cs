@@ -9,6 +9,7 @@ namespace IdolFever.Server
     public class FirebaseLogOut : MonoBehaviour
     {
         #region Fields
+        static FirebaseLogOut INSTANCE;
         #endregion
 
         #region Properties
@@ -18,7 +19,16 @@ namespace IdolFever.Server
 
         private void Awake()
         {
-            DontDestroyOnLoad(gameObject);
+            // make sure only one is created
+            if (INSTANCE == null)
+            {
+                DontDestroyOnLoad(this);
+                INSTANCE = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void OnApplicationQuit()
