@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 32218742}
   - component: {fileID: 32218741}
   m_Layer: 5
-  m_Name: HighButton
+  m_Name: HighOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 485238519}
   - component: {fileID: 485238522}
   m_Layer: 5
-  m_Name: LowButton
+  m_Name: LowOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
