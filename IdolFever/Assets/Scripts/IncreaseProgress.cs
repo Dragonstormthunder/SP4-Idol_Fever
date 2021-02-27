@@ -14,36 +14,42 @@ namespace IdolFever.Server
 {
     public class IncreaseProgress : MonoBehaviour
     {
-        #region FIREBASE
-
-        //Firebase variables
-        [Header("Firebase")]
-        public DependencyStatus dependencyStatus;
-        public FirebaseAuth auth;
-        public FirebaseUser User;
-        public DatabaseReference DBreference;
-
-        #endregion
         public DailyManager dm;
+        public bool updated = false;
 
-        private void Init()
+        public void UpdateTasks()
         {
-            auth = FirebaseAuth.DefaultInstance;
-            User = FirebaseAuth.DefaultInstance.CurrentUser;
-            DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-        }
-
-        private void Start()
-        {
-            StaticDataStorage.nowTime = getDate() + "";
+            //Debug.Log("Update task being called");
+            //StaticDataStorage.nowTime = getDate() + "";
 
             StartCoroutine(dm.GetTaskUTC((progress) =>
             {
-                Debug.Log("sucess: get taskUTC");
+                //Debug.Log("sucess: get taskUTC");
+
+                StartCoroutine(dm.GetProgress((progress2) =>
+                {
+                    //Debug.Log("sucess: " + StaticDataStorage.roundPlayed);
+
+                    if (updated == false)
+                    {
+                        // prevent double update
+                        updated = true;
+                        if (GameConfigurations.WasThereOpponent)
+                        {
+                            IncreaseMultiRounds();
+                        }
+                        else
+                        {
+                            IncreaseRoundPlayed();
+                        }
+                    }
+
+                }));
+
             }));
 
-        }
 
+        }
 
         public void IncreaseRoundPlayed()
         {
@@ -53,7 +59,6 @@ namespace IdolFever.Server
                 StaticDataStorage.roundPlayed++;
                 StartCoroutine(dm.UpdateProgress(StaticDataStorage.roundPlayed, StaticDataStorage.roundMulti));
             }
-
 
         }
 
@@ -69,7 +74,6 @@ namespace IdolFever.Server
 
 
         }
-
 
         int getDate()
         {

@@ -57,7 +57,7 @@ namespace IdolFever.Server
 
         private void Init()
         {
-            
+
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -68,19 +68,21 @@ namespace IdolFever.Server
             StartCoroutine(GetTaskUTC((progress) =>
             {
                 Debug.Log("sucess utc get");
-                
+
             }));
 
 
             StartCoroutine(GetProgress((progress) =>
             {
                 Debug.Log("sucess: " + StaticDataStorage.roundPlayed);
-                ui.UpdateFills();
+
+                if (ui != null)
+                    ui.UpdateFills();
 
             }));
         }
 
-       
+
         //public IEnumerator UpdateCharacter(int R_Girl, int SR_Girl, int SSR_Girl, int R_Boy, int SR_Boy, int SSR_Boy)
         //{
         //    // update the value of the round 
