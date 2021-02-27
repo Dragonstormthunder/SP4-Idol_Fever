@@ -244,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a89875bb12938499caf425eb9fc951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dependencyStatus: 0
   dm: {fileID: 808543147}
 --- !u!4 &187164195
 Transform:
@@ -258,7 +257,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &279003695 stripped
 MonoBehaviour:
@@ -2170,6 +2169,10 @@ PrefabInstance:
       propertyPath: gemText
       value: 
       objectReference: {fileID: 3275574724975173719}
+    - target: {fileID: 2631662171819107191, guid: 9e97b48bc9735dc42aef7b62394ea840, type: 3}
+      propertyPath: increaseProgress
+      value: 
+      objectReference: {fileID: 187164194}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e97b48bc9735dc42aef7b62394ea840, type: 3}
 --- !u!1001 &1289314404

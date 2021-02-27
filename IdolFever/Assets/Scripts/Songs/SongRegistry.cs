@@ -25,7 +25,7 @@ namespace IdolFever
                     return "Wellerman";
 
                 case SongList.MOUNTAIN_KING:
-                    return "Mountain King";
+                    return "Hall of the Mountain King";
 
                 case SongList.FUMO_SONG:
                     return "Fumo Song";

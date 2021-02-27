@@ -12,6 +12,7 @@ namespace IdolFever.Server
 
         public ServerDatabase serverDatabase;
         public TextMeshProUGUI gemText;
+        public IncreaseProgress increaseProgress;
 
         #endregion
 
@@ -114,9 +115,13 @@ namespace IdolFever.Server
 
                 }));
 
+                // update the tasks
+                increaseProgress.UpdateTasks();
+
                 // reset to false
                 // the results have been uploaded to firebase, don't want it to call again
                 GameConfigurations.UploadToFirebase = false;
+
             }
 
         }
