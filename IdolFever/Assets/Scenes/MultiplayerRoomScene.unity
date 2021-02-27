@@ -854,6 +854,74 @@ MonoBehaviour:
   img: {fileID: 518527155}
   sceneName: MainMenuScene
   startAnimName: CircleWipeStart
+--- !u!1001 &1587386547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1795183233397208474, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_Name
+      value: DecentralizeCharacterData
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1795183233397208475, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+--- !u!114 &1587386548 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7908041373656152067, guid: 53884a5ff05f380408c0b040c29433fb, type: 3}
+  m_PrefabInstance: {fileID: 1587386547}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae1dc937f66cbe45b5ac8b4ed6f442d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1587684501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,6 +1579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0047c3e4ae3f63b46951a1a95993752d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charDecentralizedData: {fileID: 1587386548}
   playerBlocks:
   - {fileID: 176645157}
   - {fileID: 1811577760}

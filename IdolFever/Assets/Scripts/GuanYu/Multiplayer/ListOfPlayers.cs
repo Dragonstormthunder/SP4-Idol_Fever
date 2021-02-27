@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using IdolFever.Character;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using TMPro;
@@ -8,6 +9,7 @@ namespace IdolFever {
     internal sealed class ListOfPlayers: MonoBehaviourPunCallbacks {
         #region Fields
 
+        [SerializeField] private CharacterDecentralizeData charDecentralizedData;
         [SerializeField] private GameObject[] playerBlocks;
 
         #endregion
@@ -79,9 +81,17 @@ namespace IdolFever {
                         playerBlockScript.ActorNumber = myPlayer.ActorNumber;
                         playerBlockScript.Nickname = myPlayer.NickName;
                     }
+
+                    GameObject charThumbnailIcon = playerBlockGO.transform.Find("CharacterThumbnailIcon").gameObject;
+                    charThumbnailIcon.SetActive(true);
+
+                    GameObject mask = charThumbnailIcon.transform.Find("CircleMask").gameObject;
+                    _ = Instantiate(charDecentralizedData.AccessThumbnailPrefab(GameConfigurations.CharacterIndex), mask.transform); //Instantiate thumbnail
                 } else {
                     playerBlockScript.ActorNumber = -999;
                     playerBlockScript.Nickname = string.Empty;
+
+                    //clear?????
                 }
 
                 TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();
