@@ -35,8 +35,7 @@ namespace IdolFever.Server
                     {
                         StartCoroutine(serverDatabase.GetLastLogin((lastLogin) =>
                         {
-                            if (lastLogin == 0) energy = maxEnergy;
-                            else
+                            if (lastLogin != -1)
                             {
                                 energy += cur_time / 150 - lastLogin / 150;
                                 if (energy > maxEnergy) energy = maxEnergy;
@@ -44,7 +43,7 @@ namespace IdolFever.Server
                             StartCoroutine(serverDatabase.UpdateEnergy(energy));
                             StartCoroutine(serverDatabase.UpdateLastLogin());
                             energyText.text = energy.ToString() + " / " + maxEnergy.ToString();
-                            
+
                             if (progressbar != null)
                             {
                                 progressbar.localScale = new Vector3((float)energy / (float)maxEnergy, progressbar.localScale.y, 0);

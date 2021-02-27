@@ -81,194 +81,194 @@ namespace IdolFever.Server
         }
 
        
-        public IEnumerator UpdateCharacter(int R_Girl, int SR_Girl, int SSR_Girl, int R_Boy, int SR_Boy, int SSR_Boy)
-        {
-            // update the value of the round 
-            // will create here if it doesn't exist
-            var DBTaskRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_RGIRLS_DRAWN).SetValueAsync(R_Girl);
-            var DBTaskRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_RBOYS_DRAWN).SetValueAsync(R_Boy);
+        //public IEnumerator UpdateCharacter(int R_Girl, int SR_Girl, int SSR_Girl, int R_Boy, int SR_Boy, int SSR_Boy)
+        //{
+        //    // update the value of the round 
+        //    // will create here if it doesn't exist
+        //    var DBTaskRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_RGIRLS_DRAWN).SetValueAsync(R_Girl);
+        //    var DBTaskRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_RBOYS_DRAWN).SetValueAsync(R_Boy);
 
-            var DBTaskSRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SRGIRLS_DRAWN).SetValueAsync(SR_Girl);
-            var DBTaskSRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SRBOYS_DRAWN).SetValueAsync(SR_Boy);
+        //    var DBTaskSRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SRGIRLS_DRAWN).SetValueAsync(SR_Girl);
+        //    var DBTaskSRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SRBOYS_DRAWN).SetValueAsync(SR_Boy);
 
-            var DBTaskSSRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SSRGIRLS_DRAWN).SetValueAsync(SSR_Girl);
-            var DBTaskSSRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SSRBOYS_DRAWN).SetValueAsync(SSR_Boy);
-
-
-            yield return new WaitUntil(predicate: () => DBTaskRG.IsCompleted);
-            yield return new WaitUntil(predicate: () => DBTaskRB.IsCompleted);
-            yield return new WaitUntil(predicate: () => DBTaskSRG.IsCompleted);
-            yield return new WaitUntil(predicate: () => DBTaskSRB.IsCompleted);
-            yield return new WaitUntil(predicate: () => DBTaskSSRG.IsCompleted);
-            yield return new WaitUntil(predicate: () => DBTaskSSRB.IsCompleted);
+        //    var DBTaskSSRG = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SSRGIRLS_DRAWN).SetValueAsync(SSR_Girl);
+        //    var DBTaskSSRB = DBreference.Child("users").Child(User.UserId).Child(DATABASE_TOTAL_SSRBOYS_DRAWN).SetValueAsync(SSR_Boy);
 
 
-            // error
-            if (DBTaskRG.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskRG.Exception}");
-            }
-            else if (DBTaskRB.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskRB.Exception}");
-            }
-            else if (DBTaskSRG.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskSRG.Exception}");
-            }
-            else if (DBTaskSRB.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskSRB.Exception}");
-            }
-            else if (DBTaskSSRG.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskRG.Exception}");
-            }
-            else if (DBTaskSSRB.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTaskSSRB.Exception}");
-            }
-        }
-
-        public IEnumerator GetCharacter(System.Action<int> callbackOnFinish)
-        {
-            Debug.Log("Progress called");
-            var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
-
-            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-            if (DBTask.Exception != null)
-            {
-                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-            }
-            else if (DBTask.Result.Value == null)
-            {
-                callbackOnFinish(0);
-            }
-            else
-            {
-                Debug.Log("Snapshot Progress");
-                DataSnapshot snapshot = DBTask.Result;
-
-                List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
-
-                if (snapshot.HasChild(DATABASE_TOTAL_RGIRLS_DRAWN))
-                {
-                    Debug.Log("Able to access data");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_RGIRLS_DRAWN).Value.ToString());
-
-                    Debug.LogWarning("value: " + value);
-                    StaticDataStorage.R_GirlDrawCount = value;
+        //    yield return new WaitUntil(predicate: () => DBTaskRG.IsCompleted);
+        //    yield return new WaitUntil(predicate: () => DBTaskRB.IsCompleted);
+        //    yield return new WaitUntil(predicate: () => DBTaskSRG.IsCompleted);
+        //    yield return new WaitUntil(predicate: () => DBTaskSRB.IsCompleted);
+        //    yield return new WaitUntil(predicate: () => DBTaskSSRG.IsCompleted);
+        //    yield return new WaitUntil(predicate: () => DBTaskSSRB.IsCompleted);
 
 
+        //    // error
+        //    if (DBTaskRG.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskRG.Exception}");
+        //    }
+        //    else if (DBTaskRB.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskRB.Exception}");
+        //    }
+        //    else if (DBTaskSRG.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskSRG.Exception}");
+        //    }
+        //    else if (DBTaskSRB.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskSRB.Exception}");
+        //    }
+        //    else if (DBTaskSSRG.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskRG.Exception}");
+        //    }
+        //    else if (DBTaskSSRB.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTaskSSRB.Exception}");
+        //    }
+        //}
 
+        //public IEnumerator GetCharacter(System.Action<int> callbackOnFinish)
+        //{
+        //    Debug.Log("Progress called");
+        //    var DBTask = DBreference.Child("users").Child(User.UserId).GetValueAsync();
 
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data ");
-                    callbackOnFinish(0);
-                }
+        //    yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
-                if (snapshot.HasChild(DATABASE_TOTAL_RBOYS_DRAWN))
-                {
-                    Debug.Log("Able to access data multi");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_RBOYS_DRAWN).Value.ToString());
+        //    if (DBTask.Exception != null)
+        //    {
+        //        Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+        //    }
+        //    else if (DBTask.Result.Value == null)
+        //    {
+        //        callbackOnFinish(0);
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Snapshot Progress");
+        //        DataSnapshot snapshot = DBTask.Result;
 
-                    Debug.LogWarning("value multi: " + value);
-                    StaticDataStorage.R_BoyDrawCount = value;
+        //        List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
+
+        //        if (snapshot.HasChild(DATABASE_TOTAL_RGIRLS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_RGIRLS_DRAWN).Value.ToString());
+
+        //            Debug.LogWarning("value: " + value);
+        //            StaticDataStorage.R_GirlDrawCount = value;
 
 
 
 
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data multi");
-                    callbackOnFinish(0);
-                }
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data ");
+        //            callbackOnFinish(0);
+        //        }
 
-                if (snapshot.HasChild(DATABASE_TOTAL_SRGIRLS_DRAWN))
-                {
-                    Debug.Log("Able to access data");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SRGIRLS_DRAWN).Value.ToString());
+        //        if (snapshot.HasChild(DATABASE_TOTAL_RBOYS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data multi");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_RBOYS_DRAWN).Value.ToString());
 
-                    Debug.LogWarning("value: " + value);
-                    StaticDataStorage.SR_GirlDrawCount = value;
-
-
-
-
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data ");
-                    callbackOnFinish(0);
-                }
-
-                if (snapshot.HasChild(DATABASE_TOTAL_SRBOYS_DRAWN))
-                {
-                    Debug.Log("Able to access data multi");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SRBOYS_DRAWN).Value.ToString());
-
-                    Debug.LogWarning("value multi: " + value);
-                    StaticDataStorage.SR_BoyDrawCount = value;
+        //            Debug.LogWarning("value multi: " + value);
+        //            StaticDataStorage.R_BoyDrawCount = value;
 
 
 
 
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data multi");
-                    callbackOnFinish(0);
-                }
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data multi");
+        //            callbackOnFinish(0);
+        //        }
 
-                if (snapshot.HasChild(DATABASE_TOTAL_SSRGIRLS_DRAWN))
-                {
-                    Debug.Log("Able to access data");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SSRGIRLS_DRAWN).Value.ToString());
+        //        if (snapshot.HasChild(DATABASE_TOTAL_SRGIRLS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SRGIRLS_DRAWN).Value.ToString());
 
-                    Debug.LogWarning("value: " + value);
-                    StaticDataStorage.SSR_GirlDrawCount = value;
-
-
-
-
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data ");
-                    callbackOnFinish(0);
-                }
-
-                if (snapshot.HasChild(DATABASE_TOTAL_SSRBOYS_DRAWN))
-                {
-                    Debug.Log("Able to access data multi");
-                    int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SSRBOYS_DRAWN).Value.ToString());
-
-                    Debug.LogWarning("value multi: " + value);
-                    StaticDataStorage.SSR_BoyDrawCount = value;
+        //            Debug.LogWarning("value: " + value);
+        //            StaticDataStorage.SR_GirlDrawCount = value;
 
 
 
 
-                    callbackOnFinish(value);
-                }
-                else
-                {
-                    Debug.Log("Unable to access data multi");
-                    callbackOnFinish(0);
-                }
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data ");
+        //            callbackOnFinish(0);
+        //        }
 
-            }
+        //        if (snapshot.HasChild(DATABASE_TOTAL_SRBOYS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data multi");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SRBOYS_DRAWN).Value.ToString());
 
-        }
+        //            Debug.LogWarning("value multi: " + value);
+        //            StaticDataStorage.SR_BoyDrawCount = value;
+
+
+
+
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data multi");
+        //            callbackOnFinish(0);
+        //        }
+
+        //        if (snapshot.HasChild(DATABASE_TOTAL_SSRGIRLS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SSRGIRLS_DRAWN).Value.ToString());
+
+        //            Debug.LogWarning("value: " + value);
+        //            StaticDataStorage.SSR_GirlDrawCount = value;
+
+
+
+
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data ");
+        //            callbackOnFinish(0);
+        //        }
+
+        //        if (snapshot.HasChild(DATABASE_TOTAL_SSRBOYS_DRAWN))
+        //        {
+        //            Debug.Log("Able to access data multi");
+        //            int value = int.Parse(snapshot.Child(DATABASE_TOTAL_SSRBOYS_DRAWN).Value.ToString());
+
+        //            Debug.LogWarning("value multi: " + value);
+        //            StaticDataStorage.SSR_BoyDrawCount = value;
+
+
+
+
+        //            callbackOnFinish(value);
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Unable to access data multi");
+        //            callbackOnFinish(0);
+        //        }
+
+        //    }
+
+        //}
 
 
         public IEnumerator UpdateProgress(int progressOfFive, int progressMulti)
