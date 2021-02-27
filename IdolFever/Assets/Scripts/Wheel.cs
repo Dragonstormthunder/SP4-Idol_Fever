@@ -21,7 +21,7 @@ namespace IdolFever.UI
         public GameObject Circle;           // Rotatable Object with rewards
         public TMP_Text reward_txt;         // Pop-up text with card gotten/Turn Cost
         public TMP_Text CurrentGemsText;        // Pop-up text with curr gems
-        public int TurnCost = 100;          // How much coins user waste when turn whe wheel
+        public int TurnCost = 300;          // How much coins user waste when turn whe wheel
         //public int CurrentGemsAmount;    // Started gems amount.
         public int PreviousGemsAmount;      // For wasted coins animation
                                             //public GameObject Panel;
@@ -75,6 +75,7 @@ namespace IdolFever.UI
 
         private void GiveAwardByAngle()
         {
+            int amtGems = UnityEngine.Random.Range(1, 500);
             // Here you can set up rewards for every sector of wheel
             switch ((int)_startAngle)
             {
@@ -87,7 +88,8 @@ namespace IdolFever.UI
                         SaveCharacter(c);
 
                         StaticDataStorage.CardBack = true;
-                        RewardGems(1000);
+                        //RewardGems(1000);
+                        RewardGems(amtGems);
                     }
                     break;
                 case -300:
@@ -99,7 +101,8 @@ namespace IdolFever.UI
                         SaveCharacter(c);
 
                         StaticDataStorage.CardBack = true;
-                        RewardGems(300);
+                        //RewardGems(300);
+                        RewardGems(amtGems);
                     }
                     break;
                 case -210:
@@ -111,7 +114,8 @@ namespace IdolFever.UI
 
                         StaticDataStorage.R_Girl = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(100);
+                        //RewardGems(100);
+                        RewardGems(amtGems);
                     }
                     break;
                 case -150:
@@ -123,7 +127,8 @@ namespace IdolFever.UI
 
                         StaticDataStorage.SR_Boy = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(900);
+                        //RewardGems(900);
+                        RewardGems(amtGems);
                     }
                     break;
                 case -120:
@@ -135,7 +140,8 @@ namespace IdolFever.UI
 
                         StaticDataStorage.SSR_Boy = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(200);
+                        //RewardGems(200);
+                        RewardGems(amtGems);
                     }
                     break;
                 case -90:
@@ -147,7 +153,8 @@ namespace IdolFever.UI
 
                         StaticDataStorage.R_Boy = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(300);
+                        //RewardGems(300);
+                        RewardGems(amtGems);
                     }
                     break;
                 default:
@@ -159,7 +166,8 @@ namespace IdolFever.UI
 
                         StaticDataStorage.R_Girl = true;
                         StaticDataStorage.CardBack = true;
-                        RewardGems(100);
+                        //RewardGems(100);
+                        RewardGems(amtGems);
                     }
                     break;
             }

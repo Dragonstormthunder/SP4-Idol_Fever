@@ -159,8 +159,7 @@ namespace IdolFever.UI
                 OffPanel(gameObjectPanelBg);
                 //Destroy everything in hierachy that i have created
                 DestroyPrefab();
-                //StartCoroutine(database.UpdateCharacter(StaticDataStorage.R_GirlDrawCount, StaticDataStorage.R_BoyDrawCount, StaticDataStorage.SR_GirlDrawCount, StaticDataStorage.SR_BoyDrawCount,
-                //    StaticDataStorage.SSR_GirlDrawCount, StaticDataStorage.SSR_BoyDrawCount));
+
                 keysActive = false;
                 btnClose.GetComponent<Button>().interactable = false;
                 cardDrawnTxt.text = "";
@@ -171,49 +170,49 @@ namespace IdolFever.UI
         {
             CardBack_Clone = Instantiate(CardBackPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned CardBackInstantiate");
+            //Debug.Log("Spawned CardBackInstantiate");
         }
 
         private void createR_GirlPrefab()
         {
             R_Girl_Clone = Instantiate(R_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned R GirlInstantiate");
+            //Debug.Log("Spawned R GirlInstantiate");
         }
 
         private void createR_BoyPrefab()
         {
             R_Boy_Clone = Instantiate(R_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned R_Boy_Instantiate");
+            //Debug.Log("Spawned R_Boy_Instantiate");
         }
 
         private void createSR_GirlPrefab()
         {
             SR_Girl_Clone = Instantiate(SR_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned SR GirlInstantiate");
+            //Debug.Log("Spawned SR GirlInstantiate");
         }
 
         private void createSR_BoyPrefab()
         {
             SR_Boy_Clone = Instantiate(SR_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned SR_Boy_Instantiate");
+            //Debug.Log("Spawned SR_Boy_Instantiate");
         }
 
         private void createSSR_GirlPrefab()
         {
             SSR_Girl_Clone = Instantiate(SSR_imageGirlPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned SSR GirlInstantiate");
+            //Debug.Log("Spawned SSR GirlInstantiate");
         }
 
         private void createSSR_BoyPrefab()
         {
             SSR_Boy_Clone = Instantiate(SSR_imageBoyPrefab, new Vector3(452, 207, 0), Quaternion.identity) as GameObject;
 
-            Debug.Log("Spawned SSR_Boy_Instantiate");
+            //Debug.Log("Spawned SSR_Boy_Instantiate");
         }
 
         private void DestroyPrefab()
