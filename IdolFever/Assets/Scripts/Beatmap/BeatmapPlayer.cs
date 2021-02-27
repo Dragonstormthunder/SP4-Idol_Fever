@@ -187,42 +187,34 @@ namespace IdolFever.Game
 
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Left", true);
                 NoteHit(0);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Up", true);
                 NoteHit(1);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Down", true);
                 NoteHit(2);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Right", true);
                 NoteHit(3);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Left", false);
                 NoteRelease(0);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Up", false);
                 NoteRelease(1);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Down", false);
                 NoteRelease(2);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Right", false);
                 NoteRelease(3);
             }
 
@@ -255,10 +247,22 @@ namespace IdolFever.Game
             NoteKey key = NoteKey.KEY1;
             switch (k)
             {
-                case 0: key = NoteKey.KEY1; break;
-                case 1: key = NoteKey.KEY2; break;
-                case 2: key = NoteKey.KEY3; break;
-                case 3: key = NoteKey.KEY4; break;
+                case 0:
+                    key = NoteKey.KEY1;
+                    myChar.GetComponent<Animator>().SetBool("Left", true);
+                    break;
+                case 1:
+                    key = NoteKey.KEY2;
+                    myChar.GetComponent<Animator>().SetBool("Up", true);
+                    break;
+                case 2:
+                    key = NoteKey.KEY3;
+                    myChar.GetComponent<Animator>().SetBool("Down", true);
+                    break;
+                case 3:
+                    key = NoteKey.KEY4;
+                    myChar.GetComponent<Animator>().SetBool("Right", true);
+                    break;
             }
             for (int i = 0; i < notes.Count; ++i)
             {
@@ -317,10 +321,22 @@ namespace IdolFever.Game
             NoteKey key = NoteKey.KEY1;
             switch (k)
             {
-                case 0: key = NoteKey.KEY1; break;
-                case 1: key = NoteKey.KEY2; break;
-                case 2: key = NoteKey.KEY3; break;
-                case 3: key = NoteKey.KEY4; break;
+                case 0:
+                    key = NoteKey.KEY1;
+                    myChar.GetComponent<Animator>().SetBool("Left", false);
+                    break;
+                case 1:
+                    key = NoteKey.KEY2;
+                    myChar.GetComponent<Animator>().SetBool("Up", false);
+                    break;
+                case 2:
+                    key = NoteKey.KEY3;
+                    myChar.GetComponent<Animator>().SetBool("Down", false);
+                    break;
+                case 3:
+                    key = NoteKey.KEY4;
+                    myChar.GetComponent<Animator>().SetBool("Right", false);
+                    break;
             }
             for (int i = 0; i < notes.Count; ++i)
             {
