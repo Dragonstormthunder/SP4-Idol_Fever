@@ -132,7 +132,10 @@ namespace IdolFever.Character
                                                                 // do not make more gameobjects
                                                                 // cannot change character in the middle of a match anyway
                 {
-                    Instantiate(characterDecentralizeData.AccessThumbnailPrefab(value), opponentThumbnailParent);
+                    GameObject thumbnail = Instantiate(characterDecentralizeData.AccessThumbnailPrefab(value), opponentThumbnailParent);
+
+                    thumbnail.name = "Thumbnail";
+
                     opponentSkillName.text = characterDecentralizeData.AccessCharacterSkillName(value);
                 }
 
@@ -222,6 +225,9 @@ namespace IdolFever.Character
 
         public void Update()
         {
+            if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
+                return;
+            }
 
             // -------------- if our skill is active ----------------
             ElaspedTime -= Time.deltaTime;

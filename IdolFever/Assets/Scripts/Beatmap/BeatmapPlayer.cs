@@ -26,6 +26,7 @@ namespace IdolFever.Game
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
+        [SerializeField] private List<string> songFileNames;
         [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
         [SerializeField] private List<GameObject> characters;
@@ -35,6 +36,25 @@ namespace IdolFever.Game
         private ulong usec;
 
         private Transform myChar, otherChar;
+
+
+
+        internal static int StageIndex {
+            get;
+            set;
+        }
+
+        static BeatmapPlayer() {
+            StageIndex = -1;
+        }
+
+
+        private void Awake() {
+            if(!PhotonNetwork.IsConnected) {
+                StageIndex = UnityEngine.Random.Range(0, 1);
+            }
+        }
+
         void Start()
         {
             // game has started, so we're going to upload the highscore data to firebase after this
@@ -51,33 +71,26 @@ namespace IdolFever.Game
                 GameConfigurations.WasThereOpponent = false;
             }
 
-            beatmap = BeatmapReader.Open("Wellerman.mid");
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
-            {
-                audio.clip = songs[0];
-                beatmap = BeatmapReader.Open("OriginalSong1.mid");
-            }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
-            {
-                audio.clip = songs[1];
-                beatmap = BeatmapReader.Open("MountainKing.mid");
-            }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
-            {
-                audio.clip = songs[2];
-                beatmap = BeatmapReader.Open("Wellerman.mid");
+            if((int)GameConfigurations.SongChosen < (int)SongRegistry.SongList.NOT_OPTION) {
+                int index = (int)GameConfigurations.SongChosen;
+                audio.clip = songs[index];
+                beatmap = BeatmapReader.Open(songFileNames[index]);
+            } else {
+                beatmap = BeatmapReader.Open(songFileNames[0]);
             }
 
             myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            myChar.name = "GirlCharacter";
 
             otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            otherChar.name = "BoyCharacter";
 
-
-            Instantiate(stages[UnityEngine.Random.Range(0, 2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            GameObject stage = Instantiate(stages[StageIndex], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            stage.name = "Stage";
 
             audio.Play();
             int n = beatmap.beats.Count;
@@ -89,8 +102,7 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            if (PauseScreen.isPaused)
-            {
+            if(PauseScreen.isPaused && !PhotonNetwork.IsConnected) {
                 return;
             }
 

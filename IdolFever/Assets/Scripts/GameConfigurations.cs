@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace IdolFever
+﻿namespace IdolFever
 {
 
     // store game configurations for the gameplay
@@ -34,7 +30,7 @@ namespace IdolFever
         {
             get
             {
-                if (SongRegistry.SongList.NOT_OPTION == songChosen)
+                if (songChosen == SongRegistry.SongList.NOT_OPTION)
                 {
                     songChosen = SongRegistry.SongList.MOUNTAIN_KING;
                 }

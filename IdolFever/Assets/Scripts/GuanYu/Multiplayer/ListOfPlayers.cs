@@ -1,7 +1,6 @@
-﻿using IdolFever.Server;
-using Photon.Pun;
+﻿using Photon.Pun;
 using Photon.Realtime;
-using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -14,9 +13,16 @@ namespace IdolFever {
         #endregion
 
         #region Properties
+
+        internal bool IsStageIndexSet {
+            get;
+            set;
+        }
+
         #endregion
 
-        public ListOfPlayers() {
+        internal ListOfPlayers() {
+            IsStageIndexSet = false;
             playerBlocks = System.Array.Empty<GameObject>();
         }
 
@@ -36,13 +42,13 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnPlayerEnteredRoom(Player newPlayer) {
-            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount, this);
 
             UpdatePlayerBlocks();
         }
 
         public override void OnPlayerLeftRoom(Player otherPlayer) {
-            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount, this);
 
             UpdatePlayerBlocks();
         }
@@ -86,6 +92,18 @@ namespace IdolFever {
         public void OnStartButtonClick() {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
+
+            PhotonView.Get(this).RPC("SetStage", RpcTarget.All, Random.Range(0, 1));
+
+            _ = StartCoroutine(nameof(MyFunc));
+        }
+
+        private IEnumerator MyFunc() {
+            while(!IsStageIndexSet) {
+                yield return null;
+            }
+
+            IsStageIndexSet = false;
 
             PhotonView.Get(this).RPC("ToGameplay", RpcTarget.All, null);
         }

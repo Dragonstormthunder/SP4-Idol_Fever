@@ -790,10 +790,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: f96b668c-c286-4d00-9515-e68f367b0bc4
+  cloudProjectId: c43d49e1-fffd-4834-bdd1-e79fcb44e917
   framebufferDepthMemorylessMode: 0
   projectName: IdolFever
-  organizationId: elaine09huihui13ooi
+  organizationId: henistheman
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

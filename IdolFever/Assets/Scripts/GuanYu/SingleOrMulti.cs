@@ -22,7 +22,7 @@ namespace IdolFever {
         #endregion
 
         static SingleOrMulti() {
-            IsSingle = false;
+            IsSingle = true;
         }
 
         #region Unity User Callback Event Funcs
