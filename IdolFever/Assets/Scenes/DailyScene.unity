@@ -854,6 +854,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3275574725688906480, guid: ecac0e3d530599d4f901117d829ac4cd, type: 3}
   m_PrefabInstance: {fileID: 797833366}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &797833368 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3275574726416861119, guid: ecac0e3d530599d4f901117d829ac4cd, type: 3}
+  m_PrefabInstance: {fileID: 797833366}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &918083384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2788958408754917855, guid: 6e22d281aed07dd41ae57d24449ce6fa, type: 3}
@@ -977,17 +988,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7525137353673814324, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
   m_PrefabInstance: {fileID: 1025908885}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1025908887 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7525137354385083468, guid: 60bc8f573bad63c46a3268d54b3ee298, type: 3}
-  m_PrefabInstance: {fileID: 1025908885}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1026201313 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6635654693870411811, guid: 6bb73aae7f6a8a147af0817729a5edd4, type: 3}
@@ -1505,7 +1505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverdatabase: {fileID: 77028135}
   database: {fileID: 2095163598}
-  gems_txt: {fileID: 1025908887}
+  gems_txt: {fileID: 797833368}
   Btn_ImageBefore: {fileID: 21300000, guid: b72b5b502327efa42b0e8d9acb98bbf0, type: 3}
   Btn_ImageAfter: {fileID: 21300000, guid: 504a9fda24490c647b5312033506c39e, type: 3}
   fillRounds: {fileID: 5449520142063627780}
