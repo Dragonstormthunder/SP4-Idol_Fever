@@ -68,9 +68,13 @@ namespace IdolFever {
                 PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
 
                 if(i < PhotonNetwork.CurrentRoom.PlayerCount) {
-                    if(i == 0) {
+					int charIndex;
+
+					if(i == 0) {
                         playerBlockScript.ActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                         playerBlockScript.Nickname = PhotonNetwork.LocalPlayer.NickName;
+
+                        charIndex = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
                     } else {
                         Player myPlayer = players[index];
 
@@ -80,18 +84,26 @@ namespace IdolFever {
 
                         playerBlockScript.ActorNumber = myPlayer.ActorNumber;
                         playerBlockScript.Nickname = myPlayer.NickName;
+
+                        charIndex = (int)myPlayer.CustomProperties["playerCharIndex"];
                     }
 
                     GameObject charThumbnailIcon = playerBlockGO.transform.Find("CharacterThumbnailIcon").gameObject;
                     charThumbnailIcon.SetActive(true);
 
                     GameObject mask = charThumbnailIcon.transform.Find("CircleMask").gameObject;
-                    _ = Instantiate(charDecentralizedData.AccessThumbnailPrefab(GameConfigurations.CharacterIndex), mask.transform); //Instantiate thumbnail
+
+                    foreach(Transform child in mask.transform) {
+                        Destroy(child.gameObject);
+                    }
+
+                    _ = Instantiate(charDecentralizedData.AccessThumbnailPrefab((CharacterFactory.eCHARACTER)charIndex), mask.transform); //Instantiate thumbnail
                 } else {
                     playerBlockScript.ActorNumber = -999;
                     playerBlockScript.Nickname = string.Empty;
 
-                    //clear?????
+                    GameObject charThumbnailIcon = playerBlockGO.transform.Find("CharacterThumbnailIcon").gameObject;
+                    charThumbnailIcon.SetActive(false);
                 }
 
                 TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();

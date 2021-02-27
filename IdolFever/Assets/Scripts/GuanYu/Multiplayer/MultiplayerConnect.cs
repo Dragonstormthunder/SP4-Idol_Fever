@@ -43,6 +43,9 @@ namespace IdolFever {
         #region Pun Callback Funcs
 
         public override void OnConnectedToMaster() {
+            Hashtable playerCustomProperties = new Hashtable { {"playerCharIndex", GameConfigurations.CharacterIndex} };
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerCustomProperties);
+
             if(!PhotonNetwork.InLobby) {
                 PhotonNetwork.JoinLobby();
             }
