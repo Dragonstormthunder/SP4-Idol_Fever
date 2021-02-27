@@ -66,7 +66,7 @@ namespace IdolFever {
             if(fileName == "") {
                 string d = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "/YOUR_LOGS";
                 System.IO.Directory.CreateDirectory(d);
-                string r = Random.Range(1000, 9999).ToString();
+                string r = Random.Range(1000, 10000).ToString();
                 fileName = d + "/log-" + r + ".txt";
             }
             try {

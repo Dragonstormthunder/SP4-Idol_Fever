@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using IdolFever.Character;
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using TMPro;
@@ -8,6 +9,7 @@ namespace IdolFever {
     internal sealed class ListOfPlayers: MonoBehaviourPunCallbacks {
         #region Fields
 
+        [SerializeField] private CharacterDecentralizeData charDecentralizedData;
         [SerializeField] private GameObject[] playerBlocks;
 
         #endregion
@@ -66,9 +68,13 @@ namespace IdolFever {
                 PlayerBlock playerBlockScript = playerBlockGO.GetComponent<PlayerBlock>();
 
                 if(i < PhotonNetwork.CurrentRoom.PlayerCount) {
-                    if(i == 0) {
+					int charIndex;
+
+					if(i == 0) {
                         playerBlockScript.ActorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                         playerBlockScript.Nickname = PhotonNetwork.LocalPlayer.NickName;
+
+                        charIndex = (int)PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
                     } else {
                         Player myPlayer = players[index];
 
@@ -78,10 +84,26 @@ namespace IdolFever {
 
                         playerBlockScript.ActorNumber = myPlayer.ActorNumber;
                         playerBlockScript.Nickname = myPlayer.NickName;
+
+                        charIndex = (int)myPlayer.CustomProperties["playerCharIndex"];
                     }
+
+                    GameObject charThumbnailIcon = playerBlockGO.transform.Find("CharacterThumbnailIcon").gameObject;
+                    charThumbnailIcon.SetActive(true);
+
+                    GameObject mask = charThumbnailIcon.transform.Find("CircleMask").gameObject;
+
+                    foreach(Transform child in mask.transform) {
+                        Destroy(child.gameObject);
+                    }
+
+                    _ = Instantiate(charDecentralizedData.AccessThumbnailPrefab((CharacterFactory.eCHARACTER)charIndex), mask.transform); //Instantiate thumbnail
                 } else {
                     playerBlockScript.ActorNumber = -999;
                     playerBlockScript.Nickname = string.Empty;
+
+                    GameObject charThumbnailIcon = playerBlockGO.transform.Find("CharacterThumbnailIcon").gameObject;
+                    charThumbnailIcon.SetActive(false);
                 }
 
                 TextMeshProUGUI tmpComponent = playerBlockGO.transform.Find("PlayerBlockText").GetComponent<TextMeshProUGUI>();
@@ -93,7 +115,7 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonView.Get(this).RPC("SetStage", RpcTarget.All, Random.Range(0, 1));
+            PhotonView.Get(this).RPC("SetStage", RpcTarget.All, Random.Range(0, 2));
 
             _ = StartCoroutine(nameof(MyFunc));
         }

@@ -19,7 +19,7 @@ namespace IdolFever.UI
             {
                 for (int t = 0; t < Input.touchCount; ++t)
                 {
-                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(t).fingerId))
+                    if (RectTransformUtility.PixelAdjustRect(GetComponent<RectTransform>(), GetComponentInParent<Canvas>()).Contains(Input.GetTouch(t).position))
                     {
                         if (Input.GetTouch(t).phase == TouchPhase.Began) beatmapPlayer.NoteHit(id);
                         else if (Input.GetTouch(t).phase == TouchPhase.Ended) beatmapPlayer.NoteRelease(id);

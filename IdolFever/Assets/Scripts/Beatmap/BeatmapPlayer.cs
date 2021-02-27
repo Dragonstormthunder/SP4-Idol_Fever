@@ -55,7 +55,7 @@ namespace IdolFever.Game
         {
             if (!PhotonNetwork.IsConnected)
             {
-                StageIndex = UnityEngine.Random.Range(0, 1);
+                StageIndex = UnityEngine.Random.Range(0, 2);
             }
         }
 
