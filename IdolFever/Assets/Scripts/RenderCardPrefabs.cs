@@ -14,6 +14,8 @@ namespace IdolFever.UI
 
         public TextMeshProUGUI cardDrawnTxt;
 
+        public GameObject Confetti;
+
         public GameObject gameObjectPanelBg;
 
         public GameObject CardBackPrefab;
@@ -79,7 +81,7 @@ namespace IdolFever.UI
                     ++StaticDataStorage.R_GirlDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
-
+                    OnPanel(Confetti); 
 
                     Debug.Log("StaticDataStorage.R_GirlDrawCount:" + StaticDataStorage.R_GirlDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! R GIRL Drawn !";
@@ -94,6 +96,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.R_BoyDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    OnPanel(Confetti);
+
                     Debug.Log("StaticDataStorage.R_BoyDrawCount:" + StaticDataStorage.R_BoyDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! R BOY Drawn !";
 
@@ -108,6 +112,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SR_GirlDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    OnPanel(Confetti);
+
                     Debug.Log("StaticDataStorage.SR_GirlDrawCount:" + StaticDataStorage.SR_GirlDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! SR GIRL Drawn !";
                 }
@@ -120,8 +126,10 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SR_BoyDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    OnPanel(Confetti);
+
                     //StartCoroutine(database.UpdateCharacters//(CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0.ToString(), StaticDataStorage.SR_BoyDrawCount));
-                    
+
                     Debug.Log("StaticDataStorage.SR_BoyDrawCount:" + StaticDataStorage.SR_BoyDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! SR BOY Drawn !";
                 }
@@ -134,6 +142,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SSR_GirlDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    OnPanel(Confetti);
+
                     Debug.Log("StaticDataStorage.SSR_GirlDrawCount:" + StaticDataStorage.SSR_GirlDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! SSR GIRL Drawn !";
                 }
@@ -146,6 +156,8 @@ namespace IdolFever.UI
                     ++StaticDataStorage.SSR_BoyDrawCount;
                     keysActive = true;
                     btnClose.GetComponent<Button>().interactable = true;
+                    OnPanel(Confetti);
+
                     Debug.Log("StaticDataStorage.SSR_BoyDrawCount:" + StaticDataStorage.SSR_BoyDrawCount.ToString());
                     cardDrawnTxt.text = "Congrats! SSR BOY Drawn !";
                 }
@@ -162,6 +174,7 @@ namespace IdolFever.UI
 
                 keysActive = false;
                 btnClose.GetComponent<Button>().interactable = false;
+                OffPanel(Confetti);
                 cardDrawnTxt.text = "";
             }
         }
