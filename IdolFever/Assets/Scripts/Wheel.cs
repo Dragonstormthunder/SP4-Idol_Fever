@@ -75,7 +75,7 @@ namespace IdolFever.UI
 
         private void GiveAwardByAngle()
         {
-            int amtGems = UnityEngine.Random.Range(1, 500);
+            int amtGems = Random.Range(1, 501);
             // Here you can set up rewards for every sector of wheel
             switch ((int)_startAngle)
             {

@@ -115,7 +115,7 @@ namespace IdolFever {
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
 
-            PhotonView.Get(this).RPC("SetStage", RpcTarget.All, Random.Range(0, 1));
+            PhotonView.Get(this).RPC("SetStage", RpcTarget.All, Random.Range(0, 2));
 
             _ = StartCoroutine(nameof(MyFunc));
         }
