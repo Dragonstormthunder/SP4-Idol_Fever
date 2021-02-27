@@ -1,8 +1,9 @@
-﻿using ExitGames.Client.Photon;
-using Photon.Pun;
+﻿using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 namespace IdolFever {
     internal sealed class MultiplayerConnect: MonoBehaviourPunCallbacks {
@@ -10,6 +11,7 @@ namespace IdolFever {
 
         private bool is1stUpdated;
         private Dictionary<string, RoomInfo> cachedRoomList;
+        [SerializeField] private byte maxPlayers;
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut;
 
         #endregion
@@ -20,6 +22,7 @@ namespace IdolFever {
         public MultiplayerConnect() {
             is1stUpdated = false;
             cachedRoomList = null;
+            maxPlayers = 0;
             asyncSceneTransitionOut = null;
         }
 
@@ -47,7 +50,7 @@ namespace IdolFever {
 
         public override void OnJoinedLobby() {
             cachedRoomList = new Dictionary<string, RoomInfo>();
-            
+
             _ = StartCoroutine(nameof(RoomListFunc));
         }
 
@@ -57,18 +60,31 @@ namespace IdolFever {
             }
 
             foreach(RoomInfo info in cachedRoomList.Values) {
-                if(info.PlayerCount == 2) {
+                if(info.PlayerCount == info.MaxPlayers) {
+                    continue;
+                }
+                if(info.CustomProperties.TryGetValue("songSelected", out object songSelected)) { //Inline var declaration
+                    if((int)GameConfigurations.SongChosen != (int)songSelected) {
+                        Debug.Log("here1", this);
+                        continue;
+                    }
+                } else {
+                    Debug.Log("here2", this);
                     continue;
                 }
 
+                Debug.Log("here3", this);
                 JoinRoom(info.Name);
                 yield break;
             }
 
+            Debug.Log("here4", this);
             CreateRoom();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList) {
+            Debug.Log("here_la2");
+
             if(!is1stUpdated) {
                 is1stUpdated = true;
             }
@@ -90,6 +106,10 @@ namespace IdolFever {
             asyncSceneTransitionOut.ChangeScene();
         }
 
+        public override void OnRoomPropertiesUpdate(Hashtable hashtable) {
+            Debug.Log("here_la");
+        }
+
         public override void OnCreateRoomFailed(short returnCode, string message) {
             Debug.LogError("OnCreateRoomFailed " + '(' + returnCode + "): " + message);
         }
@@ -100,18 +120,6 @@ namespace IdolFever {
 
 
 
-
-
-        public override void OnLeftRoom() {
-            /*SetActivePanel(SelectionPanel.name);
-
-            foreach(GameObject entry in playerListEntries.Values) {
-                Destroy(entry.gameObject);
-            }
-
-            playerListEntries.Clear();
-            playerListEntries = null;*/
-        }
 
         public override void OnMasterClientSwitched(Player newMasterClient) {
             /*if(PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber) {
@@ -158,7 +166,12 @@ namespace IdolFever {
         }
 
         private void CreateRoom() {
-            RoomOptions options = new RoomOptions { MaxPlayers = 2, PlayerTtl = 0 };
+            RoomOptions options = new RoomOptions {
+                MaxPlayers = maxPlayers,
+                PlayerTtl = 0,
+                CustomRoomPropertiesForLobby = new string[] { "songSelected" },
+                CustomRoomProperties = new Hashtable { { "songSelected", (int)GameConfigurations.SongChosen } }
+            };
 
             PhotonNetwork.CreateRoom(null, options, null);
         }
