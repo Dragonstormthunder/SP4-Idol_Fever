@@ -19,13 +19,9 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Update() {
-            MoveTrailToCursor(Input.mousePosition);
+            transform.position = camComponent.ScreenPointToRay(Input.mousePosition).GetPoint(10);
         }
 
         #endregion
-
-        private void MoveTrailToCursor(Vector3 screenPosition) {
-            transform.position = camComponent.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, distFromCam));
-        }
     }
 }
