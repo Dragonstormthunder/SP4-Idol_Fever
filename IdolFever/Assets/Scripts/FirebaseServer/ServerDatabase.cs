@@ -215,7 +215,7 @@ namespace IdolFever.Server
             }
             else if (DBTask.Result.Value == null)
             {
-                callbackOnFinish(0);
+                callbackOnFinish(50);
             }
             else
             {
@@ -231,7 +231,7 @@ namespace IdolFever.Server
                 else
                 {
                     //Debug.Log("Unable to access data");
-                    callbackOnFinish(0);
+                    callbackOnFinish(50);
                 }
             }
 
