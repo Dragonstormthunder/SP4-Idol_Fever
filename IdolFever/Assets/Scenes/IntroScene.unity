@@ -1222,7 +1222,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1511876247
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1262,7 +1262,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 465bfd2ce16fdab409dc4789c0b9aac8, type: 2}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2637,7 +2637,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 1
+    enabled: 0
     mode: 0
     timeMode: 0
     fps: 30
@@ -2749,8 +2749,8 @@ ParticleSystem:
         m_RotationOrder: 4
     speedRange: {x: 0, y: 1}
     tilesX: 1
-    tilesY: 10
-    animationType: 1
+    tilesY: 1
+    animationType: 0
     rowIndex: 0
     cycles: 1
     uvChannelMask: -1
