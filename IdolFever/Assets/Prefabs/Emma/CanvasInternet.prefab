@@ -502,8 +502,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'There''s no internet connection!
 
-    Checking for internet every 3 seconds
-    ...'
+    Checking for internet every 3 seconds...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}
   m_sharedMaterial: {fileID: 4192796084788672715, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}

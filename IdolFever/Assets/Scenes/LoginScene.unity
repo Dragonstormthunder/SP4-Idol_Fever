@@ -455,7 +455,7 @@ Transform:
   m_LocalScale: {x: 1.9591837, y: 1.9591837, z: 1.9591837}
   m_Children: []
   m_Father: {fileID: 609331513}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &74935578
 GameObject:
@@ -2387,8 +2387,8 @@ RectTransform:
   - {fileID: 397695333}
   - {fileID: 369678534}
   - {fileID: 1966909935}
-  - {fileID: 37548007}
   - {fileID: 1957879315}
+  - {fileID: 37548007}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
