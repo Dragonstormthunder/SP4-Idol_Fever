@@ -470,7 +470,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 400}
+  m_SizeDelta: {x: -40, y: 400}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7591715010387192658
 CanvasRenderer:
@@ -502,8 +502,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'There''s no internet connection!
 
-    Please connect to the internet then
-    try again.'
+    Checking for internet every 3 seconds
+    ...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}
   m_sharedMaterial: {fileID: 4192796084788672715, guid: 4042c05318b72dc4ba1996484c9e6b90, type: 2}
