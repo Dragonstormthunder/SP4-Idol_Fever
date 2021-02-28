@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using IdolFever.Character;
 using System.IO;
 using IdolFever.Beatmap;
 using Photon.Pun;
@@ -85,13 +86,30 @@ namespace IdolFever.Game
             {
                 beatmap = BeatmapReader.Open(songFileNames[0]);
             }
+            int myId = 0;
 
-            myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+            CharacterFactory.eCHARACTER charIndex = (CharacterFactory.eCHARACTER) PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
+            if (charIndex == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
+                myId = 1;
+            myChar = Instantiate(characters[myId], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             myChar.name = "GirlCharacter";
 
-            otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+
+            int otherId = 0;
+
+            if(!GameConfigurations.WasThereOpponent)
+            {
+                UnityEngine.Random.Range(0, 1);
+            }
+            else
+            {
+                CharacterFactory.eCHARACTER charIndex2 = (CharacterFactory.eCHARACTER)PhotonNetwork.PlayerListOthers[0].CustomProperties["playerCharIndex"];
+                if (charIndex2 == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
+                    myId = 1;
+            }
+            otherChar = Instantiate(characters[], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             otherChar.name = "BoyCharacter";
