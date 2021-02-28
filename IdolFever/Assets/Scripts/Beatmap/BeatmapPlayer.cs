@@ -87,8 +87,14 @@ namespace IdolFever.Game
                 beatmap = BeatmapReader.Open(songFileNames[0]);
             }
             int myId = 0;
-
-            CharacterFactory.eCHARACTER charIndex = (CharacterFactory.eCHARACTER) PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
+            CharacterFactory.eCHARACTER charIndex;
+            if (!GameConfigurations.WasThereOpponent)
+            {
+                charIndex = GameConfigurations.CharacterIndex;
+            }
+            else
+            { charIndex = (CharacterFactory.eCHARACTER)PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
+            }
             if (charIndex == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
                 myId = 1;
             myChar = Instantiate(characters[myId], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
