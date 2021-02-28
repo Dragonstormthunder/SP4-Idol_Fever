@@ -6,7 +6,7 @@ namespace IdolFever {
         #region Fields
 
         [SerializeField] private bool isFadeIn;
-        [SerializeField] private float maxFadeTime;
+        [SerializeField] private float fadeTime; //From start to end
         [SerializeField] private MusicCentralControl musicCentralControl;
         [SerializeField] private string[] sceneNames;
 
@@ -17,7 +17,7 @@ namespace IdolFever {
 
         public MusicFade() {
             isFadeIn = true;
-            maxFadeTime = 0.0f;
+            fadeTime = 0.0f;
             musicCentralControl = null;
             sceneNames = System.Array.Empty<string>();
         }
@@ -30,12 +30,12 @@ namespace IdolFever {
                     foreach(AudioSource audioSrc in musicCentralControl.AudioSrcs) {
                         if(isFadeIn) {
                             float lerpFactor = audioSrc.volume / Options.MusicVol;
-                            lerpFactor += Time.deltaTime / maxFadeTime;
+                            lerpFactor += Time.deltaTime / fadeTime;
 
                             audioSrc.volume = Mathf.Lerp(0.0f, Options.MusicVol, lerpFactor);
                         } else {
                             float lerpFactor = (Options.MusicVol - audioSrc.volume) / Options.MusicVol;
-                            lerpFactor += Time.deltaTime / maxFadeTime;
+                            lerpFactor += Time.deltaTime / fadeTime;
 
                             audioSrc.volume = Mathf.Lerp(Options.MusicVol, 0.0f, lerpFactor);
                         }

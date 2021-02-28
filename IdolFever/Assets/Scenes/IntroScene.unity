@@ -1169,7 +1169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFadeIn: 1
-  maxFadeTime: 2
+  fadeTime: 2
   musicCentralControl: {fileID: 1360168813}
   sceneNames:
   - IntroScene
@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFadeIn: 0
-  maxFadeTime: 2
+  fadeTime: 2
   musicCentralControl: {fileID: 1360168813}
   sceneNames:
   - GameplayScene
