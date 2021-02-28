@@ -19,7 +19,6 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Update() {
-            distFromCam = 0.0f;
             MoveTrailToCursor(Input.mousePosition);
         }
 
