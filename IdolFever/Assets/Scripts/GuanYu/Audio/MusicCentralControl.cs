@@ -33,7 +33,11 @@ namespace IdolFever {
             }
 
             foreach(Transform child in transform) {
-                audioSrcs.Add(child.GetComponent<AudioSource>());
+                AudioSource[] audioSrcArr = child.GetComponents<AudioSource>();
+
+                foreach(AudioSource audioSrc in audioSrcArr) {
+                    audioSrcs.Add(audioSrc);
+                }
             }
         }
 
