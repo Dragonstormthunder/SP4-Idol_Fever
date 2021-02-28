@@ -135,8 +135,9 @@ namespace IdolFever.Server
             //Set the authentication instance object
             auth = FirebaseAuth.DefaultInstance;
 
-            FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
+            FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(true);
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+            DBreference.KeepSynced(true);
 
             //if (auth.CurrentUser != null)
             //{
