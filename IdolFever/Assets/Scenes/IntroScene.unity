@@ -1173,6 +1173,8 @@ MonoBehaviour:
   musicCentralControl: {fileID: 1360168813}
   sceneNames:
   - IntroScene
+  - MainMenuScene
+  - OptionsScene
   - WinLoseScene
 --- !u!114 &1360168812
 MonoBehaviour:

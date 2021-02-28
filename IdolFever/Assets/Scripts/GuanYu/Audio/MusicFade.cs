@@ -5,7 +5,6 @@ namespace IdolFever {
     internal sealed class MusicFade: MonoBehaviour {
         #region Fields
 
-        private float lerpFactor;
         [SerializeField] private bool isFadeIn;
         [SerializeField] private float maxFadeTime;
         [SerializeField] private MusicCentralControl musicCentralControl;
@@ -17,7 +16,6 @@ namespace IdolFever {
         #endregion
 
         public MusicFade() {
-            lerpFactor = 0.0f;
             isFadeIn = true;
             maxFadeTime = 0.0f;
             musicCentralControl = null;
@@ -29,25 +27,21 @@ namespace IdolFever {
         private void Update() {
             foreach(string sceneName in sceneNames) {
                 if(sceneName == SceneManager.GetActiveScene().name) {
-                    lerpFactor += Time.deltaTime / maxFadeTime;
-
-                    if(lerpFactor > 1.0f) {
-                        lerpFactor = 1.0f;
-                    }
-
                     foreach(AudioSource audioSrc in musicCentralControl.AudioSrcs) {
                         if(isFadeIn) {
+                            float lerpFactor = audioSrc.volume / Options.MusicVol;
+                            lerpFactor += Time.deltaTime / maxFadeTime;
+
                             audioSrc.volume = Mathf.Lerp(0.0f, Options.MusicVol, lerpFactor);
                         } else {
+                            float lerpFactor = (Options.MusicVol - audioSrc.volume) / Options.MusicVol;
+                            lerpFactor += Time.deltaTime / maxFadeTime;
+
                             audioSrc.volume = Mathf.Lerp(Options.MusicVol, 0.0f, lerpFactor);
                         }
                     }
-
-                    return;
                 }
             }
-
-            lerpFactor = 0.0f;
         }
 
         #endregion
