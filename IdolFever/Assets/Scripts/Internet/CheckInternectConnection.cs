@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
 namespace IdolFever.Internet
 {
@@ -61,18 +61,20 @@ namespace IdolFever.Internet
             //ping = new Ping(pingAddress);
             //pingStartTime = Time.time;
 
+            // constantly check for internet connectivity
+            // later in the middle of the game connection is lost
             InvokeRepeating(nameof(CheckInternetConnectivity), 0f, waitingTime + 1f);
 
             // subscribe to event
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //SceneManager.sceneLoaded += OnSceneLoaded;
 
         }
 
-        private void OnDestroy()
-        {
-            // unsubscribe from event
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
+        //private void OnDestroy()
+        //{
+        //    // unsubscribe from event
+        //    SceneManager.sceneLoaded -= OnSceneLoaded;
+        //}
 
         public void Update()
         {
@@ -129,12 +131,12 @@ namespace IdolFever.Internet
             Application.Quit();
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // check for internet ping again on a different scene
-            //ping = new Ping(pingAddress);
-            //pingStartTime = Time.time;
-        }
+        //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        //{
+        //    // check for internet ping again on a different scene
+        //    //ping = new Ping(pingAddress);
+        //    //pingStartTime = Time.time;
+        //}
 
     }
 
