@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace IdolFever {
-    internal sealed class SingleTapSceneTransitionTrigger: MonoBehaviour {
+    internal sealed class SingleClickOrTapSceneTransitionTrigger: MonoBehaviour {
         #region Fields
 
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOutScript;
@@ -14,14 +14,14 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Update() {
-            if(Input.GetMouseButtonDown(0) || Input.touchCount > 0) {
+            if(Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase == TouchPhase.Began) {
                 asyncSceneTransitionOutScript.ChangeScene();
             }
 	    }
 
         #endregion
 
-        public SingleTapSceneTransitionTrigger() {
+        public SingleClickOrTapSceneTransitionTrigger() {
             asyncSceneTransitionOutScript = null;
         }
     }
