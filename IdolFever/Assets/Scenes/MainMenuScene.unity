@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 52279005}
   - component: {fileID: 52279006}
   m_Layer: 0
-  m_Name: FromDailyScene
+  m_Name: FromDaily
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 600125750}
   - component: {fileID: 600125751}
   m_Layer: 0
-  m_Name: ToDailyScene
+  m_Name: ToDaily
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 636343678}
   - component: {fileID: 636343679}
   m_Layer: 0
-  m_Name: FromDrawScene
+  m_Name: FromDraw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2438,7 +2438,7 @@ GameObject:
   - component: {fileID: 1525476121}
   - component: {fileID: 1525476122}
   m_Layer: 0
-  m_Name: ToDrawScene
+  m_Name: ToDraw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

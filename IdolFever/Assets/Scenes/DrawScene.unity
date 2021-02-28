@@ -6906,7 +6906,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056223770016868629, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7056223770016868629, guid: 17d2b49c3c79cba4ab66d997f522170f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7024,7 +7024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1677359071901681831, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1677359071901681831, guid: f50ad839c8a31184d8e50ec522d8a745, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7391,7 +7391,7 @@ Transform:
   m_LocalScale: {x: 9.353074, y: 9.353074, z: 9.353074}
   m_Children: []
   m_Father: {fileID: 1258003623}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993464395
 GameObject:
@@ -8020,14 +8020,14 @@ PrefabInstance:
     - target: {fileID: 9118645753423089830, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1147608433}
+      objectReference: {fileID: 1726880599}
     - target: {fileID: 9118645753423089830, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ClickChangeScene
+      value: ChangeScene
       objectReference: {fileID: 0}
     - target: {fileID: 9118645753423089830, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: IdolFever.UI.ButtonSwitchScene, Assembly-CSharp
+      value: IdolFever.AsyncSceneTransitionOut, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
@@ -8036,27 +8036,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1965710906683137818, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
   m_PrefabInstance: {fileID: 1147608430}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1147608432 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8024152886305442935, guid: 70b4136935f634742b53bcc60c4ce3e0, type: 3}
-  m_PrefabInstance: {fileID: 1147608430}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1147608433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147608432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c13dc4d4a27e0e745aafbc9064d0d267, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultChangeSceneName: MainMenuScene
-  changeSceneDueOnMode: 0
-  onlineChangeSceneName: 
-  storyChangeSceneName: 
 --- !u!1 &1162338509
 GameObject:
   m_ObjectHideFlags: 0
@@ -8265,9 +8244,9 @@ RectTransform:
   - {fileID: 1781774479}
   - {fileID: 34375476}
   - {fileID: 949721661}
-  - {fileID: 985762532}
   - {fileID: 1880707012}
   - {fileID: 668177756}
+  - {fileID: 985762532}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
