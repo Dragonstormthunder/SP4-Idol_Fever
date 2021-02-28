@@ -41,7 +41,7 @@ namespace IdolFever.Character
         [SerializeField] private float fixedSkillDuration;   // the constant duration
         [SerializeField] private SKILL_TYPE skill_type;      // skill type
         [SerializeField] private bool active;                // whether the skill is active
-        [SerializeField] SkillProgressBarUI skillProgressBarUI;
+        [SerializeField] SkillProgressBarUI skillProgressBarUI = null;
 
         // these variables should only be filled if the opponent
         // has a multiplier that damages our score gain
@@ -51,7 +51,7 @@ namespace IdolFever.Character
         [SerializeField] private float opponentSkillDuration;        // reduce sending, so send cooldown time
         [SerializeField] private SKILL_TYPE opponentSkill_Type; // even if it's bonus to self want to show opponent's thing
         [SerializeField] private bool opponentActive = false;   // default value so in singleplayer this will not get activated
-        [SerializeField] SkillProgressBarUI opponentskillProgressBarUI;
+        [SerializeField] SkillProgressBarUI opponentskillProgressBarUI = null;
 
         [Header("Feedback")]
         public GameObject mySkill;

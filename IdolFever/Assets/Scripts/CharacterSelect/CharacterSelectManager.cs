@@ -41,14 +41,13 @@ namespace IdolFever.Character
                 for (int i = 0; i < characters.Count; ++i)
                 {
 
-                    Debug.Log("Character: " + characters[i].Key + ", " + characters[i].Value);
+                    Debug.Log("Character: " + characters[i].Key + ", " + characters[i].Value + "Begin");
 
                     // instantiate it in the content panel
                     GameObject selectCharacterObject = Instantiate(selectCharacterPrefab, characterPanel.transform, false);
 
                     // for the thumbnail
                     GameObject mask = selectCharacterObject.transform.Find("CharacterThumbnailIcon").gameObject.transform.GetChild(1).gameObject;
-
 
                     GameObject selectButtonGO = selectCharacterObject.transform.Find("SelectButton").gameObject;
                     Button button = selectButtonGO.GetComponent<Button>();
@@ -71,18 +70,24 @@ namespace IdolFever.Character
 
                             skillName.text = characterDecentralizeData.AccessCharacterSkillName(index);
 
-                            StartCoroutine(serverDatabase.NumberOfCharacters(characters[i].Key, (number) =>
-                            {
-                                skillDescription.text = characterDecentralizeData.AccessCharacterSkillDescription(index, number);
+                            skillDescription.text = characterDecentralizeData.AccessCharacterSkillDescription(index, characters[i].Value);
 
+                            // for the button
+                            GameObject selectButton = selectCharacterObject.transform.Find("SelectButton").gameObject;
+                            SelectCharacterButton selectCharacterButton = selectButton.GetComponent<SelectCharacterButton>();
+                            selectCharacterButton.CharacterIndex = index;
+                            selectCharacterButton.CharacterBonus = characters[i].Value;
 
-                                // for the button
-                                GameObject selectButton = selectCharacterObject.transform.Find("SelectButton").gameObject;
-                                SelectCharacterButton selectCharacterButton = selectButton.GetComponent<SelectCharacterButton>();
-                                selectCharacterButton.CharacterIndex = index;
-                                selectCharacterButton.CharacterBonus = number;
+                            //StartCoroutine(serverDatabase.NumberOfCharacters(characters[i].Key, (number) =>
+                            //{
+                            //    skillDescription.text = characterDecentralizeData.AccessCharacterSkillDescription(index, number);
+                            //    // for the button
+                            //    GameObject selectButton = selectCharacterObject.transform.Find("SelectButton").gameObject;
+                            //    SelectCharacterButton selectCharacterButton = selectButton.GetComponent<SelectCharacterButton>();
+                            //    selectCharacterButton.CharacterIndex = index;
+                            //    selectCharacterButton.CharacterBonus = number;
 
-                            }));
+                            //}));
 
 
                             break;  // don't be more inefficient that this already is
@@ -90,7 +95,11 @@ namespace IdolFever.Character
                         }
                     }
 
+                    Debug.Log("Character: " + characters[i].Key + ", " + characters[i].Value + "End B4 Co-routine");
+
                     StartCoroutine(YieldOneFrame());
+
+                    Debug.Log("Character: " + characters[i].Key + ", " + characters[i].Value + "End AFT Co-routine");
 
                 }
 
