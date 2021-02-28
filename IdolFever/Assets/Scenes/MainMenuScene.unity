@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 636864272}
   - component: {fileID: 636864273}
   m_Layer: 0
-  m_Name: FromDorm
+  m_Name: FromCharacterStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2535,7 +2535,7 @@ GameObject:
   - component: {fileID: 1591786211}
   - component: {fileID: 1591786212}
   m_Layer: 0
-  m_Name: ToDorm
+  m_Name: ToCharacterStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
