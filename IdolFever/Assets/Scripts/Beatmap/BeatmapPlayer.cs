@@ -96,7 +96,20 @@ namespace IdolFever.Game
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             myChar.name = "GirlCharacter";
 
-            otherChar = Instantiate(characters[UnityEngine.Random.Range(0, 1)], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+
+            int otherId = 0;
+
+            if(!GameConfigurations.WasThereOpponent)
+            {
+                UnityEngine.Random.Range(0, 1);
+            }
+            else
+            {
+                CharacterFactory.eCHARACTER charIndex2 = (CharacterFactory.eCHARACTER)PhotonNetwork.PlayerListOthers[0].CustomProperties["playerCharIndex"];
+                if (charIndex2 == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
+                    myId = 1;
+            }
+            otherChar = Instantiate(characters[], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
             otherChar.name = "BoyCharacter";
