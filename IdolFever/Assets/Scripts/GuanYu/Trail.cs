@@ -19,7 +19,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Update() {
-            transform.position = camComponent.ScreenPointToRay(Input.mousePosition).GetPoint(10);
+            transform.position = camComponent.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, distFromCam)).GetPoint(10);
         }
 
         #endregion
