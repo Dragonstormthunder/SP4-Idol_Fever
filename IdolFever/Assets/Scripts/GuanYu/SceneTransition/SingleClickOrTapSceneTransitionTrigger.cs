@@ -14,7 +14,7 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
         private void Update() {
-            if(Input.GetMouseButtonDown(0) || Input.GetTouch(0).phase == TouchPhase.Began) {
+            if(Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && (Input.GetTouch(0).phase == TouchPhase.Stationary || Input.GetTouch(0).phase == TouchPhase.Moved))) {
                 asyncSceneTransitionOutScript.ChangeScene();
             }
 	    }
