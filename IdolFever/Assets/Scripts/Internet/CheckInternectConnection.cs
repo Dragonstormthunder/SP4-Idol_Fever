@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+//using UnityEngine.SceneManagement;
 
 namespace IdolFever.Internet
 {
@@ -19,7 +19,7 @@ namespace IdolFever.Internet
 
         private const bool allowCarrierDataNetwork = false;
         private const string pingAddress = "8.8.8.8"; // Google Public DNS server
-        private const float waitingTime = 5.0f;
+        private const float waitingTime = 2.0f;
 
         private Ping ping;
         private float pingStartTime;
@@ -41,37 +41,40 @@ namespace IdolFever.Internet
 
         public void Start()
         {
-            bool internetPossiblyAvailable;
+            bool internetPossiblyAvailable = true;
             switch (Application.internetReachability)
             {
+                default:
+                    internetPossiblyAvailable = false;
+                    break;
                 case NetworkReachability.ReachableViaLocalAreaNetwork:
                     internetPossiblyAvailable = true;
                     break;
                 case NetworkReachability.ReachableViaCarrierDataNetwork:
                     internetPossiblyAvailable = allowCarrierDataNetwork;
                     break;
-                default:
-                    internetPossiblyAvailable = false;
-                    break;
             }
+
             if (!internetPossiblyAvailable)
-            {
                 InternetIsNotAvailable();
-                return;
-            }
-            ping = new Ping(pingAddress);
-            pingStartTime = Time.time;
+
+            //ping = new Ping(pingAddress);
+            //pingStartTime = Time.time;
+
+            // constantly check for internet connectivity
+            // later in the middle of the game connection is lost
+            InvokeRepeating(nameof(CheckInternetConnectivity), 0f, waitingTime + 1f);
 
             // subscribe to event
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //SceneManager.sceneLoaded += OnSceneLoaded;
 
         }
 
-        private void OnDestroy()
-        {
-            // unsubscribe from event
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
+        //private void OnDestroy()
+        //{
+        //    // unsubscribe from event
+        //    SceneManager.sceneLoaded -= OnSceneLoaded;
+        //}
 
         public void Update()
         {
@@ -87,30 +90,39 @@ namespace IdolFever.Internet
                         InternetIsNotAvailable();
                 }
                 else if (Time.time - pingStartTime < waitingTime)
+                {
                     stopCheck = false;
+                }
                 else
                 {
                     InternetIsNotAvailable();
-
-                    // make a new ping to look for more internet
-                    ping = new Ping(pingAddress);
-                    pingStartTime = Time.time;
                 }
                 if (stopCheck)
                     ping = null; // reset check
             }
         }
 
+        private void CheckInternetConnectivity()
+        {
+            //Debug.Log("Check Internet Connectivity invoked");
+            ping = new Ping(pingAddress);
+            pingStartTime = Time.time;
+        }
+
         private void InternetIsNotAvailable()
         {
-            Debug.Log("No Internet :(");
+            //Debug.Log("No Internet :(");
             InternetPanelPopUp.SetActive(true);
-            // if the internet is dead then it's dead, time to quit the game
+
+            //// make a new ping to look for more internet
+            //ping = new Ping(pingAddress);
+            //pingStartTime = Time.time;
+
         }
 
         private void InternetAvailable()
         {
-            Debug.Log("Internet is available! ;)");
+            //Debug.Log("Internet is available! ;)");
             InternetPanelPopUp.SetActive(false);
         }
 
@@ -119,12 +131,12 @@ namespace IdolFever.Internet
             Application.Quit();
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // check for internet ping again on a different scene
-            ping = new Ping(pingAddress);
-            pingStartTime = Time.time;
-        }
+        //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        //{
+        //    // check for internet ping again on a different scene
+        //    //ping = new Ping(pingAddress);
+        //    //pingStartTime = Time.time;
+        //}
 
     }
 
