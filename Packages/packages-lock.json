@@ -22,6 +22,14 @@
         "com.google.firebase.app": "7.1.0"
       }
     },
+    "com.google.firebase.database": {
+      "version": "file:com.google.firebase.database-7.1.0.tgz",
+      "depth": 0,
+      "source": "local-tarball",
+      "dependencies": {
+        "com.google.firebase.auth": "7.1.0"
+      }
+    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
