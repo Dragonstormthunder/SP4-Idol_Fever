@@ -2,7 +2,7 @@
 Rhythm game made by omurice
 
 ## GDT:
-- Team Leader: Emma Natalie Soh
+- Team Leader: Emma Misha Soh
 - Members:
     - Nam Kai Zhe
     - Ling Guan Yu
