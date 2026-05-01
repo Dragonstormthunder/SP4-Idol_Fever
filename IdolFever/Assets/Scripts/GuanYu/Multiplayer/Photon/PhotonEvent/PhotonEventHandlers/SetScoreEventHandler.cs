@@ -36,6 +36,7 @@ namespace IdolFever {
 
         public void OnEvent(EventData photonEvent) {
             if(photonEvent.Code == (byte)EventCodes.EventCode.SetScoreEvent) {
+                GameConfigurations.OpponentHighScore = (float)photonEvent.CustomData;
                 scoreMeterScript.SetScore((float)photonEvent.CustomData);
             }
         }

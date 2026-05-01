@@ -9,12 +9,20 @@ namespace IdolFever {
         private bool doShow;
         private int kChars;
 
+        [SerializeField] private bool dontDestroyOnLoad;
+
         #endregion
 
         #region Properties
         #endregion
 
         #region Unity User Callback Event Funcs
+
+        private void Awake() {
+            if(dontDestroyOnLoad) {
+                DontDestroyOnLoad(gameObject);
+            }
+        }
 
         private void OnEnable() {
             Application.logMessageReceived += Log;
@@ -24,7 +32,7 @@ namespace IdolFever {
         }
 
         private void Update() {
-            if(Debug.isDebugBuild && Input.GetKeyDown(KeyCode.RightShift)) {
+            if(Input.GetKeyDown(KeyCode.RightShift)) {
                 doShow = !doShow;
             }
         }
@@ -45,6 +53,8 @@ namespace IdolFever {
             fileName = "";
             doShow = false;
             kChars = 700;
+
+            dontDestroyOnLoad = true;
         }
 
         private void Log(string logStr, string stackTrace, LogType type) {
@@ -56,7 +66,7 @@ namespace IdolFever {
             if(fileName == "") {
                 string d = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "/YOUR_LOGS";
                 System.IO.Directory.CreateDirectory(d);
-                string r = Random.Range(1000, 9999).ToString();
+                string r = Random.Range(1000, 10000).ToString();
                 fileName = d + "/log-" + r + ".txt";
             }
             try {

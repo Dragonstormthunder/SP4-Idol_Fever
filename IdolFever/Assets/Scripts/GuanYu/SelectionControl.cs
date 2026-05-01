@@ -14,14 +14,13 @@ namespace IdolFever {
         #region Unity User Callback Event Funcs
 
 	    private void Update() {
-            Vector3 myLocalPos = ((RectTransform)myOptions[(int)Options.CurrGraphicsOption].transform).localPosition;
+            Vector3 myLocalPos = ((RectTransform)myOptions[(int)Options.GraphicsOption].transform).localPosition;
             ((RectTransform)transform).localPosition = new Vector3(myLocalPos.x, myLocalPos.y, 0.0f);
 	    }
 
         #endregion
 
         public SelectionControl() {
-            Options.ChangeToLowGraphics();
             myOptions = System.Array.Empty<GameObject>();
         }
 

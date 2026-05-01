@@ -6,7 +6,7 @@ namespace IdolFever {
 
         private static float musicVol;
         private static float soundVol;
-        private static GraphicsQualityOptions.GraphicsQualityOption currGraphicsOption;
+        private static GraphicsQualityOptions.GraphicsQualityOption graphicsOption;
 
         #endregion
 
@@ -32,9 +32,13 @@ namespace IdolFever {
             }
         }
 
-        public static GraphicsQualityOptions.GraphicsQualityOption CurrGraphicsOption {
+        public static GraphicsQualityOptions.GraphicsQualityOption GraphicsOption {
             get {
-                return currGraphicsOption;
+                if(graphicsOption == GraphicsQualityOptions.GraphicsQualityOption.NotAnOption) {
+                    graphicsOption = (GraphicsQualityOptions.GraphicsQualityOption)PlayerPrefs.GetInt("graphicsOption", (int)GraphicsQualityOptions.GraphicsQualityOption.High);
+                }
+
+                return graphicsOption;
             }
         }
 
@@ -43,7 +47,7 @@ namespace IdolFever {
         static Options() {
             musicVol = -1.0f;
             soundVol = -1.0f;
-            currGraphicsOption = GraphicsQualityOptions.GraphicsQualityOption.NotAnOption;
+            graphicsOption = GraphicsQualityOptions.GraphicsQualityOption.NotAnOption;
         }
 
         public static void SetMusicVol(float _musicVol) {
@@ -57,11 +61,13 @@ namespace IdolFever {
         }
 
         public static void ChangeToLowGraphics() {
-            currGraphicsOption = GraphicsQualityOptions.GraphicsQualityOption.Low;
+            graphicsOption = GraphicsQualityOptions.GraphicsQualityOption.Low;
+            PlayerPrefs.SetInt("graphicsOption", (int)graphicsOption);
         }
 
         public static void ChangeToHighGraphics() {
-            currGraphicsOption = GraphicsQualityOptions.GraphicsQualityOption.High;
+            graphicsOption = GraphicsQualityOptions.GraphicsQualityOption.High;
+            PlayerPrefs.SetInt("graphicsOption", (int)graphicsOption);
         }
     }
 }

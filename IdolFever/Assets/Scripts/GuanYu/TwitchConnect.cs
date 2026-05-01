@@ -33,7 +33,7 @@ namespace IdolFever {
         }
 
         private void OnChatCommandReceived(TwitchChatCommand chatCommand) {
-            TwitchConnectData data = ScriptableObject.CreateInstance<TwitchConnectData>(); //??
+            TwitchConnectData data = ScriptableObject.CreateInstance<TwitchConnectData>();
             string myParams = string.Join(" - ", chatCommand.Parameters);
             string message = $"Command: '{chatCommand.Command}' - Username: {chatCommand.User.DisplayName} - Bits: {chatCommand.Bits} - Sub: {chatCommand.User.IsSub} - Parameters: {myParams}";
 

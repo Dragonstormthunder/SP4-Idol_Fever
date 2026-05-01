@@ -12,6 +12,7 @@ namespace IdolFever.Server
     public class FirebaseManager : MonoBehaviour
     {
 
+        #region Fields
 
         //Firebase variables
         [Header("Firebase")]
@@ -19,6 +20,8 @@ namespace IdolFever.Server
         public FirebaseAuth auth;
         public FirebaseUser User;
         public DatabaseReference DBreference;
+        //public static bool firebaseReady;
+        //public TextMeshProUGUI helpDebug;
 
         //Login variables
         [Header("Login")]
@@ -35,39 +38,121 @@ namespace IdolFever.Server
         public TMP_InputField passwordRegisterVerifyField;
         public TMP_Text warningRegisterText;
 
+        private const string PLAYER_LAST_EMAIL = "last_email";
+        private const string PLAYER_LAST_PASSWORD = "last_password";
+
         [SerializeField] private AsyncSceneTransitionOut asyncSceneTransitionOut = null;
 
-        void Awake()
+        #endregion
+
+        #region Unity Messages
+
+        void Start()
         {
             Init();
         }
 
+        //private void OnDestroy()
+        //{
+        //if (auth != null)
+        //{
+        //    auth.StateChanged -= AuthStateChanged;
+        //}
+        //}
+
+        #endregion
+
         private void Init()
         {
             //Check that all of the necessary dependencies for Firebase are present on the system
-            FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
-            {
-                dependencyStatus = task.Result;
-                if (dependencyStatus == DependencyStatus.Available)
-                {
-                    //If they are avalible Initialize Firebase
-                    InitializeFirebase();
+            Debug.Log("Inside Init");
 
-                }
-                else
-                {
-                    Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
-                }
-            });
+            //firebaseReady = true;
+
+            //firebaseReady = false;
+            auth = null;
+            User = null;
+            DBreference = null;
+
+            // load from playerprefs the password and the username if any
+            emailLoginField.text = PlayerPrefs.GetString(PLAYER_LAST_EMAIL, "");
+            passwordLoginField.text = PlayerPrefs.GetString(PLAYER_LAST_PASSWORD, "");
+
+            // CheckAndFixDependenciesAsync() appears to conflict with android builds
+            // so we are removing it here
+            // this allows android to access firebase correctly
+            // however we need to integrate our own check for internet here
+
+            //FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+            //{
+            //    dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                //If they are avalible Initialize Firebase
+                InitializeFirebase();
+
+                //auth.StateChanged += AuthStateChanged;
+                //AuthStateChanged(this, null);
+                //if (auth.CurrentUser != null)
+                //    Debug.Log("User: " + auth.CurrentUser.DisplayName + " is logged in");
+                //if (auth.CurrentUser != null)
+                //    Debug.Log("User2: " + auth.CurrentUser.DisplayName + " is logged in");
+                //Debug.Log("Log out");
+                //warningLoginText.text = "Auth signed out";
+
+            }
+            else
+            {
+                Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
+            }
+            //});
 
         }
+
+        // check if auth changed, useful for debugging
+        //void AuthStateChanged(object sender, System.EventArgs eventArgs)
+        //{
+        //    if (auth.CurrentUser != User)
+        //    {
+        //        bool signedIn = User != auth.CurrentUser && auth.CurrentUser != null;
+        //        if (!signedIn && User != null)
+        //        {
+        //            Debug.Log("Signed out " + User.DisplayName + " :" + User.UserId);
+        //            //helpDebug.text = "Signed out " + User.DisplayName + " :" + User.UserId;
+        //        }
+        //        User = auth.CurrentUser;
+        //        if (signedIn)
+        //        {
+        //            Debug.Log("Signed in " + User.DisplayName + " :" + User.UserId);
+        //            //helpDebug.text = "Signed in " + User.DisplayName + " :" + User.UserId;
+        //        }
+        //    }
+        //}
 
         private void InitializeFirebase()
         {
             Debug.Log("Setting up Firebase Auth");
             //Set the authentication instance object
             auth = FirebaseAuth.DefaultInstance;
+
+            FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(true);
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
+            DBreference.KeepSynced(true);
+
+            //if (auth.CurrentUser != null)
+            //{
+            //    helpDebug.text = "Hi Ro";
+            //}
+
+            auth.SignOut();
+
+            //if (auth.CurrentUser != null)
+            //{
+            //    helpDebug.text = "Hi So";
+            //}
+
+            //firebaseReady = true;
+
         }
 
         //Function for the login button
@@ -75,22 +160,48 @@ namespace IdolFever.Server
         {
             warningLoginText.text = confirmLoginText.text = "";
 
+            //if (firebaseReady)
+            //{
             //Call the login coroutine passing the email and password
             StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
+            //Login(emailLoginField.text, passwordLoginField.text);
+            //}
+            //else
+            //{
+            Debug.Log("Login: Firebase not ready!");
+            //}
         }
+
         //Function for the register button
         public void RegisterButton()
         {
+            //if (firebaseReady)
+            //{
             //Call the register coroutine passing the email, password, and username
             StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
+            //}
+            //else
+            //{
+            //Debug.Log("Register: Firebase not ready!");
+            //}
         }
 
         private IEnumerator Login(string _email, string _password)
         {
+
+            //warningLoginText.text = "Inside Login";
+
+            auth.SignOut();
+
+            //warningLoginText.text = "Auth Signed out";
+
             //Call the Firebase auth signin function passing the email and password
             var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
+
             //Wait until the task completes
             yield return new WaitUntil(predicate: () => LoginTask.IsCompleted);
+
+            //warningLoginText.text = "Login Task Is Done";
 
             if (LoginTask.Exception != null)
             {
@@ -99,9 +210,12 @@ namespace IdolFever.Server
                 FirebaseException firebaseEx = LoginTask.Exception.GetBaseException() as FirebaseException;
                 AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
 
-                string message = "Login Failed!";
+                string message = "Login Failed: ";
                 switch (errorCode)
                 {
+                    default:
+                        message = "Are you connected to the internet?";
+                        break;
                     case AuthError.MissingEmail:
                         message = "Missing Email";
                         break;
@@ -129,6 +243,11 @@ namespace IdolFever.Server
                 Debug.LogFormat("User signed in successfully: {0} ({1})", User.DisplayName, User.Email);
                 warningLoginText.text = "";
                 confirmLoginText.text = "Logged In";
+
+                // save to player prefs the password and username
+                PlayerPrefs.SetString(PLAYER_LAST_EMAIL, _email);
+                PlayerPrefs.SetString(PLAYER_LAST_PASSWORD, _password);
+                PlayerPrefs.Save(); // just to save it
 
                 asyncSceneTransitionOut.ChangeScene();
             }
@@ -163,6 +282,9 @@ namespace IdolFever.Server
                     string message = "Register Failed!";
                     switch (errorCode)
                     {
+                        default:
+                            message = "Are you connected to the internet?";
+                            break;
                         case AuthError.MissingEmail:
                             message = "Missing Email";
                             break;
@@ -229,6 +351,7 @@ namespace IdolFever.Server
                 }
             }
         }
+
     }
 
 }

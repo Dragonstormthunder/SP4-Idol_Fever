@@ -55,7 +55,7 @@ namespace IdolFever.Server.Characters
                 for (int i = 0; i < characters.Count; ++i)
                 {
 
-                    Debug.Log("Character: " + characters[i].Key + ", " + characters[i].Value);
+                    Debug.Log("CharacterManager: Character: " + characters[i].Key + ", " + characters[i].Value);
 
                     // instantiate it in the content panel
                     GameObject characterObject = Instantiate(thumbnailPrefab, characterLocation.transform, false);
@@ -79,19 +79,22 @@ namespace IdolFever.Server.Characters
                             CharacterViewButtonSwitch characterViewButtonSwitch = thumbnailButton.GetComponent<CharacterViewButtonSwitch>();
                             characterViewButtonSwitch.CharacterIndex = index;
 
-                            StartCoroutine(serverDatabase.NumberOfCharacters(characters[i].Key, (numberOfCharas) =>
-                            {
 
-                                Debug.Log("Character: " + index.ToString() + " has " + numberOfCharas);
+                            characterViewButtonSwitch.CharacterBonus = characters[i].Value;
 
-                                characterViewButtonSwitch.CharacterBonus = numberOfCharas;
+                            //StartCoroutine(serverDatabase.NumberOfCharacters(characters[i].Key, (numberOfCharas) =>
+                            //{
 
-                                //CharacterDataDisplay characterDataDisplay = thumbnailButton.GetComponent<CharacterDataDisplay>();
-                                //characterDataDisplay.Bonus = numberOfCharas;
-                                //characterDataDisplay.SetDescription(index);
+                            //    Debug.Log("Character: " + index.ToString() + " has " + numberOfCharas);
 
-                            }));
+                            //    characterViewButtonSwitch.CharacterBonus = numberOfCharas;
 
+                            //    //CharacterDataDisplay characterDataDisplay = thumbnailButton.GetComponent<CharacterDataDisplay>();
+                            //    //characterDataDisplay.Bonus = numberOfCharas;
+                            //    //characterDataDisplay.SetDescription(index);
+
+                            //}));
+                            Debug.Log("Character: " + index.ToString() + " has ended");
                             //characterViewButtonSwitch.index = index;
                             break;  // don't be more inefficient that this already is
                                     // break it since it has already been found

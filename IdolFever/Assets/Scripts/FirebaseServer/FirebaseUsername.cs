@@ -18,9 +18,11 @@ namespace IdolFever.Server
         // Start is called before the first frame update
         void Start()
         {
-            // update the number of gems
+            // update the number of username
+            Debug.Log("Start username coroutine");
             StartCoroutine(serverDatabase.GetUsername((username) =>
             {
+                Debug.Log("Getting username");
                 usernameText.text = username;
             }));
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IdolFever.UI;
 
 using Firebase;
 using Firebase.Auth;
@@ -29,6 +30,27 @@ namespace IdolFever.Server
         public const string DATABASE_LAST_LOGIN = "LAST_LOGIN";
         public const string DATABASE_LEVEL = "LEVEL";
         public const string DATABASE_EXP = "EXP";
+
+        ///////////////////////////////////////////////////////////
+        //public const string DATABASE_TASK = "TASK";
+        //public const string DATABASE_TASK_DONE = "TASK_DONE";
+        //public const string DATABASE_TOTAL_ROUND_PLAYED = "TOTAL_ROUND_PLAYED";
+        ////////////////////////////////////////////////////////////
+        //public const string DATABASE_TOTAL_ROUND_MULTI = "TOTAL_ROUND_MULTI";
+        //public const string DATABASE_TOTAL_ALL_DONE = "TOTAL_ALL_DONE";
+
+        //public const string DATABASE_MULTI_UTC = "MULTI_UTC";
+        //public const string DATABASE_FIVEROUND_UTC = "FIVEROUND_UTC";
+        //public const string DATABASE_ALLDONE_UTC = "ALLDONE_UTC";
+
+
+        //public const string DATABASE_TOTAL_RGIRLS_DRAWN = "TOTAL_RGIRLS_DRAWN";
+        //public const string DATABASE_TOTAL_RBOYS_DRAWN = "TOTAL_RBOYS_DRAWN";
+        //public const string DATABASE_TOTAL_SRGIRLS_DRAWN = "TOTAL_SRGIRLS_DRAWN";
+        //public const string DATABASE_TOTAL_SRBOYS_DRAWN = "TOTAL_SRBOYS_DRAWN";
+        //public const string DATABASE_TOTAL_SSRGIRLS_DRAWN = "TOTAL_SSRGIRLS_DRAWN";
+        //public const string DATABASE_TOTAL_SSRBOYS_DRAWN = "TOTAL_SSRBOYS_DRAWN";
+       
 
         //public const string DATABASE_SONG_HIGHSCORE = "SONG_HIGHSCORE";
         #region SONG_DATABASE_KEYS
@@ -60,13 +82,13 @@ namespace IdolFever.Server
             auth = FirebaseAuth.DefaultInstance;
             User = FirebaseAuth.DefaultInstance.CurrentUser;
             DBreference = FirebaseDatabase.DefaultInstance.RootReference;
-
         }
 
         public IEnumerator UpdateGems(int gems)
         {
             // update the value of the gem
             // will create here if it doesn't exist
+
             var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_GEM).SetValueAsync(gems);
 
             yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -76,6 +98,7 @@ namespace IdolFever.Server
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
             }
+           
         }
 
         public IEnumerator GetGems(System.Action<int> callbackOnFinish)
@@ -94,20 +117,20 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Gems");
+                //Debug.Log("Snapshot Gems");
                 DataSnapshot snapshot = DBTask.Result;
 
                 List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_GEM))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_GEM).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish(0);
                 }
             }
@@ -143,22 +166,22 @@ namespace IdolFever.Server
             }
             else if (DBTask.Result.Value == null)
             {
-                callbackOnFinish(0);
+                callbackOnFinish(-1);
             }
             else
             {
-                Debug.Log("Snapshot LastLogin");
+                //Debug.Log("Snapshot LastLogin");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(DATABASE_LAST_LOGIN))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_LAST_LOGIN).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish(0);
                 }
             }
@@ -192,23 +215,23 @@ namespace IdolFever.Server
             }
             else if (DBTask.Result.Value == null)
             {
-                callbackOnFinish(0);
+                callbackOnFinish(50);
             }
             else
             {
-                Debug.Log("Snapshot Energy");
+                //Debug.Log("Snapshot Energy");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(DATABASE_ENERGY))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_ENERGY).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
-                    callbackOnFinish(0);
+                    //Debug.Log("Unable to access data");
+                    callbackOnFinish(50);
                 }
             }
 
@@ -245,18 +268,18 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot MaxEnergy");
+                //Debug.Log("Snapshot MaxEnergy");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(DATABASE_MAX_ENERGY))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_MAX_ENERGY).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish(50);
                 }
             }
@@ -294,18 +317,18 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Level");
+                //Debug.Log("Snapshot Level");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(DATABASE_LEVEL))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_LEVEL).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish(0);
                 }
             }
@@ -343,18 +366,18 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Level");
+                //Debug.Log("Snapshot Level");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(DATABASE_EXP))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(DATABASE_EXP).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish(0);
                 }
             }
@@ -391,19 +414,19 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Username");
+                //Debug.Log("Snapshot Username");
                 DataSnapshot snapshot = DBTask.Result;
 
                 List<DataSnapshot> dataSnapshots = snapshot.Children.ToList();
 
                 if (snapshot.HasChild(DATABASE_USERNAME))
                 {
-                    Debug.Log("Able to access data");
+                    //Debug.Log("Able to access data");
                     callbackOnFinish(snapshot.Child(DATABASE_USERNAME).Value.ToString());
                 }
                 else
                 {
-                    Debug.Log("Unable to access data");
+                    //Debug.Log("Unable to access data");
                     callbackOnFinish("");
                 }
             }
@@ -443,7 +466,7 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Achievement");
+                //Debug.Log("Snapshot Achievement");
                 DataSnapshot snapshot = DBTask.Result;
 
                 // grab all the children of the achievement
@@ -481,7 +504,7 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Achievement");
+                //Debug.Log("Snapshot Achievement");
                 DataSnapshot snapshot = DBTask.Result;
                 callbackOnFinish(snapshot.HasChild(achievementName));
             }
@@ -505,7 +528,7 @@ namespace IdolFever.Server
             }
             else
             {
-                Debug.Log("Snapshot Achievement");
+                //Debug.Log("Snapshot Achievement");
                 DataSnapshot snapshot = DBTask.Result;
 
                 callbackOnFinish(bool.Parse(snapshot.Child(DATABASE_ACHIEVEMENT_CLAIMED).Value.ToString()));
@@ -524,6 +547,30 @@ namespace IdolFever.Server
             if (DBTask.Exception != null)
             {
                 Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+            }
+
+        }
+        
+        public IEnumerator IsCharacterValuePresent(System.Action<bool> callbackOnFinish)
+        {
+
+            var DBTask = DBreference.Child(DATABASE_USERS).Child(User.UserId).Child(DATABASE_CHARACTER).GetValueAsync();
+
+            yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+            if (DBTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
+                callbackOnFinish(false);
+            }
+            else if (DBTask.Result.Value == null)
+            {
+                Debug.Log("Character no result");
+                callbackOnFinish(false);
+            }
+            else
+            {
+                callbackOnFinish(true);
             }
 
         }
@@ -562,7 +609,7 @@ namespace IdolFever.Server
                 }
                 else
                 {
-                    Debug.Log("Snapshot Number of Characters");
+                    //Debug.Log("Snapshot Number of Characters");
                     DataSnapshot snapshot = DBTask.Result;
 
                     callbackOnFinish(int.Parse(snapshot.Child(DATABASE_CHARACTER_NUMBER).Value.ToString()));
@@ -591,7 +638,7 @@ namespace IdolFever.Server
             }
             else
             {
-                //Debug.Log("Snapshot Grab Characters");
+                ////Debug.Log("Snapshot Grab Characters");
                 DataSnapshot snapshot = DBTask.Result;
 
                 // grab all the children of the achievement
@@ -601,11 +648,11 @@ namespace IdolFever.Server
                 // insert all the children into a list to return
                 for (int i = 0; i < snapshot.ChildrenCount; ++i)
                 {
-                    //Debug.Log("Snapshot Key: " + snapshots[i].Key);
+                    ////Debug.Log("Snapshot Key: " + snapshots[i].Key);
 
                     string name = snapshots[i].Key;
 
-                    //Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
+                    ////Debug.Log("Snapshot Child: " + snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
                     int value = int.Parse(snapshots[i].Child(DATABASE_CHARACTER_NUMBER).Value.ToString());
 
@@ -651,18 +698,18 @@ namespace IdolFever.Server
             }
             else
             {
-                //Debug.Log("Snapshot Highscore");
+                ////Debug.Log("Snapshot Highscore");
                 DataSnapshot snapshot = DBTask.Result;
 
                 if (snapshot.HasChild(songName))
                 {
-                    //Debug.Log("Able to access data");
+                    ////Debug.Log("Able to access data");
                     int value = int.Parse(snapshot.Child(songName).Value.ToString());
                     callbackOnFinish(value);
                 }
                 else
                 {
-                    //Debug.Log("Unable to access data");
+                    ////Debug.Log("Unable to access data");
                     callbackOnFinish(0);
                 }
             }
@@ -743,8 +790,6 @@ namespace IdolFever.Server
             }
 
         }
-
     }
-
 }
 

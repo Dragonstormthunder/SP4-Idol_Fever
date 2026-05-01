@@ -6,6 +6,7 @@ namespace IdolFever {
         #region Fields
 
         private List<AudioSource> audioSrcs;
+        [SerializeField] private bool dontDestroyOnLoad;
 
         #endregion
 
@@ -19,18 +20,27 @@ namespace IdolFever {
 
         #endregion
 
+        public MusicCentralControl() {
+            audioSrcs = new List<AudioSource>();
+            dontDestroyOnLoad = false;
+        }
+
         #region Unity User Callback Event Funcs
 
         private void Awake() {
+            if(dontDestroyOnLoad) {
+                DontDestroyOnLoad(gameObject);
+            }
+
             foreach(Transform child in transform) {
-                audioSrcs.Add(child.GetComponent<AudioSource>());
+                AudioSource[] audioSrcArr = child.GetComponents<AudioSource>();
+
+                foreach(AudioSource audioSrc in audioSrcArr) {
+                    audioSrcs.Add(audioSrc);
+                }
             }
         }
 
         #endregion
-
-        public MusicCentralControl() {
-            audioSrcs = new List<AudioSource>();
-        }
     }
 }

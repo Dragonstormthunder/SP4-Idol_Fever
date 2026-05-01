@@ -36,12 +36,21 @@ namespace IdolFever {
             }
             Color myColorMultiplier = Color.HSVToRGB(hue, 1.0f, 1.0f);
 
-            titleTextMtl.SetVector("_IntensityVec", new Vector4(
-                OG.x + myColorMultiplier.r * factor,
-                OG.y + myColorMultiplier.g * factor,
-                OG.z + myColorMultiplier.b * factor,
-                0.0f
-            ));
+            if(Options.GraphicsOption == GraphicsQualityOptions.GraphicsQualityOption.High) {
+                titleTextMtl.SetVector("_IntensityVec", new Vector4(
+                    OG.x + myColorMultiplier.r * factor,
+                    OG.y + myColorMultiplier.g * factor,
+                    OG.z + myColorMultiplier.b * factor,
+                    0.0f
+                ));
+            } else {
+                titleTextMtl.SetVector("_IntensityVec", new Vector4(
+                    OG.x,
+                    OG.y,
+                    OG.z,
+                    0.0f
+                ));
+            }
         }
 
         private void OnDisable() {

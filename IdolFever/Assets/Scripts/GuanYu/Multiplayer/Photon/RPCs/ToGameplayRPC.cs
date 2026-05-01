@@ -1,7 +1,5 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace IdolFever {
     internal sealed class ToGameplayRPC: MonoBehaviour {

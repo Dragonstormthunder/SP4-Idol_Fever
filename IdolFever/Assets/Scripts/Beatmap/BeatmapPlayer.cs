@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using IdolFever.Character;
 using System.IO;
 using IdolFever.Beatmap;
 using Photon.Pun;
@@ -26,6 +27,7 @@ namespace IdolFever.Game
         private BeatmapData beatmap;
         private List<Note> notes;
         [SerializeField] private List<AudioClip> songs;
+        [SerializeField] private List<string> songFileNames;
         [SerializeField] private List<Sprite> sprites, hitSprites;
         [SerializeField] private AsyncSceneTransitionOut sceneOut;
         [SerializeField] private List<GameObject> characters;
@@ -35,35 +37,91 @@ namespace IdolFever.Game
         private ulong usec;
 
         private Transform myChar, otherChar;
+
+
+
+        internal static int StageIndex
+        {
+            get;
+            set;
+        }
+
+        static BeatmapPlayer()
+        {
+            StageIndex = -1;
+        }
+
+
+        private void Awake()
+        {
+            if (!PhotonNetwork.IsConnected)
+            {
+                StageIndex = UnityEngine.Random.Range(0, 2);
+            }
+        }
+
         void Start()
         {
-            beatmap = BeatmapReader.Open("Wellerman.mid");
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.FUMO_SONG)
+            // game has started, so we're going to upload the highscore data to firebase after this
+            GameConfigurations.UploadToFirebase = true;
+            // check for opponent's presence
+            if (PhotonNetwork.IsConnected)
             {
-                audio.clip = songs[0];
-                beatmap = BeatmapReader.Open("OriginalSong1.mid");
+                GameConfigurations.WasThereOpponent = true;
+                if (PhotonNetwork.PlayerListOthers.Length != 0)
+                    GameConfigurations.OpponentUsername = PhotonNetwork.PlayerListOthers[0].NickName;
             }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.MOUNTAIN_KING)
+            else
             {
-                audio.clip = songs[1];
-                beatmap = BeatmapReader.Open("MountainKing.mid");
-            }
-            if (GameConfigurations.SongChosen == SongRegistry.SongList.WELLERMAN)
-            {
-                audio.clip = songs[2];
-                beatmap = BeatmapReader.Open("Wellerman.mid");
+                GameConfigurations.WasThereOpponent = false;
             }
 
-            myChar = Instantiate(characters[1], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+            if ((int)GameConfigurations.SongChosen < (int)SongRegistry.SongList.NOT_OPTION)
+            {
+                int index = (int)GameConfigurations.SongChosen;
+                audio.clip = songs[index];
+                beatmap = BeatmapReader.Open(songFileNames[index]);
+            }
+            else
+            {
+                beatmap = BeatmapReader.Open(songFileNames[0]);
+            }
+            int myId = 0;
+            CharacterFactory.eCHARACTER charIndex;
+            if (!GameConfigurations.WasThereOpponent)
+            {
+                charIndex = GameConfigurations.CharacterIndex;
+            }
+            else
+            { charIndex = (CharacterFactory.eCHARACTER)PhotonNetwork.LocalPlayer.CustomProperties["playerCharIndex"];
+            }
+            if (charIndex == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
+                myId = 1;
+            myChar = Instantiate(characters[myId], new Vector3(-5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             myChar.GetComponent<Animator>().Rebind();
             myChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            myChar.name = "GirlCharacter";
 
-            otherChar = Instantiate(characters[0], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
+
+            int otherId = 0;
+
+            if(!GameConfigurations.WasThereOpponent)
+            {
+                UnityEngine.Random.Range(0, 1);
+            }
+            else
+            {
+                CharacterFactory.eCHARACTER charIndex2 = (CharacterFactory.eCHARACTER)PhotonNetwork.PlayerListOthers[0].CustomProperties["playerCharIndex"];
+                if (charIndex2 == CharacterFactory.eCHARACTER.R_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SR_CHARACTER_BOY0 || charIndex2 == CharacterFactory.eCHARACTER.SSR_CHARACTER_BOY0)
+                    myId = 1;
+            }
+            otherChar = Instantiate(characters[otherId], new Vector3(5.4f, -3.7f, -1.8f), Quaternion.AngleAxis(180, new Vector3(0, 1, 0))).transform;
             otherChar.GetComponent<Animator>().Rebind();
             otherChar.GetComponent<Animator>().SetFloat("Speed", 103.0f / 120.0f);
+            otherChar.name = "BoyCharacter";
 
-
-            Instantiate(stages[UnityEngine.Random.Range(0,2)], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            GameObject stage = Instantiate(stages[StageIndex], new Vector3(0, -5, 0), Quaternion.AngleAxis(180, new Vector3(0, 1, 0)));
+            stage.name = "Stage";
 
             audio.Play();
             int n = beatmap.beats.Count;
@@ -75,7 +133,7 @@ namespace IdolFever.Game
         // Update is called once per frame
         void Update()
         {
-            if (PauseScreen.isPaused)
+            if (PauseScreen.isPaused && !PhotonNetwork.IsConnected)
             {
                 return;
             }
@@ -153,58 +211,53 @@ namespace IdolFever.Game
 
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Left", true);
                 NoteHit(0);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Up", true);
                 NoteHit(1);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Down", true);
                 NoteHit(2);
             }
             if (Input.GetKeyDown((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Right", true);
                 NoteHit(3);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonOne", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Left", false);
                 NoteRelease(0);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonTwo", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Up", false);
                 NoteRelease(1);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonThree", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Down", false);
                 NoteRelease(2);
             }
             if (Input.GetKeyUp((KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("ButtonFour", ""))))
             {
-                myChar.GetComponent<Animator>().SetBool("Right", false);
                 NoteRelease(3);
             }
 
             if (audio.time > audio.clip.length - 1)
             {
-                if(!isExitingScene) {
+                if (!isExitingScene)
+                {
                     _ = StartCoroutine(nameof(DcAndChangeScene));
                     isExitingScene = true;
                 }
             }
         }
 
-        private IEnumerator DcAndChangeScene() {
+        private IEnumerator DcAndChangeScene()
+        {
             PhotonNetwork.Disconnect();
 
-            while(PhotonNetwork.IsConnected) {
+            while (PhotonNetwork.IsConnected)
+            {
                 yield return null;
             }
 
@@ -213,23 +266,42 @@ namespace IdolFever.Game
 
         public void NoteHit(int k)
         {
+            //Debug.Log("Note Hit Begin: id:" + k);
+
             NoteKey key = NoteKey.KEY1;
             switch (k)
             {
-                case 0: key = NoteKey.KEY1; break;
-                case 1: key = NoteKey.KEY2; break;
-                case 2: key = NoteKey.KEY3; break;
-                case 3: key = NoteKey.KEY4; break;
+                case 0:
+                    key = NoteKey.KEY1;
+                    myChar.GetComponent<Animator>().SetBool("Left", true);
+                    break;
+                case 1:
+                    key = NoteKey.KEY2;
+                    myChar.GetComponent<Animator>().SetBool("Up", true);
+                    break;
+                case 2:
+                    key = NoteKey.KEY3;
+                    myChar.GetComponent<Animator>().SetBool("Down", true);
+                    break;
+                case 3:
+                    key = NoteKey.KEY4;
+                    myChar.GetComponent<Animator>().SetBool("Right", true);
+                    break;
             }
             for (int i = 0; i < notes.Count; ++i)
             {
                 Note n = notes[i];
                 if (!n.noteEvent.down)
                 {
+                    //Debug.Log("Note Hit Continue" + k);
                     continue;
                 }
                 if (n.noteEvent.key == key && (long)n.noteEvent.timestamp < (long)usec + 200000 && (long)n.noteEvent.timestamp > (long)usec - 200000)
                 {
+                    //Debug.Log("Note Hit B4 Vibration" + k);
+                    //VibrationControl.StartVibration();
+                    //Debug.Log("Note Hit AFT Vibration" + k);
+
                     if ((long)n.noteEvent.timestamp < (long)usec + 37500 && (long)n.noteEvent.timestamp > (long)usec - 37500)
                     {
                         GameObject hitGo = Instantiate(hitPrefab, n.transform.position, Quaternion.identity, particleHolder);
@@ -237,6 +309,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp < (long)usec + 125000 && (long)n.noteEvent.timestamp > (long)usec - 125000)
                     {
@@ -245,6 +318,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {
@@ -271,10 +345,22 @@ namespace IdolFever.Game
             NoteKey key = NoteKey.KEY1;
             switch (k)
             {
-                case 0: key = NoteKey.KEY1; break;
-                case 1: key = NoteKey.KEY2; break;
-                case 2: key = NoteKey.KEY3; break;
-                case 3: key = NoteKey.KEY4; break;
+                case 0:
+                    key = NoteKey.KEY1;
+                    myChar.GetComponent<Animator>().SetBool("Left", false);
+                    break;
+                case 1:
+                    key = NoteKey.KEY2;
+                    myChar.GetComponent<Animator>().SetBool("Up", false);
+                    break;
+                case 2:
+                    key = NoteKey.KEY3;
+                    myChar.GetComponent<Animator>().SetBool("Down", false);
+                    break;
+                case 3:
+                    key = NoteKey.KEY4;
+                    myChar.GetComponent<Animator>().SetBool("Right", false);
+                    break;
             }
             for (int i = 0; i < notes.Count; ++i)
             {
@@ -288,6 +374,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[0];
                         comboCounter.combo++;
                         scoreMeter.AddScore(600);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else if ((long)n.noteEvent.timestamp + (long)n.noteEvent.length < (long)usec + 125000 && (long)n.noteEvent.timestamp + (long)n.noteEvent.length > (long)usec - 125000)
                     {
@@ -296,6 +383,7 @@ namespace IdolFever.Game
                         hitGo.GetComponent<Image>().sprite = hitSprites[1];
                         comboCounter.combo++;
                         scoreMeter.AddScore(400);
+                        GameConfigurations.LastHighScore = scoreMeter.GetScoreMeterValue();
                     }
                     else
                     {
